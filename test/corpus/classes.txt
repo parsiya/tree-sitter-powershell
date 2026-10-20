@@ -371,3 +371,49 @@ Enum : attribute before enum
         (simple_name)
         (integer_literal
           (decimal_integer_literal))))))
+
+===
+Class : constructor calling the base constructor
+===
+
+class MyError : System.Exception {
+    MyError($Message) : base($Message) {
+    }
+
+    MyError():base() {
+    }
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier)))
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable)))
+        (class_base_constructor_call
+          (argument_list
+            (argument_expression_list
+              (argument_expression
+                (logical_argument_expression
+                  (bitwise_argument_expression
+                    (comparison_argument_expression
+                      (additive_argument_expression
+                        (multiplicative_argument_expression
+                          (format_argument_expression
+                            (range_argument_expression
+                              (unary_expression
+                                (variable))))))))))))))
+      (class_method_definition
+        (simple_name)
+        (class_base_constructor_call
+          (argument_list))))))

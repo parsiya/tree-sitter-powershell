@@ -449,6 +449,21 @@
     "fields": {}
   },
   {
+    "type": "class_base_constructor_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "class_method_definition",
     "named": true,
     "fields": {},
@@ -462,6 +477,10 @@
         },
         {
           "type": "class_attribute",
+          "named": true
+        },
+        {
+          "type": "class_base_constructor_call",
           "named": true
         },
         {
@@ -3939,6 +3958,10 @@
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "base",
     "named": false
   },
   {

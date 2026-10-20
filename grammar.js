@@ -857,10 +857,15 @@ export default grammar({
         '(',
         optional($.class_method_parameter_list),
         ')',
+        optional($.class_base_constructor_call),
         '{',
         optional($.script_block),
         '}',
       ),
+
+    // `MyError($Message) : base($Message) { }`
+    class_base_constructor_call: ($) =>
+      seq(':', reservedWord('base'), $.argument_list),
 
     class_statement: ($) =>
       seq(
