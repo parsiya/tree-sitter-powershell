@@ -48,6 +48,10 @@
         {
           "type": "logical_argument_expression",
           "named": true
+        },
+        {
+          "type": "ternary_argument_expression",
+          "named": true
         }
       ]
     }
@@ -277,6 +281,10 @@
         },
         {
           "type": "simple_name",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
           "named": true
         }
       ]
@@ -538,6 +546,10 @@
           "named": true
         },
         {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
           "type": "type_literal",
           "named": true
         },
@@ -794,6 +806,10 @@
         {
           "type": "comparison_operator",
           "named": true
+        },
+        {
+          "type": "null_coalescing_argument_expression",
+          "named": true
         }
       ]
     }
@@ -816,6 +832,10 @@
         },
         {
           "type": "comparison_operator",
+          "named": true
+        },
+        {
+          "type": "null_coalescing_expression",
           "named": true
         }
       ]
@@ -1002,6 +1022,10 @@
         },
         {
           "type": "sub_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
           "named": true
         },
         {
@@ -1877,6 +1901,10 @@
         {
           "type": "logical_expression",
           "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
         }
       ]
     }
@@ -2131,6 +2159,44 @@
     }
   },
   {
+    "type": "null_coalescing_argument_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additive_argument_expression",
+          "named": true
+        },
+        {
+          "type": "null_coalescing_argument_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "null_coalescing_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "additive_expression",
+          "named": true
+        },
+        {
+          "type": "null_coalescing_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parallel_statement",
     "named": true,
     "fields": {},
@@ -2254,6 +2320,10 @@
         },
         {
           "type": "redirections",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
           "named": true
         },
         {
@@ -2736,6 +2806,10 @@
         {
           "type": "logical_expression",
           "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
         }
       ]
     }
@@ -3156,6 +3230,94 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "ternary_argument_expression",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_argument_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_argument_expression",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_argument_expression",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_argument_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_argument_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ternary_expression",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_expression",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "logical_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3947,6 +4109,18 @@
   },
   {
     "type": ">>",
+    "named": false
+  },
+  {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "??",
+    "named": false
+  },
+  {
+    "type": "??=",
     "named": false
   },
   {

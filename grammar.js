@@ -209,7 +209,7 @@ export default grammar({
 
     // Operators and punctuators
     assignement_operator: ($) =>
-      choice('=', '!=', '+=', '*=', '/=', '%=', '-='),
+      choice('=', '!=', '+=', '*=', '/=', '%=', '-=', '??='),
 
     file_redirection_operator: ($) =>
       choice(
@@ -975,7 +975,19 @@ export default grammar({
       seq($.simple_name, optional(seq('=', $.integer_literal))),
 
     // Expressions
-    _expression: ($) => $.logical_expression,
+    _expression: ($) => choice($.logical_expression, $.ternary_expression),
+
+    // `$cond ? $a : $b` (PowerShell 7): binds looser than every binary operator
+    ternary_expression: ($) =>
+      prec.right(
+        seq(
+          field('condition', $.logical_expression),
+          '?',
+          field('consequence', $._expression),
+          ':',
+          field('alternative', $._expression),
+        ),
+      ),
 
     logical_expression: ($) =>
       prec.left(
@@ -1013,11 +1025,22 @@ export default grammar({
       prec.left(
         choice(
           $.additive_expression,
+          $.null_coalescing_expression,
           seq(
             $.comparison_expression,
             $.comparison_operator,
-            $.additive_expression,
+            choice($.additive_expression, $.null_coalescing_expression),
           ),
+        ),
+      ),
+
+    // `$a ?? $b` (PowerShell 7): binds tighter than comparisons, looser than `+`
+    null_coalescing_expression: ($) =>
+      prec.left(
+        seq(
+          choice($.additive_expression, $.null_coalescing_expression),
+          '??',
+          $.additive_expression,
         ),
       ),
 
@@ -1201,7 +1224,25 @@ export default grammar({
         seq($.argument_expression, repeat(seq(',', $.argument_expression))),
       ),
 
-    argument_expression: ($) => $.logical_argument_expression,
+    argument_expression: ($) =>
+      choice($.logical_argument_expression, $.ternary_argument_expression),
+
+    ternary_argument_expression: ($) =>
+      prec.right(
+        seq(
+          field('condition', $.logical_argument_expression),
+          '?',
+          field(
+            'consequence',
+            choice($.logical_argument_expression, $.ternary_argument_expression),
+          ),
+          ':',
+          field(
+            'alternative',
+            choice($.logical_argument_expression, $.ternary_argument_expression),
+          ),
+        ),
+      ),
 
     logical_argument_expression: ($) =>
       prec.left(
@@ -1239,11 +1280,27 @@ export default grammar({
       prec.left(
         choice(
           $.additive_argument_expression,
+          $.null_coalescing_argument_expression,
           seq(
             $.comparison_argument_expression,
             $.comparison_operator,
-            $.additive_argument_expression,
+            choice(
+              $.additive_argument_expression,
+              $.null_coalescing_argument_expression,
+            ),
           ),
+        ),
+      ),
+
+    null_coalescing_argument_expression: ($) =>
+      prec.left(
+        seq(
+          choice(
+            $.additive_argument_expression,
+            $.null_coalescing_argument_expression,
+          ),
+          '??',
+          $.additive_argument_expression,
         ),
       ),
 
