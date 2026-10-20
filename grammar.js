@@ -29,7 +29,12 @@ export default grammar({
   ],
 
   rules: {
-    program: ($) => seq(optional($.param_block), $.statement_list),
+    program: ($) =>
+      seq(
+        optional($.param_block),
+        // A script can use begin/process/end blocks like a function body.
+        choice($.statement_list, $.named_block_list),
+      ),
 
     // Comments
     comment: ($) =>
@@ -754,6 +759,10 @@ export default grammar({
           new RegExp(caseInsensitive('for-')),
           new RegExp(caseInsensitive('while-')),
           new RegExp(caseInsensitive('parallel-')),
+          new RegExp(caseInsensitive('begin-')),
+          new RegExp(caseInsensitive('process-')),
+          new RegExp(caseInsensitive('end-')),
+          new RegExp(caseInsensitive('dynamicparam-')),
         ),
         repeat(
           choice(

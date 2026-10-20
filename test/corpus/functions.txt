@@ -489,7 +489,6 @@ function 1+1{
             (script_parameter
               (variable))))))))
 
-
 ===
 Function name as keyword
 ===
@@ -502,3 +501,138 @@ function while {}
   (statement_list
     (function_statement
       (function_name))))
+
+===
+Script with named blocks
+===
+
+[CmdletBinding()]
+Param($Name)
+Begin { $count = 0 }
+Process { $count++ }
+end { Write-Output $count }
+
+---
+
+(program
+  (param_block
+    (attribute_list
+      (attribute
+        (attribute_name
+          (type_spec
+            (type_name
+              (type_identifier))))))
+    (parameter_list
+      (script_parameter
+        (variable))))
+  (named_block_list
+    (named_block
+      (block_name)
+      (statement_block
+        (statement_list
+          (pipeline
+            (assignment_expression
+              (left_assignment_expression
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable)))))))))))
+              (assignement_operator)
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))
+    (named_block
+      (block_name)
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (post_increment_expression
+                                  (variable))))))))))))))))
+    (named_block
+      (block_name)
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)
+                (command_elements
+                  (command_argument_sep)
+                  (array_literal_expression
+                    (unary_expression
+                      (variable))))))))))))
+
+===
+Commands named like block keywords
+===
+
+End-Example
+$block = { Begin-Task }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (script_block_expression
+                                (script_block
+                                  (script_block_body
+                                    (statement_list
+                                      (pipeline
+                                        (pipeline_chain
+                                          (command
+                                            (command_name)))))))))))))))))))))))

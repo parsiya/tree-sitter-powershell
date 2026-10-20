@@ -2446,6 +2446,10 @@
       "required": true,
       "types": [
         {
+          "type": "named_block_list",
+          "named": true
+        },
+        {
           "type": "param_block",
           "named": true
         },
