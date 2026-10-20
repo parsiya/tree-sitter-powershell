@@ -1479,6 +1479,10 @@
       "required": true,
       "types": [
         {
+          "type": "type_literal",
+          "named": true
+        },
+        {
           "type": "type_spec",
           "named": true
         }

@@ -6466,8 +6466,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "type_spec"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "type_spec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "type_literal"
+            }
+          ]
         },
         {
           "type": "REPEAT",
@@ -6479,8 +6488,17 @@
                 "value": ","
               },
               {
-                "type": "SYMBOL",
-                "name": "type_spec"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "type_spec"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "type_literal"
+                  }
+                ]
               }
             ]
           }

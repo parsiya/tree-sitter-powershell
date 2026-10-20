@@ -1239,8 +1239,12 @@ export default grammar({
 
     dimension: ($) => repeat1(','),
 
+    // `Dictionary[[string], [string]]`: an argument may be in brackets
     generic_type_arguments: ($) =>
-      seq($.type_spec, repeat(seq(',', $.type_spec))),
+      seq(
+        choice($.type_spec, $.type_literal),
+        repeat(seq(',', choice($.type_spec, $.type_literal))),
+      ),
 
     // Attributes
     attribute_list: ($) => repeat1($.attribute),
