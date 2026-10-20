@@ -7,6 +7,10 @@ const PREC = {
   PARAM: 6,
 };
 
+// Number suffixes are case-insensitive in PowerShell: 1KB, 1kb and 0X1F.
+const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
+const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
+
 export default grammar({
   name: 'powershell',
 
@@ -50,20 +54,16 @@ export default grammar({
 
     decimal_integer_literal: ($) =>
       token(
-        seq(
-          /[0-9]+/,
-          optional(choice('l', 'd')),
-          optional(choice('kb', 'mb', 'gb', 'tb', 'pb')),
-        ),
+        seq(/[0-9]+/, optional(/[lLdD]/), optional(NUMBER_MULTIPLIER)),
       ),
 
     hexadecimal_integer_literal: ($) =>
       token(
         seq(
-          '0x',
+          /0[xX]/,
           /[0-9a-fA-F]+/,
-          optional('l'),
-          optional(choice('kb', 'mb', 'gb', 'tb', 'pb')),
+          optional(/[lL]/),
+          optional(NUMBER_MULTIPLIER),
         ),
       ),
 
@@ -73,19 +73,15 @@ export default grammar({
         choice(
           seq(
             /[0-9]+\.[0-9]+/,
-            optional(token(seq('e', optional(choice('+', '-')), /[0-9]+/))),
-            optional(choice('kb', 'mb', 'gb', 'tb', 'pb')),
+            optional(NUMBER_EXPONENT),
+            optional(NUMBER_MULTIPLIER),
           ),
           seq(
             /\.[0-9]+/,
-            optional(token(seq('e', optional(choice('+', '-')), /[0-9]+/))),
-            optional(choice('kb', 'mb', 'gb', 'tb', 'pb')),
+            optional(NUMBER_EXPONENT),
+            optional(NUMBER_MULTIPLIER),
           ),
-          seq(
-            /[0-9]+/,
-            token(seq('e', optional(choice('+', '-')), /[0-9]+/)),
-            optional(choice('kb', 'mb', 'gb', 'tb', 'pb')),
-          ),
+          seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
         ),
       ),
 
