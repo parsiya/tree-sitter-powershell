@@ -8,9 +8,10 @@ Development happens on `opengrep-dev`.
 There are two kinds of changes, and they live in different places.
 
 **PowerShell grammar fixes go in the root `grammar.js`.** These are fixes for
-valid PowerShell that the grammar rejects or reads wrongly. Each fix is made on
-its own branch from Airbus's `main`, so it can be offered to Airbus as is. Opengrep
-does not wait for Airbus: the branch is merged into `opengrep-dev` right away.
+valid PowerShell that the grammar rejects or reads wrongly. Opengrep is the
+priority: fixes are committed directly on `opengrep-dev`, one commit per fix,
+each with its tests and a message that explains it. Offering fixes to Airbus is
+a later, separate step: pick the individual fix commits from this history then.
 If Airbus does not want a fix, it stays here. See
 [Fixing the grammar](#fixing-the-grammar).
 
@@ -34,7 +35,9 @@ The initial upstream baseline is
 `c96b28ed405e3172e0a4b6a97fc132ce2e3b6304`. The Opengrep generator revision is
 `1392efc21e60d5acde72d0d1c6586f5692fedace`.
 
-Grammar fixes merged into `opengrep-dev` (Airbus status as of 2026-10-20):
+Grammar fixes in `opengrep-dev` (Airbus status as of 2026-10-20). Earlier fixes
+were made on separate `fix/...` branches from Airbus's `main`; those branches
+are kept and are the easiest starting point for an Airbus pull request.
 
 | Branch | Fix | Airbus |
 | --- | --- | --- |
@@ -46,6 +49,11 @@ Grammar fixes merged into `opengrep-dev` (Airbus status as of 2026-10-20):
 | `fix/assigned-if-else` | Continue `$x = if (...) { }` with `elseif`/`else` on the next line (scanner change). | Not yet offered. |
 | `fix/range-at-statement-start` | Read `1..16` at the start of a statement as a range, not a command. | Not yet offered. |
 | `fix/redirection-after-argument` | Read `2>$null` after an unquoted argument as a redirection. | Not yet offered. |
+| `fix/ternary-null-coalescing` | Parse `? :`, `??` and `??=` (PowerShell 7). | Not yet offered. |
+| `fix/switch-layouts` | Accept quoted switch cases with spaces or regex characters, and switch clauses on one line. | Not yet offered. |
+| `fix/method-argument-expressions` | Accept `-band`/`-bor`/`-bxor` in method arguments, `.ForEach(...)`, and `$x.Method{ }` (scanner change). | Not yet offered. |
+| `fix/class-enum-details` | Accept dotted and generic class base types, attributes on classes and enums, `: base(...)`, expressions as enum values, and bracketed generic arguments. | Not yet offered. |
+| `fix/command-argument-lists` | Keep a command argument list together when it mixes expressions and words or has spaces before a comma (scanner change). | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
@@ -108,18 +116,18 @@ Review and explain any intentional expected-output changes first.
 
 Make each fix small and about one problem, so Airbus can review it on its own.
 
-1. Start a branch from Airbus's `main`, not from `opengrep-dev`:
-
-   ```sh
-   git fetch upstream
-   git switch -c fix/short-name upstream/main
-   ```
+1. Work on `opengrep-dev` (or a branch from it). A branch from Airbus's
+   `main` is not needed; it can be made later when offering a fix to Airbus.
 
 2. Reduce a real example to a small made-up one. Check it with PowerShell's own
    parser (`[System.Management.Automation.Language.Parser]::ParseInput`) and
    confirm that the current grammar gets it wrong. Do not copy third-party
    scripts into tests.
-3. Add the example to the matching `test/corpus/*.txt` file.
+3. Add the example to the matching `test/corpus/*.txt` file. If you use
+   `tree-sitter test --update` to produce the expected tree of a new test, note
+   that it rewrites the formatting of every test in the file. Keep the
+   existing tests byte for byte: `git diff` of the test file must show only
+   added lines.
 4. Edit the root `grammar.js`. Regenerate the root `src/` with the same
    Tree-sitter CLI version Airbus used for its committed `src/parser.c`
    (the version is in the file's first line; 0.25.10 as of 2026-10-20):
@@ -134,36 +142,42 @@ Make each fix small and about one problem, so Airbus can review it on its own.
    are not part of the fix. Before editing, regenerating `upstream/main` with
    this CLI should leave `src/parser.c` unchanged. If it does not, the version
    is wrong.
-5. Commit the grammar, regenerated `src/`, and tests on the branch. Say in the
-   message what PowerShell accepts, what the grammar did, and how many
-   real-world files it affects, if known.
-6. Merge the branch into `opengrep-dev` with `git merge --no-ff`, then
-   regenerate and test Opengrep's parser as described in
+
+   The CLI caches the compiled parser by language name, in one directory for
+   all checkouts, and rebuilds it only when `src/parser.c` is newer. When
+   several checkouts of this repository are in use (for example `git
+   worktree`), set `TREE_SITTER_LIBDIR` to a separate directory per checkout,
+   or the tests can silently run another checkout's parser.
+5. Commit the grammar, regenerated `src/`, and tests as one commit for this
+   fix. Say in the message what PowerShell accepts, what the grammar did, and
+   how many real-world files it affects, if known.
+6. Regenerate and test Opengrep's parser as described in
    [Build and test](#build-and-test). A grammar change can change the generated
    OCaml types; update Opengrep's PowerShell converter in the same Opengrep
    change if needed.
-7. Add the branch to the table in [Where changes go](#where-changes-go).
-8. Offer the branch to Airbus as a pull request when ready. This is optional
-   and separate; Opengrep does not depend on it. If Airbus merges a different
-   fix for the same problem, prefer theirs on the next update.
+7. Add the fix to the table in [Where changes go](#where-changes-go).
+8. Offering a fix to Airbus is a later, separate step and optional. Start a
+   branch from Airbus's `main` and cherry-pick the fix commit (grammar and
+   tests), then regenerate `src/`. If Airbus merges a different fix for the
+   same problem, prefer theirs on the next update.
 
 ### How to commit grammar fixes
 
-- **One commit per fix on its branch, and one merge commit per branch** into
-  `opengrep-dev`. Each fix must stay separate so that it can be offered to
-  Airbus on its own.
-- **Several fixes can then share one regeneration commit.** After merging a
-  group of fixes, regenerate `opengrep/ocaml/` once and commit it together
-  with the README table in a single commit on `opengrep-dev`. Do not
-  regenerate and commit each intermediate merge; nothing points to those
-  states.
+- **One commit per fix on `opengrep-dev`:** the root grammar, regenerated root
+  `src/`, and tests. Keep fixes separate so each can be offered to Airbus later.
+- **Several fixes can then share one regeneration commit.** After a group of
+  fixes, regenerate `opengrep/ocaml/` once and commit it together with the
+  README table in a single commit. Do not regenerate and commit each fix.
 - **In Opengrep, one commit for the group:** the converter changes, tests,
   docs, and the submodule pin together, so that the commit builds and passes
   on its own. List each fix and its effect in the commit message.
 - **Exception: a fix that needs real converter work** (a new representation,
-  not just adapting to renamed or extended CST types) gets its own cycle:
-  branch, merge, regenerate, update the converter, and commit in Opengrep
-  with the pin. Then that change can be reviewed and traced on its own.
+  not just adapting to renamed or extended CST types) gets its own cycle and
+  its own Opengrep commit with the pin.
+- When fix branches are merged, the generated `src/` files conflict: regenerate
+  them, do not merge them. Test files where both sides only added tests can be
+  combined by appending whole tests. Lists of external tokens in `grammar.js`
+  and `src/scanner.c` must stay in the same order.
 
 ## Updating from Airbus
 
