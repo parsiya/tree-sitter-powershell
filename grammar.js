@@ -864,6 +864,7 @@ export default grammar({
 
     class_statement: ($) =>
       seq(
+        optional($.attribute_list),
         token(reservedWord('class')),
         $.simple_name,
         optional(seq(':', $.type_spec, repeat(seq(',', $.type_spec)))),
@@ -884,6 +885,7 @@ export default grammar({
     // Enums
     enum_statement: ($) =>
       seq(
+        optional($.attribute_list),
         token(reservedWord('enum')),
         $.simple_name,
         '{',

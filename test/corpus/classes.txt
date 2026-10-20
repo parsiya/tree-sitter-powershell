@@ -302,3 +302,72 @@ class NameList : System.Collections.Generic.List[string] {}
           (type_spec
             (type_name
               (type_identifier))))))))
+
+===
+Class : attribute before class
+===
+
+[DscResource()]
+class Widget {
+    [string]$Name
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (class_property_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable)))))
+
+===
+Enum : attribute before enum
+===
+
+[Flags()] enum Access {
+    Read = 1
+}
+
+[flags()]enum Kinds {
+    First = 1
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))
+    (enum_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))))
