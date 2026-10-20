@@ -10,7 +10,13 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    // Never produced. It marks where an elseif or else clause can start, so
+    // that the scanner can tell when a newline does not end the statement.
+    $._else_clause_ahead,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -427,6 +433,7 @@ export default grammar({
 
     elseif_clause: ($) =>
       seq(
+        optional($._else_clause_ahead),
         reservedWord('elseif'),
         '(',
         field('condition', $.pipeline),
@@ -434,7 +441,12 @@ export default grammar({
         $.statement_block,
       ),
 
-    else_clause: ($) => seq(reservedWord('else'), $.statement_block),
+    else_clause: ($) =>
+      seq(
+        optional($._else_clause_ahead),
+        reservedWord('else'),
+        $.statement_block,
+      ),
 
     _labeled_statement: ($) =>
       choice(
