@@ -45,7 +45,7 @@ static bool else_follows(TSLexer *lexer)
 
     const char *keyword = "else";
     for (const char *c = keyword; *c; c++) {
-        if (towlower(lexer->lookahead) != *c) return false;
+        if (towlower(lexer->lookahead) != (wint_t)(unsigned char)*c) return false;
         skip(lexer);
     }
     if (towlower(lexer->lookahead) == 'i') {
