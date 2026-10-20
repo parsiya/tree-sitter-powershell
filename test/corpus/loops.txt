@@ -699,3 +699,40 @@ for ($i = 0
                             (array_literal_expression
                               (unary_expression
                                 (variable)))))))))))))))))
+
+===
+Break and continue with a label name
+===
+
+:outer foreach ($item in $items) {
+    continue outer
+    break outer
+}
+
+---
+
+(program
+  (statement_list
+    (label)
+    (foreach_statement
+      (variable)
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (flow_control_statement
+            (label_expression
+              (simple_name)))
+          (flow_control_statement
+            (label_expression
+              (simple_name))))))))
