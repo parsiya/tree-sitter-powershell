@@ -107,3 +107,25 @@ Using-Example -Name value
             (command_parameter)
             (command_argument_sep)
             (generic_token)))))))
+
+===
+Using statements: quoted namespace
+===
+
+using namespace 'example.com/image'
+Write-Output ready
+
+---
+
+(program
+  (using_statement
+    (string_literal
+      (verbatim_string_characters)))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))

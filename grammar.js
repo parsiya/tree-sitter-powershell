@@ -51,7 +51,12 @@ export default grammar({
       seq(
         reservedWord('using'),
         choice(
-          seq(reservedWord('namespace'), field('name', $.type_name)),
+          seq(
+            reservedWord('namespace'),
+            // PowerShell 7 rejects a quoted namespace, but the parser still
+            // reads the line as a using statement.
+            field('name', choice($.type_name, $.string_literal)),
+          ),
           seq(
             reservedWord('module'),
             field(
