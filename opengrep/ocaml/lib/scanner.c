@@ -6,7 +6,8 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    ELSE_CLAUSE_AHEAD
 };
 
 /* --- API --- */
@@ -25,6 +26,36 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
+static bool is_word_char(int32_t c)
+{
+    return iswalnum(c) || c == '_' || c == '-';
+}
+
+// After a newline, `else` or `elseif` continues an if statement used as a
+// value, as in `$x = if ($a) { 1 }` followed by `else { 2 }` on the next line.
+// Look past blank lines and line comments for one of those keywords. Only
+// called where the grammar allows an elseif or else clause to start.
+static bool else_follows(TSLexer *lexer)
+{
+    for (;;) {
+        while (iswspace(lexer->lookahead)) skip(lexer);
+        if (lexer->lookahead != '#') break;
+        while (lexer->lookahead != 0 && lexer->lookahead != '\n') skip(lexer);
+    }
+
+    const char *keyword = "else";
+    for (const char *c = keyword; *c; c++) {
+        if (towlower(lexer->lookahead) != (wint_t)(unsigned char)*c) return false;
+        skip(lexer);
+    }
+    if (towlower(lexer->lookahead) == 'i') {
+        skip(lexer);
+        if (towlower(lexer->lookahead) != 'f') return false;
+        skip(lexer);
+    }
+    return !is_word_char(lexer->lookahead);
+}
+
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[STATEMENT_TERMINATOR]) {
@@ -37,7 +68,9 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == '}') return true;
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
-            if (lexer->lookahead == '\n') return true;
+            if (lexer->lookahead == '\n') {
+                return !(valid_symbols[ELSE_CLAUSE_AHEAD] && else_follows(lexer));
+            }
             if (!iswspace(lexer->lookahead)) return false;
             skip(lexer);
         }

@@ -39,6 +39,13 @@ Grammar fixes merged into `opengrep-dev` (Airbus status as of 2026-10-20):
 | Branch | Fix | Airbus |
 | --- | --- | --- |
 | `fix/empty-program` | Accept files with no statements: empty, comment-only, or only a `param` block. | Not yet offered. |
+| `fix/number-suffix-case` | Accept number suffixes in any case: `1KB`, `0X1F`, `5L`, `1E3`. | Not yet offered. |
+| `fix/loop-label` | Accept `break outer` and `continue outer`. | Not yet offered. |
+| `fix/using-statement` | Parse `using namespace`, `using module` and `using assembly` instead of reading them as commands. | Not yet offered. |
+| `fix/script-named-blocks` | Accept `begin`/`process`/`end` blocks at the top of a script; keep `End-Example` a command. | Not yet offered. |
+| `fix/assigned-if-else` | Continue `$x = if (...) { }` with `elseif`/`else` on the next line (scanner change). | Not yet offered. |
+| `fix/range-at-statement-start` | Read `1..16` at the start of a statement as a range, not a command. | Not yet offered. |
+| `fix/redirection-after-argument` | Read `2>$null` after an unquoted argument as a redirection. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
@@ -139,6 +146,24 @@ Make each fix small and about one problem, so Airbus can review it on its own.
 8. Offer the branch to Airbus as a pull request when ready. This is optional
    and separate; Opengrep does not depend on it. If Airbus merges a different
    fix for the same problem, prefer theirs on the next update.
+
+### How to commit grammar fixes
+
+- **One commit per fix on its branch, and one merge commit per branch** into
+  `opengrep-dev`. Each fix must stay separate so that it can be offered to
+  Airbus on its own.
+- **Several fixes can then share one regeneration commit.** After merging a
+  group of fixes, regenerate `opengrep/ocaml/` once and commit it together
+  with the README table in a single commit on `opengrep-dev`. Do not
+  regenerate and commit each intermediate merge; nothing points to those
+  states.
+- **In Opengrep, one commit for the group:** the converter changes, tests,
+  docs, and the submodule pin together, so that the commit builds and passes
+  on its own. List each fix and its effect in the commit message.
+- **Exception: a fix that needs real converter work** (a new representation,
+  not just adapting to renamed or extended CST types) gets its own cycle:
+  branch, merge, regenerate, update the converter, and commit in Opengrep
+  with the pin. Then that change can be reviewed and traced on its own.
 
 ## Updating from Airbus
 
