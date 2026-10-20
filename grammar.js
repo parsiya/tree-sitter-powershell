@@ -899,7 +899,17 @@ export default grammar({
       ),
 
     enum_member: ($) =>
-      seq($.simple_name, optional(seq('=', $.integer_literal))),
+      seq(
+        $.simple_name,
+        optional(
+          seq(
+            '=',
+            // A plain number stays an integer_literal; `[Byte]6` and `1 + 2`
+            // are other constant expressions
+            choice(prec(PREC.KEYWORD, $.integer_literal), $._expression),
+          ),
+        ),
+      ),
 
     // Expressions
     _expression: ($) => $.logical_expression,

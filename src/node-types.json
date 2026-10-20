@@ -1116,6 +1116,10 @@
           "named": true
         },
         {
+          "type": "logical_expression",
+          "named": true
+        },
+        {
           "type": "simple_name",
           "named": true
         }

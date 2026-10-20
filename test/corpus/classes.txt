@@ -417,3 +417,65 @@ class MyError : System.Exception {
         (simple_name)
         (class_base_constructor_call
           (argument_list))))))
+
+===
+Enum : member values that are expressions
+===
+
+enum Action {
+    Warn = [Byte]6
+    Block = 1
+    Both = 1 + 2
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))))))))))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal)))
+      (enum_member
+        (simple_name)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))

@@ -4953,8 +4953,21 @@
                   "value": "="
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "integer_literal"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PREC",
+                      "value": 1,
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "integer_literal"
+                      }
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    }
+                  ]
                 }
               ]
             },
