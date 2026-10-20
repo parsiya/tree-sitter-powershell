@@ -419,3 +419,97 @@ Write-Output a & Write-Output b
           (command_elements
             (command_argument_sep)
             (generic_token)))))))
+
+===
+Native: comma list mixing expressions and words
+===
+
+New-Object Demo.Rule $item.Owner, "read", allow
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (unary_expression
+              (member_access
+                (variable)
+                (member_name
+                  (simple_name))))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+===
+Native: comma list with a hashtable then words
+===
+
+Select-Object @{}, Name, *
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (hash_literal_expression))
+            (generic_token)
+            (generic_token)))))))
+
+===
+Native: comma list continued on the next line
+===
+
+Select-Object $first, `
+    Description
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)))))))
+
+===
+Native: comma list of expressions stays an array
+===
+
+Get-Thing "a", 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))

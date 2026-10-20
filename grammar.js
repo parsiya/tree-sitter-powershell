@@ -26,6 +26,7 @@ export default grammar({
     [$.class_method_definition, $.attribute],
     [$.expandable_string_literal],
     [$.path_command_name, $._value],
+    [$._command_argument, $.array_literal_expression],
   ],
 
   rules: {
@@ -811,6 +812,17 @@ export default grammar({
             ),
           ),
           seq($.command_argument_sep, $.array_literal_expression),
+          // `New-Object T "a", $b, word`: a comma list that starts with an
+          // expression and has unquoted words. array_literal_expression wins
+          // when both match.
+          prec.dynamic(
+            -1,
+            seq(
+              $.command_argument_sep,
+              $.unary_expression,
+              repeat1(seq(',', choice($.generic_token, $.unary_expression))),
+            ),
+          ),
           $.parenthesized_expression,
           $.script_block_expression,
         ),
