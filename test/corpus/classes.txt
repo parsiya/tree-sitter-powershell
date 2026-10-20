@@ -236,3 +236,246 @@ class MyClass
                               (variable)))))))))))))
       (class_method_definition
         (simple_name)))))
+
+===
+Class : dotted base type
+===
+
+class MyAttribute : System.Attribute {}
+
+class MyError:System.Exception {}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier))))
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier))))))
+
+===
+Class : several and generic base types
+===
+
+class Derived : Base, System.IDisposable {}
+
+class NameList : System.Collections.Generic.List[string] {}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_identifier)))
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier))))
+    (class_statement
+      (simple_name)
+      (type_spec
+        (generic_type_name
+          (type_name
+            (type_name
+              (type_name
+                (type_name
+                  (type_identifier))
+                (type_identifier))
+              (type_identifier))
+            (type_identifier)))
+        (generic_type_arguments
+          (type_spec
+            (type_name
+              (type_identifier))))))))
+
+===
+Class : attribute before class
+===
+
+[DscResource()]
+class Widget {
+    [string]$Name
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (class_property_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable)))))
+
+===
+Enum : attribute before enum
+===
+
+[Flags()] enum Access {
+    Read = 1
+}
+
+[flags()]enum Kinds {
+    First = 1
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))
+    (enum_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))))
+
+===
+Class : constructor calling the base constructor
+===
+
+class MyError : System.Exception {
+    MyError($Message) : base($Message) {
+    }
+
+    MyError():base() {
+    }
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier)))
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable)))
+        (class_base_constructor_call
+          (argument_list
+            (argument_expression_list
+              (argument_expression
+                (logical_argument_expression
+                  (bitwise_argument_expression
+                    (comparison_argument_expression
+                      (additive_argument_expression
+                        (multiplicative_argument_expression
+                          (format_argument_expression
+                            (range_argument_expression
+                              (unary_expression
+                                (variable))))))))))))))
+      (class_method_definition
+        (simple_name)
+        (class_base_constructor_call
+          (argument_list))))))
+
+===
+Enum : member values that are expressions
+===
+
+enum Action {
+    Warn = [Byte]6
+    Block = 1
+    Both = 1 + 2
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (simple_name)
+      (enum_member
+        (simple_name)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))))))))))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal)))
+      (enum_member
+        (simple_name)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))

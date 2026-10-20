@@ -942,16 +942,22 @@ export default grammar({
         '(',
         optional($.class_method_parameter_list),
         ')',
+        optional($.class_base_constructor_call),
         '{',
         optional($.script_block),
         '}',
       ),
 
+    // `MyError($Message) : base($Message) { }`
+    class_base_constructor_call: ($) =>
+      seq(':', reservedWord('base'), $.argument_list),
+
     class_statement: ($) =>
       seq(
+        optional($.attribute_list),
         token(reservedWord('class')),
         $.simple_name,
-        optional(seq(':', $.simple_name, repeat(seq(',', $.simple_name)))),
+        optional(seq(':', $.type_spec, repeat(seq(',', $.type_spec)))),
         '{',
         repeat(
           choice(
@@ -969,6 +975,7 @@ export default grammar({
     // Enums
     enum_statement: ($) =>
       seq(
+        optional($.attribute_list),
         token(reservedWord('enum')),
         $.simple_name,
         '{',
@@ -977,7 +984,17 @@ export default grammar({
       ),
 
     enum_member: ($) =>
-      seq($.simple_name, optional(seq('=', $.integer_literal))),
+      seq(
+        $.simple_name,
+        optional(
+          seq(
+            '=',
+            // A plain number stays an integer_literal; `[Byte]6` and `1 + 2`
+            // are other constant expressions
+            choice(prec(PREC.KEYWORD, $.integer_literal), $._expression),
+          ),
+        ),
+      ),
 
     // Expressions
     _expression: ($) => choice($.logical_expression, $.ternary_expression),
@@ -1379,8 +1396,12 @@ export default grammar({
 
     dimension: ($) => repeat1(','),
 
+    // `Dictionary[[string], [string]]`: an argument may be in brackets
     generic_type_arguments: ($) =>
-      seq($.type_spec, repeat(seq(',', $.type_spec))),
+      seq(
+        choice($.type_spec, $.type_literal),
+        repeat(seq(',', choice($.type_spec, $.type_literal))),
+      ),
 
     // Attributes
     attribute_list: ($) => repeat1($.attribute),
