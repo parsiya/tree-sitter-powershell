@@ -4474,6 +4474,48 @@
             ]
           },
           {
+            "type": "PREC_DYNAMIC",
+            "value": -1,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "command_argument_sep"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unary_expression"
+                },
+                {
+                  "type": "REPEAT1",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "generic_token"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "unary_expression"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
             "type": "SYMBOL",
             "name": "parenthesized_expression"
           },
@@ -6965,6 +7007,10 @@
     {
       "type": "PATTERN",
       "value": "[\\uFEFF\\u2060\\u200B\\u00A0]"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_spaces_before_comma"
     }
   ],
   "conflicts": [
@@ -6986,6 +7032,10 @@
     [
       "path_command_name",
       "_value"
+    ],
+    [
+      "_command_argument",
+      "array_literal_expression"
     ]
   ],
   "precedences": [],
@@ -7005,6 +7055,10 @@
     {
       "type": "SYMBOL",
       "name": "_script_block_argument_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_spaces_before_comma"
     },
     {
       "type": "SYMBOL",

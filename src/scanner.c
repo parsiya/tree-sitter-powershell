@@ -9,6 +9,7 @@ enum TOKEN_TYPE {
     BARE_DASHES,
     ELSE_CLAUSE_AHEAD,
     SCRIPT_BLOCK_ARGUMENT_START,
+    SPACES_BEFORE_COMMA,
     // Never used by the grammar: it is only valid during error recovery.
     ERROR_SENTINEL
 };
@@ -128,13 +129,50 @@ static bool scan_script_block_argument_start(void *payload, TSLexer *lexer, cons
     return true;
 }
 
+// Spaces before a comma: `-Color $a , $b` is one array argument, but the
+// space would otherwise be lexed as the separator before the next argument.
+// The spaces (and line continuations) are skipped and an empty extra token is
+// returned, so that the comma is then lexed as usual.
+static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *valid_symbols, bool *skipped_backtick)
+{
+    if (!valid_symbols[SPACES_BEFORE_COMMA]) return false;
+
+    bool skipped = false;
+    for (;;) {
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            skip(lexer);
+        } else if (lexer->lookahead == '`') {
+            *skipped_backtick = true;
+            skip(lexer);
+            if (lexer->lookahead == '\r') skip(lexer);
+            if (lexer->lookahead != '\n') return false;
+            skip(lexer);
+        } else {
+            break;
+        }
+        skipped = true;
+    }
+    if (!skipped || lexer->lookahead != ',') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = SPACES_BEFORE_COMMA;
+    return true;
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    // Before anything that skips spaces: the `{` must directly follow.
+    if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
+
+    bool skipped_backtick = false;
+    if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick)) return true;
+    // Skipped characters cannot be restored, and the other external tokens
+    // cannot follow a backtick anyway.
+    if (skipped_backtick) return false;
+
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
-    if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;
     return scan_statement_terminator(payload, lexer, valid_symbols);
 }
