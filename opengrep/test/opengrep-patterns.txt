@@ -1,21 +1,4 @@
 ==================
-Empty program
-==================
-
----
-
-(program)
-
-==================
-Comment-only program
-==================
-# comment
----
-
-(program
-  (comment))
-
-==================
 Named ellipsis argument
 ==================
 Write-Output $...ARGS

@@ -3,20 +3,30 @@
 This fork supplies a parser to Opengrep. It is not a separate scanning tool.
 Development happens on `opengrep-dev`.
 
-## Keep upstream and Opengrep changes separate
+## Where changes go
 
-Leave the Airbus files at the repository root unchanged. Put Opengrep additions
-under this `opengrep/` directory:
+There are two kinds of changes, and they live in different places.
+
+**PowerShell grammar fixes go in the root `grammar.js`.** These are fixes for
+valid PowerShell that the grammar rejects or reads wrongly. Each fix is made on
+its own branch from Airbus's `main`, so it can be offered to Airbus as is. Opengrep
+does not wait for Airbus: the branch is merged into `opengrep-dev` right away.
+If Airbus does not want a fix, it stays here. See
+[Fixing the grammar](#fixing-the-grammar).
+
+**Opengrep-only additions go under this `opengrep/` directory.** These are
+things Airbus would not want, such as rule syntax (`$...ARGS`), and the files
+that build Opengrep's parser:
 
 | Path | Purpose |
 | --- | --- |
-| `grammar.cjs` | Loads the Airbus grammar and adds Opengrep rules. |
-| `prepare-grammar.cjs` | Creates a CommonJS copy in the build directory for the older generator. It does not edit Airbus's source. |
+| `grammar.cjs` | Loads the root grammar and adds Opengrep rule syntax. Do not put PowerShell fixes here. |
+| `prepare-grammar.cjs` | Creates a CommonJS copy in the build directory for the older generator. It does not edit the root grammar. |
 | `generate.sh` | Generates the C and OCaml parser files using an initialized Opengrep checkout. |
-| `test.sh` | Tests the generated grammar against inherited and Opengrep-specific grammar tests. |
-| `test/` | Tests for the added grammar rules. |
+| `test.sh` | Tests the generated grammar against the root tests and the Opengrep-only tests. |
+| `test/` | Tests for Opengrep rule syntax. |
 | `ocaml/` | Generated parser library used by Opengrep; do not hand-edit it. |
-| `upstream-commit` | Airbus revision last used as the upstream baseline. |
+| `upstream-commit` | Airbus revision last merged into `opengrep-dev`. |
 | `tree-sitter-version` | CLI version used to generate Opengrep's parser. |
 | `ocaml-generator-commit` | Last verified revision of Opengrep's OCaml parser generator. |
 
@@ -24,10 +34,14 @@ The initial upstream baseline is
 `c96b28ed405e3172e0a4b6a97fc132ce2e3b6304`. The Opengrep generator revision is
 `1392efc21e60d5acde72d0d1c6586f5692fedace`.
 
-Current grammar changes are small:
+Grammar fixes merged into `opengrep-dev` (Airbus status as of 2026-10-20):
 
-- Accept empty and comment-only files. This is a general parsing fix that could
-  be offered to Airbus separately.
+| Branch | Fix | Airbus |
+| --- | --- | --- |
+| `fix/empty-program` | Accept files with no statements: empty, comment-only, or only a `param` block. | Not yet offered. |
+
+Opengrep-only addition in `grammar.cjs`:
+
 - Recognize `$...ARGS` and similar named ellipses. This is for Opengrep rules,
   not normal PowerShell source.
 
@@ -60,8 +74,8 @@ bash opengrep/test.sh "$OPENGREP_ROOT"
 Temporary generation files go under the Opengrep checkout's
 `_build/powershell-grammar/fork/`. Grammar tests use a fresh
 `_build/powershell-grammar/tests.*` directory on each run so removed upstream tests
-cannot linger. Airbus's root grammar, scanner, generated files, and corpus are
-not changed.
+cannot linger. These scripts never modify the root grammar, scanner, generated
+files, or tests.
 
 The grammar corpus runs before OCaml simplification. Simplification exposes
 normally hidden nodes, so comparing its trees directly with Airbus's expected
@@ -82,6 +96,49 @@ The tag selects PowerShell parsing, matching, rule, range, and basic taint tests
 The substring also selects filename/shebang discovery and malformed-input tests.
 Do not use `--update`, `test approve`, or `dune promote` just to hide failures.
 Review and explain any intentional expected-output changes first.
+
+## Fixing the grammar
+
+Make each fix small and about one problem, so Airbus can review it on its own.
+
+1. Start a branch from Airbus's `main`, not from `opengrep-dev`:
+
+   ```sh
+   git fetch upstream
+   git switch -c fix/short-name upstream/main
+   ```
+
+2. Reduce a real example to a small made-up one. Check it with PowerShell's own
+   parser (`[System.Management.Automation.Language.Parser]::ParseInput`) and
+   confirm that the current grammar gets it wrong. Do not copy third-party
+   scripts into tests.
+3. Add the example to the matching `test/corpus/*.txt` file.
+4. Edit the root `grammar.js`. Regenerate the root `src/` with the same
+   Tree-sitter CLI version Airbus used for its committed `src/parser.c`
+   (the version is in the file's first line; 0.25.10 as of 2026-10-20):
+
+   ```sh
+   npx tree-sitter-cli@0.25.10 generate
+   npx tree-sitter-cli@0.25.10 test
+   npm ci --ignore-scripts && npx eslint grammar.js
+   ```
+
+   Keep Airbus's `src/tree_sitter/*.h` headers if the CLI rewrites them; they
+   are not part of the fix. Before editing, regenerating `upstream/main` with
+   this CLI should leave `src/parser.c` unchanged. If it does not, the version
+   is wrong.
+5. Commit the grammar, regenerated `src/`, and tests on the branch. Say in the
+   message what PowerShell accepts, what the grammar did, and how many
+   real-world files it affects, if known.
+6. Merge the branch into `opengrep-dev` with `git merge --no-ff`, then
+   regenerate and test Opengrep's parser as described in
+   [Build and test](#build-and-test). A grammar change can change the generated
+   OCaml types; update Opengrep's PowerShell converter in the same Opengrep
+   change if needed.
+7. Add the branch to the table in [Where changes go](#where-changes-go).
+8. Offer the branch to Airbus as a pull request when ready. This is optional
+   and separate; Opengrep does not depend on it. If Airbus merges a different
+   fix for the same problem, prefer theirs on the next update.
 
 ## Updating from Airbus
 
@@ -108,16 +165,18 @@ Review and explain any intentional expected-output changes first.
    smaller than the current upstream branch.
 
 4. Review upstream changes to grammar rules, scanners, tests, and tool versions.
-   Most additions under `opengrep/` should not conflict with root files.
-   This does not guarantee compatibility: upstream may rename a rule, change its
-   shape, or fix a rule we override. In particular, our `program` rule is an
-   override and must be compared with the new upstream definition.
-5. Update the small extension or build adaptation if needed. Keep general
-   PowerShell fixes separate from Opengrep-only syntax so they can be submitted
-   upstream independently.
+   Root `grammar.js` conflicts are expected when Airbus changes a rule we
+   fixed. Resolve `grammar.js` and `test/corpus/` by hand, then regenerate
+   `src/`; do not merge generated `src/` files line by line. If Airbus merged
+   one of our fixes, or fixed the same problem differently, keep Airbus's
+   version and update the table in [Where changes go](#where-changes-go).
+   Also check that `opengrep/grammar.cjs` still matches the rules it extends.
+5. Update the Opengrep-only extension or build adaptation if needed. Keep
+   PowerShell fixes in the root grammar and Opengrep-only syntax in
+   `opengrep/`, so fixes can still be offered to Airbus independently.
 6. Regenerate. Never resolve generated-parser conflicts by editing C/OCaml
-   output manually. The root generated files come from upstream; the separate
-   `opengrep/ocaml/` files come from our generator.
+   output manually. Regenerate the root `src/` with Airbus's CLI version and
+   `opengrep/ocaml/` with our generator.
 7. Run the grammar tests and focused Opengrep tests above. Run the same
    real-world PowerShell corpus before and after the update when available.
    Compare failures, untranslated syntax, matches, and captures. Do not improve

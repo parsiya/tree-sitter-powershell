@@ -29,7 +29,8 @@ export default grammar({
   ],
 
   rules: {
-    program: ($) => seq(optional($.param_block), $.statement_list),
+    program: ($) =>
+      seq(optional($.param_block), optional($.statement_list)),
 
     // Comments
     comment: ($) =>

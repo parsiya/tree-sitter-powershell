@@ -1,4 +1,51 @@
 ===
+Empty program
+===
+
+---
+
+(program)
+
+===
+Comment-only program
+===
+
+# This file has no statements.
+
+---
+
+(program
+  (comment))
+
+===
+Block-comment-only program
+===
+
+<#
+.SYNOPSIS
+Help text with no statements.
+#>
+
+---
+
+(program
+  (comment))
+
+===
+Param block without statements
+===
+
+param($Name)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (variable)))))
+
+===
 Single inline comment
 ===
 
