@@ -350,8 +350,16 @@ export default grammar({
     braced_variable: ($) => /\$\{[^}]+\}/,
 
     // Commands
+    // A word cannot start like a redirection (`>`, `2>`, `*>`), so that
+    // `tool arg 2>$null` ends the word before the redirection. Inside a word,
+    // `>` is an ordinary character: `a=b>c` is one argument.
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      token(
+        choice(
+          /[^\(\)\$\"\'\-\{\}@\|\[`\&\s>0-9*][^\&\s\(\)\}\|;,]*/,
+          /[0-9*]([^\&\s\(\)\}\|;,>][^\&\s\(\)\}\|;,]*)?/,
+        ),
+      ),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -890,7 +898,12 @@ export default grammar({
       ),
 
     redirected_file_name: ($) =>
-      choice($._command_argument, $._primary_expression),
+      choice(
+        $._command_argument,
+        $._primary_expression,
+        // A file name right after the operator: `>>log.txt`
+        $.generic_token,
+      ),
 
     // Class
     class_attribute: ($) =>

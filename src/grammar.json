@@ -1836,8 +1836,17 @@
     "generic_token": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s>0-9*][^\\&\\s\\(\\)\\}\\|;,]*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[0-9*]([^\\&\\s\\(\\)\\}\\|;,>][^\\&\\s\\(\\)\\}\\|;,]*)?"
+          }
+        ]
       }
     },
     "_command_token": {
@@ -4506,6 +4515,10 @@
         {
           "type": "SYMBOL",
           "name": "_primary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generic_token"
         }
       ]
     },
