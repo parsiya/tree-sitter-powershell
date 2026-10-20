@@ -654,3 +654,441 @@ $a -as $a
                       (array_literal_expression
                         (unary_expression
                           (variable))))))))))))))
+
+===
+Ternary operator
+===
+
+$a = $b ? 'yes' : 'no'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (ternary_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))))
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters)))))))))))
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))))))
+
+===
+Ternary operator compact form
+===
+
+$true ?1:0
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (ternary_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal)))))))))))
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
+
+===
+Ternary operator precedence
+===
+
+$a -and $b ? 1 : $c ? 2 : 3
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (ternary_expression
+          (logical_expression
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal)))))))))))
+          (ternary_expression
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+===
+Null-coalescing operator
+===
+
+$a ?? $b ?? 'default'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (null_coalescing_expression
+                (null_coalescing_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (string_literal
+                              (verbatim_string_characters))))))))))))))))
+
+===
+Null-coalescing operator precedence
+===
+
+$a ?? 1 + 2 -eq 3
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (comparison_expression
+                (null_coalescing_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))
+              (comparison_operator)
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))
+
+===
+Null-coalescing assignment operator
+===
+
+$a ??= 5
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+===
+Ternary and null-coalescing in method arguments
+===
+
+$sb.Append($a ? 'x' : 'y', $b ?? 1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (ternary_argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (string_literal
+                                                      (verbatim_string_characters))))))))))
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (string_literal
+                                                      (verbatim_string_characters))))))))))))
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (null_coalescing_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable))))))
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (integer_literal
+                                                      (decimal_integer_literal))))))))))))))))))))))))))))
+
+===
+Question mark stays a command name and argument
+===
+
+Get-Item | ? { $_ }
+tool a?b ??-x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
