@@ -984,3 +984,180 @@ else { 3 }
                                             (unary_expression
                                               (integer_literal
                                                 (decimal_integer_literal)))))))))))))))))))))))))
+
+===
+Switch quoted conditions with spaces and regex characters
+===
+
+switch -Regex ($line) {
+    "High Probability" { }
+    "^name=(.*)$" { }
+    "^\[(.+)\]" { # section
+    }
+    "*started ok*"
+    {
+    }
+}
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_parameters
+        (switch_parameter))
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (string_literal
+                (expandable_string_literal)))
+            (statement_block))
+          (switch_clause
+            (switch_clause_condition
+              (string_literal
+                (expandable_string_literal)))
+            (statement_block))
+          (switch_clause
+            (switch_clause_condition
+              (string_literal
+                (expandable_string_literal)))
+            (statement_block
+              (comment)))
+          (switch_clause
+            (switch_clause_condition
+              (string_literal
+                (expandable_string_literal)))
+            (statement_block)))))))
+
+===
+Switch clauses on one line
+===
+
+$color = switch ($state) { 'on' { 'Green' } "off now" { 'Red' } default { 'Gray' } }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (switch_statement
+          (switch_condition
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable)))))))))))))
+          (switch_body
+            (switch_clauses
+              (switch_clause
+                (switch_clause_condition
+                  (string_literal
+                    (verbatim_string_characters)))
+                (statement_block
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (verbatim_string_characters))))))))))))))))
+              (switch_clause
+                (switch_clause_condition
+                  (string_literal
+                    (expandable_string_literal)))
+                (statement_block
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (verbatim_string_characters))))))))))))))))
+              (switch_clause
+                (switch_clause_condition)
+                (statement_block
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (verbatim_string_characters)))))))))))))))))))))))
+
+===
+Switch file with a quoted path
+===
+
+switch -File "my file.txt" { "a b" { } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_condition
+        (switch_filename
+          (string_literal
+            (expandable_string_literal))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (string_literal
+                (expandable_string_literal)))
+            (statement_block)))))))
