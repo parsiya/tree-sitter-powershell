@@ -11,6 +11,9 @@ const PREC = {
 const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
 const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
 
+// Characters that cannot appear in the first part of a command name.
+const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\s\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
+
 export default grammar({
   name: 'powershell',
 
@@ -781,7 +784,13 @@ export default grammar({
     command_name: ($) =>
       seq(
         choice(
-          /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
+          new RegExp(`[^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*`),
+          // A name can start with digits (`7z`), but digits followed by `..`
+          // start a range (`1..16`), not a command.
+          new RegExp(
+            `[0-9]+([^${COMMAND_NAME_STOP}0-9.]|\\.[^${COMMAND_NAME_STOP}.])` +
+              `[^${COMMAND_NAME_STOP}]*`,
+          ),
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here
           // https://github.com/airbus-cert/tree-sitter-powershell/issues/24
