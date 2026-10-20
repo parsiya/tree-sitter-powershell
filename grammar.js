@@ -308,7 +308,9 @@ export default grammar({
     generic_token: ($) =>
       token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
 
-    _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
+    // Does not start with `"`, so a quoted switch clause condition such as
+    // `"a b" { }` is read as a string and not as the longer word `"a`.
+    _command_token: ($) => token(/[^\(\)\{\}\s;\&"][^\(\)\{\}\s;\&]*/),
 
     // Parameters
     command_parameter: ($) =>
@@ -480,7 +482,8 @@ export default grammar({
       seq(
         $.switch_clause_condition,
         $.statement_block,
-        $._statement_terminator,
+        // Clauses may share a line: `switch ($x) { 1 { 'a' } 2 { 'b' } }`
+        optional($._statement_terminator),
         repeat(';'),
       ),
 

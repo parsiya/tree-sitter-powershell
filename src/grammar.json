@@ -1878,7 +1878,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\(\\)\\{\\}\\s;\\&]+"
+        "value": "[^\\(\\)\\{\\}\\s;\\&\"][^\\(\\)\\{\\}\\s;\\&]*"
       }
     },
     "command_parameter": {
@@ -2746,8 +2746,16 @@
           "name": "statement_block"
         },
         {
-          "type": "SYMBOL",
-          "name": "_statement_terminator"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_statement_terminator"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "REPEAT",
