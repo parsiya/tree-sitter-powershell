@@ -866,7 +866,7 @@ export default grammar({
       seq(
         token(reservedWord('class')),
         $.simple_name,
-        optional(seq(':', $.simple_name, repeat(seq(',', $.simple_name)))),
+        optional(seq(':', $.type_spec, repeat(seq(',', $.type_spec)))),
         '{',
         repeat(
           choice(
