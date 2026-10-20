@@ -43,7 +43,8 @@ export default grammar({
           ),
         ),
         optional($.param_block),
-        optional($.statement_list),
+        // A script can use begin/process/end blocks like a function body.
+        optional(choice($.statement_list, $.named_block_list)),
       ),
 
     // `;` after a using statement. A separate token, so that the parser does
@@ -790,6 +791,10 @@ export default grammar({
           new RegExp(caseInsensitive('while-')),
           new RegExp(caseInsensitive('parallel-')),
           new RegExp(caseInsensitive('using-')),
+          new RegExp(caseInsensitive('begin-')),
+          new RegExp(caseInsensitive('process-')),
+          new RegExp(caseInsensitive('end-')),
+          new RegExp(caseInsensitive('dynamicparam-')),
         ),
         repeat(
           choice(

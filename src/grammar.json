@@ -49,8 +49,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "statement_list"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "statement_list"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "named_block_list"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -4140,6 +4149,22 @@
             {
               "type": "PATTERN",
               "value": "[uU][sS][iI][nN][gG][--]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[bB][eE][gG][iI][nN][--]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[pP][rR][oO][cC][eE][sS][sS][--]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[eE][nN][dD][--]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[dD][yY][nN][aA][mM][iI][cC][pP][aA][rR][aA][mM][--]"
             }
           ]
         },
