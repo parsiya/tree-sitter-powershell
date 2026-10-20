@@ -10,7 +10,11 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._spaces_before_comma,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -18,6 +22,8 @@ export default grammar({
     /`\n/,
     /`\r\n/,
     /[\uFEFF\u2060\u200B\u00A0]/,
+    // Spaces before a comma (see scanner.c)
+    $._spaces_before_comma,
   ],
 
   conflicts: ($) => [
