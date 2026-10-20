@@ -1106,7 +1106,7 @@ export default grammar({
       seq(
         $._primary_expression,
         token.immediate(reservedWord('.foreach')),
-        $.script_block_expression,
+        choice($.script_block_expression, $.argument_list),
       ),
 
     argument_list: ($) =>

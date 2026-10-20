@@ -5929,8 +5929,17 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "script_block_expression"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "script_block_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "argument_list"
+            }
+          ]
         }
       ]
     },
