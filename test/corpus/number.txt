@@ -248,3 +248,49 @@ Cast with composed expression
                               (unary_expression
                                 (integer_literal
                                   (decimal_integer_literal))))))))))))))))))
+
+===
+Case-insensitive number suffixes
+===
+
+1KB, 10Mb, 2gB, 1.5TB, 1E3, 0X1F, 0x10KB, 5L, 3D
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))
+                        (unary_expression
+                          (real_literal))
+                        (unary_expression
+                          (real_literal))
+                        (unary_expression
+                          (integer_literal
+                            (hexadecimal_integer_literal)))
+                        (unary_expression
+                          (integer_literal
+                            (hexadecimal_integer_literal)))
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))

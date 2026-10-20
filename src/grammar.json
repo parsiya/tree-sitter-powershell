@@ -119,17 +119,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "l"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "d"
-                  }
-                ]
+                "type": "PATTERN",
+                "value": "[lLdD]"
               },
               {
                 "type": "BLANK"
@@ -140,29 +131,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "kb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "mb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "gb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "tb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "pb"
-                  }
-                ]
+                "type": "PATTERN",
+                "value": "[kKmMgGtTpP][bB]"
               },
               {
                 "type": "BLANK"
@@ -178,8 +148,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "0x"
+            "type": "PATTERN",
+            "value": "0[xX]"
           },
           {
             "type": "PATTERN",
@@ -189,8 +159,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "l"
+                "type": "PATTERN",
+                "value": "[lL]"
               },
               {
                 "type": "BLANK"
@@ -201,29 +171,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "kb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "mb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "gb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "tb"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "pb"
-                  }
-                ]
+                "type": "PATTERN",
+                "value": "[kKmMgGtTpP][bB]"
               },
               {
                 "type": "BLANK"
@@ -249,41 +198,8 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "e"
-                        },
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "STRING",
-                                  "value": "+"
-                                },
-                                {
-                                  "type": "STRING",
-                                  "value": "-"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "BLANK"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "PATTERN",
-                          "value": "[0-9]+"
-                        }
-                      ]
-                    }
+                    "type": "PATTERN",
+                    "value": "[eE][+-]?[0-9]+"
                   },
                   {
                     "type": "BLANK"
@@ -294,29 +210,8 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "kb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "mb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "gb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "tb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "pb"
-                      }
-                    ]
+                    "type": "PATTERN",
+                    "value": "[kKmMgGtTpP][bB]"
                   },
                   {
                     "type": "BLANK"
@@ -336,41 +231,8 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": "e"
-                        },
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "STRING",
-                                  "value": "+"
-                                },
-                                {
-                                  "type": "STRING",
-                                  "value": "-"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "BLANK"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "PATTERN",
-                          "value": "[0-9]+"
-                        }
-                      ]
-                    }
+                    "type": "PATTERN",
+                    "value": "[eE][+-]?[0-9]+"
                   },
                   {
                     "type": "BLANK"
@@ -381,29 +243,8 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "kb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "mb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "gb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "tb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "pb"
-                      }
-                    ]
+                    "type": "PATTERN",
+                    "value": "[kKmMgGtTpP][bB]"
                   },
                   {
                     "type": "BLANK"
@@ -420,69 +261,15 @@
                 "value": "[0-9]+"
               },
               {
-                "type": "TOKEN",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "e"
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "STRING",
-                              "value": "+"
-                            },
-                            {
-                              "type": "STRING",
-                              "value": "-"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "PATTERN",
-                      "value": "[0-9]+"
-                    }
-                  ]
-                }
+                "type": "PATTERN",
+                "value": "[eE][+-]?[0-9]+"
               },
               {
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "kb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "mb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "gb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "tb"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "pb"
-                      }
-                    ]
+                    "type": "PATTERN",
+                    "value": "[kKmMgGtTpP][bB]"
                   },
                   {
                     "type": "BLANK"
