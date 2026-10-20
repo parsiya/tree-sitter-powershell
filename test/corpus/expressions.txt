@@ -1044,3 +1044,159 @@ $list.ForEach('Trim')
                                                   (unary_expression
                                                     (string_literal
                                                       (verbatim_string_characters))))))))))))))))))))))))))))
+
+===
+Method call with a script block argument
+===
+
+$n = @($items).Where{ $_.Ok }.Count
+[Runner]::Run{ 1 }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (member_access
+                                (invokation_expression
+                                  (array_expression
+                                    (statement_list
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (variable))))))))))))))
+                                  (member_name
+                                    (simple_name))
+                                  (script_block_expression
+                                    (script_block
+                                      (script_block_body
+                                        (statement_list
+                                          (pipeline
+                                            (pipeline_chain
+                                              (logical_expression
+                                                (bitwise_expression
+                                                  (comparison_expression
+                                                    (additive_expression
+                                                      (multiplicative_expression
+                                                        (format_expression
+                                                          (range_expression
+                                                            (array_literal_expression
+                                                              (unary_expression
+                                                                (member_access
+                                                                  (variable)
+                                                                  (member_name
+                                                                    (simple_name)))))))))))))))))))
+                                (member_name
+                                  (simple_name))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (script_block_expression
+                              (script_block
+                                (script_block_body
+                                  (statement_list
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))))))))))))))))))))))))))))))
+
+===
+Script block after a member access in command arguments
+===
+
+Invoke-Command -Session $s.Session { 1 }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))))))))))))

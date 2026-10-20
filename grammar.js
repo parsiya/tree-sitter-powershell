@@ -10,7 +10,12 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._script_block_argument_start,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -1098,6 +1103,21 @@ export default grammar({
           $.argument_list,
         ),
         seq($._primary_expression, '::', $.member_name, $.argument_list),
+        // `$x.Where{ ... }`: a script block right after the member name is the only argument
+        seq(
+          $._primary_expression,
+          token.immediate('.'),
+          $.member_name,
+          $._script_block_argument_start,
+          $.script_block_expression,
+        ),
+        seq(
+          $._primary_expression,
+          '::',
+          $.member_name,
+          $._script_block_argument_start,
+          $.script_block_expression,
+        ),
         $.invokation_foreach_expression,
       ),
 

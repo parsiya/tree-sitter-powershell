@@ -5900,6 +5900,59 @@
           ]
         },
         {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_primary_expression"
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "."
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "member_name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_script_block_argument_start"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "script_block_expression"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_primary_expression"
+            },
+            {
+              "type": "STRING",
+              "value": "::"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "member_name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_script_block_argument_start"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "script_block_expression"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "invokation_foreach_expression"
         }
@@ -6595,6 +6648,14 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_script_block_argument_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [],
