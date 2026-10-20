@@ -23,6 +23,8 @@ export default grammar({
     // Never produced. It marks where an elseif or else clause can start, so
     // that the scanner can tell when a newline does not end the statement.
     $._else_clause_ahead,
+    $._script_block_argument_start,
+    $._error_sentinel,
   ],
 
   extras: ($) => [
@@ -1204,6 +1206,21 @@ export default grammar({
           $.argument_list,
         ),
         seq($._primary_expression, '::', $.member_name, $.argument_list),
+        // `$x.Where{ ... }`: a script block right after the member name is the only argument
+        seq(
+          $._primary_expression,
+          token.immediate('.'),
+          $.member_name,
+          $._script_block_argument_start,
+          $.script_block_expression,
+        ),
+        seq(
+          $._primary_expression,
+          '::',
+          $.member_name,
+          $._script_block_argument_start,
+          $.script_block_expression,
+        ),
         $.invokation_foreach_expression,
       ),
 
@@ -1212,7 +1229,7 @@ export default grammar({
       seq(
         $._primary_expression,
         token.immediate(reservedWord('.foreach')),
-        $.script_block_expression,
+        choice($.script_block_expression, $.argument_list),
       ),
 
     argument_list: ($) =>
@@ -1270,9 +1287,9 @@ export default grammar({
           seq(
             $.bitwise_argument_expression,
             choice(
-              reservedWord('-and'),
-              reservedWord('-or'),
-              reservedWord('-xor'),
+              reservedWord('-band'),
+              reservedWord('-bor'),
+              reservedWord('-bxor'),
             ),
             $.comparison_argument_expression,
           ),

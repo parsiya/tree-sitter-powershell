@@ -7,7 +7,10 @@
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
     BARE_DASHES,
-    ELSE_CLAUSE_AHEAD
+    ELSE_CLAUSE_AHEAD,
+    SCRIPT_BLOCK_ARGUMENT_START,
+    // Never used by the grammar: it is only valid during error recovery.
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -113,12 +116,25 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
     }
 }
 
+// `$x.Where{ $_ }`: a script block right after a member name is a method
+// argument. There must be no whitespace before the `{` (`$x.Name { }` is not a
+// method call), so this empty token only checks that `{` comes next.
+static bool scan_script_block_argument_start(void *payload, TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[SCRIPT_BLOCK_ARGUMENT_START] || valid_symbols[ERROR_SENTINEL]) return false;
+    if (lexer->lookahead != '{') return false;
+    lexer->result_symbol = SCRIPT_BLOCK_ARGUMENT_START;
+    lexer->mark_end(lexer);
+    return true;
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
+    if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;
     return scan_statement_terminator(payload, lexer, valid_symbols);
 }

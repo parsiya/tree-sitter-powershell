@@ -1786,6 +1786,10 @@
       "required": true,
       "types": [
         {
+          "type": "argument_list",
+          "named": true
+        },
+        {
           "type": "array_expression",
           "named": true
         },
