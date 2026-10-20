@@ -18,8 +18,16 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "statement_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "statement_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
