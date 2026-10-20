@@ -3445,6 +3445,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "simple_name"
+        },
+        {
+          "type": "SYMBOL",
           "name": "unary_expression"
         }
       ]
