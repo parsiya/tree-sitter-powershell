@@ -2452,6 +2452,10 @@
         {
           "type": "statement_list",
           "named": true
+        },
+        {
+          "type": "using_statement",
+          "named": true
         }
       ]
     }
@@ -3329,6 +3333,34 @@
     }
   },
   {
+    "type": "using_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_token",
+            "named": true
+          },
+          {
+            "type": "hash_literal_expression",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "type_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "variable",
     "named": true,
     "fields": {},
@@ -3930,6 +3962,10 @@
     "named": false
   },
   {
+    "type": "assembly",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -4031,6 +4067,14 @@
     "named": true
   },
   {
+    "type": "module",
+    "named": false
+  },
+  {
+    "type": "namespace",
+    "named": false
+  },
+  {
     "type": "parallel",
     "named": false
   },
@@ -4088,6 +4132,10 @@
   },
   {
     "type": "until",
+    "named": false
+  },
+  {
+    "type": "using",
     "named": false
   },
   {

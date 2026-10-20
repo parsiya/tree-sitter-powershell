@@ -29,7 +29,46 @@ export default grammar({
   ],
 
   rules: {
-    program: ($) => seq(optional($.param_block), $.statement_list),
+    program: ($) =>
+      seq(
+        repeat(
+          seq(
+            $.using_statement,
+            $._statement_terminator,
+            optional($._using_separator),
+          ),
+        ),
+        optional($.param_block),
+        $.statement_list,
+      ),
+
+    // `;` after a using statement. A separate token, so that the parser does
+    // not read it as an empty statement and end the using statements early.
+    _using_separator: ($) => token(prec(1, ';')),
+
+    // `using` statements must come before any other statement in a script.
+    using_statement: ($) =>
+      seq(
+        reservedWord('using'),
+        choice(
+          seq(reservedWord('namespace'), field('name', $.type_name)),
+          seq(
+            reservedWord('module'),
+            field(
+              'name',
+              choice(
+                $.string_literal,
+                $.hash_literal_expression,
+                $.generic_token,
+              ),
+            ),
+          ),
+          seq(
+            reservedWord('assembly'),
+            field('name', choice($.string_literal, $.generic_token)),
+          ),
+        ),
+      ),
 
     // Comments
     comment: ($) =>
@@ -754,6 +793,7 @@ export default grammar({
           new RegExp(caseInsensitive('for-')),
           new RegExp(caseInsensitive('while-')),
           new RegExp(caseInsensitive('parallel-')),
+          new RegExp(caseInsensitive('using-')),
         ),
         repeat(
           choice(
