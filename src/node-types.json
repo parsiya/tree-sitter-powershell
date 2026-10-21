@@ -977,6 +977,10 @@
           "named": true
         },
         {
+          "type": "null_conditional_element_operator",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -1715,6 +1719,10 @@
           "named": true
         },
         {
+          "type": "null_conditional_member_operator",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -1783,6 +1791,10 @@
         },
         {
           "type": "member_access",
+          "named": true
+        },
+        {
+          "type": "null_conditional_member_operator",
           "named": true
         },
         {
@@ -1949,6 +1961,10 @@
         },
         {
           "type": "member_name",
+          "named": true
+        },
+        {
+          "type": "null_conditional_member_operator",
           "named": true
         },
         {
@@ -4028,6 +4044,14 @@
   },
   {
     "type": "label",
+    "named": true
+  },
+  {
+    "type": "null_conditional_element_operator",
+    "named": true
+  },
+  {
+    "type": "null_conditional_member_operator",
     "named": true
   },
   {

@@ -276,7 +276,7 @@ export default grammar({
                 ':',
               ),
             ),
-            /[a-zA-Z0-9_]+|\?/,
+            /[a-zA-Z0-9_][a-zA-Z0-9_?]*|\?/,
           ),
         ),
         token(
@@ -296,7 +296,7 @@ export default grammar({
                 ':',
               ),
             ),
-            /[a-zA-Z0-9_]+|\?/,
+            /[a-zA-Z0-9_][a-zA-Z0-9_?]*|\?/,
           ),
         ),
         $.braced_variable,
@@ -1070,13 +1070,26 @@ export default grammar({
     member_access: ($) =>
       prec.left(
         choice(
-          seq($._primary_expression, token.immediate('.'), $.member_name),
+          seq(
+            $._primary_expression,
+            $._member_access_operator,
+            $.member_name,
+          ),
           seq($._primary_expression, '::', $.member_name),
         ),
       ),
 
+    // Unbraced variables consume a trailing '?': $x?.P accesses $x?, not $x.
+    _member_access_operator: ($) =>
+      choice(token.immediate('.'), $.null_conditional_member_operator),
+
+    null_conditional_member_operator: ($) => token.immediate('?.'),
+
+    null_conditional_element_operator: ($) => token.immediate('?['),
+
     member_name: ($) =>
       choice(
+        alias($._foreach_member_name, $.simple_name),
         $.simple_name,
         $.string_literal,
         $.expression_with_unary_operator,
@@ -1086,14 +1099,19 @@ export default grammar({
     element_access: ($) =>
       prec(
         PREC.ELEMENT_ACCESS,
-        seq($._primary_expression, '[', $._expression, ']'),
+        seq(
+          $._primary_expression,
+          choice('[', $.null_conditional_element_operator),
+          $._expression,
+          ']',
+        ),
       ),
 
     invokation_expression: ($) =>
       choice(
         seq(
           $._primary_expression,
-          token.immediate('.'),
+          $._member_access_operator,
           $.member_name,
           $.argument_list,
         ),
@@ -1101,12 +1119,18 @@ export default grammar({
         $.invokation_foreach_expression,
       ),
 
-    // adding this rule to handle .foreach synthax
+    _foreach_member_name: ($) => token.immediate(reservedWord('foreach')),
+
+    // Keep the shorthand distinct without consuming the dot as part of the name.
     invokation_foreach_expression: ($) =>
-      seq(
-        $._primary_expression,
-        token.immediate(reservedWord('.foreach')),
-        $.script_block_expression,
+      prec(
+        PREC.KEYWORD,
+        seq(
+          $._primary_expression,
+          $._member_access_operator,
+          $._foreach_member_name,
+          $.script_block_expression,
+        ),
       ),
 
     argument_list: ($) =>
