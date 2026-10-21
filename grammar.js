@@ -103,7 +103,8 @@ export default grammar({
         /\"(\s*\#*)*/, // this is a trick to avoid tree-sitter allowing comment between tokens, as string should be tokenize but powershell allow subexpression inside it...
         repeat(
           choice(
-            token.immediate(/[^\$\"`]+/),
+            // Comment markers inside strings are text, not extra comments.
+            token.immediate(prec(1, /[^\$\"`]+/)),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
@@ -121,7 +122,7 @@ export default grammar({
         /@\" *\r?\n/,
         repeat(
           choice(
-            token.immediate(/[^\$\r\n`]+/),
+            token.immediate(prec(1, /[^\$\r\n`]+/)),
             $.variable,
             $.sub_expression,
             token.immediate(/(\r?\n)+[^\"\r\n]/),
