@@ -8,88 +8,89 @@
 open! Sexplib.Conv
 open Tree_sitter_run
 
-type pat_ret = Token.t (* pattern [rR][eE][tT][uU][rR][nN] *)
+type pat_param = Token.t (* pattern [pP][aA][rR][aA][mM] *)
 
-type pat__regex = Token.t (* pattern [--][rR][eE][gG][eE][xX] *)
-
-type imm_tok_prec_p1_pat_46ba992 = Token.t (* pattern "[^\\$\\\"`]+" *)
-
-type pat__clike = Token.t (* pattern [--][cC][lL][iI][kK][eE] *)
-
-type pat__inot = Token.t (* pattern [--][iI][nN][oO][tT][lL][iI][kK][eE] *)
-
-type pat_for_ = Token.t (* pattern [fF][oO][rR][--] *)
-
-type pat__ilt = Token.t (* pattern [--][iI][lL][tT] *)
-
-type pat__repl = Token.t (* pattern [--][rR][eE][pP][lL][aA][cC][eE] *)
+type pat__notm = Token.t (* pattern [--][nN][oO][tT][mM][aA][tT][cC][hH] *)
 
 type imm_tok_prec_p1_pat_3dc846d = Token.t (* pattern "(\\r?\\n)+\\\"@" *)
 
-type imm_tok_prec_p1_pat_b45f689 = Token.t (* pattern [^\$\r\n`]+ *)
+type pat__cgt = Token.t (* pattern [--][cC][gG][tT] *)
 
-type pat_trap = Token.t (* pattern [tT][rR][aA][pP] *)
+type pat__imatch = Token.t (* pattern [--][iI][mM][aA][tT][cC][hH] *)
 
-type path_command_name_token = Token.t (* pattern [0-9a-zA-Z_?\-\.\\\/]+ *)
-
-type tok_prec_p1_pat_hidden = Token.t
-
-type else_clause_ahead = Token.t
-
-type pat_6a8c7a7 = Token.t (* pattern [ \u00a0]+ *)
-
-type pat__ilike = Token.t (* pattern [--][iI][lL][iI][kK][eE] *)
-
-type pat_switch_ = Token.t (* pattern [sS][wW][iI][tT][cC][hH][--] *)
-
-type pat_trap_ = Token.t (* pattern [tT][rR][aA][pP][--] *)
-
-type pat__ile = Token.t (* pattern [--][iI][lL][eE] *)
-
-type pat__in = Token.t (* pattern [--][iI][nN] *)
-
-type simple_name = Token.t
-
-type pat__inotin = Token.t (* pattern [--][iI][nN][oO][tT][iI][nN] *)
-
-type pat_catch = Token.t (* pattern [cC][aA][tT][cC][hH] *)
-
-type pat__cmatch = Token.t (* pattern [--][cC][mM][aA][tT][cC][hH] *)
-
-type pat__split = Token.t (* pattern [--][sS][pP][lL][iI][tT] *)
-
-type pat__crep = Token.t (* pattern [--][cC][rR][eE][pP][lL][aA][cC][eE] *)
-
-type type_identifier = Token.t
-
-type pat_proc = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS] *)
-
-type label = Token.t
-
-type pat__cle = Token.t (* pattern [--][cC][lL][eE] *)
-
-type tok_prec_p1_pat_class = Token.t
-
-type pat_fina = Token.t (* pattern [fF][iI][nN][aA][lL][lL][yY] *)
-
-type pat__ne = Token.t (* pattern [--][nN][eE] *)
-
-type pat_begin = Token.t (* pattern [bB][eE][gG][iI][nN] *)
-
-type tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
-  Token.t
+type pat_filter_ = Token.t (* pattern [fF][iI][lL][tT][eE][rR][--] *)
 
 type pat__iin = Token.t (* pattern [--][iI][iI][nN] *)
 
-type pat_fore_ = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH][--] *)
+type pat__or = Token.t (* pattern [--][oO][rR] *)
 
-type stop_parsing = Token.t (* pattern --%[^\r\n]* *)
+type imm_tok_pat_f92c05a = Token.t (* pattern \$(`.{1}|`\r?\n|[\s\\]) *)
 
-type pat__band = Token.t (* pattern [--][bB][aA][nN][dD] *)
+type imm_tok_prec_p1_pat_b45f689 = Token.t (* pattern [^\$\r\n`]+ *)
 
-type pat_do = Token.t (* pattern [dD][oO] *)
+type pat_switch_ = Token.t (* pattern [sS][wW][iI][tT][cC][hH][--] *)
 
-type semgrep_named_ellipsis = Token.t (* pattern \$\.\.\.[A-Z_][A-Z_0-9]* *)
+type pat_work = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW] *)
+
+type tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50 =
+  Token.t
+
+type else_clause_ahead = Token.t
+
+type pat_4f029d2 = Token.t (* pattern "\"[^\"]*\"" *)
+
+type pat__igt = Token.t (* pattern [--][iI][gG][tT] *)
+
+type pat_ret = Token.t (* pattern [rR][eE][tT][uU][rR][nN] *)
+
+type pat_throw = Token.t (* pattern [tT][hH][rR][oO][wW] *)
+
+type pat__ige = Token.t (* pattern [--][iI][gG][eE] *)
+
+type pat__ilike = Token.t (* pattern [--][iI][lL][iI][kK][eE] *)
+
+type real_literal = Token.t
+
+type pat__inot = Token.t (* pattern [--][iI][nN][oO][tT][lL][iI][kK][eE] *)
+
+type pat_begin_ = Token.t (* pattern [bB][eE][gG][iI][nN][--] *)
+
+type pat__cle = Token.t (* pattern [--][cC][lL][eE] *)
+
+type pat__repl = Token.t (* pattern [--][rR][eE][pP][lL][aA][cC][eE] *)
+
+type pat__cnotcs =
+  Token.t (* pattern [--][cC][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
+
+type tok_prec_p1_pat_enum = Token.t
+
+type pat_para = Token.t (* pattern [pP][aA][rR][aA][lL][lL][eE][lL] *)
+
+type label = Token.t
+
+type pat__cge = Token.t (* pattern [--][cC][gG][eE] *)
+
+type tok_choice_pat_bf1ac22 = Token.t
+
+type pat_exit_ = Token.t (* pattern [eE][xX][iI][tT][--] *)
+
+type pat__like = Token.t (* pattern [--][lL][iI][kK][eE] *)
+
+type pat_asse = Token.t (* pattern [aA][sS][sS][eE][mM][bB][lL][yY] *)
+
+type tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50 =
+  Token.t
+
+type pat__ieq = Token.t (* pattern [--][iI][eE][qQ] *)
+
+type pat_for = Token.t (* pattern [fF][oO][rR] *)
+
+type simple_name = Token.t
+
+type pat_8bcdf9d =
+  Token.t (* pattern "[0-9]+([^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9.]|\\.[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!.])[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *)
+
+type pat_cont_ = Token.t (* pattern [cC][oO][nN][tT][iI][nN][uU][eE][--] *)
 
 type assignement_operator = [
     `EQ of Token.t (* "=" *)
@@ -102,50 +103,50 @@ type assignement_operator = [
   | `QMARKQMARKEQ of Token.t (* "??=" *)
 ]
 
-type pat_exit = Token.t (* pattern [eE][xX][iI][tT] *)
+type pat_end = Token.t (* pattern [eE][nN][dD] *)
+
+type pat_work_ = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW][--] *)
 
 type pipeline_chain_tail = [
     `AMPAMP of Token.t (* "&&" *)
   | `BARBAR of Token.t (* "||" *)
 ]
 
-type script_block_argument_start = Token.t
+type path_command_name_token = Token.t (* pattern [0-9a-zA-Z_?\-\.\\\/]+ *)
 
-type real_literal = Token.t
+type pat__f = Token.t (* pattern [--][fF] *)
 
-type pat__gt = Token.t (* pattern [--][gG][tT] *)
+type pat_until = Token.t (* pattern [uU][nN][tT][iI][lL] *)
 
-type pat_while = Token.t (* pattern [wW][hH][iI][lL][eE] *)
-
-type imm_tok_pat_693b5cb = Token.t (* pattern (\r?\n)+ *)
+type imm_tok_pat_509ec78 = Token.t (* pattern \r?\n *)
 
 type imm_tok_squotsquot = Token.t (* "''" *)
 
-type pat__cin = Token.t (* pattern [--][cC][iI][nN] *)
+type pat__ceq = Token.t (* pattern [--][cC][eE][qQ] *)
 
-type pat__notin = Token.t (* pattern [--][nN][oO][tT][iI][nN] *)
+type pat__ne = Token.t (* pattern [--][nN][eE] *)
 
-type pat__like = Token.t (* pattern [--][lL][iI][kK][eE] *)
+type pat__isplit = Token.t (* pattern [--][iI][sS][pP][lL][iI][tT] *)
 
-type pat_bb8229a =
-  Token.t (* pattern "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9][^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *)
+type pat_a8fb427 = Token.t (* pattern "[^\\$\"`]+" *)
 
 type anon_choice_PLUS_da42005 = [
     `PLUS of Token.t (* "+" *)
   | `DASH of Token.t (* "-" *)
 ]
 
-type pat__clt = Token.t (* pattern [--][cC][lL][tT] *)
+type pat__cin = Token.t (* pattern [--][cC][iI][nN] *)
 
-type pat__para = Token.t (* pattern [--][pP][aA][rR][aA][lL][lL][eE][lL] *)
+type pat__notl = Token.t (* pattern [--][nN][oO][tT][lL][iI][kK][eE] *)
 
 type command_word_part = Token.t
 
-type pat__cgt = Token.t (* pattern [--][cC][gG][tT] *)
+type pat__cconts =
+  Token.t (* pattern [--][cC][cC][oO][nN][tT][aA][iI][nN][sS] *)
 
-type pat__bnot = Token.t (* pattern [--][bB][nN][oO][tT] *)
+type pat__and = Token.t (* pattern [--][aA][nN][dD] *)
 
-type pat_enum_ = Token.t (* pattern [eE][nN][uU][mM][--] *)
+type pat_elseif = Token.t (* pattern [eE][lL][sS][eE][iI][fF] *)
 
 type anon_choice_SLASH_4ca1f7c = [
     `SLASH of Token.t (* "/" *)
@@ -154,27 +155,148 @@ type anon_choice_SLASH_4ca1f7c = [
   | `STAR of Token.t (* "*" *)
 ]
 
-type pat__supp =
-  Token.t (* pattern [--][sS][uU][pP][pP][oO][rR][tT][eE][dD][cC][oO][mM][mM][aA][nN][dD] *)
+type pat__shl = Token.t (* pattern [--][sS][hH][lL] *)
 
 type command_word_start = Token.t
 
 type command_token = Token.t
 
-type pat__file = Token.t (* pattern [--][fF][iI][lL][eE] *)
+type pat__eq = Token.t (* pattern [--][eE][qQ] *)
 
-type pat__inot_ =
-  Token.t (* pattern [--][iI][nN][oO][tT][mM][aA][tT][cC][hH] *)
+type pat__in = Token.t (* pattern [--][iI][nN] *)
+
+type pat_throw_ = Token.t (* pattern [tT][hH][rR][oO][wW][--] *)
+
+type pat_fina = Token.t (* pattern [fF][iI][nN][aA][lL][lL][yY] *)
+
+type pat__case =
+  Token.t (* pattern [--][cC][aA][sS][eE][sS][eE][nN][sS][iI][tT][iI][vV][eE] *)
+
+type pat__para = Token.t (* pattern [--][pP][aA][rR][aA][lL][lL][eE][lL] *)
+
+type pat_using_ = Token.t (* pattern [uU][sS][iI][nN][gG][--] *)
+
+type verbatim_here_string_characters = Token.t
+
+type pat_8a0ae06 = Token.t (* pattern `.{1}|`\r?\n *)
+
+type pat_dyna =
+  Token.t (* pattern [dD][yY][nN][aA][mM][iI][cC][pP][aA][rR][aA][mM] *)
+
+type pat__lt = Token.t (* pattern [--][lL][tT] *)
+
+type pat_para_ = Token.t (* pattern [pP][aA][rR][aA][lL][lL][eE][lL][--] *)
+
+type pat__cmatch = Token.t (* pattern [--][cC][mM][aA][tT][cC][hH] *)
+
+type pat__iconts =
+  Token.t (* pattern [--][iI][cC][oO][nN][tT][aA][iI][nN][sS] *)
+
+type pat__ge = Token.t (* pattern [--][gG][eE] *)
+
+type pat__ile = Token.t (* pattern [--][iI][lL][eE] *)
+
+type bare_dashes = Token.t
+
+type pat__shr = Token.t (* pattern [--][sS][hH][rR] *)
+
+type braced_variable = Token.t (* pattern \$\{[^}]+\} *)
+
+type pat_58fbb2e = Token.t (* pattern "[^']+" *)
+
+type tok_prec_p1_pat_class = Token.t
+
+type pat_in = Token.t (* pattern [iI][nN] *)
+
+type pat_seq = Token.t (* pattern [sS][eE][qQ][uU][eE][nN][cC][eE] *)
+
+type imm_tok_prec_p1_pat_46ba992 = Token.t (* pattern "[^\\$\\\"`]+" *)
+
+type pat__ilt = Token.t (* pattern [--][iI][lL][tT] *)
+
+type pat_brk = Token.t (* pattern [bB][rR][eE][aA][kK] *)
+
+type pat_trap_ = Token.t (* pattern [tT][rR][aA][pP][--] *)
+
+type statement_terminator = Token.t
+
+type pat__not = Token.t (* pattern [--][nN][oO][tT] *)
+
+type pat_bb8229a =
+  Token.t (* pattern "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9][^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *)
+
+type command_invokation_operator = [
+    `DOT of Token.t (* "." *)
+  | `AMP of Token.t (* "&" *)
+]
+
+type pat__cnotin = Token.t (* pattern [--][cC][nN][oO][tT][iI][nN] *)
+
+type pat_func = Token.t (* pattern [fF][uU][nN][cC][tT][iI][oO][nN] *)
+
+type using_separator = Token.t
+
+type imm_tok_dollar = Token.t (* "$" *)
+
+type pat_while_ = Token.t (* pattern [wW][hH][iI][lL][eE][--] *)
+
+type pat_75780b9 = Token.t (* pattern \$`(.{1}|`\r?\n) *)
+
+type pat__isnot = Token.t (* pattern [--][iI][sS][nN][oO][tT] *)
+
+type pat__regex = Token.t (* pattern [--][rR][eE][gG][eE][xX] *)
+
+type pat__ine = Token.t (* pattern [--][iI][nN][eE] *)
 
 type pat_try = Token.t (* pattern [tT][rR][yY] *)
 
-type pat_fore = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH] *)
+type semgrep_named_ellipsis = Token.t (* pattern \$\.\.\.[A-Z_][A-Z_0-9]* *)
 
-type pat__cge = Token.t (* pattern [--][cC][gG][eE] *)
+type pat_class_ = Token.t (* pattern [cC][lL][aA][sS][sS][--] *)
 
-type pat__shl = Token.t (* pattern [--][sS][hH][lL] *)
+type pat_filter = Token.t (* pattern [fF][iI][lL][tT][eE][rR] *)
 
-type pat_work = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW] *)
+type pat_switch = Token.t (* pattern [sS][wW][iI][tT][cC][hH] *)
+
+type pat_end_ = Token.t (* pattern [eE][nN][dD][--] *)
+
+type pat_using = Token.t (* pattern [uU][sS][iI][nN][gG] *)
+
+type tok_prec_p1_pat_static = Token.t
+
+type pat_do = Token.t (* pattern [dD][oO] *)
+
+type pat_base = Token.t (* pattern [bB][aA][sS][eE] *)
+
+type pat_begin = Token.t (* pattern [bB][eE][gG][iI][nN] *)
+
+type pat__is = Token.t (* pattern [--][iI][sS] *)
+
+type pat__supp =
+  Token.t (* pattern [--][sS][uU][pP][pP][oO][rR][tT][eE][dD][cC][oO][mM][mM][aA][nN][dD] *)
+
+type pat_data = Token.t (* pattern [dD][aA][tT][aA] *)
+
+type pat_cont = Token.t (* pattern [cC][oO][nN][tT][iI][nN][uU][eE] *)
+
+type pat_dyna_ =
+  Token.t (* pattern [dD][yY][nN][aA][mM][iI][cC][pP][aA][rR][aA][mM][--] *)
+
+type pat_try_ = Token.t (* pattern [tT][rR][yY][--] *)
+
+type pat_0f43aa8 = Token.t (* pattern "\\\"(\\s*\\#*\
+  )*" *)
+
+type pat_else = Token.t (* pattern [eE][lL][sS][eE] *)
+
+type stop_parsing = Token.t (* pattern --%[^\r\n]* *)
+
+type pat__cnot = Token.t (* pattern [--][cC][nN][oO][tT][lL][iI][kK][eE] *)
+
+type pat__inotcs =
+  Token.t (* pattern [--][iI][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
+
+type pat__wild = Token.t (* pattern [--][wW][iI][lL][dD][cC][aA][rR][dD] *)
 
 type merging_redirection_operator = [
     `STARGTAMP1 of Token.t (* "*>&1" *)
@@ -191,207 +313,82 @@ type merging_redirection_operator = [
   | `X_6GTAMP2 of Token.t (* "6>&2" *)
 ]
 
-type pat__as = Token.t (* pattern [--][aA][sS] *)
+type pat__clt = Token.t (* pattern [--][cC][lL][tT] *)
 
-type pat_elseif = Token.t (* pattern [eE][lL][sS][eE][iI][fF] *)
+type pat_fore = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH] *)
 
-type tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
-  Token.t
+type pat_proc = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS] *)
 
-type pat__not = Token.t (* pattern [--][nN][oO][tT] *)
+type pat_fore_ = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH][--] *)
 
-type pat_proc_ = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS][--] *)
-
-type pat__cnot_ =
-  Token.t (* pattern [--][cC][nN][oO][tT][mM][aA][tT][cC][hH] *)
-
-type pat__igt = Token.t (* pattern [--][iI][gG][tT] *)
-
-type pat__ieq = Token.t (* pattern [--][iI][eE][qQ] *)
-
-type pat__imatch = Token.t (* pattern [--][iI][mM][aA][tT][cC][hH] *)
-
-type tok_choice_pat_bf1ac22 = Token.t
-
-type bare_dashes = Token.t
-
-type pat__wild = Token.t (* pattern [--][wW][iI][lL][dD][cC][aA][rR][dD] *)
-
-type braced_variable = Token.t (* pattern \$\{[^}]+\} *)
-
-type pat_71f01fd = Token.t (* pattern &[^&]* *)
-
-type tok_prec_p1_pat_static = Token.t
-
-type pat_name = Token.t (* pattern [nN][aA][mM][eE][sS][pP][aA][cC][eE] *)
-
-type pat_throw = Token.t (* pattern [tT][hH][rR][oO][wW] *)
-
-type imm_tok_prec_p1_pat_5b7d8c6 =
-  Token.t (* pattern [..][fF][oO][rR][eE][aA][cC][hH] *)
-
-type pat__ine = Token.t (* pattern [--][iI][nN][eE] *)
-
-type pat_cc660f0 = Token.t (* pattern [rR][eE][tT][uU][rR][nN][-@$] *)
-
-type pat_until = Token.t (* pattern [uU][nN][tT][iI][lL] *)
-
-type pat__notl = Token.t (* pattern [--][nN][oO][tT][lL][iI][kK][eE] *)
-
-type pat_brk = Token.t (* pattern [bB][rR][eE][aA][kK] *)
-
-type command_invokation_operator = [
-    `DOT of Token.t (* "." *)
-  | `AMP of Token.t (* "&" *)
-]
-
-type pat__csplit = Token.t (* pattern [--][cC][sS][pP][lL][iI][tT] *)
-
-type pat_if_ = Token.t (* pattern [iI][fF][--] *)
-
-type verbatim_here_string_characters = Token.t
-
-type imm_tok_dot = Token.t (* "." *)
-
-type pat__and = Token.t (* pattern [--][aA][nN][dD] *)
-
-type pat__le = Token.t (* pattern [--][lL][eE] *)
-
-type pat__shr = Token.t (* pattern [--][sS][hH][rR] *)
-
-type pat__inotcs =
-  Token.t (* pattern [--][iI][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
-
-type pat_using = Token.t (* pattern [uU][sS][iI][nN][gG] *)
-
-type statement_terminator = Token.t
-
-type pat_58fbb2e = Token.t (* pattern "[^']+" *)
-
-type pat_d72a25c = Token.t (* pattern [^\|\r\n]+ *)
-
-type pat_4f029d2 = Token.t (* pattern "\"[^\"]*\"" *)
-
-type pat_for = Token.t (* pattern [fF][oO][rR] *)
-
-type pat_throw_ = Token.t (* pattern [tT][hH][rR][oO][wW][--] *)
-
-type pat_exit_ = Token.t (* pattern [eE][xX][iI][tT][--] *)
-
-type pat_while_ = Token.t (* pattern [wW][hH][iI][lL][eE][--] *)
-
-type using_separator = Token.t
-
-type pat_else = Token.t (* pattern [eE][lL][sS][eE] *)
-
-type pat_begin_ = Token.t (* pattern [bB][eE][gG][iI][nN][--] *)
-
-type pat_brk_ = Token.t (* pattern [bB][rR][eE][aA][kK][--] *)
-
-type pat__join = Token.t (* pattern [--][jJ][oO][iI][nN] *)
-
-type pat_a8fb427 = Token.t (* pattern "[^\\$\"`]+" *)
-
-type pat_dyna_ =
-  Token.t (* pattern [dD][yY][nN][aA][mM][iI][cC][pP][aA][rR][aA][mM][--] *)
-
-type pat_data = Token.t (* pattern [dD][aA][tT][aA] *)
-
-type pat_end = Token.t (* pattern [eE][nN][dD] *)
-
-type pat_using_ = Token.t (* pattern [uU][sS][iI][nN][gG][--] *)
-
-type hexadecimal_integer_literal = Token.t
-
-type pat_60937fc = Token.t (* pattern "@\\\" *\\r?\\n" *)
-
-type pat_end_ = Token.t (* pattern [eE][nN][dD][--] *)
-
-type pat__cnotin = Token.t (* pattern [--][cC][nN][oO][tT][iI][nN] *)
-
-type pat__is = Token.t (* pattern [--][iI][sS] *)
-
-type pat_asse = Token.t (* pattern [aA][sS][sS][eE][mM][bB][lL][yY] *)
-
-type pat_0f43aa8 = Token.t (* pattern "\\\"(\\s*\\#*\
-  )*" *)
-
-type pat__cnot = Token.t (* pattern [--][cC][nN][oO][tT][lL][iI][kK][eE] *)
-
-type pat_func_ = Token.t (* pattern [fF][uU][nN][cC][tT][iI][oO][nN][--] *)
-
-type pat_seq = Token.t (* pattern [sS][eE][qQ][uU][eE][nN][cC][eE] *)
-
-type pat_if = Token.t (* pattern [iI][fF] *)
-
-type pat__cconts =
-  Token.t (* pattern [--][cC][cC][oO][nN][tT][aA][iI][nN][sS] *)
-
-type pat__irep = Token.t (* pattern [--][iI][rR][eE][pP][lL][aA][cC][eE] *)
-
-type pat_para_ = Token.t (* pattern [pP][aA][rR][aA][lL][lL][eE][lL][--] *)
-
-type pat__ceq = Token.t (* pattern [--][cC][eE][qQ] *)
-
-type pat__notcos =
-  Token.t (* pattern [--][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
-
-type imm_tok_pat_f92c05a = Token.t (* pattern \$(`.{1}|`\r?\n|[\s\\]) *)
-
-type pat_func = Token.t (* pattern [fF][uU][nN][cC][tT][iI][oO][nN] *)
-
-type pat__or = Token.t (* pattern [--][oO][rR] *)
-
-type pat_base = Token.t (* pattern [bB][aA][sS][eE] *)
-
-type pat_class_ = Token.t (* pattern [cC][lL][aA][sS][sS][--] *)
+type foreach_member_name = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH] *)
 
 type pat__bor = Token.t (* pattern [--][bB][oO][rR] *)
 
+type pat__inot_ =
+  Token.t (* pattern [--][iI][nN][oO][tT][mM][aA][tT][cC][hH] *)
+
+type pat_module = Token.t (* pattern [mM][oO][dD][uU][lL][eE] *)
+
+type pat__bxor = Token.t (* pattern [--][bB][xX][oO][rR] *)
+
+type pat__match = Token.t (* pattern [--][mM][aA][tT][cC][hH] *)
+
+type imm_tok_pat_b4547f3 =
+  Token.t (* pattern "[^\\{\\}\\(\\);,\\|\\&\"'\\s\\u00a0\\r\\n]+" *)
+
+type pat_for_ = Token.t (* pattern [fF][oO][rR][--] *)
+
+type pat__notin = Token.t (* pattern [--][nN][oO][tT][iI][nN] *)
+
+type pat__xor = Token.t (* pattern [--][xX][oO][rR] *)
+
+type pat_brk_ = Token.t (* pattern [bB][rR][eE][aA][kK][--] *)
+
+type pat__as = Token.t (* pattern [--][aA][sS] *)
+
 type command_word_expression = Token.t
 
-type pat_in = Token.t (* pattern [iI][nN] *)
+type pat_func_ = Token.t (* pattern [fF][uU][nN][cC][tT][iI][oO][nN][--] *)
 
-type tok_choice_pat_e941259 = Token.t
+type tok_prec_p1_pat_hidden = Token.t
 
 type decimal_integer_literal = Token.t
 
 type imm_tok_squot = Token.t (* "'" *)
 
-type pat_cont = Token.t (* pattern [cC][oO][nN][tT][iI][nN][uU][eE] *)
+type pat_catch = Token.t (* pattern [cC][aA][tT][cC][hH] *)
 
-type pat_8a0ae06 = Token.t (* pattern `.{1}|`\r?\n *)
+type pat_6a8c7a7 = Token.t (* pattern [ \u00a0]+ *)
 
-type pat_try_ = Token.t (* pattern [tT][rR][yY][--] *)
+type pat_trap = Token.t (* pattern [tT][rR][aA][pP] *)
 
-type tok_prec_p1_pat_enum = Token.t
+type tok_choice_pat_e941259 = Token.t
 
-type imm_tok_pat_b4547f3 =
-  Token.t (* pattern "[^\\{\\}\\(\\);,\\|\\&\"'\\s\\u00a0\\r\\n]+" *)
+type imm_tok_pat_8a0ae06 = Token.t (* pattern `.{1}|`\r?\n *)
 
-type pat__case =
-  Token.t (* pattern [--][cC][aA][sS][eE][sS][eE][nN][sS][iI][tT][iI][vV][eE] *)
+type pat__bnot = Token.t (* pattern [--][bB][nN][oO][tT] *)
 
-type imm_tok_pat_509ec78 = Token.t (* pattern \r?\n *)
+type imm_tok_pat_0da7e88 = Token.t (* pattern "(\\s*\\#*\
+  )*\\\"" *)
 
-type pat__eq = Token.t (* pattern [--][eE][qQ] *)
+type pat__contas = Token.t (* pattern [--][cC][oO][nN][tT][aA][iI][nN][sS] *)
 
-type pat__match = Token.t (* pattern [--][mM][aA][tT][cC][hH] *)
+type pat__le = Token.t (* pattern [--][lL][eE] *)
 
-type pat_switch = Token.t (* pattern [sS][wW][iI][tT][cC][hH] *)
+type pat_proc_ = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS][--] *)
 
-type pat__iconts =
-  Token.t (* pattern [--][iI][cC][oO][nN][tT][aA][iI][nN][sS] *)
+type pat__file = Token.t (* pattern [--][fF][iI][lL][eE] *)
 
-type pat_filter = Token.t (* pattern [fF][iI][lL][tT][eE][rR] *)
+type pat_enum_ = Token.t (* pattern [eE][nN][uU][mM][--] *)
 
-type pat_filter_ = Token.t (* pattern [fF][iI][lL][tT][eE][rR][--] *)
+type pat_exit = Token.t (* pattern [eE][xX][iI][tT] *)
 
-type pat__bxor = Token.t (* pattern [--][bB][xX][oO][rR] *)
+type pat__band = Token.t (* pattern [--][bB][aA][nN][dD] *)
 
-type pat__ige = Token.t (* pattern [--][iI][gG][eE] *)
+type pat__gt = Token.t (* pattern [--][gG][tT] *)
 
-type pat__isnot = Token.t (* pattern [--][iI][sS][nN][oO][tT] *)
+type pat__inotin = Token.t (* pattern [--][iI][nN][oO][tT][iI][nN] *)
 
 type file_redirection_operator = [
     `GT of Token.t (* ">" *)
@@ -411,76 +408,75 @@ type file_redirection_operator = [
   | `LT of Token.t (* "<" *)
 ]
 
-type pat_75780b9 = Token.t (* pattern \$`(.{1}|`\r?\n) *)
+type pat_60937fc = Token.t (* pattern "@\\\" *\\r?\\n" *)
 
-type pat__f = Token.t (* pattern [--][fF] *)
+type pat__csplit = Token.t (* pattern [--][cC][sS][pP][lL][iI][tT] *)
 
-type pat__lt = Token.t (* pattern [--][lL][tT] *)
+type pat__join = Token.t (* pattern [--][jJ][oO][iI][nN] *)
 
-type pat_module = Token.t (* pattern [mM][oO][dD][uU][lL][eE] *)
+type pat_if_ = Token.t (* pattern [iI][fF][--] *)
 
-type imm_tok_dquot = Token.t (* "\"" *)
-
-type pat__ge = Token.t (* pattern [--][gG][eE] *)
-
-type pat_cont_ = Token.t (* pattern [cC][oO][nN][tT][iI][nN][uU][eE][--] *)
-
-type pat_work_ = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW][--] *)
+type imm_tok_dot = Token.t (* "." *)
 
 type pat__exact = Token.t (* pattern [--][eE][xX][aA][cC][tT] *)
 
-type pat__isplit = Token.t (* pattern [--][iI][sS][pP][lL][iI][tT] *)
+type pat_cc660f0 = Token.t (* pattern [rR][eE][tT][uU][rR][nN][-@$] *)
 
-type imm_tok_dquotdquot = Token.t (* "\"\"" *)
-
-type pat__xor = Token.t (* pattern [--][xX][oO][rR] *)
+type pat_while = Token.t (* pattern [wW][hH][iI][lL][eE] *)
 
 type verbatim_string_characters = Token.t
 
-type imm_tok_pat_8a0ae06 = Token.t (* pattern `.{1}|`\r?\n *)
+type pat__crep = Token.t (* pattern [--][cC][rR][eE][pP][lL][aA][cC][eE] *)
 
-type pat_dyna =
-  Token.t (* pattern [dD][yY][nN][aA][mM][iI][cC][pP][aA][rR][aA][mM] *)
+type pat__irep = Token.t (* pattern [--][iI][rR][eE][pP][lL][aA][cC][eE] *)
 
-type pat_para = Token.t (* pattern [pP][aA][rR][aA][lL][lL][eE][lL] *)
+type imm_tok_dquot = Token.t (* "\"" *)
 
-type imm_tok_dollar = Token.t (* "$" *)
+type type_identifier = Token.t
 
-type pat_8bcdf9d =
-  Token.t (* pattern "[0-9]+([^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9.]|\\.[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!.])[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *)
+type pat__split = Token.t (* pattern [--][sS][pP][lL][iI][tT] *)
 
-type pat__cne = Token.t (* pattern [--][cC][nN][eE] *)
+type imm_tok_pat_693b5cb = Token.t (* pattern (\r?\n)+ *)
 
-type pat__contas = Token.t (* pattern [--][cC][oO][nN][tT][aA][iI][nN][sS] *)
+type pat_d72a25c = Token.t (* pattern [^\|\r\n]+ *)
 
 type pat_inli =
   Token.t (* pattern [iI][nN][lL][iI][nN][eE][sS][cC][rR][iI][pP][tT] *)
 
+type hexadecimal_integer_literal = Token.t
+
+type pat_71f01fd = Token.t (* pattern &[^&]* *)
+
+type pat__clike = Token.t (* pattern [--][cC][lL][iI][kK][eE] *)
+
+type script_block_argument_start = Token.t
+
+type pat__cnot_ =
+  Token.t (* pattern [--][cC][nN][oO][tT][mM][aA][tT][cC][hH] *)
+
+type pat_if = Token.t (* pattern [iI][fF] *)
+
 type dimension = Token.t (* "," *) list (* one or more *)
 
-type pat__notm = Token.t (* pattern [--][nN][oO][tT][mM][aA][tT][cC][hH] *)
+type pat__notcos =
+  Token.t (* pattern [--][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
 
-type pat_param = Token.t (* pattern [pP][aA][rR][aA][mM] *)
+type pat_name = Token.t (* pattern [nN][aA][mM][eE][sS][pP][aA][cC][eE] *)
 
-type imm_tok_pat_0da7e88 = Token.t (* pattern "(\\s*\\#*\
-  )*\\\"" *)
+type imm_tok_dquotdquot = Token.t (* "\"\"" *)
 
-type pat__cnotcs =
-  Token.t (* pattern [--][cC][nN][oO][tT][cC][oO][nN][tT][aA][iI][nN][sS] *)
+type pat__cne = Token.t (* pattern [--][cC][nN][eE] *)
 
-type command_argument_sep = [
-    `Pat_6a8c7a7 of pat_6a8c7a7
-  | `COLON of Token.t (* ":" *)
-]
+type format_operator = pat__f
 
-type type_name = [
-    `Type_id of type_identifier (*tok*)
-  | `Type_name_DOT_type_id of (
-        type_name * Token.t (* "." *) * type_identifier (*tok*)
-    )
+type anon_choice_SEMI_fddb21e = [
+    `SEMI of Token.t (* ";" *)
+  | `Imm_tok_pat_509ec78 of imm_tok_pat_509ec78
 ]
 
 type foreach_parameter = [ `Pat__para of pat__para ]
+
+type string_literal_immediate = (pat_58fbb2e * Token.t (* "'" *))
 
 type variable = [
     `Semg_named_ellips of semgrep_named_ellipsis (*tok*)
@@ -489,12 +485,25 @@ type variable = [
       | `DOLLARHAT of Token.t (* "$^" *)
       | `DOLLARQMARK of Token.t (* "$?" *)
       | `DOLLAR_ of Token.t (* "$_" *)
-      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 of
-          tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588
-      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 of
-          tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588
+      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50 of
+          tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50
+      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50 of
+          tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_b2ccb50
       | `Braced_var of braced_variable (*tok*)
     ]
+]
+
+type block_name = [
+    `Pat_dyna of pat_dyna
+  | `Pat_begin of pat_begin
+  | `Pat_proc of pat_proc
+  | `Pat_end of pat_end
+]
+
+type anon_choice_pat__and_bad5cfe = [
+    `Pat__and of pat__and
+  | `Pat__or of pat__or
+  | `Pat__xor of pat__xor
 ]
 
 type class_attribute = [
@@ -502,29 +511,14 @@ type class_attribute = [
   | `Tok_prec_p1_pat_static of tok_prec_p1_pat_static (*tok*)
 ]
 
-type string_literal_immediate = (pat_58fbb2e * Token.t (* "'" *))
-
-type verbatim_command_argument_chars =
-  [
-      `Pat_4f029d2 of pat_4f029d2
-    | `Pat_71f01fd of pat_71f01fd
-    | `Pat_d72a25c of pat_d72a25c
-  ]
-    list (* one or more *)
+type command_argument_sep = [
+    `Pat_6a8c7a7 of pat_6a8c7a7
+  | `COLON of Token.t (* ":" *)
+]
 
 type command_parameter = [
     `Tok_choice_pat_e941259 of tok_choice_pat_e941259
   | `Bare_dashes of bare_dashes (*tok*)
-]
-
-type integer_literal = [
-    `Deci_int_lit of decimal_integer_literal (*tok*)
-  | `Hexa_int_lit of hexadecimal_integer_literal (*tok*)
-]
-
-type anon_choice_SEMI_fddb21e = [
-    `SEMI of Token.t (* ";" *)
-  | `Imm_tok_pat_509ec78 of imm_tok_pat_509ec78
 ]
 
 type anon_choice_pat__band_7750572 = [
@@ -533,7 +527,10 @@ type anon_choice_pat__band_7750572 = [
   | `Pat__bxor of pat__bxor
 ]
 
-type format_operator = pat__f
+type member_access_operator = [
+    `Imm_tok_dot of imm_tok_dot (*tok*)
+  | `Null_cond_member_op of Token.t (* "?." *)
+]
 
 type switch_parameter = [
     `Pat__regex of pat__regex
@@ -543,18 +540,25 @@ type switch_parameter = [
   | `Pat__para of pat__para
 ]
 
-type anon_choice_pat__and_bad5cfe = [
-    `Pat__and of pat__and
-  | `Pat__or of pat__or
-  | `Pat__xor of pat__xor
+type type_name = [
+    `Type_id of type_identifier (*tok*)
+  | `Type_name_DOT_type_id of (
+        type_name * Token.t (* "." *) * type_identifier (*tok*)
+    )
 ]
 
-type block_name = [
-    `Pat_dyna of pat_dyna
-  | `Pat_begin of pat_begin
-  | `Pat_proc of pat_proc
-  | `Pat_end of pat_end
+type integer_literal = [
+    `Deci_int_lit of decimal_integer_literal (*tok*)
+  | `Hexa_int_lit of hexadecimal_integer_literal (*tok*)
 ]
+
+type verbatim_command_argument_chars =
+  [
+      `Pat_4f029d2 of pat_4f029d2
+    | `Pat_71f01fd of pat_71f01fd
+    | `Pat_d72a25c of pat_d72a25c
+  ]
+    list (* one or more *)
 
 type comparison_operator = [
     `Pat__as of pat__as
@@ -613,10 +617,6 @@ type comparison_operator = [
   | `Pat__split of pat__split
 ]
 
-type generic_type_name = (type_name * Token.t (* "[" *))
-
-type array_type_name = (type_name * Token.t (* "[" *))
-
 type path_command_name =
   [
       `Path_cmd_name_tok of path_command_name_token (*tok*)
@@ -624,11 +624,15 @@ type path_command_name =
   ]
     list (* one or more *)
 
+type switch_parameters = switch_parameter list (* one or more *)
+
+type generic_type_name = (type_name * Token.t (* "[" *))
+
+type array_type_name = (type_name * Token.t (* "[" *))
+
 type verbatim_command_argument = (
     Token.t (* "--%" *) * verbatim_command_argument_chars
 )
-
-type switch_parameters = switch_parameter list (* one or more *)
 
 type anon_choice_attr_name_c4266a2 = [
     `Type_spec of attribute_name
@@ -1121,15 +1125,15 @@ and hash_literal_expression = (
 )
 
 and invokation_expression = [
-    `Prim_exp_imm_tok_dot_member_name_arg_list of (
-        primary_expression * imm_tok_dot (*tok*) * member_name
+    `Prim_exp_member_access_op_member_name_arg_list of (
+        primary_expression * member_access_operator * member_name
       * argument_list
     )
   | `Prim_exp_COLONCOLON_member_name_arg_list of (
         primary_expression * Token.t (* "::" *) * member_name * argument_list
     )
-  | `Prim_exp_imm_tok_dot_member_name_script_blk_arg_start_script_blk_exp of (
-        primary_expression * imm_tok_dot (*tok*) * member_name
+  | `Prim_exp_member_access_op_member_name_script_blk_arg_start_script_blk_exp of (
+        primary_expression * member_access_operator * member_name
       * script_block_argument_start (*tok*) * script_block_expression
     )
   | `Prim_exp_COLONCOLON_member_name_script_blk_arg_start_script_blk_exp of (
@@ -1138,7 +1142,8 @@ and invokation_expression = [
     )
   | `Invo_fore_exp of (
         primary_expression
-      * imm_tok_prec_p1_pat_5b7d8c6
+      * member_access_operator
+      * foreach_member_name (*tok*)
       * [
             `Script_blk_exp of script_block_expression
           | `Arg_list of argument_list
@@ -1233,8 +1238,8 @@ and logical_expression = [
 ]
 
 and member_access = [
-    `Prim_exp_imm_tok_dot_member_name of (
-        primary_expression * imm_tok_dot (*tok*) * member_name
+    `Prim_exp_member_access_op_member_name of (
+        primary_expression * member_access_operator * member_name
     )
   | `Prim_exp_COLONCOLON_member_name of (
         primary_expression * Token.t (* "::" *) * member_name
@@ -1242,7 +1247,8 @@ and member_access = [
 ]
 
 and member_name = [
-    `Simple_name of simple_name (*tok*)
+    `Fore_member_name of foreach_member_name (*tok*)
+  | `Simple_name of simple_name (*tok*)
   | `Str_lit of string_literal
   | `Exp_with_un_op of expression_with_unary_operator
   | `Value of value
@@ -1323,7 +1329,12 @@ and primary_expression = [
     `Value of value
   | `Member_access of member_access
   | `Elem_access of (
-        primary_expression * Token.t (* "[" *) * left_assignment_expression
+        primary_expression
+      * [
+            `LBRACK of Token.t (* "[" *)
+          | `Null_cond_elem_op of Token.t (* "?[" *)
+        ]
+      * left_assignment_expression
       * Token.t (* "]" *)
     )
   | `Invo_exp of invokation_expression
@@ -1618,9 +1629,13 @@ type empty_statement (* inlined *) = Token.t (* ";" *)
 
 type error_sentinel (* inlined *) = Token.t
 
-type background_operator (* inlined *) = Token.t (* "&" *)
-
 type spaces_before_comma (* inlined *) = Token.t
+
+type null_conditional_member_operator (* inlined *) = Token.t (* "?." *)
+
+type null_conditional_element_operator (* inlined *) = Token.t (* "?[" *)
+
+type background_operator (* inlined *) = Token.t (* "&" *)
 
 type data_name (* inlined *) = simple_name (*tok*)
 
@@ -1691,7 +1706,12 @@ type do_statement (* inlined *) = (
 )
 
 type element_access (* inlined *) = (
-    primary_expression * Token.t (* "[" *) * left_assignment_expression
+    primary_expression
+  * [
+        `LBRACK of Token.t (* "[" *)
+      | `Null_cond_elem_op of Token.t (* "?[" *)
+    ]
+  * left_assignment_expression
   * Token.t (* "]" *)
 )
 
@@ -1798,7 +1818,8 @@ type inlinescript_statement (* inlined *) = (pat_inli * statement_block)
 
 type invokation_foreach_expression (* inlined *) = (
     primary_expression
-  * imm_tok_prec_p1_pat_5b7d8c6
+  * member_access_operator
+  * foreach_member_name (*tok*)
   * [
         `Script_blk_exp of script_block_expression
       | `Arg_list of argument_list
