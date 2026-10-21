@@ -63,6 +63,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/comment-help-boundaries` | Keep comment-looking string text from hiding actual interpolations. Combined batch-001: +9 agree. | Not yet offered. |
 | `fix/unicode-names` | Accept BMP Unicode letters and decimal digits in variables and scopes, with compatible generation on both CLIs. Combined batch-001: +1 agree; seven other files advance to their next error. | Not yet offered. |
 | `fix/multiple-member-attributes` | Retain repeated class-member attributes and interleaved modifiers while preserving distinct declared types. Combined batch-001: +2 agree. | Not yet offered. |
+| `fix/percentage-arguments` | Read negative percentage arguments as words without changing negative numbers or remainder operators. Combined batch-001: +1 agree. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
