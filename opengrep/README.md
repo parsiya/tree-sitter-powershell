@@ -65,6 +65,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/multiple-member-attributes` | Retain repeated class-member attributes and interleaved modifiers while preserving distinct declared types. Combined batch-001: +2 agree. | Not yet offered. |
 | `fix/percentage-arguments` | Read negative percentage arguments as words without changing negative numbers or remainder operators. Combined batch-001: +1 agree. | Not yet offered. |
 | `fix/attributed-expressions` | Preserve attributed unary expressions and assignment targets, separate from ordinary casts and declaration attributes. Combined batch-001: six more agree and one rejection advances to a structural disagreement. | Not yet offered. |
+| `fix/mixed-attribute-arguments` | Keep attribute commas between positional and named arguments, including type values. Combined batch-001: +2 agree. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

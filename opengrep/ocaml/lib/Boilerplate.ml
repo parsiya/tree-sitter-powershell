@@ -1106,12 +1106,15 @@ let rec map_anon_choice_attr_name_c4266a2 (env : env) (x : CST.anon_choice_attr_
       map_attribute_name env x
     )
   | `Type_lit x -> R.Case ("Type_lit",
-      map_type_literal env x
+      map_attribute_type_value env x
     )
   )
 
 and map_attribute_name (env : env) (x : CST.attribute_name) =
   map_type_spec env x
+
+and map_attribute_type_value (env : env) (x : CST.attribute_type_value) =
+  map_type_literal env x
 
 and map_generic_type_arguments (env : env) ((v1, v2) : CST.generic_type_arguments) =
   let v1 = map_anon_choice_attr_name_c4266a2 env v1 in
@@ -1156,11 +1159,11 @@ and map_type_spec (env : env) (x : CST.type_spec) =
   )
 
 let map_catch_type_list (env : env) ((v1, v2) : CST.catch_type_list) =
-  let v1 = map_type_literal env v1 in
+  let v1 = map_attribute_type_value env v1 in
   let v2 =
     R.List (List.map (fun (v1, v2) ->
       let v1 = (* "," *) token env v1 in
-      let v2 = map_type_literal env v2 in
+      let v2 = map_attribute_type_value env v2 in
       R.Tuple [v1; v2]
     ) v2)
   in
@@ -1170,7 +1173,7 @@ let map_class_method_parameter (env : env) ((v1, v2) : CST.class_method_paramete
   let v1 =
     (match v1 with
     | Some x -> R.Option (Some (
-        map_type_literal env x
+        map_attribute_type_value env x
       ))
     | None -> R.Option None)
   in
@@ -1309,23 +1312,38 @@ and map_attribute (env : env) (x : CST.attribute) =
       map_attribute_with_arguments env x
     )
   | `Type_lit x -> R.Case ("Type_lit",
-      map_type_literal env x
+      map_attribute_type_value env x
+    )
+  )
+
+and map_attribute_additive_expression (env : env) (x : CST.attribute_additive_expression) =
+  (match x with
+  | `Attr_mult_exp x -> R.Case ("Attr_mult_exp",
+      map_attribute_multiplicative_expression env x
+    )
+  | `Attr_addi_exp_choice_PLUS_attr_mult_exp (v1, v2, v3) -> R.Case ("Attr_addi_exp_choice_PLUS_attr_mult_exp",
+      let v1 = map_attribute_additive_expression env v1 in
+      let v2 = map_anon_choice_PLUS_da42005 env v2 in
+      let v3 = map_attribute_multiplicative_expression env v3 in
+      R.Tuple [v1; v2; v3]
     )
   )
 
 and map_attribute_argument (env : env) (x : CST.attribute_argument) =
   (match x with
-  | `Exp x -> R.Case ("Exp",
-      map_left_assignment_expression env x
+  | `Attr_exp x -> R.Case ("Attr_exp",
+      map_attribute_expression env x
     )
-  | `Simple_name_opt_EQ_exp (v1, v2) -> R.Case ("Simple_name_opt_EQ_exp",
+  | `Simple_name_opt_EQ_attr_exp (v1, v2) -> R.Case ("Simple_name_opt_EQ_attr_exp",
       let v1 =
         (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v1
       in
       let v2 =
         (match v2 with
-        | Some x -> R.Option (Some (
-            map_script_parameter_default env x
+        | Some (v1, v2) -> R.Option (Some (
+            let v1 = (* "=" *) token env v1 in
+            let v2 = map_attribute_expression env v2 in
+            R.Tuple [v1; v2]
           ))
         | None -> R.Option None)
       in
@@ -1344,8 +1362,111 @@ and map_attribute_arguments (env : env) ((v1, v2) : CST.attribute_arguments) =
   in
   R.Tuple [v1; v2]
 
+and map_attribute_array_literal_expression (env : env) (x : CST.attribute_array_literal_expression) =
+  (match x with
+  | `Un_exp x -> R.Case ("Un_exp",
+      map_unary_expression env x
+    )
+  | `Attr_type_value x -> R.Case ("Attr_type_value",
+      map_attribute_type_value env x
+    )
+  )
+
+and map_attribute_bitwise_expression (env : env) (x : CST.attribute_bitwise_expression) =
+  (match x with
+  | `Attr_comp_exp x -> R.Case ("Attr_comp_exp",
+      map_attribute_comparison_expression env x
+    )
+  | `Attr_bitw_exp_choice_pat__band_attr_comp_exp (v1, v2, v3) -> R.Case ("Attr_bitw_exp_choice_pat__band_attr_comp_exp",
+      let v1 = map_attribute_bitwise_expression env v1 in
+      let v2 = map_anon_choice_pat__band_7750572 env v2 in
+      let v3 = map_attribute_comparison_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
+
+and map_attribute_comparison_expression (env : env) (x : CST.attribute_comparison_expression) =
+  (match x with
+  | `Attr_addi_exp x -> R.Case ("Attr_addi_exp",
+      map_attribute_additive_expression env x
+    )
+  | `Attr_comp_exp_comp_op_attr_addi_exp (v1, v2, v3) -> R.Case ("Attr_comp_exp_comp_op_attr_addi_exp",
+      let v1 = map_attribute_comparison_expression env v1 in
+      let v2 = map_comparison_operator env v2 in
+      let v3 = map_attribute_additive_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
+
+and map_attribute_expression (env : env) (x : CST.attribute_expression) =
+  (match x with
+  | `Attr_logi_exp x -> R.Case ("Attr_logi_exp",
+      map_attribute_logical_expression env x
+    )
+  | `Attr_tern_exp (v1, v2, v3, v4, v5) -> R.Case ("Attr_tern_exp",
+      let v1 = map_attribute_logical_expression env v1 in
+      let v2 = (* "?" *) token env v2 in
+      let v3 = map_attribute_expression env v3 in
+      let v4 = (* ":" *) token env v4 in
+      let v5 = map_attribute_expression env v5 in
+      R.Tuple [v1; v2; v3; v4; v5]
+    )
+  )
+
+and map_attribute_format_expression (env : env) (x : CST.attribute_format_expression) =
+  (match x with
+  | `Attr_range_exp x -> R.Case ("Attr_range_exp",
+      map_attribute_range_expression env x
+    )
+  | `Attr_format_exp_format_op_attr_range_exp (v1, v2, v3) -> R.Case ("Attr_format_exp_format_op_attr_range_exp",
+      let v1 = map_attribute_format_expression env v1 in
+      let v2 = map_format_operator env v2 in
+      let v3 = map_attribute_range_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
+
 and map_attribute_list (env : env) (xs : CST.attribute_list) =
   R.List (List.map (map_attribute env) xs)
+
+and map_attribute_logical_expression (env : env) (x : CST.attribute_logical_expression) =
+  (match x with
+  | `Attr_bitw_exp x -> R.Case ("Attr_bitw_exp",
+      map_attribute_bitwise_expression env x
+    )
+  | `Attr_logi_exp_choice_pat__and_attr_bitw_exp (v1, v2, v3) -> R.Case ("Attr_logi_exp_choice_pat__and_attr_bitw_exp",
+      let v1 = map_attribute_logical_expression env v1 in
+      let v2 = map_anon_choice_pat__and_bad5cfe env v2 in
+      let v3 = map_attribute_bitwise_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
+
+and map_attribute_multiplicative_expression (env : env) (x : CST.attribute_multiplicative_expression) =
+  (match x with
+  | `Attr_format_exp x -> R.Case ("Attr_format_exp",
+      map_attribute_format_expression env x
+    )
+  | `Attr_mult_exp_choice_SLASH_attr_format_exp (v1, v2, v3) -> R.Case ("Attr_mult_exp_choice_SLASH_attr_format_exp",
+      let v1 = map_attribute_multiplicative_expression env v1 in
+      let v2 = map_anon_choice_SLASH_4ca1f7c env v2 in
+      let v3 = map_attribute_format_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
+
+and map_attribute_range_expression (env : env) (x : CST.attribute_range_expression) =
+  (match x with
+  | `Attr_array_lit_exp x -> R.Case ("Attr_array_lit_exp",
+      map_attribute_array_literal_expression env x
+    )
+  | `Attr_range_exp_DOTDOT_attr_array_lit_exp (v1, v2, v3) -> R.Case ("Attr_range_exp_DOTDOT_attr_array_lit_exp",
+      let v1 = map_attribute_range_expression env v1 in
+      let v2 = (* ".." *) token env v2 in
+      let v3 = map_attribute_array_literal_expression env v3 in
+      R.Tuple [v1; v2; v3]
+    )
+  )
 
 and map_attribute_with_arguments (env : env) ((v1, v2, v3, v4, v5, v6) : CST.attribute_with_arguments) =
   let v1 = (* "[" *) token env v1 in
@@ -1416,7 +1537,7 @@ and map_class_method_definition (env : env) ((v1, v2, v3, v4, v5, v6, v7, v8, v9
   let v2 =
     (match v2 with
     | Some x -> R.Option (Some (
-        map_type_literal env x
+        map_attribute_type_value env x
       ))
     | None -> R.Option None)
   in
@@ -1457,7 +1578,7 @@ and map_class_property_definition (env : env) ((v1, v2, v3, v4) : CST.class_prop
   let v2 =
     (match v2 with
     | Some x -> R.Option (Some (
-        map_type_literal env x
+        map_attribute_type_value env x
       ))
     | None -> R.Option None)
   in
@@ -1880,7 +2001,7 @@ and map_expression_with_unary_operator (env : env) (x : CST.expression_with_unar
       R.Tuple [v1; v2]
     )
   | `Cast_exp (v1, v2) -> R.Case ("Cast_exp",
-      let v1 = map_type_literal env v1 in
+      let v1 = map_attribute_type_value env v1 in
       let v2 = map_unary_expression env v2 in
       R.Tuple [v1; v2]
     )
@@ -2788,7 +2909,7 @@ and map_statement (env : env) (x : CST.statement) =
       let v2 =
         (match v2 with
         | Some x -> R.Option (Some (
-            map_type_literal env x
+            map_attribute_type_value env x
           ))
         | None -> R.Option None)
       in
@@ -3074,7 +3195,7 @@ and map_value (env : env) (x : CST.value) =
       map_literal env x
     )
   | `Type_lit x -> R.Case ("Type_lit",
-      map_type_literal env x
+      map_attribute_type_value env x
     )
   | `Var x -> R.Case ("Var",
       map_variable env x

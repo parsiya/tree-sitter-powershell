@@ -618,10 +618,12 @@ type switch_parameters = switch_parameter list (* one or more *)
 
 type anon_choice_attr_name_c4266a2 = [
     `Type_spec of attribute_name
-  | `Type_lit of type_literal
+  | `Type_lit of attribute_type_value
 ]
 
 and attribute_name = type_spec
+
+and attribute_type_value = type_literal
 
 and generic_type_arguments = (
     anon_choice_attr_name_c4266a2
@@ -644,11 +646,11 @@ and type_spec = [
 ]
 
 type catch_type_list = (
-    type_literal
-  * (Token.t (* "," *) * type_literal) list (* zero or more *)
+    attribute_type_value
+  * (Token.t (* "," *) * attribute_type_value) list (* zero or more *)
 )
 
-type class_method_parameter = (type_literal option * variable)
+type class_method_parameter = (attribute_type_value option * variable)
 
 type class_method_parameter_list = (
     class_method_parameter
@@ -717,14 +719,22 @@ and array_literal_expression = (
 
 and attribute = [
     `Attr_with_args of attribute_with_arguments
-  | `Type_lit of type_literal
+  | `Type_lit of attribute_type_value
+]
+
+and attribute_additive_expression = [
+    `Attr_mult_exp of attribute_multiplicative_expression
+  | `Attr_addi_exp_choice_PLUS_attr_mult_exp of (
+        attribute_additive_expression * anon_choice_PLUS_da42005
+      * attribute_multiplicative_expression
+    )
 ]
 
 and attribute_argument = [
-    `Exp of left_assignment_expression
-  | `Simple_name_opt_EQ_exp of (
+    `Attr_exp of attribute_expression
+  | `Simple_name_opt_EQ_attr_exp of (
         simple_name (*tok*)
-      * script_parameter_default option
+      * (Token.t (* "=" *) * attribute_expression) option
     )
 ]
 
@@ -733,7 +743,68 @@ and attribute_arguments = (
   * (Token.t (* "," *) * attribute_argument) list (* zero or more *)
 )
 
+and attribute_array_literal_expression = [
+    `Un_exp of unary_expression
+  | `Attr_type_value of attribute_type_value
+]
+
+and attribute_bitwise_expression = [
+    `Attr_comp_exp of attribute_comparison_expression
+  | `Attr_bitw_exp_choice_pat__band_attr_comp_exp of (
+        attribute_bitwise_expression * anon_choice_pat__band_7750572
+      * attribute_comparison_expression
+    )
+]
+
+and attribute_comparison_expression = [
+    `Attr_addi_exp of attribute_additive_expression
+  | `Attr_comp_exp_comp_op_attr_addi_exp of (
+        attribute_comparison_expression * comparison_operator
+      * attribute_additive_expression
+    )
+]
+
+and attribute_expression = [
+    `Attr_logi_exp of attribute_logical_expression
+  | `Attr_tern_exp of (
+        attribute_logical_expression * Token.t (* "?" *)
+      * attribute_expression * Token.t (* ":" *) * attribute_expression
+    )
+]
+
+and attribute_format_expression = [
+    `Attr_range_exp of attribute_range_expression
+  | `Attr_format_exp_format_op_attr_range_exp of (
+        attribute_format_expression * format_operator
+      * attribute_range_expression
+    )
+]
+
 and attribute_list = attribute list (* one or more *)
+
+and attribute_logical_expression = [
+    `Attr_bitw_exp of attribute_bitwise_expression
+  | `Attr_logi_exp_choice_pat__and_attr_bitw_exp of (
+        attribute_logical_expression * anon_choice_pat__and_bad5cfe
+      * attribute_bitwise_expression
+    )
+]
+
+and attribute_multiplicative_expression = [
+    `Attr_format_exp of attribute_format_expression
+  | `Attr_mult_exp_choice_SLASH_attr_format_exp of (
+        attribute_multiplicative_expression * anon_choice_SLASH_4ca1f7c
+      * attribute_format_expression
+    )
+]
+
+and attribute_range_expression = [
+    `Attr_array_lit_exp of attribute_array_literal_expression
+  | `Attr_range_exp_DOTDOT_attr_array_lit_exp of (
+        attribute_range_expression * Token.t (* ".." *)
+      * attribute_array_literal_expression
+    )
+]
 
 and attribute_with_arguments = (
     Token.t (* "[" *)
@@ -770,7 +841,7 @@ and class_base_constructor_call = (
 
 and class_method_definition = (
     anon_choice_attr_dfec0a4 list (* zero or more *)
-  * type_literal option
+  * attribute_type_value option
   * simple_name (*tok*)
   * Token.t (* "(" *)
   * class_method_parameter_list option
@@ -783,7 +854,7 @@ and class_method_definition = (
 
 and class_property_definition = (
     anon_choice_attr_dfec0a4 list (* zero or more *)
-  * type_literal option
+  * attribute_type_value option
   * variable
   * script_parameter_default option
 )
@@ -960,7 +1031,7 @@ and expression_with_unary_operator = [
   | `DASH_un_exp of (Token.t (* "-" *) * unary_expression)
   | `Pre_incr_exp of (Token.t (* "++" *) * unary_expression)
   | `Pre_decr_exp of (Token.t (* "--" *) * unary_expression)
-  | `Cast_exp of (type_literal * unary_expression)
+  | `Cast_exp of (attribute_type_value * unary_expression)
   | `Attr_exp of (attribute_with_arguments * unary_expression)
   | `Pat__split_un_exp of (pat__split * unary_expression)
   | `Pat__join_un_exp of (pat__join * unary_expression)
@@ -1367,7 +1438,7 @@ and statement = [
   | `Flow_cont_stmt_stmt_term of (
         flow_control_statement * statement_terminator (*tok*)
     )
-  | `Trap_stmt of (pat_trap * type_literal option * statement_block)
+  | `Trap_stmt of (pat_trap * attribute_type_value option * statement_block)
   | `Try_stmt of (
         pat_try
       * statement_block
@@ -1486,7 +1557,7 @@ and value = [
   | `Script_blk_exp of script_block_expression
   | `Hash_lit_exp of hash_literal_expression
   | `Lit of literal
-  | `Type_lit of type_literal
+  | `Type_lit of attribute_type_value
   | `Var of variable
 ]
 
@@ -1540,7 +1611,7 @@ type data_name (* inlined *) = simple_name (*tok*)
 
 type function_name (* inlined *) = command_token (*tok*)
 
-type attributed_variable (* inlined *) = (type_literal * variable)
+type attributed_variable (* inlined *) = (attribute_type_value * variable)
 
 type array_expression (* inlined *) = (
     Token.t (* "@(" *)
@@ -1552,11 +1623,18 @@ type assignment_expression (* inlined *) = (
     left_assignment_expression * assignement_operator * statement
 )
 
+type attribute_ternary_expression (* inlined *) = (
+    attribute_logical_expression * Token.t (* "?" *) * attribute_expression
+  * Token.t (* ":" *) * attribute_expression
+)
+
 type attributed_expression (* inlined *) = (
     attribute_with_arguments * unary_expression
 )
 
-type cast_expression (* inlined *) = (type_literal * unary_expression)
+type cast_expression (* inlined *) = (
+    attribute_type_value * unary_expression
+)
 
 type class_statement (* inlined *) = (
     attribute_list option
@@ -1751,7 +1829,7 @@ type ternary_expression (* inlined *) = (
 
 type trap_statement (* inlined *) = (
     pat_trap
-  * type_literal option
+  * attribute_type_value option
   * statement_block
 )
 
