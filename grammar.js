@@ -54,6 +54,8 @@ export default grammar({
     [$._literal, $.member_name],
     [$.class_property_definition, $.attribute],
     [$.class_method_definition, $.attribute],
+    // Keep declaration attributes possible until their following keyword is known.
+    [$.attributed_expression, $.attribute],
     [$.expandable_string_literal],
     [$.path_command_name, $._value],
     [$._command_argument, $.array_literal_expression],
@@ -1170,6 +1172,7 @@ export default grammar({
         $.pre_increment_expression,
         $.pre_decrement_expression,
         $.cast_expression,
+        $.attributed_expression,
         seq(reservedWord('-split'), $.unary_expression),
         seq(reservedWord('-join'), $.unary_expression),
       ),
@@ -1179,6 +1182,9 @@ export default grammar({
 
     cast_expression: ($) =>
       prec(PREC.CAST, seq($.type_literal, $.unary_expression)),
+
+    attributed_expression: ($) =>
+      seq(alias($._attribute_with_arguments, $.attribute), $.unary_expression),
 
     attributed_variable: ($) => seq($.type_literal, $.variable),
 
@@ -1456,16 +1462,16 @@ export default grammar({
     attribute_list: ($) => repeat1($.attribute),
 
     attribute: ($) =>
-      choice(
-        seq(
-          '[',
-          $.attribute_name,
-          '(',
-          optional($.attribute_arguments),
-          ')',
-          ']',
-        ),
-        $.type_literal,
+      choice($._attribute_with_arguments, $.type_literal),
+
+    _attribute_with_arguments: ($) =>
+      seq(
+        '[',
+        $.attribute_name,
+        '(',
+        optional($.attribute_arguments),
+        ')',
+        ']',
       ),
 
     attribute_name: ($) => $.type_spec,

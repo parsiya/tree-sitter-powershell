@@ -5721,6 +5721,10 @@
           "name": "cast_expression"
         },
         {
+          "type": "SYMBOL",
+          "name": "attributed_expression"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -5808,6 +5812,24 @@
           }
         ]
       }
+    },
+    "attributed_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_attribute_with_arguments"
+          },
+          "named": true,
+          "value": "attribute"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unary_expression"
+        }
+      ]
     },
     "attributed_variable": {
       "type": "SEQ",
@@ -6966,45 +6988,49 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "["
-            },
-            {
-              "type": "SYMBOL",
-              "name": "attribute_name"
-            },
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "attribute_arguments"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_attribute_with_arguments"
         },
         {
           "type": "SYMBOL",
           "name": "type_literal"
+        }
+      ]
+    },
+    "_attribute_with_arguments": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attribute_name"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "attribute_arguments"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
         }
       ]
     },
@@ -7114,6 +7140,10 @@
     ],
     [
       "class_method_definition",
+      "attribute"
+    ],
+    [
+      "attributed_expression",
       "attribute"
     ],
     [

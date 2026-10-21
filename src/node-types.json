@@ -336,6 +336,25 @@
     }
   },
   {
+    "type": "attributed_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "background_operator",
     "named": true,
     "fields": {}
@@ -1223,6 +1242,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "attributed_expression",
+          "named": true
+        },
         {
           "type": "cast_expression",
           "named": true
