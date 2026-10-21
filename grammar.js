@@ -13,6 +13,15 @@ const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
 
 // Characters that cannot appear in the first part of a command name.
 const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
+// PowerShell tests UTF-16 characters with Char.IsLetterOrDigit, not Unicode
+// identifier rules: combining marks and supplementary-plane letters end a name.
+// Explicit letter ranges also cover tree-sitter 0.22's missing UnicodeData
+// First/Last range interiors and the BMP letters added in Unicode 16.
+const VARIABLE_NAME = new RegExp(
+  String.raw`([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|` +
+  String.raw`[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+`,
+  'u',
+);
 
 export default grammar({
   name: 'powershell',
@@ -332,12 +341,12 @@ export default grammar({
                   reservedWord('script:'),
                   reservedWord('using:'),
                   reservedWord('workflow:'),
-                  /[a-zA-Z0-9_]+/,
+                  VARIABLE_NAME,
                 ),
                 ':',
               ),
             ),
-            /[a-zA-Z0-9_]+|\?/,
+            choice(VARIABLE_NAME, '?'),
           ),
         ),
         token(
@@ -352,12 +361,12 @@ export default grammar({
                   reservedWord('script:'),
                   reservedWord('using:'),
                   reservedWord('workflow:'),
-                  /[a-zA-Z0-9_]+/,
+                  VARIABLE_NAME,
                 ),
                 ':',
               ),
             ),
-            /[a-zA-Z0-9_]+|\?/,
+            choice(VARIABLE_NAME, '?'),
           ),
         ),
         $.braced_variable,

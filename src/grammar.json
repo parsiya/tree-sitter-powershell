@@ -1699,7 +1699,8 @@
                           },
                           {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_]+"
+                            "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+                            "flags": "u"
                           }
                         ]
                       },
@@ -1715,8 +1716,18 @@
                 ]
               },
               {
-                "type": "PATTERN",
-                "value": "[a-zA-Z0-9_]+|\\?"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+                    "flags": "u"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "?"
+                  }
+                ]
               }
             ]
           }
@@ -1819,7 +1830,8 @@
                           },
                           {
                             "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_]+"
+                            "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+                            "flags": "u"
                           }
                         ]
                       },
@@ -1835,8 +1847,18 @@
                 ]
               },
               {
-                "type": "PATTERN",
-                "value": "[a-zA-Z0-9_]+|\\?"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+                    "flags": "u"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "?"
+                  }
+                ]
               }
             ]
           }

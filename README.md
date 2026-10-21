@@ -15,6 +15,13 @@ Standalone numbers, variables and expressions retain their expression nodes.
 Bare command names are literal rather than expandable. A nonbreaking space
 separates command words just like an ordinary space.
 
+## Variable names
+
+Unbraced variable names support Unicode letters and decimal digits in the basic
+multilingual plane, as PowerShell's UTF-16 character classification does.
+Combining marks, other number categories, and supplementary-plane characters
+require braced names (`${...}`). Function names also support Unicode.
+
 ## References
 
 * [Powershell 7.3](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-15?view=powershell-7.3)
