@@ -1,0 +1,803 @@
+===
+String value boundaries: empty and whitespace-only ordinary strings
+===
+
+""
+" "
+"   "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))))
+
+===
+String value boundaries: hash text at ordinary string edges
+===
+
+"#"
+"  ## text"
+"text ##  "
+"  ## text ##  "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))))
+
+===
+String value boundaries: ordinary newlines and comment-looking text
+===
+
+"
+# text
+##
+"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))))
+
+===
+String value boundaries: interpolation after hash text
+===
+
+" # $(1 + 2) ## "
+" <# $x #> "
+" # $x ${other} ## "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal))))))))
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal))))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable)
+                              (variable
+                                (braced_variable)))))))))))))))))
+
+===
+String value boundaries: ordinary escapes and doubled quotes
+===
+
+" # `"text`" ""more"" # "
+" # `$x `$(1) # "
+" # $$ "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable))))))))))))))))
+
+===
+String value boundaries: escaped ordinary newline
+===
+
+" # a`
+b # "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))))
+
+===
+String value boundaries: immediately empty expandable here-string
+===
+
+@"
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: empty here-string followed by another statement
+===
+
+$x = @"
+"@; $y = 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (expandable_here_string_literal)))))))))))))))
+    (empty_statement)
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+===
+String value boundaries: expandable here-string blank-only content
+===
+
+@"
+
+"@
+@"
+
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: leading here-string blank lines
+===
+
+@"
+
+text
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: trailing here-string blank lines
+===
+
+@"
+text
+
+"@
+@"
+text
+
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: here-string blank lines at both edges
+===
+
+@"
+
+
+text
+
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: here-string space before interpolation
+===
+
+@"
+ $x
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (variable))))))))))))))))
+
+===
+String value boundaries: here-string comment-looking interpolation
+===
+
+@"
+ # $(1 + 2) ##
+<# $x #>
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal))))))))
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))))))))))))))
+                              (variable))))))))))))))))
+
+===
+String value boundaries: here-string escape and interpolation prefixes
+===
+
+@"
+text
+`$(1)
+`$x
+``$x
+${other}
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (variable)
+                              (variable
+                                (braced_variable)))))))))))))))))
+
+===
+String value boundaries: here-string quoted line prefix and escaped quotes
+===
+
+@"
+text
+"quoted"
+`"text`" ""more""
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: here-string escaped newline
+===
+
+@"
+text`
+next
+
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+String value boundaries: verbatim ordinary controls
+===
+
+''
+' '
+'  ## text ##  '
+' `$x ''quote'' '
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters)))))))))))))))
+
+===
+String value boundaries: verbatim here-string blank line control
+===
+
+@'
+
+ # $x <# $(1) #>
+
+
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_here_string_characters)))))))))))))))

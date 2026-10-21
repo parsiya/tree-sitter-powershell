@@ -279,8 +279,7 @@ Invoke-Command {
 (program
   (ERROR
     (command_name)
-    (command_argument_sep)
-    (UNEXPECTED '\0')))
+    (command_argument_sep)))
 
 ==================
 Scriptblock argument still requires an opening brace
@@ -299,8 +298,7 @@ Invoke-Command -ScriptBlock }
           (command_elements
             (command_argument_sep)
             (command_parameter))))))
-  (ERROR
-    (UNEXPECTED '\0')))
+  (ERROR))
 
 ==================
 Scriptblock argument still rejects an incomplete assignment

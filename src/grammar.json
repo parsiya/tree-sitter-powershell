@@ -486,8 +486,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\\\"(\\s*\\#*)*"
+          "type": "STRING",
+          "value": "\""
         },
         {
           "type": "REPEAT",
@@ -557,8 +557,8 @@
         {
           "type": "IMMEDIATE_TOKEN",
           "content": {
-            "type": "PATTERN",
-            "value": "(\\s*\\#*)*\\\""
+            "type": "STRING",
+            "value": "\""
           }
         }
       ]
@@ -571,63 +571,84 @@
           "value": "@\\\" *\\r?\\n"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 1,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[^\\$\\r\\n`]+"
-                  }
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "sub_expression"
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "(\\r?\\n)+"
-                }
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 2,
                 "content": {
                   "type": "STRING",
-                  "value": "$"
-                }
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "`.{1}|`\\r?\\n"
+                  "value": "\"@"
                 }
               }
-            ]
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "PATTERN",
-              "value": "(\\r?\\n)+\\\"@"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PREC",
+                          "value": 1,
+                          "content": {
+                            "type": "PATTERN",
+                            "value": "[^\\$\\r\\n`]+"
+                          }
+                        }
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "variable"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "sub_expression"
+                      },
+                      {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "\\r?\\n"
+                        }
+                      },
+                      {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "STRING",
+                          "value": "$"
+                        }
+                      },
+                      {
+                        "type": "IMMEDIATE_TOKEN",
+                        "content": {
+                          "type": "PATTERN",
+                          "value": "`.{1}|`\\r?\\n"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "\\r?\\n\\\"@"
+                    }
+                  }
+                }
+              ]
             }
-          }
+          ]
         }
       ]
     },
