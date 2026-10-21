@@ -1,0 +1,198 @@
+===
+Attribute ternary: separate positional and named arguments
+===
+
+[A($true ? 1 : 2, Name=$false ? 3 : 4)]$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (attributed_expression
+                              (attribute
+                                (attribute_name
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (attribute_arguments
+                                  (attribute_argument
+                                    (ternary_expression
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (variable))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))))))))))))
+                                  (attribute_argument
+                                    (simple_name)
+                                    (ternary_expression
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (variable))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))))))))))))))
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+===
+Attribute ternary: type operands and parenthesized arrays
+===
+
+[A($true ? [int] : [string], Values=(1, 2))]$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (attributed_expression
+                              (attribute
+                                (attribute_name
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (attribute_arguments
+                                  (attribute_argument
+                                    (ternary_expression
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (variable))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (type_literal
+                                                          (type_spec
+                                                            (type_name
+                                                              (type_identifier)))))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (type_literal
+                                                          (type_spec
+                                                            (type_name
+                                                              (type_identifier)))))))))))))))
+                                  (attribute_argument
+                                    (simple_name)
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (parenthesized_expression
+                                                        (pipeline
+                                                          (pipeline_chain
+                                                            (logical_expression
+                                                              (bitwise_expression
+                                                                (comparison_expression
+                                                                  (additive_expression
+                                                                    (multiplicative_expression
+                                                                      (format_expression
+                                                                        (range_expression
+                                                                          (array_literal_expression
+                                                                            (unary_expression
+                                                                              (integer_literal
+                                                                                (decimal_integer_literal)))
+                                                                            (unary_expression
+                                                                              (integer_literal
+                                                                                (decimal_integer_literal))))))))))))))))))))))))))
+                              (unary_expression
+                                (variable)))))))))))))))))
