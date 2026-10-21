@@ -85,7 +85,7 @@ type pat__band = Token.t (* pattern [--][bB][aA][nN][dD] *)
 
 type pat_do = Token.t (* pattern [dD][oO] *)
 
-type simple_name = Token.t (* pattern [a-zA-Z_][a-zA-Z0-9_]* *)
+type simple_name = Token.t
 
 type assignement_operator = [
     `EQ of Token.t (* "=" *)
@@ -213,7 +213,8 @@ type braced_variable = Token.t (* pattern \$\{[^}]+\} *)
 
 type pat_71f01fd = Token.t (* pattern &[^&]* *)
 
-type type_identifier = Token.t (* pattern [a-zA-Z0-9_]+ *)
+type type_identifier =
+  Token.t (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *)
 
 type pat_para = Token.t (* pattern [pP][aA][rR][aA][lL][lL][eE][lL] *)
 

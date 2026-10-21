@@ -138,7 +138,7 @@ let map_pat_do (env : env) (tok : CST.pat_do) =
   (* pattern [dD][oO] *) token env tok
 
 let map_simple_name (env : env) (tok : CST.simple_name) =
-  (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env tok
+  (* simple_name *) token env tok
 
 let map_assignement_operator (env : env) (x : CST.assignement_operator) =
   (match x with
@@ -361,7 +361,7 @@ let map_pat_71f01fd (env : env) (tok : CST.pat_71f01fd) =
   (* pattern &[^&]* *) token env tok
 
 let map_type_identifier (env : env) (tok : CST.type_identifier) =
-  (* pattern [a-zA-Z0-9_]+ *) token env tok
+  (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env tok
 
 let map_pat_para (env : env) (tok : CST.pat_para) =
   (* pattern [pP][aA][rR][aA][lL][lL][eE][lL] *) token env tok
@@ -772,12 +772,14 @@ let map_command_parameter (env : env) (x : CST.command_parameter) =
 let rec map_type_name (env : env) (x : CST.type_name) =
   (match x with
   | `Type_id tok -> R.Case ("Type_id",
-      (* pattern [a-zA-Z0-9_]+ *) token env tok
+      (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env tok
     )
   | `Type_name_DOT_type_id (v1, v2, v3) -> R.Case ("Type_name_DOT_type_id",
       let v1 = map_type_name env v1 in
       let v2 = (* "." *) token env v2 in
-      let v3 = (* pattern [a-zA-Z0-9_]+ *) token env v3 in
+      let v3 =
+        (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env v3
+      in
       R.Tuple [v1; v2; v3]
     )
   )
@@ -1359,9 +1361,7 @@ and map_attribute_argument (env : env) (x : CST.attribute_argument) =
       map_attribute_expression env x
     )
   | `Simple_name_opt_EQ_attr_exp (v1, v2) -> R.Case ("Simple_name_opt_EQ_attr_exp",
-      let v1 =
-        (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v1
-      in
+      let v1 = (* simple_name *) token env v1 in
       let v2 =
         (match v2 with
         | Some (v1, v2) -> R.Option (Some (
@@ -1565,9 +1565,7 @@ and map_class_method_definition (env : env) ((v1, v2, v3, v4, v5, v6, v7, v8, v9
       ))
     | None -> R.Option None)
   in
-  let v3 =
-    (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v3
-  in
+  let v3 = (* simple_name *) token env v3 in
   let v4 = (* "(" *) token env v4 in
   let v5 =
     (match v5 with
@@ -1915,9 +1913,7 @@ and map_elseif_clauses (env : env) (xs : CST.elseif_clauses) =
   R.List (List.map (map_elseif_clause env) xs)
 
 and map_enum_member (env : env) ((v1, v2) : CST.enum_member) =
-  let v1 =
-    (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v1
-  in
+  let v1 = (* simple_name *) token env v1 in
   let v2 =
     (match v2 with
     | Some (v1, v2) -> R.Option (Some (
@@ -2266,7 +2262,7 @@ and map_invokation_expression (env : env) (x : CST.invokation_expression) =
 and map_key_expression (env : env) (x : CST.key_expression) =
   (match x with
   | `Simple_name tok -> R.Case ("Simple_name",
-      (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env tok
+      (* simple_name *) token env tok
     )
   | `Un_exp x -> R.Case ("Un_exp",
       map_unary_expression env x
@@ -2279,7 +2275,7 @@ and map_label_expression (env : env) (x : CST.label_expression) =
       (* label *) token env tok
     )
   | `Simple_name tok -> R.Case ("Simple_name",
-      (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env tok
+      (* simple_name *) token env tok
     )
   | `Un_exp x -> R.Case ("Un_exp",
       map_unary_expression env x
@@ -2464,7 +2460,7 @@ and map_member_access (env : env) (x : CST.member_access) =
 and map_member_name (env : env) (x : CST.member_name) =
   (match x with
   | `Simple_name tok -> R.Case ("Simple_name",
-      (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env tok
+      (* simple_name *) token env tok
     )
   | `Str_lit x -> R.Case ("Str_lit",
       map_string_literal env x
@@ -2861,9 +2857,7 @@ and map_statement (env : env) (x : CST.statement) =
         | None -> R.Option None)
       in
       let v2 = map_tok_prec_p1_pat_class env v2 in
-      let v3 =
-        (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v3
-      in
+      let v3 = (* simple_name *) token env v3 in
       let v4 =
         (match v4 with
         | Some (v1, v2, v3) -> R.Option (Some (
@@ -2908,9 +2902,7 @@ and map_statement (env : env) (x : CST.statement) =
         | None -> R.Option None)
       in
       let v2 = map_tok_prec_p1_pat_enum env v2 in
-      let v3 =
-        (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v3
-      in
+      let v3 = (* simple_name *) token env v3 in
       let v4 = (* "{" *) token env v4 in
       let v5 =
         R.List (List.map (fun (v1, v2, v3) ->
@@ -2972,7 +2964,7 @@ and map_statement (env : env) (x : CST.statement) =
       let v2 =
         (match v2 with
         | Some tok -> R.Option (Some (
-            (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env tok
+            (* simple_name *) token env tok
           ))
         | None -> R.Option None)
       in

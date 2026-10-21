@@ -72,7 +72,8 @@ static bool command_word_end(int32_t c)
 
 static bool variable_char(int32_t c)
 {
-    return iswalnum(c) || c == '_' || c == '?';
+    return (c < 0x80 && iswalnum(c)) || is_unicode_parameter_letter(c) ||
+           is_unicode_variable_digit(c) || c == '_' || c == '?';
 }
 
 static void scan_variable_name(TSLexer *lexer)
