@@ -3566,6 +3566,10 @@
     "named": false
   },
   {
+    "type": "-cin",
+    "named": false
+  },
+  {
     "type": "-cle",
     "named": false
   },
@@ -3587,6 +3591,10 @@
   },
   {
     "type": "-cnotcontains",
+    "named": false
+  },
+  {
+    "type": "-cnotin",
     "named": false
   },
   {
@@ -3650,6 +3658,10 @@
     "named": false
   },
   {
+    "type": "-iin",
+    "named": false
+  },
+  {
     "type": "-ile",
     "named": false
   },
@@ -3675,6 +3687,10 @@
   },
   {
     "type": "-inotcontains",
+    "named": false
+  },
+  {
+    "type": "-inotin",
     "named": false
   },
   {

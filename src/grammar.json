@@ -1005,6 +1005,19 @@
             "value": 1,
             "content": {
               "type": "PATTERN",
+              "value": "[--][cC][iI][nN]"
+            }
+          },
+          "named": false,
+          "value": "-cin"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
               "value": "[--][cC][lL][eE]"
             }
           },
@@ -1075,6 +1088,19 @@
           },
           "named": false,
           "value": "-cnotcontains"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
+              "value": "[--][cC][nN][oO][tT][iI][nN]"
+            }
+          },
+          "named": false,
+          "value": "-cnotin"
         },
         {
           "type": "ALIAS",
@@ -1239,6 +1265,19 @@
             "value": 1,
             "content": {
               "type": "PATTERN",
+              "value": "[--][iI][iI][nN]"
+            }
+          },
+          "named": false,
+          "value": "-iin"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
               "value": "[--][iI][lL][eE]"
             }
           },
@@ -1322,6 +1361,19 @@
           },
           "named": false,
           "value": "-inotcontains"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
+              "value": "[--][iI][nN][oO][tT][iI][nN]"
+            }
+          },
+          "named": false,
+          "value": "-inotin"
         },
         {
           "type": "ALIAS",
