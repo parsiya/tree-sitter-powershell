@@ -4612,7 +4612,8 @@
             "type": "TOKEN",
             "content": {
               "type": "PATTERN",
-              "value": ":[\\p{L}_][^\\s(){}|;&,]*"
+              "value": ":(?:([^\\P{L}\\u{10000}-\\u{10FFFF}]|[\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])|_)[^\\s(){}|;&,]*",
+              "flags": "u"
             }
           },
           "named": true,
@@ -4696,7 +4697,7 @@
           "type": "IMMEDIATE_TOKEN",
           "content": {
             "type": "PATTERN",
-            "value": "`[^\\r\\n]"
+            "value": "`[^\\r\\n]|`[\\r\\n]"
           }
         }
       ]

@@ -1,0 +1,26 @@
+===
+Colon labels stay literal for BMP letters but not astral or numeric prefixes
+===
+
+Write-Output :中$value :𝒜$value :1$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (colon_command_argument
+              (colon_word_text)
+              (variable))
+            (command_argument_sep)
+            (colon_command_argument
+              (colon_word_text)
+              (variable))))))))

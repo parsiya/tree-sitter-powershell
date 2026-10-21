@@ -861,7 +861,10 @@ export default grammar({
     colon_command_argument: ($) =>
       choice(
         // Label-like words remain literal: `:word$value` does not expand.
-        alias(token(/:[\p{L}_][^\s(){}|;&,]*/), $.generic_token),
+        alias(token(new RegExp(
+          `:(?:${PARAMETER_ARGUMENT_LETTER}|_)[^\\s(){}|;&,]*`,
+          'u',
+        )), $.generic_token),
         prec.right(seq(
           ':',
           repeat(choice(
@@ -877,7 +880,7 @@ export default grammar({
     colon_word_text: ($) =>
       choice(
         token.immediate(prec(1, /[^\s"'`$();|&,{}]+/)),
-        token.immediate(/`[^\r\n]/),
+        token.immediate(/`[^\r\n]|`[\r\n]/),
       ),
 
     // Adapt the grammar to have same behavior
