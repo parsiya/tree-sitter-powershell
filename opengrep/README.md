@@ -54,6 +54,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/method-argument-expressions` | Accept `-band`/`-bor`/`-bxor` in method arguments, `.ForEach(...)`, and `$x.Method{ }` (scanner change). | Not yet offered. |
 | `fix/class-enum-details` | Accept dotted and generic class base types, attributes on classes and enums, `: base(...)`, expressions as enum values, and bracketed generic arguments. | Not yet offered. |
 | `fix/command-argument-lists` | Keep a command argument list together when it mixes expressions and words or has spaces before a comma (scanner change). | Not yet offered. |
+| `opengrep-dev` | Keep method calls in command arguments together, including chained calls, computed members and indexing after a call. Batch-001: 128 more files agree with PowerShell, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
