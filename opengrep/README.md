@@ -72,6 +72,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/nested-type-names` | Keep contiguous CLR nested-type `+` segments within one type identifier, distinct from namespace dots and addition. Combined batch-001: +1 agree; another file advances to its next error. | Not yet offered. |
 | `fix/command-keyword-boundaries` | Read parenthesized `ForEach-Object` calls and literal `return$...` names as commands, preserving real statements. Combined batch-001: one rejection and one silent misread now agree. | Not yet offered. |
 | `fix/null-conditional-access` | Preserve nullable member/index markers and distinguish ordinary question-mark variable names and expandable command words. Combined batch-001: +4 agree. | Not yet offered. |
+| `fix/string-delimiter-values` | Keep spaces, hashes and blank lines in string content rather than delimiter tokens, and recognize immediately empty expandable here-strings. Exact native values are covered in a focused C boundary test and Opengrep units. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
