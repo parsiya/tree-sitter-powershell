@@ -37,6 +37,7 @@ const PARAMETER_CHAR =
 // Simple names start with a BMP letter or underscore; continuations also allow
 // decimal digits. Include Unicode 16 letters and range interiors missing in CLI 0.22.
 const SIMPLE_NAME_LETTER = new RegExp(PARAMETER_LETTER, 'u');
+const TYPE_IDENTIFIER = VARIABLE_NAME;
 
 export default grammar({
   name: 'powershell',
@@ -241,8 +242,9 @@ export default grammar({
         ),
       ),
 
-    // Type names
-    type_identifier: ($) => VARIABLE_NAME,
+    // Nested CLR types form one identifier; dots still separate namespaces.
+    type_identifier: ($) =>
+      token(seq(TYPE_IDENTIFIER, repeat(seq('+', TYPE_IDENTIFIER)))),
 
     type_name: ($) =>
       choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),

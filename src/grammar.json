@@ -744,9 +744,34 @@
       }
     },
     "type_identifier": {
-      "type": "PATTERN",
-      "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
-      "flags": "u"
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+            "flags": "u"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "+"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[^\\P{Nd}\\u{10000}-\\u{10FFFF}]|[_\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])+",
+                  "flags": "u"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "type_name": {
       "type": "CHOICE",

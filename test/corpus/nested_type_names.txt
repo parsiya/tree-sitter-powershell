@@ -1,0 +1,771 @@
+==================
+Nested type in a static method argument
+==================
+$folder = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::Startup)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier))))
+                                (member_name
+                                  (simple_name))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (member_access
+                                                        (type_literal
+                                                          (type_spec
+                                                            (type_name
+                                                              (type_name
+                                                                (type_identifier))
+                                                              (type_identifier))))
+                                                        (member_name
+                                                          (simple_name))))))))))))))))))))))))))))))
+
+==================
+Nested type in a typed assignment
+==================
+[System.Environment+SpecialFolder]$x = 1
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (expression_with_unary_operator
+                              (cast_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier))))
+                                (unary_expression
+                                  (variable))))))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Nested type in a function parameter
+==================
+function F([System.Environment+SpecialFolder]$f) { $f }
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (function_parameter_declaration
+        (parameter_list
+          (script_parameter
+            (attribute_list
+              (attribute
+                (type_literal
+                  (type_spec
+                    (type_name
+                      (type_name
+                        (type_identifier))
+                      (type_identifier))))))
+            (variable))))
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))))))))
+
+==================
+Nested type as a bare type expression
+==================
+$t = [System.Environment+SpecialFolder]
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_name
+                                      (type_identifier))
+                                    (type_identifier)))))))))))))))))))
+
+==================
+Nested type static member
+==================
+[jwtTypes+encryption]::SHA256
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Nested type cast
+==================
+[Outer+Inner]$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+==================
+Nested type static method
+==================
+[Outer+Inner]::Create()
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (argument_list)))))))))))))))
+
+==================
+Multiple nested type segments and dotted qualification
+==================
+[Example.Outer+Middle+Inner]
+[Example.Outer+Inner.Leaf]
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (type_name
+                                (type_name
+                                  (type_identifier))
+                                (type_identifier)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (type_name
+                                (type_name
+                                  (type_name
+                                    (type_identifier))
+                                  (type_identifier))
+                                (type_identifier)))))))))))))))))
+
+==================
+Nested array types
+==================
+[Example.Outer+Inner[]]$values
+[Example.Outer+Inner[,]]$matrix
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (array_type_name
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier)))))
+                              (unary_expression
+                                (variable)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (array_type_name
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier)))
+                                  (dimension)))
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+==================
+Nested types in generic types
+==================
+[List[Example.Outer+Inner]]
+[Example.Outer+Inner[string]]
+[Dictionary[Example.Outer+Key,Example.Outer+Value]]
+[List[Example.Outer+Inner[]]]
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (generic_type_name
+                                (type_name
+                                  (type_identifier)))
+                              (generic_type_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_name
+                                      (type_identifier))
+                                    (type_identifier)))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (generic_type_name
+                                (type_name
+                                  (type_name
+                                    (type_identifier))
+                                  (type_identifier)))
+                              (generic_type_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier)))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (generic_type_name
+                                (type_name
+                                  (type_identifier)))
+                              (generic_type_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_name
+                                      (type_identifier))
+                                    (type_identifier)))
+                                (type_spec
+                                  (type_name
+                                    (type_name
+                                      (type_identifier))
+                                    (type_identifier)))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (generic_type_name
+                                (type_name
+                                  (type_identifier)))
+                              (generic_type_arguments
+                                (type_spec
+                                  (array_type_name
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier))))))))))))))))))))
+
+==================
+Nested array type in a parameter block
+==================
+param([Example.Outer+Inner[]]$values)
+$values
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (array_type_name
+                  (type_name
+                    (type_name
+                      (type_identifier))
+                    (type_identifier)))))))
+        (variable))))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Plus remains addition outside a type name
+==================
+([Outer+Inner]) + ([Outer+Inner])
+([Outer+Inner]) + 1
+$sum = 1+2
+$sum = $left+$right
++$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (parenthesized_expression
+                              (pipeline
+                                (pipeline_chain
+                                  (logical_expression
+                                    (bitwise_expression
+                                      (comparison_expression
+                                        (additive_expression
+                                          (multiplicative_expression
+                                            (format_expression
+                                              (range_expression
+                                                (array_literal_expression
+                                                  (unary_expression
+                                                    (type_literal
+                                                      (type_spec
+                                                        (type_name
+                                                          (type_identifier))))))))))))))))))))))
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (parenthesized_expression
+                            (pipeline
+                              (pipeline_chain
+                                (logical_expression
+                                  (bitwise_expression
+                                    (comparison_expression
+                                      (additive_expression
+                                        (multiplicative_expression
+                                          (format_expression
+                                            (range_expression
+                                              (array_literal_expression
+                                                (unary_expression
+                                                  (type_literal
+                                                    (type_spec
+                                                      (type_name
+                                                        (type_identifier)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (parenthesized_expression
+                              (pipeline
+                                (pipeline_chain
+                                  (logical_expression
+                                    (bitwise_expression
+                                      (comparison_expression
+                                        (additive_expression
+                                          (multiplicative_expression
+                                            (format_expression
+                                              (range_expression
+                                                (array_literal_expression
+                                                  (unary_expression
+                                                    (type_literal
+                                                      (type_spec
+                                                        (type_name
+                                                          (type_identifier))))))))))))))))))))))
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Reject whitespace before a nested type separator
+:error
+==================
+[Outer +Inner]
+---
+
+(ERROR)
+
+==================
+Reject whitespace after a nested type separator
+:error
+==================
+[Outer+ Inner]
+---
+
+(ERROR)
+
+==================
+Reject a newline after a nested type separator
+:error
+==================
+[Outer+
+Inner]
+---
+
+(ERROR)
+
+==================
+Reject a comment inside a nested type name
+:error
+==================
+[Outer+<#comment#>Inner]
+---
+
+(ERROR)
+
+==================
+Reject a leading nested type separator
+:error
+==================
+[+Inner]
+---
+
+(ERROR)
+
+==================
+Reject a comment before a nested type separator
+:error
+==================
+[Outer<#comment#>+Inner]
+---
+
+(ERROR)
+
+==================
+Reject a hyphen in a nested type segment
+:error
+==================
+[Outer+Inner-Leaf]
+---
+
+(ERROR)
+
+==================
+Reject a colon in a nested type segment
+:error
+==================
+[Outer+Inner:Leaf]
+---
+
+(ERROR)
+
+==================
+Reject a quoted nested type name
+:error
+==================
+['Outer+Inner']
+---
+
+(ERROR)
