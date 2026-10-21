@@ -2,6 +2,19 @@
 
 Powershell grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter)
 
+## Command words
+
+In command arguments, `generic_token` represents an entire unquoted word,
+including adjacent variables and quoted pieces: `$root/path`, `appid=$id`,
+`-o"$folder"` and `/name:"two words"`. Quoted pieces remain `string_literal`
+children, and embedded `$()` remains a `sub_expression` child so nested
+commands are visible in the syntax tree. Unquoted text and variables outside
+quotes are available from the word's source text.
+
+Standalone numbers, variables and expressions retain their expression nodes.
+Bare command names are literal rather than expandable. A nonbreaking space
+separates command words just like an ordinary space.
+
 ## References
 
 * [Powershell 7.3](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-15?view=powershell-7.3)

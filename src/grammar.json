@@ -1868,17 +1868,65 @@
       "value": "\\$\\{[^}]+\\}"
     },
     "generic_token": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s\\u00a0][^\\&\\s\\u00a0\\(\\)\\}\\|;,]*"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_command_word_start"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_command_word_part"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_command_word_expression"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "string_literal"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "sub_expression"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
     },
     "_command_token": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "[^\\(\\)\\{\\}\\s;\\&]+"
+        "value": "[^\\(\\)\\{\\}\\s\\u00a0;\\&]+"
       }
     },
     "command_parameter": {
@@ -1895,7 +1943,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": "--?[a-zA-Z_][a-zA-Z0-9_\\-]*=([^\\s\"'`;|&(){}]|\"[^\"\\r\\n]*\"|'[^'\\r\\n]*')*"
+                "value": "--?[a-zA-Z_][a-zA-Z0-9_\\-]*=([^\\s\\u00a0\"'`;|&(){}]|\"[^\"\\r\\n]*\"|'[^'\\r\\n]*')*"
               }
             ]
           }
@@ -4106,7 +4154,7 @@
           "members": [
             {
               "type": "PATTERN",
-              "value": "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]+"
+              "value": "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]+"
             },
             {
               "type": "PATTERN",
@@ -4187,7 +4235,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^\\{\\}\\(\\);,\\|\\&\"'\\s\\r\\n]+"
+                  "value": "[^\\{\\}\\(\\);,\\|\\&\"'\\s\\u00a0\\r\\n]+"
                 }
               },
               {
@@ -4243,7 +4291,7 @@
     },
     "path_command_name_token": {
       "type": "PATTERN",
-      "value": "[0-9a-zA-Z_?\\-\\.\\\\]+"
+      "value": "[0-9a-zA-Z_?\\-\\.\\\\\\/]+"
     },
     "path_command_name": {
       "type": "REPEAT1",
@@ -4342,11 +4390,8 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "REPEAT1",
-            "content": {
-              "type": "STRING",
-              "value": " "
-            }
+            "type": "PATTERN",
+            "value": "[ \\u00a0]+"
           },
           {
             "type": "STRING",
@@ -6586,6 +6631,22 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_part"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_expression"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [],

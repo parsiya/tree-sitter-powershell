@@ -10,7 +10,14 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_word_start,
+    $._command_word_part,
+    $._command_word_expression,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -306,9 +313,23 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      choice(
+        token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s\u00a0][^\&\s\u00a0\(\)\}\|;,]*/),
+        seq(
+          $._command_word_start,
+          repeat(
+            choice(
+              $._command_word_part,
+              seq(
+                $._command_word_expression,
+                choice($.string_literal, $.sub_expression),
+              ),
+            ),
+          ),
+        ),
+      ),
 
-    _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
+    _command_token: ($) => token(/[^\(\)\{\}\s\u00a0;\&]+/),
 
     // Parameters
     command_parameter: ($) =>
@@ -318,7 +339,7 @@ export default grammar({
             // `-Name`, `-Name1`, `--long-flag`, `-A5`
             /-+[a-zA-Z_?\-`][a-zA-Z0-9_?\-`]*/,
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
-            /--?[a-zA-Z_][a-zA-Z0-9_\-]*=([^\s"'`;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*/,
+            /--?[a-zA-Z_][a-zA-Z0-9_\-]*=([^\s\u00a0"'`;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*/,
           ),
         ),
         // A bare `--` or `-` argument (see scanner.c).
@@ -733,7 +754,7 @@ export default grammar({
     command_name: ($) =>
       seq(
         choice(
-          /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
+          /[^\{\}\(\);,\|\&`"'\s\u00a0\r\n\[\]\+\-\*\/\$@<\!]+/,
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here
           // https://github.com/airbus-cert/tree-sitter-powershell/issues/24
@@ -757,7 +778,7 @@ export default grammar({
         ),
         repeat(
           choice(
-            token.immediate(/[^\{\}\(\);,\|\&"'\s\r\n]+/),
+            token.immediate(/[^\{\}\(\);,\|\&"'\s\u00a0\r\n]+/),
             seq(token.immediate('"'), $._expandable_string_literal_immediate),
             seq(token.immediate('\''), $._string_literal_immediate),
             token.immediate('""'),
@@ -766,7 +787,7 @@ export default grammar({
         ),
       ),
 
-    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\]+/,
+    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,
 
     // Use to parse command path
     path_command_name: ($) =>
@@ -792,7 +813,7 @@ export default grammar({
 
     // Generic token is hard to manage
     // So a definition is that a generic token must have to begin by one or more space char
-    command_argument_sep: ($) => prec.right(choice(repeat1(' '), ':')),
+    command_argument_sep: ($) => prec.right(choice(/[ \u00a0]+/, ':')),
 
     // Adapt the grammar to have same behavior
 

@@ -1,0 +1,400 @@
+===
+Joined words: variable paths and suffixes
+===
+
+tool $PSScriptRoot\Public\*.ps1 $env:windir\system32 $BackupPath*csv appid=$appid ${root}/file.ps1 $left$right
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Joined words: quoted pieces
+===
+
+tool -o"$folder" /name:"two words" pre'one two'post prefix''suffix
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal
+                  (variable))))
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+===
+Joined words: embedded subexpressions
+===
+
+tool https://$($server)/path pre$(Get-Thing -Name $name)post
+tool prefix$(Get-Thing prefix$(Get-Other))suffix
+tool prefix$(Get-Thing)$(Get-Other)suffix
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (command_parameter)
+                          (command_argument_sep)
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token
+                            (sub_expression
+                              (statement_list
+                                (pipeline
+                                  (pipeline_chain
+                                    (command
+                                      (command_name))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name))))))
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+===
+Joined words: quoted subexpressions
+===
+
+tool pre"$(Get-Thing -Name $name)"post /name:'two words'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal
+                  (sub_expression
+                    (statement_list
+                      (pipeline
+                        (pipeline_chain
+                          (command
+                            (command_name)
+                            (command_elements
+                              (command_argument_sep)
+                              (command_parameter)
+                              (command_argument_sep)
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+===
+Joined words: comma arrays and redirection
+===
+
+tool a$x,b$y,$z,42 > $null
+tool -Name:$root/path
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Joined words: standalone expression types
+===
+
+tool 42 1.5 $n $n.Length $true @args "two words"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (real_literal)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Joined words: dot-sourced variable path
+===
+
+. $psScriptRoot/lib.ps1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (variable)
+              (path_command_name_token))))))))
+
+===
+Joined words: nonbreaking spaces
+===
+
+tool one $two prefix$three
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Joined words: comments stay outside arguments
+===
+
+tool $root/path # $ignored is a comment
+tool arg <# $ignored is a comment #> prefix$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)))))
+    (comment)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (comment)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Joined words: escaped characters and line continuations
+===
+
+tool prefix` value$suffix literal`$name
+tool prefix`
+suffix$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Joined words: command names are literal
+===
+
+tool$name prefix$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
