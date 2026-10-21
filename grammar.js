@@ -7,6 +7,8 @@ const PREC = {
   PARAM: 6,
 };
 
+const TYPE_IDENTIFIER = /[a-zA-Z0-9_]+/;
+
 export default grammar({
   name: 'powershell',
 
@@ -148,8 +150,9 @@ export default grammar({
     // Simple names
     simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    // Type names
-    type_identifier: ($) => /[a-zA-Z0-9_]+/,
+    // Nested CLR types form one identifier; dots still separate namespaces.
+    type_identifier: ($) =>
+      token(seq(TYPE_IDENTIFIER, repeat(seq('+', TYPE_IDENTIFIER)))),
 
     type_name: ($) =>
       choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),
