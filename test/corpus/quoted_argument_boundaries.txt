@@ -1,0 +1,1005 @@
+===
+Quoted argument boundary: bare suffix
+===
+
+echo "a"b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+===
+Quoted argument boundary: variable
+===
+
+echo "a"$b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: member
+===
+
+echo "a"$b.Name
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))))))))
+
+===
+Quoted argument boundary: subexpression with a real command
+===
+
+echo "a"$(Get-Item x)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))))
+
+===
+Quoted argument boundary: slash suffix
+===
+
+echo "a"/path
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+===
+Quoted argument boundary: backslash suffix
+===
+
+echo "a"\path
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+===
+Quoted argument boundary: empty expandable quote
+===
+
+echo ""$b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: verbatim quote
+===
+
+echo 'a'$b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: empty verbatim quote
+===
+
+echo ''$b.Name
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))))))))
+
+===
+Quoted argument boundary: verbatim bare suffix
+===
+
+echo 'a'b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (generic_token)))))))
+
+===
+Quoted argument boundary: different quote kinds
+===
+
+echo "a"'b'$c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: nested subexpression commands
+===
+
+echo "a"$(echo "b"$c)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (quoted_command_argument
+                              (string_literal
+                                (expandable_string_literal)))
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+===
+Quoted argument boundary: literal command name with a dollar
+===
+
+foo$x "a"$b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: quoted space prefix
+===
+
+echo "v: "$($table.Version.Major)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (member_access
+                                            (member_access
+                                              (variable)
+                                              (member_name
+                                                (simple_name)))
+                                            (member_name
+                                              (simple_name))))))))))))))))))))))))
+
+===
+Quoted argument boundary: array expression
+===
+
+echo "a"@(1, 2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (array_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))))))))))))))))))))))
+
+===
+Quoted argument boundary: indexed variable
+===
+
+echo "a"$b[0]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (variable)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))))
+
+===
+Quoted argument boundary: standalone quote controls
+===
+
+echo "a" 'a' "" ''
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+===
+Quoted argument boundary: whitespace controls
+===
+
+echo "a" b $b $b.Name $(Get-Item x) /path (Get-Item y)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token))))))))))))))
+
+===
+Quoted argument boundary: escaped quote controls
+===
+
+echo "a""b" 'a''b'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+===
+Quoted argument boundary: unquoted leading joined word controls
+===
+
+echo prefix"quoted" prefix"quoted"$b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Quoted argument boundary: adjacent parameter control
+===
+
+echo "a"-Flag
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_parameter)))))))
+
+===
+Quoted argument boundary: member and index suffix controls
+===
+
+echo "a".Length "a"[0]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (string_literal
+                    (expandable_string_literal))
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (string_literal
+                    (expandable_string_literal))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))))
+
+===
+Quoted argument boundary: existing parenthesis argument control
+===
+
+echo "a"(1, 2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))))
+
+===
+Quoted argument boundary: existing scriptblock argument control
+===
+
+echo "a"{ 1 }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))))))))))))))))))))))
+
+===
+Quoted argument boundary: expressions methods arrays and redirections
+===
+
+$x = "a" + $b; $b.GetValue(1); echo @(1, 2) > out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (expandable_string_literal))))))))
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (integer_literal
+                                                    (decimal_integer_literal)))))))))))))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (array_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))))))))))))))))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (generic_token)))))))))
+
+===
+Quoted argument boundary: line continuation control
+===
+
+echo "a"`
+ -Flag $b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Quoted argument boundary: adjacent stream redirection control
+===
+
+echo "a"2> out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (generic_token)))))))))
+
+===
+Quoted argument boundary: adjacent wildcard redirection control
+===
+
+echo "a"*> out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (generic_token)))))))))
+
+===
+Quoted argument boundary: comment control
+===
+
+echo "a"# comment
+next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))
+    (comment)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+===
+Quoted argument boundary: numeric argument
+===
+
+echo "a"1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+===
+Quoted argument boundary: wildcard argument
+===
+
+echo "a"*
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+===
+Quoted argument boundary: comma-list argument
+===
+
+echo "a"b,c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (generic_token)))))))

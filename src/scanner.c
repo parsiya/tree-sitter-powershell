@@ -6,7 +6,10 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    QUOTED_ARGUMENT_BOUNDARY,
+    // Never produced: disables the boundary marker during error recovery.
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -80,10 +83,33 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
     }
 }
 
+static bool scan_quoted_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[QUOTED_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL]) return false;
+    int32_t c = lexer->lookahead;
+    // Keep expression suffixes, punctuation and elements that already work
+    // without spaces on their existing grammar paths.
+    if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
+        c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
+        c == ',' || c == '>' || c == '<' || c == '(' || c == '{' ||
+        c == '-' || c == '`' || c == '#' || c == 0xfeff ||
+        c == 0x2060 || c == 0x200b || c == 0xa0) return false;
+    lexer->mark_end(lexer);
+    if (c == '*' || (c >= '0' && c <= '9')) {
+        do {
+            lexer->advance(lexer, false);
+        } while (lexer->lookahead >= '0' && lexer->lookahead <= '9');
+        if (lexer->lookahead == '>') return false;
+    }
+    lexer->result_symbol = QUOTED_ARGUMENT_BOUNDARY;
+    return true;
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (scan_quoted_argument_boundary(lexer, valid_symbols)) return true;
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;
