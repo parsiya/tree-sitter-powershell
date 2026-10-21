@@ -965,9 +965,9 @@ export default grammar({
 
     class_property_definition: ($) =>
       seq(
-        optional($.attribute),
-        repeat($.class_attribute),
-        optional($.type_literal),
+        repeat(choice($.attribute, $.class_attribute)),
+        // Keep the final type separate from the preceding attributes.
+        optional(prec.dynamic(1, $.type_literal)),
         $.variable,
         optional(seq('=', $._expression)),
       ),
@@ -979,9 +979,8 @@ export default grammar({
 
     class_method_definition: ($) =>
       seq(
-        optional($.attribute),
-        repeat($.class_attribute),
-        optional($.type_literal),
+        repeat(choice($.attribute, $.class_attribute)),
+        optional(prec.dynamic(1, $.type_literal)),
         $.simple_name,
         '(',
         optional($.class_method_parameter_list),
