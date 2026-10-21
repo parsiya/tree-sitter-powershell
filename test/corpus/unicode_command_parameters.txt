@@ -1,0 +1,406 @@
+===
+Unicode parameters: Chinese image options and separate variables
+===
+
+New-Image -提示词 $value -宽度 640 -高清
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: function body
+===
+
+function Invoke-Render {
+  param($value)
+  New-Image -提示词 $value
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (command_parameter)
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Unicode parameters: mixed scripts and case
+===
+
+Test-Thing -éclair -ÉCLAIR -Δelta -язык -名Name -Name名
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: BMP range interiors and Unicode 16 letters
+===
+
+Test-Thing -㐁 -丁 -각 -Ᲊ -ᲊ -Ɤ -Ꟍ -ꟍ -Ꟛ -ꟛ -Ƛ
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: digits marks and symbols continue names
+===
+
+Test-Thing -图2 -图١ -图́ -图💡 -图$value -a图 -á -a💡
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: hyphens underscore and question mark
+===
+
+Test-Thing -图-像 -图_name -图? -_图 -?图
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: colon attached variables and quoted values
+===
+
+New-Image -提示词:$value -标题:"two words" -说明:'two words' -高清:$true
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Unicode parameters: equals attached native options
+===
+
+tool -提示词=value --提示词=value --标题="two words" --说明='two words' --格式=format:"%B"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: existing ASCII flags and bare options
+===
+
+tool -Name -A5 -long-flag --bare -- --format=%H --pretty=format:"%B" -? -_
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode parameters: negative numeric arguments
+===
+
+Test-Thing -提示词 $value -Count -1 -Scale -1.5 -Offset -0xFF
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (decimal_integer_literal))))))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (real_literal)))))
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (hexadecimal_integer_literal))))))))))))
+
+===
+Unicode parameters: quoted words are not parameters
+===
+
+Test-Thing "-提示词" '-提示词' "-Name" '-Name' $value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Unicode parameters: command boundaries
+===
+
+Test-Thing -图 | Write-Output; Test-Thing -名
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)))
+        (command
+          (command_name))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)))))))
