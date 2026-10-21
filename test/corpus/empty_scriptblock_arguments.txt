@@ -1,0 +1,336 @@
+==================
+Empty positional scriptblock command arguments
+==================
+
+Mock X Import-Module { }
+Invoke-Command {}
+Mock X {} -Verifiable
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))
+            (command_argument_sep)
+            (command_parameter)))))))
+
+==================
+Empty named and comment-only scriptblock arguments
+==================
+
+Mock X -MockWith {}
+Invoke-Command -ScriptBlock { }
+Mock X -MockWith { # intentionally empty
+}
+Mock X -MockWith { <# empty #> }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (comment))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (comment))))))))))
+
+==================
+Empty scriptblock expressions
+==================
+
+$callback = {}
+& { }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (script_block_expression))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (script_block_expression)))))))
+
+==================
+Parameter-only scriptblock arguments
+==================
+
+Invoke-Command { param($name) }
+Invoke-Command { param($name)
+}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (param_block
+                      (parameter_list
+                        (script_parameter
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (param_block
+                      (parameter_list
+                        (script_parameter
+                          (variable))))))))))))))
+
+==================
+Nonempty scriptblock arguments and empty function and named blocks
+==================
+
+Invoke-Command { Get-Item x }
+Invoke-Command { begin {} process { } end {} }
+function Test-Empty {}
+function Test-Named { begin {} process {} end {} }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name)
+                              (command_elements
+                                (command_argument_sep)
+                                (generic_token)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (named_block_list
+                        (named_block
+                          (block_name)
+                          (statement_block))
+                        (named_block
+                          (block_name)
+                          (statement_block))
+                        (named_block
+                          (block_name)
+                          (statement_block))))))))))))
+    (function_statement
+      (function_name))
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (named_block_list
+            (named_block
+              (block_name)
+              (statement_block))
+            (named_block
+              (block_name)
+              (statement_block))
+            (named_block
+              (block_name)
+              (statement_block))))))))
+
+==================
+Scriptblock argument still requires a closing brace
+==================
+
+Invoke-Command {
+
+---
+
+(program
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (UNEXPECTED '\0')))
+
+==================
+Scriptblock argument still requires an opening brace
+==================
+
+Invoke-Command -ScriptBlock }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter))))))
+  (ERROR
+    (UNEXPECTED '\0')))
+
+==================
+Scriptblock argument still rejects an incomplete assignment
+==================
+
+Invoke-Command { $x = }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (ERROR
+                    (left_assignment_expression
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))
+                    (assignement_operator)))))))))))

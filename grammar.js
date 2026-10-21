@@ -1200,7 +1200,7 @@ export default grammar({
       seq('@(', field('statements', optional($.statement_list)), ')'),
 
     script_block_expression: ($) =>
-      seq('{', optional($.param_block), $.script_block, '}'),
+      seq('{', optional($.param_block), optional($.script_block), '}'),
 
     hash_literal_expression: ($) =>
       seq('@{', optional($.hash_literal_body), '}'),
