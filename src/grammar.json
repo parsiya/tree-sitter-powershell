@@ -720,8 +720,48 @@
       }
     },
     "simple_name": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])",
+                "flags": "u"
+              },
+              {
+                "type": "STRING",
+                "value": "_"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "([^\\P{L}\\u{10000}-\\u{10FFFF}]|[\\u1C89-\\u1C8A\\u3400-\\u4DBF\\u4E00-\\u9FFF\\uA7CB-\\uA7CD\\uA7DA-\\uA7DC\\uAC00-\\uD7A3])",
+                  "flags": "u"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[^\\P{Nd}\\u{10000}-\\u{10FFFF}]",
+                  "flags": "u"
+                },
+                {
+                  "type": "STRING",
+                  "value": "_"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "type_identifier": {
       "type": "PATTERN",

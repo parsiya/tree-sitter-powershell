@@ -7,6 +7,14 @@ const PREC = {
   PARAM: 6,
 };
 
+// Simple names start with a BMP letter or underscore; continuations also allow
+// decimal digits. Include Unicode 16 letters and range interiors missing in CLI 0.22.
+const SIMPLE_NAME_LETTER = new RegExp(
+  String.raw`([^\P{L}\u{10000}-\u{10FFFF}]|` +
+  String.raw`[\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])`,
+  'u',
+);
+
 export default grammar({
   name: 'powershell',
 
@@ -146,7 +154,13 @@ export default grammar({
       ),
 
     // Simple names
-    simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    simple_name: ($) =>
+      token(
+        seq(
+          choice(SIMPLE_NAME_LETTER, '_'),
+          repeat(choice(SIMPLE_NAME_LETTER, /[^\P{Nd}\u{10000}-\u{10FFFF}]/u, '_')),
+        ),
+      ),
 
     // Type names
     type_identifier: ($) => /[a-zA-Z0-9_]+/,
