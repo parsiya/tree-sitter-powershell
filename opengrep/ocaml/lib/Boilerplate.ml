@@ -361,7 +361,7 @@ let map_pat_71f01fd (env : env) (tok : CST.pat_71f01fd) =
   (* pattern &[^&]* *) token env tok
 
 let map_type_identifier (env : env) (tok : CST.type_identifier) =
-  (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env tok
+  (* type_identifier *) token env tok
 
 let map_pat_para (env : env) (tok : CST.pat_para) =
   (* pattern [pP][aA][rR][aA][lL][lL][eE][lL] *) token env tok
@@ -772,14 +772,12 @@ let map_command_parameter (env : env) (x : CST.command_parameter) =
 let rec map_type_name (env : env) (x : CST.type_name) =
   (match x with
   | `Type_id tok -> R.Case ("Type_id",
-      (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env tok
+      (* type_identifier *) token env tok
     )
   | `Type_name_DOT_type_id (v1, v2, v3) -> R.Case ("Type_name_DOT_type_id",
       let v1 = map_type_name env v1 in
       let v2 = (* "." *) token env v2 in
-      let v3 =
-        (* pattern ([^\P{L}\u{10000}-\u{10FFFF}]|[^\P{Nd}\u{10000}-\u{10FFFF}]|[_\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])+ *) token env v3
-      in
+      let v3 = (* type_identifier *) token env v3 in
       R.Tuple [v1; v2; v3]
     )
   )

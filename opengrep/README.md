@@ -69,6 +69,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/membership-operators` | Accept `-iin`, `-inotin`, `-cin` and `-cnotin`. The affected file advances to its next nested-type error. | Not yet offered. |
 | `fix/unicode-command-parameters` | Accept native Unicode parameter starts and continuations. A grammar-generated, locale-independent scanner classifier keeps parameters separate from expandable dash words. Five files advance to their next member-name errors. | Not yet offered. |
 | `fix/unicode-simple-names` | Accept Unicode keys, members, classes, enums and named attribute arguments; keep Unicode receivers as expressions and Unicode type references usable. Combined batch-001: +7 agree. | Not yet offered. |
+| `fix/nested-type-names` | Keep contiguous CLR nested-type `+` segments within one type identifier, distinct from namespace dots and addition. Combined batch-001: +1 agree; another file advances to its next error. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
