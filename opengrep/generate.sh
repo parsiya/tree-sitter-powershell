@@ -29,6 +29,7 @@ dune build libs/ocaml-tree-sitter-core/src/gen/bin/Ocaml_tree_sitter_main.exe
 mkdir -p "$build_dir/src" "$build_dir/bin"
 node "$repository/opengrep/prepare-grammar.cjs" "$repository" "$build_dir"
 cp "$repository/src/scanner.c" "$build_dir/src/scanner.c"
+cp "$repository/src/parameter_letters.h" "$build_dir/src/parameter_letters.h"
 ln -sf "$generator" "$build_dir/bin/ocaml-tree-sitter"
 
 (
@@ -40,6 +41,8 @@ ln -sf "$generator" "$build_dir/bin/ocaml-tree-sitter"
   PATH="$build_dir/bin:$PATH" "$core/scripts/ocaml-tree-sitter-gen-ocaml" \
     --lang powershell --src src --dst ocaml-src
 )
+
+cp "$build_dir/src/parameter_letters.h" "$build_dir/ocaml-src/lib/parameter_letters.h"
 
 for file in "$destination"/lib/* "$destination"/bin/*; do
   if [[ -f "$file" ]]; then

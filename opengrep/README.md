@@ -66,6 +66,8 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/percentage-arguments` | Read negative percentage arguments as words without changing negative numbers or remainder operators. Combined batch-001: +1 agree. | Not yet offered. |
 | `fix/attributed-expressions` | Preserve attributed unary expressions and assignment targets, separate from ordinary casts and declaration attributes. Combined batch-001: six more agree and one rejection advances to a structural disagreement. | Not yet offered. |
 | `fix/mixed-attribute-arguments` | Keep attribute commas between positional and named arguments, including type values. Combined batch-001: +2 agree. | Not yet offered. |
+| `fix/membership-operators` | Accept `-iin`, `-inotin`, `-cin` and `-cnotin`. The affected file advances to its next nested-type error. | Not yet offered. |
+| `fix/unicode-command-parameters` | Accept native Unicode parameter starts and continuations. A grammar-generated, locale-independent scanner classifier keeps parameters separate from expandable dash words. Five files advance to their next member-name errors. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
