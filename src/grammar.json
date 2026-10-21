@@ -4349,7 +4349,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[rR][eE][tT][uU][rR][nN][-@]"
+              "value": "[rR][eE][tT][uU][rR][nN][-@$]"
             },
             {
               "type": "PATTERN",
@@ -4394,6 +4394,10 @@
             {
               "type": "PATTERN",
               "value": "[fF][oO][rR][--]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[fF][oO][rR][eE][aA][cC][hH][--]"
             },
             {
               "type": "PATTERN",
