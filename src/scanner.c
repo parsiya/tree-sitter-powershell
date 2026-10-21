@@ -171,7 +171,6 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             if (c == '`') {
                 if (!consumed && !part &&
                     (lexer->lookahead == '\r' || lexer->lookahead == '\n')) return false;
-                if (lexer->lookahead == '\r') lexer->advance(lexer, false);
                 if (lexer->lookahead) lexer->advance(lexer, false);
                 joined = true;
             }

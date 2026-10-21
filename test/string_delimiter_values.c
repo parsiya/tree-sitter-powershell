@@ -79,13 +79,18 @@ static void line_endings(char *out, const char *in, bool crlf) {
   *out = '\0';
 }
 
-static TSNode find_string(TSNode node) {
-  if (!strcmp(ts_node_type(node), "string_literal")) return node;
+static TSNode find_type(TSNode node, const char *type) {
+  if (ts_node_is_null(node)) return node;
+  if (!strcmp(ts_node_type(node), type)) return node;
   for (uint32_t i = 0; i < ts_node_child_count(node); i++) {
-    TSNode found = find_string(ts_node_child(node, i));
+    TSNode found = find_type(ts_node_child(node, i), type);
     if (!ts_node_is_null(found)) return found;
   }
   return (TSNode){0};
+}
+
+static TSNode find_string(TSNode node) {
+  return find_type(node, "string_literal");
 }
 
 static unsigned count_type(TSNode node, const char *type) {
@@ -154,6 +159,46 @@ static bool check(TSParser *parser, const Case *c, const char *source,
   return ok;
 }
 
+static unsigned check_word_boundaries(TSParser *parser) {
+  static const struct {
+    const char *source;
+    const char *argument;
+    unsigned commands;
+  } words[] = {
+    {"Write-Output prefix`\nsuffix", "prefix`\nsuffix", 1},
+    {"Write-Output prefix`\r\nsuffix", "prefix`\r", 2},
+    {"Write-Output prefix$value`\r\nsuffix", "prefix$value`\r", 2},
+    {"Write-Output `\r\nsuffix", "suffix", 1},
+    {"Write-Output prefix\"a`\r\nb\"suffix", "prefix\"a`\r\nb\"suffix", 1},
+    {"Write-Output prefix\"$value`\r\nsuffix\"", "prefix\"$value`\r\nsuffix\"", 1},
+  };
+  unsigned failures = 0;
+  for (unsigned i = 0; i < sizeof(words) / sizeof(words[0]); i++) {
+    TSTree *tree = ts_parser_parse_string(parser, NULL, words[i].source, strlen(words[i].source));
+    TSNode root = ts_tree_root_node(tree);
+    TSNode command = find_type(root, "command");
+    TSNode elements = ts_node_child_by_field_name(command, "command_elements", 16);
+    TSNode argument = find_type(elements, "generic_token");
+    bool ok = !ts_node_has_error(root) &&
+      count_type(root, "command") == words[i].commands &&
+      !ts_node_is_null(argument);
+    if (ok) {
+      unsigned start = ts_node_start_byte(argument), end = ts_node_end_byte(argument);
+      ok = end - start == strlen(words[i].argument) &&
+        !memcmp(words[i].source + start, words[i].argument, end - start);
+    }
+    if (!ok) {
+      fprintf(stderr, "FAIL word boundary %u\n", i);
+      failures++;
+    }
+    ts_tree_delete(tree);
+  }
+  printf("Word escape boundaries: %zu/%zu passed\n",
+         sizeof(words) / sizeof(words[0]) - failures,
+         sizeof(words) / sizeof(words[0]));
+  return failures;
+}
+
 int main(int argc, char **argv) {
   bool manifest = argc == 2 && !strcmp(argv[1], "--manifest");
   TSLanguage language = *tree_sitter_powershell();
@@ -189,7 +234,10 @@ int main(int argc, char **argv) {
     }
   }
   if (manifest) puts("\n]");
-  else printf("String delimiter/value boundaries: %u/%u passed\n", total - failures, total);
+  else {
+    printf("String delimiter/value boundaries: %u/%u passed\n", total - failures, total);
+    failures += check_word_boundaries(parser);
+  }
   ts_parser_delete(parser);
   free(metadata);
   return failures ? 1 : 0;
