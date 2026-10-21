@@ -384,6 +384,8 @@ export default grammar({
           choice(
             /[^\(\)\$\"\'\-\{\}@\|\[`\&\s\u00a0>0-9*][^\&\s\u00a0\(\)\}\|;,]*/,
             /[0-9*]([^\&\s\u00a0\(\)\}\|;,>][^\&\s\u00a0\(\)\}\|;,]*)?/,
+            // Percentages are words in argument mode, not unary expressions.
+            /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\}\|;,]*%[^\&\s\u00a0\(\)\}\|;,]*/,
           ),
         ),
         seq(
