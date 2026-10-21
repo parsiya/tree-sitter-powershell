@@ -15,7 +15,9 @@ enum TOKEN_TYPE {
     COMMAND_WORD_PART,
     COMMAND_WORD_EXPRESSION,
     QUOTED_ARGUMENT_BOUNDARY,
-    // Never produced: disables the boundary marker during error recovery.
+    PARAMETER_ARGUMENT_SEPARATOR,
+    PARAMETER_ARGUMENT_START,
+    COLON_WORD_CONTINUATION,
     ERROR_SENTINEL
 };
 
@@ -111,7 +113,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         lexer->result_symbol = COMMAND_WORD_EXPRESSION;
         return true;
     }
-    if (start && (lexer->lookahead == '@' || lexer->lookahead == '[' ||
+    if (start && (lexer->lookahead == ':' || lexer->lookahead == '@' || lexer->lookahead == '[' ||
                   lexer->lookahead == '>' || lexer->lookahead == '#' ||
                   lexer->lookahead == '<')) return false;
 
@@ -310,10 +312,79 @@ static bool scan_quoted_argument_boundary(TSLexer *lexer, const bool *valid_symb
     return true;
 }
 
+// A required attached value may follow horizontal trivia, block comments or
+// explicit line continuations, but not the end of a command or a line comment.
+static bool scan_parameter_argument_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[PARAMETER_ARGUMENT_START]) return false;
+    lexer->mark_end(lexer);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == ' ' || c == '\t' || c == '\v' || c == '\f' ||
+            c == 0x85 || c == 0xA0 || c == 0x1680 ||
+            (c >= 0x2000 && c <= 0x200A) || c == 0x202F ||
+            c == 0x205F || c == 0x3000) {
+            lexer->advance(lexer, false);
+            continue;
+        }
+        if (c == '`') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '\r') lexer->advance(lexer, false);
+            if (lexer->lookahead == '\n') {
+                lexer->advance(lexer, false);
+                continue;
+            }
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '#') {
+                lexer->advance(lexer, false);
+                unsigned depth = 1;
+                while (depth) {
+                    if (lexer->eof(lexer)) return false;
+                    c = lexer->lookahead;
+                    lexer->advance(lexer, false);
+                    if (c == '<' && lexer->lookahead == '#') {
+                        lexer->advance(lexer, false);
+                        depth++;
+                    } else if (c == '#' && lexer->lookahead == '>') {
+                        lexer->advance(lexer, false);
+                        depth--;
+                    }
+                }
+                continue;
+            }
+        } else if (c == 0 || c == '\r' || c == '\n' || c == '#' ||
+                   c == ';' || c == '|' || c == '&' || c == ')' ||
+                   c == '}' || c == '>') {
+            return false;
+        }
+        lexer->result_symbol = PARAMETER_ARGUMENT_START;
+        return true;
+    }
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (!valid_symbols[ERROR_SENTINEL]) {
+        if (valid_symbols[PARAMETER_ARGUMENT_START]) {
+            return scan_parameter_argument_start(lexer, valid_symbols);
+        }
+        // An attachment colon must directly follow its parameter.
+        if (valid_symbols[PARAMETER_ARGUMENT_SEPARATOR] && lexer->lookahead == ':') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            lexer->result_symbol = PARAMETER_ARGUMENT_SEPARATOR;
+            return true;
+        }
+        if (valid_symbols[COLON_WORD_CONTINUATION] &&
+            (lexer->lookahead == '$' || lexer->lookahead == '"' || lexer->lookahead == '\'')) {
+            lexer->mark_end(lexer);
+            lexer->result_symbol = COLON_WORD_CONTINUATION;
+            return true;
+        }
+    }
     if (scan_quoted_argument_boundary(lexer, valid_symbols)) return true;
 
     // Before anything that skips spaces: the `{` must directly follow.
