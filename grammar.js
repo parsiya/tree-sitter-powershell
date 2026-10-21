@@ -14,6 +14,7 @@ export default grammar({
     $._statement_terminator,
     $._bare_dashes,
     $._parameter_argument_separator,
+    $._parameter_argument_start,
     $._colon_word_continuation,
     $._error_sentinel,
   ],
@@ -790,7 +791,13 @@ export default grammar({
             $.command_parameter,
             optional(seq(
               alias($._parameter_argument_separator, $.command_argument_sep),
-              optional($._command_parameter_argument),
+              $._parameter_argument_start,
+              // Keep horizontal trivia outside the required value's extent.
+              repeat(choice(
+                $.command_argument_sep,
+                alias(token(prec(1, /[\t\v\f\u00a0]+/)), $.command_argument_sep),
+              )),
+              $._command_parameter_argument,
             )),
           ),
           seq($._command_argument, optional($.argument_list)),

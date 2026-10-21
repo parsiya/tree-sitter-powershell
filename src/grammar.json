@@ -4318,16 +4318,40 @@
                         "value": "command_argument_sep"
                       },
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "_command_parameter_argument"
-                          },
-                          {
-                            "type": "BLANK"
-                          }
-                        ]
+                        "type": "SYMBOL",
+                        "name": "_parameter_argument_start"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "command_argument_sep"
+                            },
+                            {
+                              "type": "ALIAS",
+                              "content": {
+                                "type": "TOKEN",
+                                "content": {
+                                  "type": "PREC",
+                                  "value": 1,
+                                  "content": {
+                                    "type": "PATTERN",
+                                    "value": "[\\t\\v\\f\\u00a0]+"
+                                  }
+                                }
+                              },
+                              "named": true,
+                              "value": "command_argument_sep"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_command_parameter_argument"
                       }
                     ]
                   },
@@ -6808,6 +6832,10 @@
     {
       "type": "SYMBOL",
       "name": "_parameter_argument_separator"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_parameter_argument_start"
     },
     {
       "type": "SYMBOL",

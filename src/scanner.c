@@ -8,6 +8,7 @@ enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
     BARE_DASHES,
     PARAMETER_ARGUMENT_SEPARATOR,
+    PARAMETER_ARGUMENT_START,
     COLON_WORD_CONTINUATION,
     ERROR_SENTINEL
 };
@@ -83,11 +84,65 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
     }
 }
 
+// A required attached value may follow horizontal trivia, block comments or
+// explicit line continuations, but not the end of a command or a line comment.
+static bool scan_parameter_argument_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[PARAMETER_ARGUMENT_START]) return false;
+    lexer->mark_end(lexer);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == ' ' || c == '\t' || c == '\v' || c == '\f' ||
+            c == 0x85 || c == 0xA0 || c == 0x1680 ||
+            (c >= 0x2000 && c <= 0x200A) || c == 0x202F ||
+            c == 0x205F || c == 0x3000) {
+            lexer->advance(lexer, false);
+            continue;
+        }
+        if (c == '`') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '\r') lexer->advance(lexer, false);
+            if (lexer->lookahead == '\n') {
+                lexer->advance(lexer, false);
+                continue;
+            }
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '#') {
+                lexer->advance(lexer, false);
+                unsigned depth = 1;
+                while (depth) {
+                    if (lexer->eof(lexer)) return false;
+                    c = lexer->lookahead;
+                    lexer->advance(lexer, false);
+                    if (c == '<' && lexer->lookahead == '#') {
+                        lexer->advance(lexer, false);
+                        depth++;
+                    } else if (c == '#' && lexer->lookahead == '>') {
+                        lexer->advance(lexer, false);
+                        depth--;
+                    }
+                }
+                continue;
+            }
+        } else if (c == 0 || c == '\r' || c == '\n' || c == '#' ||
+                   c == ';' || c == '|' || c == '&' || c == ')' ||
+                   c == '}' || c == '>') {
+            return false;
+        }
+        lexer->result_symbol = PARAMETER_ARGUMENT_START;
+        return true;
+    }
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[ERROR_SENTINEL]) return false;
+    if (valid_symbols[PARAMETER_ARGUMENT_START]) {
+        return scan_parameter_argument_start(lexer, valid_symbols);
+    }
     // Parser state, not a preceding expression's text, licenses an attachment.
     // Do not skip trivia: `-Name :value` has a separate literal argument.
     if (valid_symbols[PARAMETER_ARGUMENT_SEPARATOR] && lexer->lookahead == ':') {
