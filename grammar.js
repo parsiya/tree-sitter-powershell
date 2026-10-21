@@ -7,6 +7,11 @@ const PREC = {
   PARAM: 6,
 };
 
+const PARAMETER_ARGUMENT_LETTER =
+  String.raw`([^\P{L}\u{10000}-\u{10FFFF}]|[\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])`;
+const PARAMETER_ARGUMENT_CHAR =
+  String.raw`[^\x00\t-\r "'&(),.:;\[{}|\u0085\u00A0\u1680\u2000-\u200A\u2018-\u201E\u2028\u2029\u202F\u205F\u3000]`;
+
 export default grammar({
   name: 'powershell',
 
@@ -16,6 +21,7 @@ export default grammar({
     $._parameter_argument_separator,
     $._parameter_argument_start,
     $._colon_word_continuation,
+    $._parameter_argument_boundary,
     $._error_sentinel,
   ],
 
@@ -817,9 +823,36 @@ export default grammar({
     _command_parameter_argument: ($) =>
       choice(
         seq(
-          $._command_word,
+          choice($._command_word, $.parameter_argument_word),
           repeat(seq(',', choice($._command_word, $.unary_expression))),
         ),
+        seq(
+          $.parameter_argument_word,
+          $._parameter_argument_boundary,
+          $._parameter_argument_tail,
+        ),
+        $.array_literal_expression,
+      ),
+
+    // Parameter-like tokens remain literal values, including their dollars.
+    // Quotes and variables after a numeric/bare dash prefix can still expand.
+    parameter_argument_word: ($) => prec.right(PREC.PARAM + 1, seq(
+      $.parameter_argument_text,
+      repeat(seq(
+        $._colon_word_continuation,
+        choice($.string_literal, $.variable),
+      )),
+      optional(token.immediate(prec(2, ':'))),
+    )),
+
+    parameter_argument_text: ($) => token.immediate(prec(1, new RegExp(
+      String.raw`-+(?:${PARAMETER_ARGUMENT_LETTER}|[_?\x60-])${PARAMETER_ARGUMENT_CHAR}*|-[0-9.][^\s\u00a0"'\x60$(){}|;,&]*|-`,
+      'u',
+    ))),
+
+    _parameter_argument_tail: ($) =>
+      choice(
+        seq($._command_word, repeat(seq(',', choice($._command_word, $.unary_expression)))),
         $.array_literal_expression,
       ),
 

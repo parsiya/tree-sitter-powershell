@@ -10,6 +10,7 @@ enum TOKEN_TYPE {
     PARAMETER_ARGUMENT_SEPARATOR,
     PARAMETER_ARGUMENT_START,
     COLON_WORD_CONTINUATION,
+    PARAMETER_ARGUMENT_BOUNDARY,
     ERROR_SENTINEL
 };
 
@@ -156,6 +157,19 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->mark_end(lexer);
         lexer->result_symbol = COLON_WORD_CONTINUATION;
         return true;
+    }
+    if (valid_symbols[PARAMETER_ARGUMENT_BOUNDARY]) {
+        int32_t c = lexer->lookahead;
+        bool boundary = !(c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
+            c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
+            c == ',' || c == '>' || c == '<' || c == '(' || c == '{' ||
+            c == '-' || c == '`' || c == '#' || c == 0xfeff ||
+            c == 0x2060 || c == 0x200b || c == 0xa0);
+        if (boundary) {
+            lexer->mark_end(lexer);
+            lexer->result_symbol = PARAMETER_ARGUMENT_BOUNDARY;
+            return true;
+        }
     }
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.

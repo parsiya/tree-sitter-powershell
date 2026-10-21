@@ -685,6 +685,10 @@
           "named": true
         },
         {
+          "type": "parameter_argument_word",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -2195,6 +2199,29 @@
         },
         {
           "type": "parameter_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_argument_word",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_argument_text",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -4081,6 +4108,10 @@
   {
     "type": "param",
     "named": false
+  },
+  {
+    "type": "parameter_argument_text",
+    "named": true
   },
   {
     "type": "path_command_name_token",
