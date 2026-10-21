@@ -615,14 +615,7 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "(\\r?\\n)+[^\\\"\\r\\n]"
-                }
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "(\\r?\\n)+\\\"[^@]"
+                  "value": "(\\r?\\n)+"
                 }
               },
               {
@@ -645,8 +638,12 @@
         {
           "type": "IMMEDIATE_TOKEN",
           "content": {
-            "type": "PATTERN",
-            "value": "(\\r?\\n)+\\\"@"
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "PATTERN",
+              "value": "(\\r?\\n)+\\\"@"
+            }
           }
         }
       ]

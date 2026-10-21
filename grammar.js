@@ -124,13 +124,14 @@ export default grammar({
             token.immediate(/[^\$\r\n`]+/),
             $.variable,
             $.sub_expression,
-            token.immediate(/(\r?\n)+[^\"\r\n]/),
-            token.immediate(/(\r?\n)+\"[^@]/),
+            // Leave the next line's escape or interpolation prefix intact.
+            token.immediate(/(\r?\n)+/),
             token.immediate('$'),
             token.immediate(/`.{1}|`\r?\n/),
           ),
         ),
-        token.immediate(/(\r?\n)+\"@/),
+        // Prefer the closing delimiter over a content newline.
+        token.immediate(prec(1, /(\r?\n)+\"@/)),
       ),
 
     verbatim_string_characters: ($) =>
