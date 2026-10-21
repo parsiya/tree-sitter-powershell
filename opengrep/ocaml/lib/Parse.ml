@@ -657,16 +657,7 @@ let children_regexps : (string * Run.exp option) list = [
   "attribute",
   Some (
     Alt [|
-      Seq [
-        Token (Literal "[");
-        Token (Name "attribute_name");
-        Token (Literal "(");
-        Opt (
-          Token (Name "attribute_arguments");
-        );
-        Token (Literal ")");
-        Token (Literal "]");
-      ];
+      Token (Name "attribute_with_arguments");
       Token (Name "type_literal");
     |];
   );
@@ -702,6 +693,26 @@ let children_regexps : (string * Run.exp option) list = [
     Repeat1 (
       Token (Name "attribute");
     );
+  );
+  "attribute_with_arguments",
+  Some (
+    Seq [
+      Token (Literal "[");
+      Token (Name "attribute_name");
+      Token (Literal "(");
+      Opt (
+        Token (Name "attribute_arguments");
+      );
+      Token (Literal ")");
+      Token (Literal "]");
+    ];
+  );
+  "attributed_expression",
+  Some (
+    Seq [
+      Token (Name "attribute_with_arguments");
+      Token (Name "unary_expression");
+    ];
   );
   "bitwise_argument_expression",
   Some (
@@ -1227,6 +1238,7 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "pre_increment_expression");
       Token (Name "pre_decrement_expression");
       Token (Name "cast_expression");
+      Token (Name "attributed_expression");
       Seq [
         Token (Name "pat__split");
         Token (Name "unary_expression");
@@ -4196,22 +4208,8 @@ and trans_attribute ((kind, body) : mt) : CST.attribute =
   | Children v ->
       (match v with
       | Alt (0, v) ->
-          `LBRACK_attr_name_LPAR_opt_attr_args_RPAR_RBRACK (
-            (match v with
-            | Seq [v0; v1; v2; v3; v4; v5] ->
-                (
-                  Run.trans_token (Run.matcher_token v0),
-                  trans_attribute_name (Run.matcher_token v1),
-                  Run.trans_token (Run.matcher_token v2),
-                  Run.opt
-                    (fun v -> trans_attribute_arguments (Run.matcher_token v))
-                    v3
-                  ,
-                  Run.trans_token (Run.matcher_token v4),
-                  Run.trans_token (Run.matcher_token v5)
-                )
-            | _ -> assert false
-            )
+          `Attr_with_args (
+            trans_attribute_with_arguments (Run.matcher_token v)
           )
       | Alt (1, v) ->
           `Type_lit (
@@ -4285,6 +4283,39 @@ and trans_attribute_list ((kind, body) : mt) : CST.attribute_list =
       Run.repeat1
         (fun v -> trans_attribute (Run.matcher_token v))
         v
+  | Leaf _ -> assert false
+
+and trans_attribute_with_arguments ((kind, body) : mt) : CST.attribute_with_arguments =
+  match body with
+  | Children v ->
+      (match v with
+      | Seq [v0; v1; v2; v3; v4; v5] ->
+          (
+            Run.trans_token (Run.matcher_token v0),
+            trans_attribute_name (Run.matcher_token v1),
+            Run.trans_token (Run.matcher_token v2),
+            Run.opt
+              (fun v -> trans_attribute_arguments (Run.matcher_token v))
+              v3
+            ,
+            Run.trans_token (Run.matcher_token v4),
+            Run.trans_token (Run.matcher_token v5)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+and trans_attributed_expression ((kind, body) : mt) : CST.attributed_expression =
+  match body with
+  | Children v ->
+      (match v with
+      | Seq [v0; v1] ->
+          (
+            trans_attribute_with_arguments (Run.matcher_token v0),
+            trans_unary_expression (Run.matcher_token v1)
+          )
+      | _ -> assert false
+      )
   | Leaf _ -> assert false
 
 and trans_bitwise_argument_expression ((kind, body) : mt) : CST.bitwise_argument_expression =
@@ -5476,6 +5507,10 @@ and trans_expression_with_unary_operator ((kind, body) : mt) : CST.expression_wi
             trans_cast_expression (Run.matcher_token v)
           )
       | Alt (9, v) ->
+          `Attr_exp (
+            trans_attributed_expression (Run.matcher_token v)
+          )
+      | Alt (10, v) ->
           `Pat__split_un_exp (
             (match v with
             | Seq [v0; v1] ->
@@ -5486,7 +5521,7 @@ and trans_expression_with_unary_operator ((kind, body) : mt) : CST.expression_wi
             | _ -> assert false
             )
           )
-      | Alt (10, v) ->
+      | Alt (11, v) ->
           `Pat__join_un_exp (
             (match v with
             | Seq [v0; v1] ->

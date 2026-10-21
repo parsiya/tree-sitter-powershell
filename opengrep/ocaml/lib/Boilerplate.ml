@@ -1305,20 +1305,8 @@ and map_array_literal_expression (env : env) ((v1, v2) : CST.array_literal_expre
 
 and map_attribute (env : env) (x : CST.attribute) =
   (match x with
-  | `LBRACK_attr_name_LPAR_opt_attr_args_RPAR_RBRACK (v1, v2, v3, v4, v5, v6) -> R.Case ("LBRACK_attr_name_LPAR_opt_attr_args_RPAR_RBRACK",
-      let v1 = (* "[" *) token env v1 in
-      let v2 = map_attribute_name env v2 in
-      let v3 = (* "(" *) token env v3 in
-      let v4 =
-        (match v4 with
-        | Some x -> R.Option (Some (
-            map_attribute_arguments env x
-          ))
-        | None -> R.Option None)
-      in
-      let v5 = (* ")" *) token env v5 in
-      let v6 = (* "]" *) token env v6 in
-      R.Tuple [v1; v2; v3; v4; v5; v6]
+  | `Attr_with_args x -> R.Case ("Attr_with_args",
+      map_attribute_with_arguments env x
     )
   | `Type_lit x -> R.Case ("Type_lit",
       map_type_literal env x
@@ -1358,6 +1346,21 @@ and map_attribute_arguments (env : env) ((v1, v2) : CST.attribute_arguments) =
 
 and map_attribute_list (env : env) (xs : CST.attribute_list) =
   R.List (List.map (map_attribute env) xs)
+
+and map_attribute_with_arguments (env : env) ((v1, v2, v3, v4, v5, v6) : CST.attribute_with_arguments) =
+  let v1 = (* "[" *) token env v1 in
+  let v2 = map_attribute_name env v2 in
+  let v3 = (* "(" *) token env v3 in
+  let v4 =
+    (match v4 with
+    | Some x -> R.Option (Some (
+        map_attribute_arguments env x
+      ))
+    | None -> R.Option None)
+  in
+  let v5 = (* ")" *) token env v5 in
+  let v6 = (* "]" *) token env v6 in
+  R.Tuple [v1; v2; v3; v4; v5; v6]
 
 and map_bitwise_argument_expression (env : env) (x : CST.bitwise_argument_expression) =
   (match x with
@@ -1878,6 +1881,11 @@ and map_expression_with_unary_operator (env : env) (x : CST.expression_with_unar
     )
   | `Cast_exp (v1, v2) -> R.Case ("Cast_exp",
       let v1 = map_type_literal env v1 in
+      let v2 = map_unary_expression env v2 in
+      R.Tuple [v1; v2]
+    )
+  | `Attr_exp (v1, v2) -> R.Case ("Attr_exp",
+      let v1 = map_attribute_with_arguments env v1 in
       let v2 = map_unary_expression env v2 in
       R.Tuple [v1; v2]
     )

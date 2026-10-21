@@ -716,14 +716,7 @@ and array_literal_expression = (
 )
 
 and attribute = [
-    `LBRACK_attr_name_LPAR_opt_attr_args_RPAR_RBRACK of (
-        Token.t (* "[" *)
-      * attribute_name
-      * Token.t (* "(" *)
-      * attribute_arguments option
-      * Token.t (* ")" *)
-      * Token.t (* "]" *)
-    )
+    `Attr_with_args of attribute_with_arguments
   | `Type_lit of type_literal
 ]
 
@@ -741,6 +734,15 @@ and attribute_arguments = (
 )
 
 and attribute_list = attribute list (* one or more *)
+
+and attribute_with_arguments = (
+    Token.t (* "[" *)
+  * attribute_name
+  * Token.t (* "(" *)
+  * attribute_arguments option
+  * Token.t (* ")" *)
+  * Token.t (* "]" *)
+)
 
 and bitwise_argument_expression = [
     `Comp_arg_exp of comparison_argument_expression
@@ -959,6 +961,7 @@ and expression_with_unary_operator = [
   | `Pre_incr_exp of (Token.t (* "++" *) * unary_expression)
   | `Pre_decr_exp of (Token.t (* "--" *) * unary_expression)
   | `Cast_exp of (type_literal * unary_expression)
+  | `Attr_exp of (attribute_with_arguments * unary_expression)
   | `Pat__split_un_exp of (pat__split * unary_expression)
   | `Pat__join_un_exp of (pat__join * unary_expression)
 ]
@@ -1547,6 +1550,10 @@ type array_expression (* inlined *) = (
 
 type assignment_expression (* inlined *) = (
     left_assignment_expression * assignement_operator * statement
+)
+
+type attributed_expression (* inlined *) = (
+    attribute_with_arguments * unary_expression
 )
 
 type cast_expression (* inlined *) = (type_literal * unary_expression)
