@@ -1,0 +1,1362 @@
+===
+Attribute arguments: type followed by named value
+===
+
+function Test {
+    [OutputType([Void], ParameterSetName='APRS-IS')]
+    param()
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))
+              (attribute_arguments
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))))))))))))
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))
+
+===
+Attribute arguments: multiple positional types followed by named value
+===
+
+function Test {
+    [OutputType([string], [int], ParameterSetName='Primary')]
+    param()
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))
+              (attribute_arguments
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))))))))))))
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))))))))))))
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))
+
+===
+Attribute arguments: multiple positional scalar values
+===
+
+function Test {
+    param([ValidateRange(1, 9)]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: multiple positional and named scalar values
+===
+
+function Test {
+    param([Example(1, 'two', $true, Name='three', Enabled=$false)]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: positional values after named value
+===
+
+function Test {
+    param([Example(Name='first', 2, [string], Enabled=$true)]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (type_literal
+                                          (type_spec
+                                            (type_name
+                                              (type_identifier))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: parenthesized array remains one positional value
+===
+
+function Test {
+    param([Example((1, 2), Name='array')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (parenthesized_expression
+                                          (pipeline
+                                            (pipeline_chain
+                                              (logical_expression
+                                                (bitwise_expression
+                                                  (comparison_expression
+                                                    (additive_expression
+                                                      (multiplicative_expression
+                                                        (format_expression
+                                                          (range_expression
+                                                            (array_literal_expression
+                                                              (unary_expression
+                                                                (integer_literal
+                                                                  (decimal_integer_literal)))
+                                                              (unary_expression
+                                                                (integer_literal
+                                                                  (decimal_integer_literal))))))))))))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: operators stay within their arguments
+===
+
+function Test {
+    param([Example(1 + 2, 3 * 4, Name=5 + 6, Last='one' + 'two')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal))))))))
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))))))
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal))))))))
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (verbatim_string_characters))))))))
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: cast values remain positional values
+===
+
+function Test {
+    param([Example([int]1, [int]2, Name='casts')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (cast_expression
+                                            (type_literal
+                                              (type_spec
+                                                (type_name
+                                                  (type_identifier))))
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (cast_expression
+                                            (type_literal
+                                              (type_spec
+                                                (type_name
+                                                  (type_identifier))))
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: named values and omitted expression
+===
+
+function Test {
+    param([Parameter(Mandatory, Position=0, ValueFromPipeline=$true)] [string]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (simple_name))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))))))
+
+===
+Attribute arguments: function parameter and ordinary body cast
+===
+
+function Test([Example(1, [int], Name='parameter')] [int]$Value) {
+    [int]$Value
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (function_parameter_declaration
+        (parameter_list
+          (script_parameter
+            (attribute_list
+              (attribute
+                (attribute_name
+                  (type_spec
+                    (type_name
+                      (type_identifier))))
+                (attribute_arguments
+                  (attribute_argument
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal))))))))))))
+                  (attribute_argument
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (type_literal
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))))))))))))
+                  (attribute_argument
+                    (simple_name)
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (string_literal
+                                        (verbatim_string_characters))))))))))))))
+              (attribute
+                (type_literal
+                  (type_spec
+                    (type_name
+                      (type_identifier))))))
+            (variable))))
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (expression_with_unary_operator
+                                    (cast_expression
+                                      (type_literal
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Attribute arguments: class property and method attributes
+===
+
+class Example {
+    [Example(1, [string], Name='property')] [int]$Value
+    [Example('one', Name='method')] [int]GetValue([int]$InputValue) {
+        return [int]$InputValue
+    }
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))))))
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))))))))))))
+            (attribute_argument
+              (simple_name)
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))
+            (attribute_argument
+              (simple_name)
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (variable)))
+        (script_block
+          (script_block_body
+            (statement_list
+              (flow_control_statement
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (expression_with_unary_operator
+                                        (cast_expression
+                                          (type_literal
+                                            (type_spec
+                                              (type_name
+                                                (type_identifier))))
+                                          (unary_expression
+                                            (variable)))))))))))))))))))))))
+
+===
+Attribute arguments: ordinary casts and comma arrays are unchanged
+===
+
+[int]$Value
+[string[]](1, 2)
+[System.Collections.Generic.List[string]]$Items
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (variable)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (array_type_name
+                                    (type_name
+                                      (type_identifier)))))
+                              (unary_expression
+                                (parenthesized_expression
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal)))
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal))))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (generic_type_name
+                                    (type_name
+                                      (type_name
+                                        (type_name
+                                          (type_name
+                                            (type_identifier))
+                                          (type_identifier))
+                                        (type_identifier))
+                                      (type_identifier)))
+                                  (generic_type_arguments
+                                    (type_spec
+                                      (type_name
+                                        (type_identifier))))))
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+===
+Attribute arguments: array and generic type expressions
+===
+
+function Test {
+    [OutputType([string[]], [System.Collections.Generic.List[int]], ParameterSetName='Typed')]
+    param()
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))
+              (attribute_arguments
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (array_type_name
+                                          (type_name
+                                            (type_identifier)))))))))))))))
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (generic_type_name
+                                          (type_name
+                                            (type_name
+                                              (type_name
+                                                (type_name
+                                                  (type_identifier))
+                                                (type_identifier))
+                                              (type_identifier))
+                                            (type_identifier)))
+                                        (generic_type_arguments
+                                          (type_spec
+                                            (type_name
+                                              (type_identifier))))))))))))))))
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))
+
+===
+Attribute arguments: named type expression followed by positional type
+===
+
+function Test {
+    param([Example(ResultType=[int], [string], Name='typed')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (type_literal
+                                          (type_spec
+                                            (type_name
+                                              (type_identifier))))))))))))))
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (type_literal
+                                          (type_spec
+                                            (type_name
+                                              (type_identifier))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: parenthesized named array followed by another argument
+===
+
+function Test {
+    param([Example([int], Values=(1, 2), Name='array')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (type_literal
+                                          (type_spec
+                                            (type_name
+                                              (type_identifier))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (parenthesized_expression
+                                          (pipeline
+                                            (pipeline_chain
+                                              (logical_expression
+                                                (bitwise_expression
+                                                  (comparison_expression
+                                                    (additive_expression
+                                                      (multiplicative_expression
+                                                        (format_expression
+                                                          (range_expression
+                                                            (array_literal_expression
+                                                              (unary_expression
+                                                                (integer_literal
+                                                                  (decimal_integer_literal)))
+                                                              (unary_expression
+                                                                (integer_literal
+                                                                  (decimal_integer_literal))))))))))))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: script block positional value with named value
+===
+
+function Test {
+    param([ValidateScript({ $_ -gt 0 }, ErrorMessage='bad')]$Value)
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (script_block_expression
+                                          (script_block
+                                            (script_block_body
+                                              (statement_list
+                                                (pipeline
+                                                  (pipeline_chain
+                                                    (logical_expression
+                                                      (bitwise_expression
+                                                        (comparison_expression
+                                                          (comparison_expression
+                                                            (additive_expression
+                                                              (multiplicative_expression
+                                                                (format_expression
+                                                                  (range_expression
+                                                                    (array_literal_expression
+                                                                      (unary_expression
+                                                                        (variable))))))))
+                                                          (comparison_operator)
+                                                          (additive_expression
+                                                            (multiplicative_expression
+                                                              (format_expression
+                                                                (range_expression
+                                                                  (array_literal_expression
+                                                                    (unary_expression
+                                                                      (integer_literal
+                                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+                    (attribute_argument
+                      (simple_name)
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))))))
+              (variable))))))))
+
+===
+Attribute arguments: comments and line breaks separate arguments
+===
+
+function Test {
+    [OutputType(
+        [int], # positional type
+        [string],
+        ParameterSetName = 'Typed', # named argument
+        Name = 'Other'
+    )]
+    param()
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))
+              (attribute_arguments
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))))))))))))
+                (comment)
+                (attribute_argument
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))))))))))))
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))
+                (comment)
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))

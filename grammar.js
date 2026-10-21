@@ -1248,9 +1248,93 @@ export default grammar({
 
     attribute_argument: ($) =>
       choice(
-        $._expression,
-        seq($.simple_name, optional(seq('=', $._expression))),
+        $._attribute_expression,
+        seq($.simple_name, optional(seq('=', $._attribute_expression))),
       ),
+
+    // Attribute commas separate arguments, not array elements. Keep the normal
+    // expression node names so existing attribute CSTs remain unchanged.
+    _attribute_expression: ($) =>
+      alias($._attribute_logical_expression, $.logical_expression),
+
+    _attribute_logical_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_bitwise_expression, $.bitwise_expression),
+        seq(
+          alias($._attribute_logical_expression, $.logical_expression),
+          choice(reservedWord('-and'), reservedWord('-or'), reservedWord('-xor')),
+          alias($._attribute_bitwise_expression, $.bitwise_expression),
+        ),
+      )),
+
+    _attribute_bitwise_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_comparison_expression, $.comparison_expression),
+        seq(
+          alias($._attribute_bitwise_expression, $.bitwise_expression),
+          choice(reservedWord('-band'), reservedWord('-bor'), reservedWord('-bxor')),
+          alias($._attribute_comparison_expression, $.comparison_expression),
+        ),
+      )),
+
+    _attribute_comparison_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_additive_expression, $.additive_expression),
+        seq(
+          alias($._attribute_comparison_expression, $.comparison_expression),
+          $.comparison_operator,
+          alias($._attribute_additive_expression, $.additive_expression),
+        ),
+      )),
+
+    _attribute_additive_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_multiplicative_expression, $.multiplicative_expression),
+        seq(
+          alias($._attribute_additive_expression, $.additive_expression),
+          choice('+', '-'),
+          alias($._attribute_multiplicative_expression, $.multiplicative_expression),
+        ),
+      )),
+
+    _attribute_multiplicative_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_format_expression, $.format_expression),
+        seq(
+          alias($._attribute_multiplicative_expression, $.multiplicative_expression),
+          choice('/', '\\', '%', '*'),
+          alias($._attribute_format_expression, $.format_expression),
+        ),
+      )),
+
+    _attribute_format_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_range_expression, $.range_expression),
+        seq(
+          alias($._attribute_format_expression, $.format_expression),
+          $.format_operator,
+          alias($._attribute_range_expression, $.range_expression),
+        ),
+      )),
+
+    _attribute_range_expression: ($) =>
+      prec.left(choice(
+        alias($._attribute_array_literal_expression, $.array_literal_expression),
+        seq(
+          alias($._attribute_range_expression, $.range_expression),
+          '..',
+          alias($._attribute_array_literal_expression, $.array_literal_expression),
+        ),
+      )),
+
+    _attribute_array_literal_expression: ($) =>
+      choice(
+        $.unary_expression,
+        alias($._attribute_type_value, $.unary_expression),
+      ),
+
+    // Prefer a complete type value to a cast of a comma-prefixed array here.
+    _attribute_type_value: ($) => prec(PREC.CAST + 1, $.type_literal),
   },
 });
 
