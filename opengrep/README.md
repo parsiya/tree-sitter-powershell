@@ -60,6 +60,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/compact-return` | Read `return@(1)` as a command named `return@`, as PowerShell does. Combined batch-001: +2 agree. | Not yet offered. |
 | `fix/escaped-dollar-subexpressions` | Preserve escapes and interpolation prefixes at here-string line starts. Combined batch-001: +6 agree. | Not yet offered. |
 | `fix/comment-help-boundaries` | Keep comment-looking string text from hiding actual interpolations. Combined batch-001: +9 agree. | Not yet offered. |
+| `fix/unicode-names` | Accept BMP Unicode letters and decimal digits in variables and scopes, with compatible generation on both CLIs. Combined batch-001: +1 agree; seven other files advance to their next error. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

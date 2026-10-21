@@ -90,7 +90,7 @@ let children_regexps : (string * Run.exp option) list = [
   "tok_choice_pat_025d295", None;
   "braced_variable", None;
   "pat_func", None;
-  "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
+  "tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588",
   None;
   "pat__ilike", None;
   "script_block_argument_start", None;
@@ -276,7 +276,7 @@ let children_regexps : (string * Run.exp option) list = [
   "imm_tok_pat_0da7e88", None;
   "pat__bnot", None;
   "pat__crep", None;
-  "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
+  "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588",
   None;
   "pat__file", None;
   "imm_tok_dollar", None;
@@ -437,8 +437,8 @@ let children_regexps : (string * Run.exp option) list = [
         Token (Literal "$^");
         Token (Literal "$?");
         Token (Literal "$_");
-        Token (Name "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
-        Token (Name "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
+        Token (Name "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588");
+        Token (Name "tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588");
         Token (Name "braced_variable");
       |];
     |];
@@ -2401,7 +2401,7 @@ let trans_pat_func ((kind, body) : mt) : CST.pat_func =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
+let trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 ((kind, body) : mt) : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3225,7 +3225,7 @@ let trans_pat__crep ((kind, body) : mt) : CST.pat__crep =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
+let trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 ((kind, body) : mt) : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3725,12 +3725,12 @@ let trans_variable ((kind, body) : mt) : CST.variable =
                   Run.trans_token (Run.matcher_token v)
                 )
             | Alt (4, v) ->
-                `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
-                  trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
+                `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (
+                  trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (Run.matcher_token v)
                 )
             | Alt (5, v) ->
-                `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
-                  trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
+                `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (
+                  trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (Run.matcher_token v)
                 )
             | Alt (6, v) ->
                 `Braced_var (

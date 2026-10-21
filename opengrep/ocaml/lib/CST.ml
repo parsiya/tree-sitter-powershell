@@ -217,7 +217,8 @@ type pat_d73f7f5 = Token.t (* pattern [rR][eE][tT][uU][rR][nN][-@] *)
 
 type pat_work = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW] *)
 
-type tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 = Token.t
+type tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
+  Token.t
 
 type pat__regex = Token.t (* pattern [--][rR][eE][gG][eE][xX] *)
 
@@ -248,7 +249,8 @@ type pat__isnot = Token.t (* pattern [--][iI][sS][nN][oO][tT] *)
 
 type pat_work_ = Token.t (* pattern [wW][oO][rR][kK][fF][lL][oO][wW][--] *)
 
-type tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 = Token.t
+type tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 =
+  Token.t
 
 type pat_58fbb2e = Token.t (* pattern "[^']+" *)
 
@@ -482,10 +484,10 @@ type variable = [
       | `DOLLARHAT of Token.t (* "$^" *)
       | `DOLLARQMARK of Token.t (* "$?" *)
       | `DOLLAR_ of Token.t (* "$_" *)
-      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 of
-          tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473
-      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 of
-          tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473
+      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 of
+          tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588
+      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 of
+          tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588
       | `Braced_var of braced_variable (*tok*)
     ]
 ]

@@ -362,8 +362,8 @@ let map_pat_d73f7f5 (env : env) (tok : CST.pat_d73f7f5) =
 let map_pat_work (env : env) (tok : CST.pat_work) =
   (* pattern [wW][oO][rR][kK][fF][lL][oO][wW] *) token env tok
 
-let map_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (env : env) (tok : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473) =
-  (* tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 *) token env tok
+let map_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (env : env) (tok : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588) =
+  (* tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 *) token env tok
 
 let map_pat__regex (env : env) (tok : CST.pat__regex) =
   (* pattern [--][rR][eE][gG][eE][xX] *) token env tok
@@ -411,8 +411,8 @@ let map_pat__isnot (env : env) (tok : CST.pat__isnot) =
 let map_pat_work_ (env : env) (tok : CST.pat_work_) =
   (* pattern [wW][oO][rR][kK][fF][lL][oO][wW][--] *) token env tok
 
-let map_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (env : env) (tok : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473) =
-  (* tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 *) token env tok
+let map_tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 (env : env) (tok : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588) =
+  (* tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 *) token env tok
 
 let map_pat_58fbb2e (env : env) (tok : CST.pat_58fbb2e) =
   (* pattern "[^']+" *) token env tok
@@ -789,11 +789,11 @@ let map_variable (env : env) (x : CST.variable) =
       | `DOLLAR_ tok -> R.Case ("DOLLAR_",
           (* "$_" *) token env tok
         )
-      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 x -> R.Case ("Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
-          map_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 env x
+      | `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 x -> R.Case ("Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588",
+          map_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 env x
         )
-      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 x -> R.Case ("Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
-          map_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 env x
+      | `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 x -> R.Case ("Tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588",
+          map_tok_at_choice_choice_prec_p1_pat_0705c16_colon_choice_pat_7059588 env x
         )
       | `Braced_var tok -> R.Case ("Braced_var",
           (* pattern \$\{[^}]+\} *) token env tok
