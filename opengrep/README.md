@@ -56,6 +56,10 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/command-argument-lists` | Keep a command argument list together when it mixes expressions and words or has spaces before a comma (scanner change). | Not yet offered. |
 | `opengrep-dev` | Keep method calls in command arguments together, including chained calls, computed members and indexing after a call. Batch-001: 128 more files agree with PowerShell, no regressions. | Not yet offered. |
 | `fix/joined-command-words` | Keep variables, quoted pieces and embedded subexpressions in one command word, and treat nonbreaking spaces as separators. Nested commands remain visible. Batch-001 combined: 77 more files agree, no regressions. | Not yet offered. |
+| `fix/empty-scriptblock-arguments` | Accept empty scriptblock arguments. Combined batch-001: +11 agree. | Not yet offered. |
+| `fix/compact-return` | Read `return@(1)` as a command named `return@`, as PowerShell does. Combined batch-001: +2 agree. | Not yet offered. |
+| `fix/escaped-dollar-subexpressions` | Preserve escapes and interpolation prefixes at here-string line starts. Combined batch-001: +6 agree. | Not yet offered. |
+| `fix/comment-help-boundaries` | Keep comment-looking string text from hiding actual interpolations. Combined batch-001: +9 agree. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

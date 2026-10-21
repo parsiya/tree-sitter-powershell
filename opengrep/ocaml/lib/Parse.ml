@@ -42,26 +42,28 @@ let extras = [
 ]
 
 let children_regexps : (string * Run.exp option) list = [
-  "pat_try", None;
+  "pat_try_", None;
   "command_word_part", None;
-  "pat__xor", None;
-  "imm_tok_squot", None;
-  "pat__cnot", None;
-  "pat__isplit", None;
-  "pat_module", None;
-  "pat__inotcs", None;
   "pat_a8fb427", None;
+  "imm_tok_squotsquot", None;
+  "pat__cnot_", None;
+  "pat__join", None;
+  "pat_module", None;
+  "pat__irep", None;
+  "pat_asse", None;
   "else_clause_ahead", None;
-  "imm_tok_prec_p1_pat_5b7d8c6", None;
-  "pat_while_", None;
-  "statement_terminator", None;
-  "pat_8a0ae06", None;
-  "pat__inot_", None;
-  "pat_using", None;
+  "imm_tok_squot", None;
+  "label", None;
   "pat_work", None;
-  "pat__inot", None;
-  "pat__is", None;
-  "tok_choice_pat_025d295", None;
+  "stop_parsing", None;
+  "verbatim_here_string_characters", None;
+  "pat_8bcdf9d", None;
+  "pat__inotcs", None;
+  "pat_using_", None;
+  "pat_work_", None;
+  "pat__inot_", None;
+  "pat__isnot", None;
+  "tok_choice_pat_bf1ac22", None;
   "command_invokation_operator",
   Some (
     Alt [|
@@ -69,59 +71,42 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal "&");
     |];
   );
-  "pat__like", None;
+  "pat__lt", None;
   "pat_dyna", None;
-  "pat__cnotcs", None;
-  "pat_bb8229a", None;
-  "pat__file", None;
-  "verbatim_string_characters", None;
-  "pat_trap", None;
-  "pat_4f029d2", None;
-  "pat__cne", None;
+  "pat__contas", None;
+  "pat_begin", None;
+  "pat__ge", None;
+  "pat_trap_", None;
+  "pat_58fbb2e", None;
+  "pat__cnot", None;
   "pat_in", None;
-  "pat__para", None;
-  "pat_cont_", None;
-  "pat__ine", None;
+  "pat__regex", None;
+  "pat_d72a25c", None;
+  "pat__inot", None;
   "pat_para", None;
-  "tok_prec_p1_pat_class", None;
-  "pat__bxor", None;
+  "tok_prec_p1_pat_enum", None;
+  "pat__case", None;
   "pat_exit", None;
-  "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
-  None;
+  "tok_choice_pat_025d295", None;
   "braced_variable", None;
   "pat_func", None;
-  "stop_parsing", None;
-  "pat__ile", None;
-  "real_literal", None;
-  "imm_tok_pat_8a0ae06", None;
-  "merging_redirection_operator",
-  Some (
-    Alt [|
-      Token (Literal "*>&1");
-      Token (Literal "2>&1");
-      Token (Literal "3>&1");
-      Token (Literal "4>&1");
-      Token (Literal "5>&1");
-      Token (Literal "6>&1");
-      Token (Literal "*>&2");
-      Token (Literal "1>&2");
-      Token (Literal "3>&2");
-      Token (Literal "4>&2");
-      Token (Literal "5>&2");
-      Token (Literal "6>&2");
-    |];
-  );
-  "pat__cmatch", None;
-  "pat__shl", None;
-  "pat__notl", None;
-  "pat_cont", None;
-  "pat__cnot_", None;
-  "pat__wild", None;
+  "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
+  None;
+  "pat__ilike", None;
+  "script_block_argument_start", None;
+  "imm_tok_prec_p1_pat_3dc846d", None;
+  "pat_0f43aa8", None;
+  "pat__cne", None;
+  "pat__shr", None;
+  "pat__notm", None;
+  "pat_cont_", None;
+  "pat__cnotcs", None;
+  "pat__xor", None;
   "decimal_integer_literal", None;
-  "pat__clt", None;
-  "pat__case", None;
+  "pat__cmatch", None;
+  "pat__cconts", None;
   "pat_fore", None;
-  "pat_begin", None;
+  "pat_begin_", None;
   "command_token", None;
   "dimension",
   Some (
@@ -129,49 +114,31 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal ",");
     );
   );
-  "pat__ige", None;
-  "pat__join", None;
-  "pat_work_", None;
+  "pat__igt", None;
+  "pat__le", None;
   "pat_name", None;
   "imm_tok_dot", None;
-  "pat__clike", None;
-  "pat_asse", None;
-  "semgrep_named_ellipsis", None;
-  "pat_58fbb2e", None;
-  "pat__bor", None;
-  "pat_fina", None;
-  "type_identifier", None;
-  "pat__regex", None;
-  "pat_trap_", None;
-  "pat__csplit", None;
-  "pat__in", None;
-  "empty_statement", None;
-  "pat__ilt", None;
-  "pat__irep", None;
-  "pat_begin_", None;
-  "pat_8bcdf9d", None;
-  "verbatim_here_string_characters", None;
-  "pat_switch", None;
-  "pat_using_", None;
-  "imm_tok_squotsquot", None;
-  "pat__isnot", None;
-  "pat_dyna_", None;
-  "path_command_name_token", None;
-  "tok_prec_p1_pat_hidden", None;
-  "pat__shr", None;
-  "pat_data", None;
-  "command_word_start", None;
-  "command_word_expression", None;
-  "pat__ge", None;
-  "pat_proc_", None;
-  "imm_tok_pat_0f818ff", None;
-  "spaces_before_comma", None;
-  "tok_prec_p1_pat_enum", None;
-  "pat__bnot", None;
-  "pat_0f43aa8", None;
-  "pat__notin", None;
+  "pat__clt", None;
   "pat_base", None;
-  "pat__le", None;
+  "simple_name", None;
+  "pat_60937fc", None;
+  "pat__bxor", None;
+  "pat_fina", None;
+  "pat__repl", None;
+  "pat_try", None;
+  "pat__eq", None;
+  "pat__ine", None;
+  "empty_statement", None;
+  "pat__imatch", None;
+  "pat__is", None;
+  "using_separator", None;
+  "pat_brk", None;
+  "pat__and", None;
+  "verbatim_string_characters", None;
+  "pat_switch_", None;
+  "pat_while", None;
+  "pat__isplit", None;
+  "pat_dyna_", None;
   "pipeline_chain_tail",
   Some (
     Alt [|
@@ -179,50 +146,64 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal "||");
     |];
   );
-  "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
-  None;
-  "pat_71f01fd", None;
+  "tok_prec_p1_pat_static", None;
+  "pat__split", None;
+  "pat_data", None;
+  "command_word_start", None;
+  "command_word_expression", None;
+  "pat__gt", None;
+  "pat_proc_", None;
+  "imm_tok_pat_509ec78", None;
+  "statement_terminator", None;
+  "tok_prec_p1_pat_hidden", None;
+  "pat__bor", None;
+  "pat_4f029d2", None;
+  "pat__notl", None;
+  "pat_bb8229a", None;
+  "pat__like", None;
+  "tok_prec_p1_pat_class", None;
+  "pat_75780b9", None;
   "pat_end_", None;
-  "pat_6a8c7a7", None;
+  "pat_71f01fd", None;
   "pat_inli", None;
-  "pat_while", None;
+  "pat_while_", None;
   "pat_func_", None;
-  "script_block_argument_start", None;
+  "semgrep_named_ellipsis", None;
   "bare_dashes", None;
   "pat_filter_", None;
-  "pat_d72a25c", None;
+  "pat_d73f7f5", None;
   "pat_do", None;
-  "pat__notcos", None;
-  "pat_brk_", None;
+  "pat__notin", None;
+  "pat_catch", None;
   "pat_filter", None;
   "pat_enum_", None;
   "pat_for", None;
+  "real_literal", None;
   "imm_tok_dquotdquot", None;
-  "pat_75780b9", None;
+  "pat_8a0ae06", None;
   "pat_for_", None;
-  "tok_prec_p1_pat_static", None;
-  "pat__exact", None;
-  "pat__match", None;
-  "pat_catch", None;
-  "pat_60937fc", None;
-  "pat__crep", None;
+  "type_identifier", None;
+  "pat__f", None;
+  "pat__ne", None;
+  "pat_class_", None;
+  "pat_6a8c7a7", None;
+  "pat__csplit", None;
   "pat_param", None;
-  "pat_try_", None;
+  "pat_until", None;
   "pat_proc", None;
   "hexadecimal_integer_literal", None;
-  "pat__cgt", None;
-  "pat__lt", None;
-  "pat_throw", None;
   "pat__cle", None;
-  "pat__repl", None;
-  "imm_tok_pat_f92c05a", None;
+  "pat__match", None;
+  "pat_throw_", None;
+  "pat__clike", None;
+  "pat__shl", None;
+  "imm_tok_prec_p1_pat_b45f689", None;
   "pat_para_", None;
-  "pat__supp", None;
-  "pat_class_", None;
+  "pat__wild", None;
+  "pat_cont", None;
   "pat_else", None;
-  "pat__cconts", None;
+  "pat__ceq", None;
   "pat_ret", None;
-  "using_separator", None;
   "file_redirection_operator",
   Some (
     Alt [|
@@ -243,49 +224,67 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal "<");
     |];
   );
-  "label", None;
+  "merging_redirection_operator",
+  Some (
+    Alt [|
+      Token (Literal "*>&1");
+      Token (Literal "2>&1");
+      Token (Literal "3>&1");
+      Token (Literal "4>&1");
+      Token (Literal "5>&1");
+      Token (Literal "6>&1");
+      Token (Literal "*>&2");
+      Token (Literal "1>&2");
+      Token (Literal "3>&2");
+      Token (Literal "4>&2");
+      Token (Literal "5>&2");
+      Token (Literal "6>&2");
+    |];
+  );
   "pat_elseif", None;
-  "pat__as", None;
-  "imm_tok_pat_b45f689", None;
-  "pat__cge", None;
-  "imm_tok_pat_883ef26", None;
+  "pat__band", None;
+  "path_command_name_token", None;
+  "imm_tok_prec_p1_pat_5b7d8c6", None;
+  "pat__cgt", None;
+  "imm_tok_pat_f92c05a", None;
   "background_operator", None;
-  "pat__gt", None;
-  "pat__or", None;
-  "pat_until", None;
-  "pat__ilike", None;
+  "pat__iconts", None;
+  "pat__para", None;
+  "pat_using", None;
+  "pat__ilt", None;
   "pat_if", None;
   "pat_if_", None;
-  "pat__ceq", None;
-  "pat__imatch", None;
-  "pat__ne", None;
-  "imm_tok_dquot", None;
-  "pat__and", None;
-  "pat__ieq", None;
-  "pat__notm", None;
-  "pat_seq", None;
-  "imm_tok_pat_3dc846d", None;
-  "pat__igt", None;
-  "pat_end", None;
-  "simple_name", None;
-  "pat__iconts", None;
+  "pat__cge", None;
+  "pat__in", None;
   "pat__not", None;
-  "imm_tok_pat_46ba992", None;
-  "pat_brk", None;
-  "imm_tok_pat_b4547f3", None;
+  "imm_tok_dquot", None;
+  "pat__as", None;
+  "pat__ige", None;
+  "pat__or", None;
+  "pat_switch", None;
+  "imm_tok_pat_693b5cb", None;
+  "pat__ile", None;
+  "pat_end", None;
+  "spaces_before_comma", None;
+  "pat__ieq", None;
+  "pat__notcos", None;
+  "imm_tok_pat_8a0ae06", None;
+  "pat_brk_", None;
+  "imm_tok_prec_p1_pat_46ba992", None;
   "pat_exit_", None;
-  "pat_switch_", None;
+  "pat_throw", None;
   "imm_tok_pat_0da7e88", None;
-  "pat__band", None;
-  "pat__contas", None;
-  "tok_choice_pat_bf1ac22", None;
-  "pat__f", None;
+  "pat__bnot", None;
+  "pat__crep", None;
+  "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473",
+  None;
+  "pat__file", None;
   "imm_tok_dollar", None;
-  "pat_ret_", None;
-  "pat__split", None;
-  "pat_throw_", None;
-  "imm_tok_pat_509ec78", None;
-  "pat__eq", None;
+  "pat_seq", None;
+  "pat__supp", None;
+  "pat_trap", None;
+  "imm_tok_pat_b4547f3", None;
+  "pat__exact", None;
   "assignement_operator",
   Some (
     Alt [|
@@ -300,13 +299,6 @@ let children_regexps : (string * Run.exp option) list = [
     |];
   );
   "comment", None;
-  "foreach_parameter",
-  Some (
-    Alt [|
-      Token (Name "pat__para");
-    |];
-  );
-  "function_name", Some (Token (Name "command_token"););
   "string_literal_immediate",
   Some (
     Seq [
@@ -314,44 +306,13 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal "'");
     ];
   );
-  "type_name",
+  "function_name", Some (Token (Name "command_token"););
+  "data_name", Some (Token (Name "simple_name"););
+  "class_attribute",
   Some (
     Alt [|
-      Token (Name "type_identifier");
-      Seq [
-        Token (Name "type_name");
-        Token (Literal ".");
-        Token (Name "type_identifier");
-      ];
-    |];
-  );
-  "variable",
-  Some (
-    Alt [|
-      Token (Name "semgrep_named_ellipsis");
-      Alt [|
-        Token (Literal "$$");
-        Token (Literal "$^");
-        Token (Literal "$?");
-        Token (Literal "$_");
-        Token (Name "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
-        Token (Name "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
-        Token (Name "braced_variable");
-      |];
-    |];
-  );
-  "command_argument_sep",
-  Some (
-    Alt [|
-      Token (Name "pat_6a8c7a7");
-      Token (Literal ":");
-    |];
-  );
-  "command_parameter",
-  Some (
-    Alt [|
-      Token (Name "tok_choice_pat_025d295");
-      Token (Name "bare_dashes");
+      Token (Name "tok_prec_p1_pat_hidden");
+      Token (Name "tok_prec_p1_pat_static");
     |];
   );
   "verbatim_command_argument_chars",
@@ -364,21 +325,30 @@ let children_regexps : (string * Run.exp option) list = [
       |];
     );
   );
-  "class_attribute",
+  "command_parameter",
   Some (
     Alt [|
-      Token (Name "tok_prec_p1_pat_hidden");
-      Token (Name "tok_prec_p1_pat_static");
+      Token (Name "tok_choice_pat_025d295");
+      Token (Name "bare_dashes");
     |];
   );
-  "switch_parameter",
+  "type_name",
   Some (
     Alt [|
-      Token (Name "pat__regex");
-      Token (Name "pat__wild");
-      Token (Name "pat__exact");
-      Token (Name "pat__case");
-      Token (Name "pat__para");
+      Token (Name "type_identifier");
+      Seq [
+        Token (Name "type_name");
+        Token (Literal ".");
+        Token (Name "type_identifier");
+      ];
+    |];
+  );
+  "format_operator", Some (Token (Name "pat__f"););
+  "command_argument_sep",
+  Some (
+    Alt [|
+      Token (Name "pat_6a8c7a7");
+      Token (Literal ":");
     |];
   );
   "integer_literal",
@@ -386,6 +356,12 @@ let children_regexps : (string * Run.exp option) list = [
     Alt [|
       Token (Name "decimal_integer_literal");
       Token (Name "hexadecimal_integer_literal");
+    |];
+  );
+  "foreach_parameter",
+  Some (
+    Alt [|
+      Token (Name "pat__para");
     |];
   );
   "block_name",
@@ -397,8 +373,6 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "pat_end");
     |];
   );
-  "data_name", Some (Token (Name "simple_name"););
-  "format_operator", Some (Token (Name "pat__f"););
   "comparison_operator",
   Some (
     Alt [|
@@ -454,6 +428,38 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "pat__split");
     |];
   );
+  "variable",
+  Some (
+    Alt [|
+      Token (Name "semgrep_named_ellipsis");
+      Alt [|
+        Token (Literal "$$");
+        Token (Literal "$^");
+        Token (Literal "$?");
+        Token (Literal "$_");
+        Token (Name "tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
+        Token (Name "tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473");
+        Token (Name "braced_variable");
+      |];
+    |];
+  );
+  "switch_parameter",
+  Some (
+    Alt [|
+      Token (Name "pat__regex");
+      Token (Name "pat__wild");
+      Token (Name "pat__exact");
+      Token (Name "pat__case");
+      Token (Name "pat__para");
+    |];
+  );
+  "verbatim_command_argument",
+  Some (
+    Seq [
+      Token (Literal "--%");
+      Token (Name "verbatim_command_argument_chars");
+    ];
+  );
   "array_type_name",
   Some (
     Seq [
@@ -476,13 +482,6 @@ let children_regexps : (string * Run.exp option) list = [
         Token (Name "variable");
       |];
     );
-  );
-  "verbatim_command_argument",
-  Some (
-    Seq [
-      Token (Literal "--%");
-      Token (Name "verbatim_command_argument_chars");
-    ];
   );
   "switch_parameters",
   Some (
@@ -938,7 +937,7 @@ let children_regexps : (string * Run.exp option) list = [
         Token (Name "pat_brk_");
         Token (Name "pat_cont_");
         Token (Name "pat_throw_");
-        Token (Name "pat_ret_");
+        Token (Name "pat_d73f7f5");
         Token (Name "pat_exit_");
         Token (Name "pat_try_");
         Token (Name "pat_trap_");
@@ -1140,16 +1139,15 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "pat_60937fc");
       Repeat (
         Alt [|
-          Token (Name "imm_tok_pat_b45f689");
+          Token (Name "imm_tok_prec_p1_pat_b45f689");
           Token (Name "variable");
           Token (Name "sub_expression");
-          Token (Name "imm_tok_pat_883ef26");
-          Token (Name "imm_tok_pat_0f818ff");
+          Token (Name "imm_tok_pat_693b5cb");
           Token (Name "imm_tok_dollar");
           Token (Name "imm_tok_pat_8a0ae06");
         |];
       );
-      Token (Name "imm_tok_pat_3dc846d");
+      Token (Name "imm_tok_prec_p1_pat_3dc846d");
     ];
   );
   "expandable_string_literal",
@@ -1158,7 +1156,7 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "pat_0f43aa8");
       Repeat (
         Alt [|
-          Token (Name "imm_tok_pat_46ba992");
+          Token (Name "imm_tok_prec_p1_pat_46ba992");
           Token (Name "variable");
           Token (Name "sub_expression");
           Token (Name "imm_tok_pat_f92c05a");
@@ -1873,7 +1871,9 @@ let children_regexps : (string * Run.exp option) list = [
       Opt (
         Token (Name "param_block");
       );
-      Token (Name "script_block");
+      Opt (
+        Token (Name "script_block");
+      );
       Token (Literal "}");
     ];
   );
@@ -2180,7 +2180,7 @@ let children_regexps : (string * Run.exp option) list = [
   );
 ]
 
-let trans_pat_try ((kind, body) : mt) : CST.pat_try =
+let trans_pat_try_ ((kind, body) : mt) : CST.pat_try_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2190,22 +2190,22 @@ let trans_command_word_part ((kind, body) : mt) : CST.command_word_part =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__xor ((kind, body) : mt) : CST.pat__xor =
+let trans_pat_a8fb427 ((kind, body) : mt) : CST.pat_a8fb427 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_squot ((kind, body) : mt) : CST.imm_tok_squot =
+let trans_imm_tok_squotsquot ((kind, body) : mt) : CST.imm_tok_squotsquot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cnot ((kind, body) : mt) : CST.pat__cnot =
+let trans_pat__cnot_ ((kind, body) : mt) : CST.pat__cnot_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__isplit ((kind, body) : mt) : CST.pat__isplit =
+let trans_pat__join ((kind, body) : mt) : CST.pat__join =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2215,12 +2215,12 @@ let trans_pat_module ((kind, body) : mt) : CST.pat_module =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__inotcs ((kind, body) : mt) : CST.pat__inotcs =
+let trans_pat__irep ((kind, body) : mt) : CST.pat__irep =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_a8fb427 ((kind, body) : mt) : CST.pat_a8fb427 =
+let trans_pat_asse ((kind, body) : mt) : CST.pat_asse =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2230,32 +2230,12 @@ let trans_else_clause_ahead ((kind, body) : mt) : CST.else_clause_ahead =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_prec_p1_pat_5b7d8c6 ((kind, body) : mt) : CST.imm_tok_prec_p1_pat_5b7d8c6 =
+let trans_imm_tok_squot ((kind, body) : mt) : CST.imm_tok_squot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_while_ ((kind, body) : mt) : CST.pat_while_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_statement_terminator ((kind, body) : mt) : CST.statement_terminator =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_8a0ae06 ((kind, body) : mt) : CST.pat_8a0ae06 =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__inot_ ((kind, body) : mt) : CST.pat__inot_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_using ((kind, body) : mt) : CST.pat_using =
+let trans_label ((kind, body) : mt) : CST.label =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2265,17 +2245,47 @@ let trans_pat_work ((kind, body) : mt) : CST.pat_work =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__inot ((kind, body) : mt) : CST.pat__inot =
+let trans_stop_parsing ((kind, body) : mt) : CST.stop_parsing =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__is ((kind, body) : mt) : CST.pat__is =
+let trans_verbatim_here_string_characters ((kind, body) : mt) : CST.verbatim_here_string_characters =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_choice_pat_025d295 ((kind, body) : mt) : CST.tok_choice_pat_025d295 =
+let trans_pat_8bcdf9d ((kind, body) : mt) : CST.pat_8bcdf9d =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__inotcs ((kind, body) : mt) : CST.pat__inotcs =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_using_ ((kind, body) : mt) : CST.pat_using_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_work_ ((kind, body) : mt) : CST.pat_work_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__inot_ ((kind, body) : mt) : CST.pat__inot_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__isnot ((kind, body) : mt) : CST.pat__isnot =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_tok_choice_pat_bf1ac22 ((kind, body) : mt) : CST.tok_choice_pat_bf1ac22 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2296,7 +2306,7 @@ let trans_command_invokation_operator ((kind, body) : mt) : CST.command_invokati
       )
   | Leaf _ -> assert false
 
-let trans_pat__like ((kind, body) : mt) : CST.pat__like =
+let trans_pat__lt ((kind, body) : mt) : CST.pat__lt =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2306,37 +2316,32 @@ let trans_pat_dyna ((kind, body) : mt) : CST.pat_dyna =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cnotcs ((kind, body) : mt) : CST.pat__cnotcs =
+let trans_pat__contas ((kind, body) : mt) : CST.pat__contas =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_bb8229a ((kind, body) : mt) : CST.pat_bb8229a =
+let trans_pat_begin ((kind, body) : mt) : CST.pat_begin =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__file ((kind, body) : mt) : CST.pat__file =
+let trans_pat__ge ((kind, body) : mt) : CST.pat__ge =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_verbatim_string_characters ((kind, body) : mt) : CST.verbatim_string_characters =
+let trans_pat_trap_ ((kind, body) : mt) : CST.pat_trap_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_trap ((kind, body) : mt) : CST.pat_trap =
+let trans_pat_58fbb2e ((kind, body) : mt) : CST.pat_58fbb2e =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_4f029d2 ((kind, body) : mt) : CST.pat_4f029d2 =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__cne ((kind, body) : mt) : CST.pat__cne =
+let trans_pat__cnot ((kind, body) : mt) : CST.pat__cnot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2346,17 +2351,17 @@ let trans_pat_in ((kind, body) : mt) : CST.pat_in =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__para ((kind, body) : mt) : CST.pat__para =
+let trans_pat__regex ((kind, body) : mt) : CST.pat__regex =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_cont_ ((kind, body) : mt) : CST.pat_cont_ =
+let trans_pat_d72a25c ((kind, body) : mt) : CST.pat_d72a25c =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__ine ((kind, body) : mt) : CST.pat__ine =
+let trans_pat__inot ((kind, body) : mt) : CST.pat__inot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2366,12 +2371,12 @@ let trans_pat_para ((kind, body) : mt) : CST.pat_para =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_prec_p1_pat_class ((kind, body) : mt) : CST.tok_prec_p1_pat_class =
+let trans_tok_prec_p1_pat_enum ((kind, body) : mt) : CST.tok_prec_p1_pat_enum =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__bxor ((kind, body) : mt) : CST.pat__bxor =
+let trans_pat__case ((kind, body) : mt) : CST.pat__case =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2381,7 +2386,7 @@ let trans_pat_exit ((kind, body) : mt) : CST.pat_exit =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
+let trans_tok_choice_pat_025d295 ((kind, body) : mt) : CST.tok_choice_pat_025d295 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2396,108 +2401,57 @@ let trans_pat_func ((kind, body) : mt) : CST.pat_func =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_stop_parsing ((kind, body) : mt) : CST.stop_parsing =
+let trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__ile ((kind, body) : mt) : CST.pat__ile =
+let trans_pat__ilike ((kind, body) : mt) : CST.pat__ilike =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_real_literal ((kind, body) : mt) : CST.real_literal =
+let trans_script_block_argument_start ((kind, body) : mt) : CST.script_block_argument_start =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_8a0ae06 ((kind, body) : mt) : CST.imm_tok_pat_8a0ae06 =
+let trans_imm_tok_prec_p1_pat_3dc846d ((kind, body) : mt) : CST.imm_tok_prec_p1_pat_3dc846d =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_merging_redirection_operator ((kind, body) : mt) : CST.merging_redirection_operator =
-  match body with
-  | Children v ->
-      (match v with
-      | Alt (0, v) ->
-          `STARGTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (1, v) ->
-          `X_2GTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (2, v) ->
-          `X_3GTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (3, v) ->
-          `X_4GTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (4, v) ->
-          `X_5GTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (5, v) ->
-          `X_6GTAMP1 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (6, v) ->
-          `STARGTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (7, v) ->
-          `X_1GTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (8, v) ->
-          `X_3GTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (9, v) ->
-          `X_4GTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (10, v) ->
-          `X_5GTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | Alt (11, v) ->
-          `X_6GTAMP2 (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | _ -> assert false
-      )
-  | Leaf _ -> assert false
-
-let trans_pat__cmatch ((kind, body) : mt) : CST.pat__cmatch =
+let trans_pat_0f43aa8 ((kind, body) : mt) : CST.pat_0f43aa8 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__shl ((kind, body) : mt) : CST.pat__shl =
+let trans_pat__cne ((kind, body) : mt) : CST.pat__cne =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__notl ((kind, body) : mt) : CST.pat__notl =
+let trans_pat__shr ((kind, body) : mt) : CST.pat__shr =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_cont ((kind, body) : mt) : CST.pat_cont =
+let trans_pat__notm ((kind, body) : mt) : CST.pat__notm =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cnot_ ((kind, body) : mt) : CST.pat__cnot_ =
+let trans_pat_cont_ ((kind, body) : mt) : CST.pat_cont_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__wild ((kind, body) : mt) : CST.pat__wild =
+let trans_pat__cnotcs ((kind, body) : mt) : CST.pat__cnotcs =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__xor ((kind, body) : mt) : CST.pat__xor =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2507,12 +2461,12 @@ let trans_decimal_integer_literal ((kind, body) : mt) : CST.decimal_integer_lite
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__clt ((kind, body) : mt) : CST.pat__clt =
+let trans_pat__cmatch ((kind, body) : mt) : CST.pat__cmatch =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__case ((kind, body) : mt) : CST.pat__case =
+let trans_pat__cconts ((kind, body) : mt) : CST.pat__cconts =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2522,7 +2476,7 @@ let trans_pat_fore ((kind, body) : mt) : CST.pat_fore =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_begin ((kind, body) : mt) : CST.pat_begin =
+let trans_pat_begin_ ((kind, body) : mt) : CST.pat_begin_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2540,17 +2494,12 @@ let trans_dimension ((kind, body) : mt) : CST.dimension =
         v
   | Leaf _ -> assert false
 
-let trans_pat__ige ((kind, body) : mt) : CST.pat__ige =
+let trans_pat__igt ((kind, body) : mt) : CST.pat__igt =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__join ((kind, body) : mt) : CST.pat__join =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_work_ ((kind, body) : mt) : CST.pat_work_ =
+let trans_pat__le ((kind, body) : mt) : CST.pat__le =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2565,182 +2514,7 @@ let trans_imm_tok_dot ((kind, body) : mt) : CST.imm_tok_dot =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__clike ((kind, body) : mt) : CST.pat__clike =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_asse ((kind, body) : mt) : CST.pat_asse =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_semgrep_named_ellipsis ((kind, body) : mt) : CST.semgrep_named_ellipsis =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_58fbb2e ((kind, body) : mt) : CST.pat_58fbb2e =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__bor ((kind, body) : mt) : CST.pat__bor =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_fina ((kind, body) : mt) : CST.pat_fina =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_type_identifier ((kind, body) : mt) : CST.type_identifier =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__regex ((kind, body) : mt) : CST.pat__regex =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_trap_ ((kind, body) : mt) : CST.pat_trap_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__csplit ((kind, body) : mt) : CST.pat__csplit =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__in ((kind, body) : mt) : CST.pat__in =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_empty_statement ((kind, body) : mt) : CST.empty_statement =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__ilt ((kind, body) : mt) : CST.pat__ilt =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__irep ((kind, body) : mt) : CST.pat__irep =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_begin_ ((kind, body) : mt) : CST.pat_begin_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_8bcdf9d ((kind, body) : mt) : CST.pat_8bcdf9d =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_verbatim_here_string_characters ((kind, body) : mt) : CST.verbatim_here_string_characters =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_switch ((kind, body) : mt) : CST.pat_switch =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_using_ ((kind, body) : mt) : CST.pat_using_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_imm_tok_squotsquot ((kind, body) : mt) : CST.imm_tok_squotsquot =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__isnot ((kind, body) : mt) : CST.pat__isnot =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_dyna_ ((kind, body) : mt) : CST.pat_dyna_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_path_command_name_token ((kind, body) : mt) : CST.path_command_name_token =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_tok_prec_p1_pat_hidden ((kind, body) : mt) : CST.tok_prec_p1_pat_hidden =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__shr ((kind, body) : mt) : CST.pat__shr =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_data ((kind, body) : mt) : CST.pat_data =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_command_word_start ((kind, body) : mt) : CST.command_word_start =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_command_word_expression ((kind, body) : mt) : CST.command_word_expression =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__ge ((kind, body) : mt) : CST.pat__ge =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_proc_ ((kind, body) : mt) : CST.pat_proc_ =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_imm_tok_pat_0f818ff ((kind, body) : mt) : CST.imm_tok_pat_0f818ff =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_spaces_before_comma ((kind, body) : mt) : CST.spaces_before_comma =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_tok_prec_p1_pat_enum ((kind, body) : mt) : CST.tok_prec_p1_pat_enum =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__bnot ((kind, body) : mt) : CST.pat__bnot =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_0f43aa8 ((kind, body) : mt) : CST.pat_0f43aa8 =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__notin ((kind, body) : mt) : CST.pat__notin =
+let trans_pat__clt ((kind, body) : mt) : CST.pat__clt =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2750,7 +2524,97 @@ let trans_pat_base ((kind, body) : mt) : CST.pat_base =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__le ((kind, body) : mt) : CST.pat__le =
+let trans_simple_name ((kind, body) : mt) : CST.simple_name =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_60937fc ((kind, body) : mt) : CST.pat_60937fc =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__bxor ((kind, body) : mt) : CST.pat__bxor =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_fina ((kind, body) : mt) : CST.pat_fina =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__repl ((kind, body) : mt) : CST.pat__repl =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_try ((kind, body) : mt) : CST.pat_try =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__eq ((kind, body) : mt) : CST.pat__eq =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__ine ((kind, body) : mt) : CST.pat__ine =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_empty_statement ((kind, body) : mt) : CST.empty_statement =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__imatch ((kind, body) : mt) : CST.pat__imatch =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__is ((kind, body) : mt) : CST.pat__is =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_using_separator ((kind, body) : mt) : CST.using_separator =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_brk ((kind, body) : mt) : CST.pat_brk =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__and ((kind, body) : mt) : CST.pat__and =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_verbatim_string_characters ((kind, body) : mt) : CST.verbatim_string_characters =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_switch_ ((kind, body) : mt) : CST.pat_switch_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_while ((kind, body) : mt) : CST.pat_while =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__isplit ((kind, body) : mt) : CST.pat__isplit =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_dyna_ ((kind, body) : mt) : CST.pat_dyna_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2771,12 +2635,87 @@ let trans_pipeline_chain_tail ((kind, body) : mt) : CST.pipeline_chain_tail =
       )
   | Leaf _ -> assert false
 
-let trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
+let trans_tok_prec_p1_pat_static ((kind, body) : mt) : CST.tok_prec_p1_pat_static =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_71f01fd ((kind, body) : mt) : CST.pat_71f01fd =
+let trans_pat__split ((kind, body) : mt) : CST.pat__split =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_data ((kind, body) : mt) : CST.pat_data =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_command_word_start ((kind, body) : mt) : CST.command_word_start =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_command_word_expression ((kind, body) : mt) : CST.command_word_expression =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__gt ((kind, body) : mt) : CST.pat__gt =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_proc_ ((kind, body) : mt) : CST.pat_proc_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_pat_509ec78 ((kind, body) : mt) : CST.imm_tok_pat_509ec78 =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_statement_terminator ((kind, body) : mt) : CST.statement_terminator =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_tok_prec_p1_pat_hidden ((kind, body) : mt) : CST.tok_prec_p1_pat_hidden =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__bor ((kind, body) : mt) : CST.pat__bor =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_4f029d2 ((kind, body) : mt) : CST.pat_4f029d2 =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__notl ((kind, body) : mt) : CST.pat__notl =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_bb8229a ((kind, body) : mt) : CST.pat_bb8229a =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__like ((kind, body) : mt) : CST.pat__like =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_tok_prec_p1_pat_class ((kind, body) : mt) : CST.tok_prec_p1_pat_class =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_75780b9 ((kind, body) : mt) : CST.pat_75780b9 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2786,7 +2725,7 @@ let trans_pat_end_ ((kind, body) : mt) : CST.pat_end_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_6a8c7a7 ((kind, body) : mt) : CST.pat_6a8c7a7 =
+let trans_pat_71f01fd ((kind, body) : mt) : CST.pat_71f01fd =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2796,7 +2735,7 @@ let trans_pat_inli ((kind, body) : mt) : CST.pat_inli =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_while ((kind, body) : mt) : CST.pat_while =
+let trans_pat_while_ ((kind, body) : mt) : CST.pat_while_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2806,7 +2745,7 @@ let trans_pat_func_ ((kind, body) : mt) : CST.pat_func_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_script_block_argument_start ((kind, body) : mt) : CST.script_block_argument_start =
+let trans_semgrep_named_ellipsis ((kind, body) : mt) : CST.semgrep_named_ellipsis =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2821,7 +2760,7 @@ let trans_pat_filter_ ((kind, body) : mt) : CST.pat_filter_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_d72a25c ((kind, body) : mt) : CST.pat_d72a25c =
+let trans_pat_d73f7f5 ((kind, body) : mt) : CST.pat_d73f7f5 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2831,12 +2770,12 @@ let trans_pat_do ((kind, body) : mt) : CST.pat_do =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__notcos ((kind, body) : mt) : CST.pat__notcos =
+let trans_pat__notin ((kind, body) : mt) : CST.pat__notin =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_brk_ ((kind, body) : mt) : CST.pat_brk_ =
+let trans_pat_catch ((kind, body) : mt) : CST.pat_catch =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2857,12 +2796,17 @@ let trans_pat_for ((kind, body) : mt) : CST.pat_for =
   | Leaf v -> v
   | Children _ -> assert false
 
+let trans_real_literal ((kind, body) : mt) : CST.real_literal =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
 let trans_imm_tok_dquotdquot ((kind, body) : mt) : CST.imm_tok_dquotdquot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_75780b9 ((kind, body) : mt) : CST.pat_75780b9 =
+let trans_pat_8a0ae06 ((kind, body) : mt) : CST.pat_8a0ae06 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2872,32 +2816,32 @@ let trans_pat_for_ ((kind, body) : mt) : CST.pat_for_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_prec_p1_pat_static ((kind, body) : mt) : CST.tok_prec_p1_pat_static =
+let trans_type_identifier ((kind, body) : mt) : CST.type_identifier =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__exact ((kind, body) : mt) : CST.pat__exact =
+let trans_pat__f ((kind, body) : mt) : CST.pat__f =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__match ((kind, body) : mt) : CST.pat__match =
+let trans_pat__ne ((kind, body) : mt) : CST.pat__ne =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_catch ((kind, body) : mt) : CST.pat_catch =
+let trans_pat_class_ ((kind, body) : mt) : CST.pat_class_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_60937fc ((kind, body) : mt) : CST.pat_60937fc =
+let trans_pat_6a8c7a7 ((kind, body) : mt) : CST.pat_6a8c7a7 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__crep ((kind, body) : mt) : CST.pat__crep =
+let trans_pat__csplit ((kind, body) : mt) : CST.pat__csplit =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2907,7 +2851,7 @@ let trans_pat_param ((kind, body) : mt) : CST.pat_param =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_try_ ((kind, body) : mt) : CST.pat_try_ =
+let trans_pat_until ((kind, body) : mt) : CST.pat_until =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2922,32 +2866,32 @@ let trans_hexadecimal_integer_literal ((kind, body) : mt) : CST.hexadecimal_inte
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cgt ((kind, body) : mt) : CST.pat__cgt =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__lt ((kind, body) : mt) : CST.pat__lt =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_throw ((kind, body) : mt) : CST.pat_throw =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
 let trans_pat__cle ((kind, body) : mt) : CST.pat__cle =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__repl ((kind, body) : mt) : CST.pat__repl =
+let trans_pat__match ((kind, body) : mt) : CST.pat__match =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_f92c05a ((kind, body) : mt) : CST.imm_tok_pat_f92c05a =
+let trans_pat_throw_ ((kind, body) : mt) : CST.pat_throw_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__clike ((kind, body) : mt) : CST.pat__clike =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__shl ((kind, body) : mt) : CST.pat__shl =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_prec_p1_pat_b45f689 ((kind, body) : mt) : CST.imm_tok_prec_p1_pat_b45f689 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2957,12 +2901,12 @@ let trans_pat_para_ ((kind, body) : mt) : CST.pat_para_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__supp ((kind, body) : mt) : CST.pat__supp =
+let trans_pat__wild ((kind, body) : mt) : CST.pat__wild =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_class_ ((kind, body) : mt) : CST.pat_class_ =
+let trans_pat_cont ((kind, body) : mt) : CST.pat_cont =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -2972,17 +2916,12 @@ let trans_pat_else ((kind, body) : mt) : CST.pat_else =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cconts ((kind, body) : mt) : CST.pat__cconts =
+let trans_pat__ceq ((kind, body) : mt) : CST.pat__ceq =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
 let trans_pat_ret ((kind, body) : mt) : CST.pat_ret =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_using_separator ((kind, body) : mt) : CST.using_separator =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3055,32 +2994,88 @@ let trans_file_redirection_operator ((kind, body) : mt) : CST.file_redirection_o
       )
   | Leaf _ -> assert false
 
-let trans_label ((kind, body) : mt) : CST.label =
+let trans_merging_redirection_operator ((kind, body) : mt) : CST.merging_redirection_operator =
   match body with
-  | Leaf v -> v
-  | Children _ -> assert false
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `STARGTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (1, v) ->
+          `X_2GTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (2, v) ->
+          `X_3GTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (3, v) ->
+          `X_4GTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (4, v) ->
+          `X_5GTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (5, v) ->
+          `X_6GTAMP1 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (6, v) ->
+          `STARGTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (7, v) ->
+          `X_1GTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (8, v) ->
+          `X_3GTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (9, v) ->
+          `X_4GTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (10, v) ->
+          `X_5GTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | Alt (11, v) ->
+          `X_6GTAMP2 (
+            Run.trans_token (Run.matcher_token v)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
 
 let trans_pat_elseif ((kind, body) : mt) : CST.pat_elseif =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__as ((kind, body) : mt) : CST.pat__as =
+let trans_pat__band ((kind, body) : mt) : CST.pat__band =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_b45f689 ((kind, body) : mt) : CST.imm_tok_pat_b45f689 =
+let trans_path_command_name_token ((kind, body) : mt) : CST.path_command_name_token =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__cge ((kind, body) : mt) : CST.pat__cge =
+let trans_imm_tok_prec_p1_pat_5b7d8c6 ((kind, body) : mt) : CST.imm_tok_prec_p1_pat_5b7d8c6 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_883ef26 ((kind, body) : mt) : CST.imm_tok_pat_883ef26 =
+let trans_pat__cgt ((kind, body) : mt) : CST.pat__cgt =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_pat_f92c05a ((kind, body) : mt) : CST.imm_tok_pat_f92c05a =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3090,22 +3085,22 @@ let trans_background_operator ((kind, body) : mt) : CST.background_operator =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__gt ((kind, body) : mt) : CST.pat__gt =
+let trans_pat__iconts ((kind, body) : mt) : CST.pat__iconts =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__or ((kind, body) : mt) : CST.pat__or =
+let trans_pat__para ((kind, body) : mt) : CST.pat__para =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_until ((kind, body) : mt) : CST.pat_until =
+let trans_pat_using ((kind, body) : mt) : CST.pat_using =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__ilike ((kind, body) : mt) : CST.pat__ilike =
+let trans_pat__ilt ((kind, body) : mt) : CST.pat__ilt =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3120,67 +3115,12 @@ let trans_pat_if_ ((kind, body) : mt) : CST.pat_if_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__ceq ((kind, body) : mt) : CST.pat__ceq =
+let trans_pat__cge ((kind, body) : mt) : CST.pat__cge =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__imatch ((kind, body) : mt) : CST.pat__imatch =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__ne ((kind, body) : mt) : CST.pat__ne =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_imm_tok_dquot ((kind, body) : mt) : CST.imm_tok_dquot =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__and ((kind, body) : mt) : CST.pat__and =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__ieq ((kind, body) : mt) : CST.pat__ieq =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__notm ((kind, body) : mt) : CST.pat__notm =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_seq ((kind, body) : mt) : CST.pat_seq =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_imm_tok_pat_3dc846d ((kind, body) : mt) : CST.imm_tok_pat_3dc846d =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__igt ((kind, body) : mt) : CST.pat__igt =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat_end ((kind, body) : mt) : CST.pat_end =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_simple_name ((kind, body) : mt) : CST.simple_name =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
-
-let trans_pat__iconts ((kind, body) : mt) : CST.pat__iconts =
+let trans_pat__in ((kind, body) : mt) : CST.pat__in =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3190,17 +3130,72 @@ let trans_pat__not ((kind, body) : mt) : CST.pat__not =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_46ba992 ((kind, body) : mt) : CST.imm_tok_pat_46ba992 =
+let trans_imm_tok_dquot ((kind, body) : mt) : CST.imm_tok_dquot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_brk ((kind, body) : mt) : CST.pat_brk =
+let trans_pat__as ((kind, body) : mt) : CST.pat__as =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_b4547f3 ((kind, body) : mt) : CST.imm_tok_pat_b4547f3 =
+let trans_pat__ige ((kind, body) : mt) : CST.pat__ige =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__or ((kind, body) : mt) : CST.pat__or =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_switch ((kind, body) : mt) : CST.pat_switch =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_pat_693b5cb ((kind, body) : mt) : CST.imm_tok_pat_693b5cb =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__ile ((kind, body) : mt) : CST.pat__ile =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_end ((kind, body) : mt) : CST.pat_end =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_spaces_before_comma ((kind, body) : mt) : CST.spaces_before_comma =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__ieq ((kind, body) : mt) : CST.pat__ieq =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat__notcos ((kind, body) : mt) : CST.pat__notcos =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_pat_8a0ae06 ((kind, body) : mt) : CST.imm_tok_pat_8a0ae06 =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_pat_brk_ ((kind, body) : mt) : CST.pat_brk_ =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_imm_tok_prec_p1_pat_46ba992 ((kind, body) : mt) : CST.imm_tok_prec_p1_pat_46ba992 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3210,7 +3205,7 @@ let trans_pat_exit_ ((kind, body) : mt) : CST.pat_exit_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_switch_ ((kind, body) : mt) : CST.pat_switch_ =
+let trans_pat_throw ((kind, body) : mt) : CST.pat_throw =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3220,22 +3215,22 @@ let trans_imm_tok_pat_0da7e88 ((kind, body) : mt) : CST.imm_tok_pat_0da7e88 =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__band ((kind, body) : mt) : CST.pat__band =
+let trans_pat__bnot ((kind, body) : mt) : CST.pat__bnot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__contas ((kind, body) : mt) : CST.pat__contas =
+let trans_pat__crep ((kind, body) : mt) : CST.pat__crep =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_choice_pat_bf1ac22 ((kind, body) : mt) : CST.tok_choice_pat_bf1ac22 =
+let trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 ((kind, body) : mt) : CST.tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__f ((kind, body) : mt) : CST.pat__f =
+let trans_pat__file ((kind, body) : mt) : CST.pat__file =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3245,27 +3240,27 @@ let trans_imm_tok_dollar ((kind, body) : mt) : CST.imm_tok_dollar =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_ret_ ((kind, body) : mt) : CST.pat_ret_ =
+let trans_pat_seq ((kind, body) : mt) : CST.pat_seq =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__split ((kind, body) : mt) : CST.pat__split =
+let trans_pat__supp ((kind, body) : mt) : CST.pat__supp =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_throw_ ((kind, body) : mt) : CST.pat_throw_ =
+let trans_pat_trap ((kind, body) : mt) : CST.pat_trap =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_imm_tok_pat_509ec78 ((kind, body) : mt) : CST.imm_tok_pat_509ec78 =
+let trans_imm_tok_pat_b4547f3 ((kind, body) : mt) : CST.imm_tok_pat_b4547f3 =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat__eq ((kind, body) : mt) : CST.pat__eq =
+let trans_pat__exact ((kind, body) : mt) : CST.pat__exact =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3315,24 +3310,6 @@ let trans_comment ((kind, body) : mt) : CST.comment =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_foreach_parameter ((kind, body) : mt) : CST.foreach_parameter =
-  match body with
-  | Children v ->
-      (match v with
-      | Alt (0, v) ->
-          `Pat__para (
-            trans_pat__para (Run.matcher_token v)
-          )
-      | _ -> assert false
-      )
-  | Leaf _ -> assert false
-
-let trans_function_name ((kind, body) : mt) : CST.function_name =
-  match body with
-  | Children v ->
-      trans_command_token (Run.matcher_token v)
-  | Leaf _ -> assert false
-
 let trans_string_literal_immediate ((kind, body) : mt) : CST.string_literal_immediate =
   match body with
   | Children v ->
@@ -3346,103 +3323,29 @@ let trans_string_literal_immediate ((kind, body) : mt) : CST.string_literal_imme
       )
   | Leaf _ -> assert false
 
-let rec trans_type_name ((kind, body) : mt) : CST.type_name =
+let trans_function_name ((kind, body) : mt) : CST.function_name =
   match body with
   | Children v ->
-      (match v with
-      | Alt (0, v) ->
-          `Type_id (
-            trans_type_identifier (Run.matcher_token v)
-          )
-      | Alt (1, v) ->
-          `Type_name_DOT_type_id (
-            (match v with
-            | Seq [v0; v1; v2] ->
-                (
-                  trans_type_name (Run.matcher_token v0),
-                  Run.trans_token (Run.matcher_token v1),
-                  trans_type_identifier (Run.matcher_token v2)
-                )
-            | _ -> assert false
-            )
-          )
-      | _ -> assert false
-      )
+      trans_command_token (Run.matcher_token v)
   | Leaf _ -> assert false
 
-let trans_variable ((kind, body) : mt) : CST.variable =
+let trans_data_name ((kind, body) : mt) : CST.data_name =
   match body with
   | Children v ->
-      (match v with
-      | Alt (0, v) ->
-          `Semg_named_ellips (
-            trans_semgrep_named_ellipsis (Run.matcher_token v)
-          )
-      | Alt (1, v) ->
-          `Choice_DOLLARDOLLAR (
-            (match v with
-            | Alt (0, v) ->
-                `DOLLARDOLLAR (
-                  Run.trans_token (Run.matcher_token v)
-                )
-            | Alt (1, v) ->
-                `DOLLARHAT (
-                  Run.trans_token (Run.matcher_token v)
-                )
-            | Alt (2, v) ->
-                `DOLLARQMARK (
-                  Run.trans_token (Run.matcher_token v)
-                )
-            | Alt (3, v) ->
-                `DOLLAR_ (
-                  Run.trans_token (Run.matcher_token v)
-                )
-            | Alt (4, v) ->
-                `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
-                  trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
-                )
-            | Alt (5, v) ->
-                `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
-                  trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
-                )
-            | Alt (6, v) ->
-                `Braced_var (
-                  trans_braced_variable (Run.matcher_token v)
-                )
-            | _ -> assert false
-            )
-          )
-      | _ -> assert false
-      )
+      trans_simple_name (Run.matcher_token v)
   | Leaf _ -> assert false
 
-let trans_command_argument_sep ((kind, body) : mt) : CST.command_argument_sep =
+let trans_class_attribute ((kind, body) : mt) : CST.class_attribute =
   match body with
   | Children v ->
       (match v with
       | Alt (0, v) ->
-          `Pat_6a8c7a7 (
-            trans_pat_6a8c7a7 (Run.matcher_token v)
+          `Tok_prec_p1_pat_hidden (
+            trans_tok_prec_p1_pat_hidden (Run.matcher_token v)
           )
       | Alt (1, v) ->
-          `COLON (
-            Run.trans_token (Run.matcher_token v)
-          )
-      | _ -> assert false
-      )
-  | Leaf _ -> assert false
-
-let trans_command_parameter ((kind, body) : mt) : CST.command_parameter =
-  match body with
-  | Children v ->
-      (match v with
-      | Alt (0, v) ->
-          `Tok_choice_pat_025d295 (
-            trans_tok_choice_pat_025d295 (Run.matcher_token v)
-          )
-      | Alt (1, v) ->
-          `Bare_dashes (
-            trans_bare_dashes (Run.matcher_token v)
+          `Tok_prec_p1_pat_static (
+            trans_tok_prec_p1_pat_static (Run.matcher_token v)
           )
       | _ -> assert false
       )
@@ -3472,45 +3375,63 @@ let trans_verbatim_command_argument_chars ((kind, body) : mt) : CST.verbatim_com
         v
   | Leaf _ -> assert false
 
-let trans_class_attribute ((kind, body) : mt) : CST.class_attribute =
+let trans_command_parameter ((kind, body) : mt) : CST.command_parameter =
   match body with
   | Children v ->
       (match v with
       | Alt (0, v) ->
-          `Tok_prec_p1_pat_hidden (
-            trans_tok_prec_p1_pat_hidden (Run.matcher_token v)
+          `Tok_choice_pat_025d295 (
+            trans_tok_choice_pat_025d295 (Run.matcher_token v)
           )
       | Alt (1, v) ->
-          `Tok_prec_p1_pat_static (
-            trans_tok_prec_p1_pat_static (Run.matcher_token v)
+          `Bare_dashes (
+            trans_bare_dashes (Run.matcher_token v)
           )
       | _ -> assert false
       )
   | Leaf _ -> assert false
 
-let trans_switch_parameter ((kind, body) : mt) : CST.switch_parameter =
+let rec trans_type_name ((kind, body) : mt) : CST.type_name =
   match body with
   | Children v ->
       (match v with
       | Alt (0, v) ->
-          `Pat__regex (
-            trans_pat__regex (Run.matcher_token v)
+          `Type_id (
+            trans_type_identifier (Run.matcher_token v)
           )
       | Alt (1, v) ->
-          `Pat__wild (
-            trans_pat__wild (Run.matcher_token v)
+          `Type_name_DOT_type_id (
+            (match v with
+            | Seq [v0; v1; v2] ->
+                (
+                  trans_type_name (Run.matcher_token v0),
+                  Run.trans_token (Run.matcher_token v1),
+                  trans_type_identifier (Run.matcher_token v2)
+                )
+            | _ -> assert false
+            )
           )
-      | Alt (2, v) ->
-          `Pat__exact (
-            trans_pat__exact (Run.matcher_token v)
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+let trans_format_operator ((kind, body) : mt) : CST.format_operator =
+  match body with
+  | Children v ->
+      trans_pat__f (Run.matcher_token v)
+  | Leaf _ -> assert false
+
+let trans_command_argument_sep ((kind, body) : mt) : CST.command_argument_sep =
+  match body with
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `Pat_6a8c7a7 (
+            trans_pat_6a8c7a7 (Run.matcher_token v)
           )
-      | Alt (3, v) ->
-          `Pat__case (
-            trans_pat__case (Run.matcher_token v)
-          )
-      | Alt (4, v) ->
-          `Pat__para (
-            trans_pat__para (Run.matcher_token v)
+      | Alt (1, v) ->
+          `COLON (
+            Run.trans_token (Run.matcher_token v)
           )
       | _ -> assert false
       )
@@ -3527,6 +3448,18 @@ let trans_integer_literal ((kind, body) : mt) : CST.integer_literal =
       | Alt (1, v) ->
           `Hexa_int_lit (
             trans_hexadecimal_integer_literal (Run.matcher_token v)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+let trans_foreach_parameter ((kind, body) : mt) : CST.foreach_parameter =
+  match body with
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `Pat__para (
+            trans_pat__para (Run.matcher_token v)
           )
       | _ -> assert false
       )
@@ -3554,18 +3487,6 @@ let trans_block_name ((kind, body) : mt) : CST.block_name =
           )
       | _ -> assert false
       )
-  | Leaf _ -> assert false
-
-let trans_data_name ((kind, body) : mt) : CST.data_name =
-  match body with
-  | Children v ->
-      trans_simple_name (Run.matcher_token v)
-  | Leaf _ -> assert false
-
-let trans_format_operator ((kind, body) : mt) : CST.format_operator =
-  match body with
-  | Children v ->
-      trans_pat__f (Run.matcher_token v)
   | Leaf _ -> assert false
 
 let trans_comparison_operator ((kind, body) : mt) : CST.comparison_operator =
@@ -3776,6 +3697,93 @@ let trans_comparison_operator ((kind, body) : mt) : CST.comparison_operator =
       )
   | Leaf _ -> assert false
 
+let trans_variable ((kind, body) : mt) : CST.variable =
+  match body with
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `Semg_named_ellips (
+            trans_semgrep_named_ellipsis (Run.matcher_token v)
+          )
+      | Alt (1, v) ->
+          `Choice_DOLLARDOLLAR (
+            (match v with
+            | Alt (0, v) ->
+                `DOLLARDOLLAR (
+                  Run.trans_token (Run.matcher_token v)
+                )
+            | Alt (1, v) ->
+                `DOLLARHAT (
+                  Run.trans_token (Run.matcher_token v)
+                )
+            | Alt (2, v) ->
+                `DOLLARQMARK (
+                  Run.trans_token (Run.matcher_token v)
+                )
+            | Alt (3, v) ->
+                `DOLLAR_ (
+                  Run.trans_token (Run.matcher_token v)
+                )
+            | Alt (4, v) ->
+                `Tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
+                  trans_tok_dollar_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
+                )
+            | Alt (5, v) ->
+                `Tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (
+                  trans_tok_at_choice_choice_prec_p1_pat_0705c16_colon_pat_ae6f473 (Run.matcher_token v)
+                )
+            | Alt (6, v) ->
+                `Braced_var (
+                  trans_braced_variable (Run.matcher_token v)
+                )
+            | _ -> assert false
+            )
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+let trans_switch_parameter ((kind, body) : mt) : CST.switch_parameter =
+  match body with
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `Pat__regex (
+            trans_pat__regex (Run.matcher_token v)
+          )
+      | Alt (1, v) ->
+          `Pat__wild (
+            trans_pat__wild (Run.matcher_token v)
+          )
+      | Alt (2, v) ->
+          `Pat__exact (
+            trans_pat__exact (Run.matcher_token v)
+          )
+      | Alt (3, v) ->
+          `Pat__case (
+            trans_pat__case (Run.matcher_token v)
+          )
+      | Alt (4, v) ->
+          `Pat__para (
+            trans_pat__para (Run.matcher_token v)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+let trans_verbatim_command_argument ((kind, body) : mt) : CST.verbatim_command_argument =
+  match body with
+  | Children v ->
+      (match v with
+      | Seq [v0; v1] ->
+          (
+            Run.trans_token (Run.matcher_token v0),
+            trans_verbatim_command_argument_chars (Run.matcher_token v1)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
 let trans_array_type_name ((kind, body) : mt) : CST.array_type_name =
   match body with
   | Children v ->
@@ -3820,19 +3828,6 @@ let trans_path_command_name ((kind, body) : mt) : CST.path_command_name =
           )
         )
         v
-  | Leaf _ -> assert false
-
-let trans_verbatim_command_argument ((kind, body) : mt) : CST.verbatim_command_argument =
-  match body with
-  | Children v ->
-      (match v with
-      | Seq [v0; v1] ->
-          (
-            Run.trans_token (Run.matcher_token v0),
-            trans_verbatim_command_argument_chars (Run.matcher_token v1)
-          )
-      | _ -> assert false
-      )
   | Leaf _ -> assert false
 
 let trans_switch_parameters ((kind, body) : mt) : CST.switch_parameters =
@@ -4779,8 +4774,8 @@ and trans_command_name ((kind, body) : mt) : CST.command_name =
                   trans_pat_throw_ (Run.matcher_token v)
                 )
             | Alt (5, v) ->
-                `Pat_ret_ (
-                  trans_pat_ret_ (Run.matcher_token v)
+                `Pat_d73f7f5 (
+                  trans_pat_d73f7f5 (Run.matcher_token v)
                 )
             | Alt (6, v) ->
                 `Pat_exit_ (
@@ -5231,8 +5226,8 @@ and trans_expandable_here_string_literal ((kind, body) : mt) : CST.expandable_he
               (fun v ->
                 (match v with
                 | Alt (0, v) ->
-                    `Imm_tok_pat_b45f689 (
-                      trans_imm_tok_pat_b45f689 (Run.matcher_token v)
+                    `Imm_tok_prec_p1_pat_b45f689 (
+                      trans_imm_tok_prec_p1_pat_b45f689 (Run.matcher_token v)
                     )
                 | Alt (1, v) ->
                     `Var (
@@ -5243,18 +5238,14 @@ and trans_expandable_here_string_literal ((kind, body) : mt) : CST.expandable_he
                       trans_sub_expression (Run.matcher_token v)
                     )
                 | Alt (3, v) ->
-                    `Imm_tok_pat_883ef26 (
-                      trans_imm_tok_pat_883ef26 (Run.matcher_token v)
+                    `Imm_tok_pat_693b5cb (
+                      trans_imm_tok_pat_693b5cb (Run.matcher_token v)
                     )
                 | Alt (4, v) ->
-                    `Imm_tok_pat_0f818ff (
-                      trans_imm_tok_pat_0f818ff (Run.matcher_token v)
-                    )
-                | Alt (5, v) ->
                     `Imm_tok_dollar (
                       trans_imm_tok_dollar (Run.matcher_token v)
                     )
-                | Alt (6, v) ->
+                | Alt (5, v) ->
                     `Imm_tok_pat_8a0ae06 (
                       trans_imm_tok_pat_8a0ae06 (Run.matcher_token v)
                     )
@@ -5263,7 +5254,7 @@ and trans_expandable_here_string_literal ((kind, body) : mt) : CST.expandable_he
               )
               v1
             ,
-            trans_imm_tok_pat_3dc846d (Run.matcher_token v2)
+            trans_imm_tok_prec_p1_pat_3dc846d (Run.matcher_token v2)
           )
       | _ -> assert false
       )
@@ -5280,8 +5271,8 @@ and trans_expandable_string_literal ((kind, body) : mt) : CST.expandable_string_
               (fun v ->
                 (match v with
                 | Alt (0, v) ->
-                    `Imm_tok_pat_46ba992 (
-                      trans_imm_tok_pat_46ba992 (Run.matcher_token v)
+                    `Imm_tok_prec_p1_pat_46ba992 (
+                      trans_imm_tok_prec_p1_pat_46ba992 (Run.matcher_token v)
                     )
                 | Alt (1, v) ->
                     `Var (
@@ -6846,7 +6837,10 @@ and trans_script_block_expression ((kind, body) : mt) : CST.script_block_express
               (fun v -> trans_param_block (Run.matcher_token v))
               v1
             ,
-            trans_script_block (Run.matcher_token v2),
+            Run.opt
+              (fun v -> trans_script_block (Run.matcher_token v))
+              v2
+            ,
             Run.trans_token (Run.matcher_token v3)
           )
       | _ -> assert false
