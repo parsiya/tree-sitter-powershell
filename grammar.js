@@ -740,7 +740,8 @@ export default grammar({
           new RegExp(caseInsensitive('break-')),
           new RegExp(caseInsensitive('continue-')),
           new RegExp(caseInsensitive('throw-')),
-          new RegExp(caseInsensitive('return-')),
+          // Native PowerShell reads return@(1) as command return@, not return @(1).
+          new RegExp(caseInsensitive('return') + '[-@]'),
           new RegExp(caseInsensitive('exit-')),
           new RegExp(caseInsensitive('try-')),
           new RegExp(caseInsensitive('trap-')),
