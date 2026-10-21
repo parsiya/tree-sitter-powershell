@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE file in the project root for full license information.
 
 #include "tree_sitter/parser.h"
+#include "parameter_letters.h"
 #include <wctype.h>
 
 enum TOKEN_TYPE {
@@ -138,7 +139,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         } else if ((c < '0' || c > '9') && !(c == '*' && !consumed)) {
             redirection_prefix = false;
         }
-        if (parameter && (iswalpha(c) || c == '_' || c == '?')) parameter_name = true;
+        if (parameter && ((c < 0x80 && iswalpha(c)) || is_unicode_parameter_letter(c) ||
+                          c == '_' || c == '?')) parameter_name = true;
         if (c == '-') dashes++;
         else only_dashes = false;
         if (c == '"' || c == '\'') {

@@ -23,6 +23,17 @@ const VARIABLE_NAME = new RegExp(
   'u',
 );
 
+// Parameter names start with a BMP letter, not a digit or combining mark.
+// Include Unicode 16 additions and the range interiors missing in tree-sitter 0.22.
+const PARAMETER_LETTER =
+  String.raw`([^\P{L}\u{10000}-\u{10FFFF}]|` +
+  String.raw`[\u1C89-\u1C8A\u3400-\u4DBF\u4E00-\u9FFF\uA7CB-\uA7CD\uA7DA-\uA7DC\uAC00-\uD7A3])`;
+
+// Unlike variable names, parameter names allow marks, symbols and digits after
+// the first character. A colon ends the name and introduces an attached argument.
+const PARAMETER_CHAR =
+  String.raw`[^\x00\t-\r "'&(),.:;\[{}|\u0085\u00A0\u1680\u2000-\u200A\u2018-\u201E\u2028\u2029\u202F\u205F\u3000]`;
+
 export default grammar({
   name: 'powershell',
 
@@ -418,9 +429,15 @@ export default grammar({
         token(
           choice(
             // `-Name`, `-Name1`, `--long-flag`, `-A5`
-            /-+[a-zA-Z_?\-`][a-zA-Z0-9_?\-`]*/,
+            new RegExp(
+              String.raw`-+(${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*`,
+              'u',
+            ),
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
-            /--?[a-zA-Z_][a-zA-Z0-9_\-]*=([^\s\u00a0"'`;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*/,
+            new RegExp(
+              String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=([^\s\u00a0"'\x60;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*`,
+              'u',
+            ),
           ),
         ),
         // A bare `--` or `-` argument (see scanner.c).
