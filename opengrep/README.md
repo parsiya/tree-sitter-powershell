@@ -73,6 +73,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/command-keyword-boundaries` | Read parenthesized `ForEach-Object` calls and literal `return$...` names as commands, preserving real statements. Combined batch-001: one rejection and one silent misread now agree. | Not yet offered. |
 | `fix/null-conditional-access` | Preserve nullable member/index markers and distinguish ordinary question-mark variable names and expandable command words. Combined batch-001: +4 agree. | Not yet offered. |
 | `fix/string-delimiter-values` | Keep spaces, hashes and blank lines in string content rather than delimiter tokens, and recognize immediately empty expandable here-strings. Exact native values are covered in a focused C boundary test and Opengrep units. | Not yet offered. |
+| `fix/quoted-argument-boundaries` | Keep a leading quoted string and its adjacent argument separate, flattening recursive quoted tails and preserving nested commands. Combined batch-001: five more agree; another rejection advances to a colon-word mismatch. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
