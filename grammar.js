@@ -10,7 +10,13 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._parameter_argument_separator,
+    $._colon_word_continuation,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -306,7 +312,7 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&:\s][^\&\s\(\)\}\|;,]*/),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -780,7 +786,13 @@ export default grammar({
     _command_element: ($) =>
       prec.right(
         choice(
-          $.command_parameter,
+          seq(
+            $.command_parameter,
+            optional(seq(
+              alias($._parameter_argument_separator, $.command_argument_sep),
+              optional($._command_parameter_argument),
+            )),
+          ),
           seq($._command_argument, optional($.argument_list)),
           $.redirection,
           $.stop_parsing,
@@ -790,9 +802,43 @@ export default grammar({
     // Stop parsing is a token that end the parsing of command line
     stop_parsing: ($) => /--%[^\r\n]*/,
 
-    // Generic token is hard to manage
-    // So a definition is that a generic token must have to begin by one or more space char
-    command_argument_sep: ($) => prec.right(choice(repeat1(' '), ':')),
+    // A colon is a separator only immediately after a command parameter.
+    command_argument_sep: ($) => prec.right(repeat1(' ')),
+
+    _command_word: ($) => choice($.generic_token, $.colon_command_argument),
+
+    _command_parameter_argument: ($) =>
+      choice(
+        seq(
+          $._command_word,
+          repeat(seq(',', choice($._command_word, $.unary_expression))),
+        ),
+        $.array_literal_expression,
+      ),
+
+    // A colon starts a new command word after an expression, not a member suffix.
+    // Only the immediate colon following a parameter is an attachment separator.
+    colon_command_argument: ($) =>
+      choice(
+        // Label-like words remain literal: `:word$value` does not expand.
+        alias(token(/:[\p{L}_][^\s(){}|;&,]*/), $.generic_token),
+        prec.right(seq(
+          ':',
+          repeat(choice(
+            $.colon_word_text,
+            seq(
+              $._colon_word_continuation,
+              choice($.variable, $.string_literal, $.sub_expression, token.immediate('$')),
+            ),
+          )),
+        )),
+      ),
+
+    colon_word_text: ($) =>
+      choice(
+        token.immediate(prec(1, /[^\s"'`$();|&,{}]+/)),
+        token.immediate(/`[^\r\n]/),
+      ),
 
     // Adapt the grammar to have same behavior
 
@@ -804,13 +850,17 @@ export default grammar({
             $.command_argument_sep,
             optional(
               seq(
-                $.generic_token,
+                $._command_word,
                 // `Select-Object Id, Name`: an unquoted comma list is one array argument
-                repeat(seq(',', choice($.generic_token, $.unary_expression))),
+                repeat(seq(',', choice($._command_word, $.unary_expression))),
               ),
             ),
           ),
           seq($.command_argument_sep, $.array_literal_expression),
+          seq(
+            $.colon_command_argument,
+            repeat(seq(',', choice($._command_word, $.unary_expression))),
+          ),
           $.parenthesized_expression,
           $.script_block_expression,
         ),

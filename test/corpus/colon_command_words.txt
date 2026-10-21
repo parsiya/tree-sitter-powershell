@@ -1,0 +1,1422 @@
+==================
+Colon command words: member-space
+==================
+
+Write-Host $message.CategoryInfo.Reason:" "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (member_access
+                    (variable)
+                    (member_name
+                      (simple_name)))
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Colon command words: member-colon-tail
+==================
+
+echo $x.Name:tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: parenthesis-colon-tail
+==================
+
+echo ($value):tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: member-colon-space-quote
+==================
+
+echo $x.Name: " "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Colon command words: parenthesis-quoted-space
+==================
+
+echo ($value):" " next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: member-colon-then-parameter
+==================
+
+echo $x.Name: -Name:$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Colon command words: first-bare-colon
+==================
+
+echo :
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument)))))))
+
+==================
+Colon command words: first-colon-word
+==================
+
+echo :word
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: first-quoted-space
+==================
+
+echo :" "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Colon command words: first-verbatim-space
+==================
+
+echo :' '
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+==================
+Colon command words: first-variable
+==================
+
+echo :$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (variable))))))))
+
+==================
+Colon command words: first-braced-variable
+==================
+
+echo :${value}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (variable
+                (braced_variable)))))))))
+
+==================
+Colon command words: first-dollar
+==================
+
+echo :$
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument)))))))
+
+==================
+Colon command words: first-special-variable
+==================
+
+echo :$$
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (variable))))))))
+
+==================
+Colon command words: first-subexpression
+==================
+
+echo :$(Get-Item x)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token))))))))))))))
+
+==================
+Colon command words: first-quotes-and-variable
+==================
+
+echo :"a"$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal))
+              (variable))))))))
+
+==================
+Colon command words: several-quotes
+==================
+
+echo :"a"'b'c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal))
+              (string_literal
+                (verbatim_string_characters))
+              (colon_word_text))))))))
+
+==================
+Colon command words: label-like-dollar-literal
+==================
+
+echo :word$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: label-like-escaped-space
+==================
+
+echo :one` two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: escaped-space
+==================
+
+echo :` two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (colon_word_text)
+              (colon_word_text))))))))
+
+==================
+Colon command words: escaped-dollar
+==================
+
+echo :`$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (colon_word_text)
+              (colon_word_text))))))))
+
+==================
+Colon command words: separated-colon-words
+==================
+
+echo first :one :two last
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: separated-tab
+==================
+
+echo	:" " last
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: parameter-separated-colon
+==================
+
+echo -Name :$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (variable))))))))
+
+==================
+Colon command words: parameter-separated-colon-and-quote
+==================
+
+echo -Name : " "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Colon command words: parameter-attached-variable
+==================
+
+echo -Name:$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Colon command words: parameter-attached-space-variable
+==================
+
+echo -Name: $value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Colon command words: parameter-attached-literal
+==================
+
+echo -Name:tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: parameter-attached-quoted-space
+==================
+
+echo -Name:" "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Colon command words: parameter-attached-parenthesis
+==================
+
+echo -Name:($value)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+==================
+Colon command words: parameter-attached-colon-word
+==================
+
+echo -Name::tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: parameter-attached-colon-expansion
+==================
+
+echo -Name::$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (variable))))))))
+
+==================
+Colon command words: parameter-attached-colon-quoted-space
+==================
+
+echo -Name::" "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Colon command words: parameter-member-then-literal-colon
+==================
+
+echo -Name:$x.Name:" "
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Colon command words: parameter-attached-colon-containing-word
+==================
+
+echo -Name:tail:more
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: colon-drive-like
+==================
+
+echo :C:\work\file
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: colon-type-like
+==================
+
+echo :[int]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (colon_word_text))))))))
+
+==================
+Colon command words: colon-punctuation
+==================
+
+echo :one::two/path?x=y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: colon-angle-literal
+==================
+
+echo :word> out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: colon-quoted-angle-literal
+==================
+
+echo $x.Name:" "> out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal))
+              (colon_word_text))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: colon-redirection-separated
+==================
+
+echo $x.Name:" " > $null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))))))))
+
+==================
+Colon command words: colon-merging-redirection
+==================
+
+echo $x.Name:tail 2>&1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)
+            (redirection
+              (merging_redirection_operator))))))))
+
+==================
+Colon command words: colon-wildcard-redirection
+==================
+
+echo :" " *> $null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))))))))
+
+==================
+Colon command words: colon-pipeline
+==================
+
+echo :" " | Out-String
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Colon command words: colon-semicolon
+==================
+
+echo :word; echo end
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: colon-array
+==================
+
+echo :one,:two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: colon-array-tail
+==================
+
+echo one,:two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: colon-array-parameter
+==================
+
+echo -Name::one,:two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon command words: redirected-colon-filename
+==================
+
+echo > :out
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (colon_command_argument
+                  (generic_token))))))))))
+
+==================
+Colon command words: redirected-quoted-colon-filename
+==================
+
+echo > :"out file"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (colon_command_argument
+                  (string_literal
+                    (expandable_string_literal)))))))))))
+
+==================
+Colon command words: control-drive-path
+==================
+
+echo C:\work\file
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: control-normal-colon-word
+==================
+
+echo one:two https://example.invalid/path
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon command words: control-scoped-variable
+==================
+
+echo $global:value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Colon command words: control-static-access
+==================
+
+echo ([string]::Empty) $x.Name::thing
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (member_access
+                                          (type_literal
+                                            (type_spec
+                                              (type_name
+                                                (type_identifier))))
+                                          (member_name
+                                            (simple_name)))))))))))))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (member_access
+                    (variable)
+                    (member_name
+                      (simple_name)))
+                  (member_name
+                    (simple_name)))))))))))
+
+==================
+Colon command words: control-type
+==================
+
+$value = [int]42
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (expression_with_unary_operator
+                                (cast_expression
+                                  (type_literal
+                                    (type_spec
+                                      (type_name
+                                        (type_identifier))))
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))))
+
+==================
+Colon command words: control-redirections
+==================
+
+echo x 2> $null 3>&1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))
+            (command_argument_sep)
+            (redirection
+              (merging_redirection_operator))))))))
+
+==================
+Colon command words: control-parameter-comma
+==================
+
+echo -Name:one,two
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))))
+
+==================
+Colon command words: control-comment-boundary
+==================
+
+echo :word # comment
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))
+            (command_argument_sep)))))
+    (comment)))
+
+==================
+Colon command words: control-normal-arguments
+==================
+
+echo "$value" next $other
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (variable)))))
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))

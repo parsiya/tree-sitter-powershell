@@ -6,7 +6,10 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    PARAMETER_ARGUMENT_SEPARATOR,
+    COLON_WORD_CONTINUATION,
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -84,6 +87,21 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[ERROR_SENTINEL]) return false;
+    // Parser state, not a preceding expression's text, licenses an attachment.
+    // Do not skip trivia: `-Name :value` has a separate literal argument.
+    if (valid_symbols[PARAMETER_ARGUMENT_SEPARATOR] && lexer->lookahead == ':') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = PARAMETER_ARGUMENT_SEPARATOR;
+        return true;
+    }
+    if (valid_symbols[COLON_WORD_CONTINUATION] &&
+        (lexer->lookahead == '$' || lexer->lookahead == '"' || lexer->lookahead == '\'')) {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = COLON_WORD_CONTINUATION;
+        return true;
+    }
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;
