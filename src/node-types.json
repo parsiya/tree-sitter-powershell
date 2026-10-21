@@ -557,6 +557,10 @@
       "required": true,
       "types": [
         {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
           "type": "class_method_definition",
           "named": true
         },

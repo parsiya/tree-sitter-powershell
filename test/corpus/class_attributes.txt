@@ -1,0 +1,834 @@
+===
+Class attributes: DSC declaration and stacked property attributes
+===
+
+[DscResource()]
+[System.ComponentModel.Description('Synthetic resource')]
+class SampleResource
+{
+    [DscProperty(Key)][ValidateNotNullOrEmpty()][string]$Name
+
+    [DscProperty(Mandatory)]
+    [ValidateSet('Enabled', 'Disabled')]
+    [string]$State = 'Enabled'
+
+    [SampleResource]Get() { return $this }
+    [void]Set() {}
+    [bool]Test() { return $true }
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters)))))))))))))))
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (simple_name))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (simple_name))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters))))))))))))
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (script_block
+          (script_block_body
+            (statement_list
+              (flow_control_statement
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable)))))))))))))))))
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name))
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (script_block
+          (script_block_body
+            (statement_list
+              (flow_control_statement
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))))))))
+
+===
+Class attributes: repeated named attributes on typed members
+===
+
+class AnnotatedMembers
+{
+    [System.ComponentModel.Description('first')][System.ComponentModel.Description('second')][System.ComponentModel.Description('third')][string[]]$Names
+
+    [System.ComponentModel.Description('first')]
+    [System.ComponentModel.Description('second')]
+    [int]Count([string[]]$Items) { return 0 }
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (type_literal
+          (type_spec
+            (array_type_name
+              (type_name
+                (type_identifier)))))
+        (variable))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (array_type_name
+                  (type_name
+                    (type_identifier)))))
+            (variable)))
+        (script_block
+          (script_block_body
+            (statement_list
+              (flow_control_statement
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
+
+===
+Class attributes: repeated attributes and member modifiers
+===
+
+class ModifiedMembers
+{
+    [ValidateNotNull()][ValidateNotNullOrEmpty()]hidden static [string]$Name = 'ready'
+    [Obsolete('legacy')][System.Diagnostics.DebuggerStepThrough()]static hidden [void]Run([int]$Count) {}
+
+    hidden [ValidateNotNull()]static [ValidateNotNullOrEmpty()][string]$OtherName
+    static [Obsolete()]hidden [System.Diagnostics.DebuggerStepThrough()][void]OtherRun() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (class_attribute)
+        (class_attribute)
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable)
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (verbatim_string_characters))))))))))))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier)))))
+        (class_attribute)
+        (class_attribute)
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (variable))))
+      (class_property_definition
+        (class_attribute)
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (class_attribute)
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_method_definition
+        (class_attribute)
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (class_attribute)
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier)))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))))
+
+===
+Class attributes: typed members without custom attributes
+===
+
+class TypedMembers
+{
+    [string]$Name
+    [void]Run() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))))
+
+===
+Class attributes: repeated attributes on untyped members and constructors
+===
+
+class UntypedMembers
+{
+    [ValidateNotNull()][ValidateNotNullOrEmpty()]$Name
+    [Obsolete()][System.Diagnostics.DebuggerStepThrough()]Run() {}
+    [Obsolete()][System.Diagnostics.DebuggerStepThrough()]UntypedMembers() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (variable))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier)))))
+        (simple_name))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier)))))
+        (simple_name)))))
+
+===
+Class attributes: adjacent class declarations and attribute lists
+===
+
+[System.ComponentModel.Description('First')][Serializable()]
+class FirstClass {}
+
+[Serializable()]
+[System.ComponentModel.Description('Second')]
+class SecondClass {}
+
+class PlainClass
+{
+    static hidden [string]$Name
+    hidden static [void]Run() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name))
+    (class_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier))
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters)))))))))))))))
+      (simple_name))
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (class_attribute)
+        (class_attribute)
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_method_definition
+        (class_attribute)
+        (class_attribute)
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))))
+
+===
+Class attributes: casts and parameter attributes remain distinct
+===
+
+function Convert-Value
+{
+    param([Parameter(Mandatory)][ValidateNotNullOrEmpty()][string]$Name)
+    [string][int]42
+    $Name[0]
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier))))
+                  (attribute_arguments
+                    (attribute_argument
+                      (simple_name))))
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier)))))
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (expression_with_unary_operator
+                                    (cast_expression
+                                      (type_literal
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (cast_expression
+                                            (type_literal
+                                              (type_spec
+                                                (type_name
+                                                  (type_identifier))))
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))))))
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (element_access
+                                    (variable)
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))))
+
+===
+Class attributes: reject expression-like attribute names
+:error
+===
+
+class InvalidAttributeName
+{
+    [1 + 2][string]$Name
+}
+
+---
+
+(ERROR)
+
+===
+Class attributes: single attributes retain member types
+===
+
+class SingleAttributes
+{
+    [DscProperty(Key)][string]$Name
+    [Obsolete()]hidden static [void]Run() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (simple_name))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable))
+      (class_method_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier)))))
+        (class_attribute)
+        (class_attribute)
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))))
+
+===
+Class attributes: reject expressions after attribute calls
+:error
+===
+
+class InvalidAttributeCall
+{
+    [Obsolete('legacy') + 2][string]$Name
+}
+
+---
+
+(ERROR)
