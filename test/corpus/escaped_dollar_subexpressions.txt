@@ -1,0 +1,226 @@
+===
+Escaped dollar: here-string JavaScript line start
+===
+
+@"
+<script>
+`$(panel).ready();
+`$("#widget").toggle();
+</script>
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal)))))))))))))))
+
+===
+Escaped dollar: here-string actual subexpressions and variables at line start
+===
+
+@"
+<script>
+$(Get-Widget)
+$widget
+${widget}
+</script>
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name))))))
+                              (variable)
+                              (variable
+                                (braced_variable)))))))))))))))))
+
+===
+Escaped dollar: here-string literal variables and backtick parity
+===
+
+@"
+content
+`$widget `${widget} `$(literal)
+``$(Get-Widget)
+```$(literal)
+``$widget
+```$widget
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name))))))
+                              (variable))))))))))))))))
+
+===
+Escaped dollar: here-string quoted line starts
+===
+
+@"
+content
+"`$(literal)
+"$(Get-Widget)
+"`$widget
+"$widget
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name))))))
+                              (variable))))))))))))))))
+
+===
+Escaped dollar: multiline normal string with embedded JavaScript
+===
+
+"
+<script>
+`$(panel).ready();
+`$widget `${widget} `$(literal)
+$(Get-Widget)
+$widget
+``$(Get-Widget)
+```$(literal)
+</script>
+"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name))))))
+                              (variable)
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)))))))))))))))))))))
+
+===
+Escaped dollar: here-string blank lines and escaped newlines
+===
+
+@"
+content
+
+`$(literal)
+`
+$(Get-Widget)
+
+tail`n
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)))))))))))))))))))))
