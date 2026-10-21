@@ -1,0 +1,478 @@
+==================
+Unicode function names and typed parameters
+==================
+
+function New-GPT图像 {
+    param([string]$路径)
+    $路径
+}
+function script:新建($名字) { $名字 }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))))))
+    (function_statement
+      (function_name)
+      (function_parameter_declaration
+        (parameter_list
+          (script_parameter
+            (variable))))
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))))))))
+
+==================
+Unicode letter categories and decimal digits
+==================
+
+$É, $é, $ǅ, $ʰ, $路, $١, $1٢, $_名, $名_2
+$Ᲊ, $ᲊ, $Ɤ, $Ꟍ, $ꟍ, $Ꟛ, $ꟛ, $Ƛ
+$㐀, $㐁, $䶾, $䶿, $一, $丁, $鿾, $鿿, $가, $각, $힢, $힣
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Unicode scoped and environment variables
+==================
+
+$global:路径, $local:路径, $private:路径, $script:路径
+$using:路径, $workflow:路径, $env:路径, $路径:名称
+Write-Output @路径 @script:路径 @路径:名称
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Unicode variables in expandable strings
+==================
+
+"$路径 ${路径-名称} $env:路径 $路径:名称"
+@"
+$路径 ${env:路径} $script:路径
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable)
+                              (variable
+                                (braced_variable))
+                              (variable)
+                              (variable))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (variable)
+                              (variable
+                                (braced_variable))
+                              (variable))))))))))))))))
+
+==================
+Non-name Unicode characters end unbraced interpolation
+==================
+
+"$xⅧ $x² $x́ $xः $x⃝ $x‿ $x‌ $x☃ $x𐐀 $x𝟙"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable))))))))))))))))
+
+==================
+Braced variables and function names allow other Unicode characters
+==================
+
+${Ⅷ}, ${²}, ${́}, ${ः}, ${⃝}, ${‿}, ${‌}, ${☃}, ${𐐀}, ${𝟙}
+function New-☃ { $true }
+function New-𐐀 { $false }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))
+                        (unary_expression
+                          (variable
+                            (braced_variable)))))))))))))
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))))))
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))))))))
+
+==================
+ASCII numeric and automatic variable behavior
+==================
+
+$ascii_1, $0, $123, $_, $?, $$, $^, $true, $false, $null
+"$?abc $$tail $^tail $_tail ${?} ${^} ${$}"
+Write-Output @args @global:args
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))
+                        (unary_expression
+                          (variable))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable)
+                              (variable
+                                (braced_variable))
+                              (variable
+                                (braced_variable))
+                              (variable
+                                (braced_variable)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
