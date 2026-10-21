@@ -740,7 +740,8 @@ export default grammar({
           new RegExp(caseInsensitive('break-')),
           new RegExp(caseInsensitive('continue-')),
           new RegExp(caseInsensitive('throw-')),
-          new RegExp(caseInsensitive('return-')),
+          // Adjacent dollars remain literal command-name characters.
+          new RegExp(caseInsensitive('return') + '[-$]'),
           new RegExp(caseInsensitive('exit-')),
           new RegExp(caseInsensitive('try-')),
           new RegExp(caseInsensitive('trap-')),
@@ -752,6 +753,7 @@ export default grammar({
           new RegExp(caseInsensitive('enum-')),
           new RegExp(caseInsensitive('switch-')),
           new RegExp(caseInsensitive('for-')),
+          new RegExp(caseInsensitive('foreach-')),
           new RegExp(caseInsensitive('while-')),
           new RegExp(caseInsensitive('parallel-')),
         ),
