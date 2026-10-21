@@ -1,0 +1,354 @@
+===
+Command methods: calls and parenthesized receivers
+===
+
+Write-Output $value.Replace('a', 'b')
+Where-Object Name -lt (Get-Date).AddDays(-1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list
+                    (argument_expression_list
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters)))))))))))
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (string_literal
+                                          (verbatim_string_characters))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)))))
+                  (member_name
+                    (simple_name))
+                  (argument_list
+                    (argument_expression_list
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (unary_expression
+                                            (integer_literal
+                                              (decimal_integer_literal))))))))))))))))))))))))
+
+===
+Command methods: chained calls and indexing
+===
+
+Write-Output $date.AddMonths(1).AddSeconds(-1)
+Get-Date $text.Split('=')[1]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (invokation_expression
+                    (variable)
+                    (member_name
+                      (simple_name))
+                    (argument_list
+                      (argument_expression_list
+                        (argument_expression
+                          (logical_argument_expression
+                            (bitwise_argument_expression
+                              (comparison_argument_expression
+                                (additive_argument_expression
+                                  (multiplicative_argument_expression
+                                    (format_argument_expression
+                                      (range_argument_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal))))))))))))))
+                  (member_name
+                    (simple_name))
+                  (argument_list
+                    (argument_expression_list
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (unary_expression
+                                            (integer_literal
+                                              (decimal_integer_literal))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (invokation_expression
+                    (variable)
+                    (member_name
+                      (simple_name))
+                    (argument_list
+                      (argument_expression_list
+                        (argument_expression
+                          (logical_argument_expression
+                            (bitwise_argument_expression
+                              (comparison_argument_expression
+                                (additive_argument_expression
+                                  (multiplicative_argument_expression
+                                    (format_argument_expression
+                                      (range_argument_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (verbatim_string_characters))))))))))))))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))))
+
+===
+Command methods: computed members and comma lists
+===
+
+Write-Output $value.GetNetworkCredential().$($_.Name)
+Write-Output $first.ToString(1), $second.ToString(2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (invokation_expression
+                    (variable)
+                    (member_name
+                      (simple_name))
+                    (argument_list))
+                  (member_name
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (member_access
+                                                (variable)
+                                                (member_name
+                                                  (simple_name))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list
+                    (argument_expression_list
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))))))))))))))
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list
+                    (argument_expression_list
+                      (argument_expression
+                        (logical_argument_expression
+                          (bitwise_argument_expression
+                            (comparison_argument_expression
+                              (additive_argument_expression
+                                (multiplicative_argument_expression
+                                  (format_argument_expression
+                                    (range_argument_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))))))))
+
+===
+Command methods: spaced parentheses stay separate
+===
+
+Write-Output $value.ToString (1)
+New-Object Type($a, $b)
+Write-Output $value(1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (variable))))))))))
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (variable))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))))

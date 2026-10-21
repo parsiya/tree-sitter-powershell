@@ -1229,31 +1229,35 @@ export default grammar({
         seq($._primary_expression, '[', $._expression, ']'),
       ),
 
+    // Finish a method call before reducing the enclosing command argument.
     invokation_expression: ($) =>
-      choice(
-        seq(
-          $._primary_expression,
-          token.immediate('.'),
-          $.member_name,
-          $.argument_list,
+      prec.right(
+        PREC.PARAM + 1,
+        choice(
+          seq(
+            $._primary_expression,
+            token.immediate('.'),
+            $.member_name,
+            $.argument_list,
+          ),
+          seq($._primary_expression, '::', $.member_name, $.argument_list),
+          // `$x.Where{ ... }`: a script block right after the member name is the only argument
+          seq(
+            $._primary_expression,
+            token.immediate('.'),
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          seq(
+            $._primary_expression,
+            '::',
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          $.invokation_foreach_expression,
         ),
-        seq($._primary_expression, '::', $.member_name, $.argument_list),
-        // `$x.Where{ ... }`: a script block right after the member name is the only argument
-        seq(
-          $._primary_expression,
-          token.immediate('.'),
-          $.member_name,
-          $._script_block_argument_start,
-          $.script_block_expression,
-        ),
-        seq(
-          $._primary_expression,
-          '::',
-          $.member_name,
-          $._script_block_argument_start,
-          $.script_block_expression,
-        ),
-        $.invokation_foreach_expression,
       ),
 
     // adding this rule to handle .foreach synthax
