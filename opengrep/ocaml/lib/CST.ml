@@ -681,6 +681,11 @@ and anon_choice_addi_exp_4da1943 = [
   | `Null_coal_exp of null_coalescing_expression
 ]
 
+and anon_choice_attr_dfec0a4 = [
+    `Attr of attribute
+  | `Class_attr of class_attribute
+]
+
 and anon_choice_gene_tok_f70d4cb = [
     `Gene_tok of generic_token
   | `Un_exp of unary_expression
@@ -762,8 +767,7 @@ and class_base_constructor_call = (
 )
 
 and class_method_definition = (
-    attribute option
-  * class_attribute list (* zero or more *)
+    anon_choice_attr_dfec0a4 list (* zero or more *)
   * type_literal option
   * simple_name (*tok*)
   * Token.t (* "(" *)
@@ -776,8 +780,7 @@ and class_method_definition = (
 )
 
 and class_property_definition = (
-    attribute option
-  * class_attribute list (* zero or more *)
+    anon_choice_attr_dfec0a4 list (* zero or more *)
   * type_literal option
   * variable
   * script_parameter_default option

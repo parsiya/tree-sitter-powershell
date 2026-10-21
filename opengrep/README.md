@@ -9,10 +9,11 @@ There are two kinds of changes, and they live in different places.
 
 **PowerShell grammar fixes go in the root `grammar.js`.** These are fixes for
 valid PowerShell that the grammar rejects or reads wrongly. Opengrep is the
-priority: fixes are committed directly on `opengrep-dev`, one commit per fix,
-each with its tests and a message that explains it. Offering fixes to Airbus is
-a later, separate step: pick the individual fix commits from this history then.
-If Airbus does not want a fix, it stays here. See
+priority, while each fix also needs to be independently contributable to Airbus.
+Create one `fix/...` branch from Airbus's `upstream/main` for each fix, commit
+its grammar and tests there, preserve the branch, and merge it with `--no-ff`
+into `opengrep-dev`. Offering fixes to Airbus is a later, separate step.
+If Airbus does not want a fix, it stays in our combined grammar. See
 [Fixing the grammar](#fixing-the-grammar).
 
 **Opengrep-only additions go under this `opengrep/` directory.** These are
@@ -61,6 +62,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/escaped-dollar-subexpressions` | Preserve escapes and interpolation prefixes at here-string line starts. Combined batch-001: +6 agree. | Not yet offered. |
 | `fix/comment-help-boundaries` | Keep comment-looking string text from hiding actual interpolations. Combined batch-001: +9 agree. | Not yet offered. |
 | `fix/unicode-names` | Accept BMP Unicode letters and decimal digits in variables and scopes, with compatible generation on both CLIs. Combined batch-001: +1 agree; seven other files advance to their next error. | Not yet offered. |
+| `fix/multiple-member-attributes` | Retain repeated class-member attributes and interleaved modifiers while preserving distinct declared types. Combined batch-001: +2 agree. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
@@ -123,8 +125,8 @@ Review and explain any intentional expected-output changes first.
 
 Make each fix small and about one problem, so Airbus can review it on its own.
 
-1. Work on `opengrep-dev` (or a branch from it). A branch from Airbus's
-   `main` is not needed; it can be made later when offering a fix to Airbus.
+1. Create a separate `fix/...` branch from Airbus's `upstream/main`. Use an
+   isolated worktree and keep this branch for later upstream contribution.
 
 2. Reduce a real example to a small made-up one. Check it with PowerShell's own
    parser (`[System.Management.Automation.Language.Parser]::ParseInput`) and
@@ -158,20 +160,24 @@ Make each fix small and about one problem, so Airbus can review it on its own.
 5. Commit the grammar, regenerated `src/`, and tests as one commit for this
    fix. Say in the message what PowerShell accepts, what the grammar did, and
    how many real-world files it affects, if known.
+   Check the standalone fix against Airbus's baseline, then merge with
+   `--no-ff` into `opengrep-dev`. Recheck the combined grammar against its
+   previous baseline before starting the next fix.
 6. Regenerate and test Opengrep's parser as described in
    [Build and test](#build-and-test). A grammar change can change the generated
    OCaml types; update Opengrep's PowerShell converter in the same Opengrep
    change if needed.
 7. Add the fix to the table in [Where changes go](#where-changes-go).
-8. Offering a fix to Airbus is a later, separate step and optional. Start a
-   branch from Airbus's `main` and cherry-pick the fix commit (grammar and
-   tests), then regenerate `src/`. If Airbus merges a different fix for the
+8. Offering a fix to Airbus is a later, separate step and optional. Use the
+   preserved standalone branch; if needed, cherry-pick the fix onto Airbus's
+   newer `main` and regenerate `src/`. If Airbus merges a different fix for the
    same problem, prefer theirs on the next update.
 
 ### How to commit grammar fixes
 
-- **One commit per fix on `opengrep-dev`:** the root grammar, regenerated root
-  `src/`, and tests. Keep fixes separate so each can be offered to Airbus later.
+- **One commit per fix on its Airbus-based branch:** the root grammar,
+  regenerated root `src/`, and tests. Keep that branch, then merge it into
+  `opengrep-dev` with `--no-ff`.
 - **Several fixes can then share one regeneration commit.** After a group of
   fixes, regenerate `opengrep/ocaml/` once and commit it together with the
   README table in a single commit. Do not regenerate and commit each fix.

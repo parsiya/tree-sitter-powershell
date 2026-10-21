@@ -767,11 +767,11 @@ let children_regexps : (string * Run.exp option) list = [
   "class_method_definition",
   Some (
     Seq [
-      Opt (
-        Token (Name "attribute");
-      );
       Repeat (
-        Token (Name "class_attribute");
+        Alt [|
+          Token (Name "attribute");
+          Token (Name "class_attribute");
+        |];
       );
       Opt (
         Token (Name "type_literal");
@@ -795,11 +795,11 @@ let children_regexps : (string * Run.exp option) list = [
   "class_property_definition",
   Some (
     Seq [
-      Opt (
-        Token (Name "attribute");
-      );
       Repeat (
-        Token (Name "class_attribute");
+        Alt [|
+          Token (Name "attribute");
+          Token (Name "class_attribute");
+        |];
       );
       Opt (
         Token (Name "type_literal");
@@ -4421,41 +4421,49 @@ and trans_class_method_definition ((kind, body) : mt) : CST.class_method_definit
   match body with
   | Children v ->
       (match v with
-      | Seq [v0; v1; v2; v3; v4; v5; v6; v7; v8; v9; v10] ->
+      | Seq [v0; v1; v2; v3; v4; v5; v6; v7; v8; v9] ->
           (
-            Run.opt
-              (fun v -> trans_attribute (Run.matcher_token v))
-              v0
-            ,
             Run.repeat
-              (fun v -> trans_class_attribute (Run.matcher_token v))
-              v1
+              (fun v ->
+                (match v with
+                | Alt (0, v) ->
+                    `Attr (
+                      trans_attribute (Run.matcher_token v)
+                    )
+                | Alt (1, v) ->
+                    `Class_attr (
+                      trans_class_attribute (Run.matcher_token v)
+                    )
+                | _ -> assert false
+                )
+              )
+              v0
             ,
             Run.opt
               (fun v -> trans_type_literal (Run.matcher_token v))
-              v2
+              v1
             ,
-            trans_simple_name (Run.matcher_token v3),
-            Run.trans_token (Run.matcher_token v4),
+            trans_simple_name (Run.matcher_token v2),
+            Run.trans_token (Run.matcher_token v3),
             Run.opt
               (fun v ->
                 trans_class_method_parameter_list (Run.matcher_token v)
               )
-              v5
+              v4
             ,
-            Run.trans_token (Run.matcher_token v6),
+            Run.trans_token (Run.matcher_token v5),
             Run.opt
               (fun v ->
                 trans_class_base_constructor_call (Run.matcher_token v)
               )
-              v7
+              v6
             ,
-            Run.trans_token (Run.matcher_token v8),
+            Run.trans_token (Run.matcher_token v7),
             Run.opt
               (fun v -> trans_script_block (Run.matcher_token v))
-              v9
+              v8
             ,
-            Run.trans_token (Run.matcher_token v10)
+            Run.trans_token (Run.matcher_token v9)
           )
       | _ -> assert false
       )
@@ -4465,21 +4473,29 @@ and trans_class_property_definition ((kind, body) : mt) : CST.class_property_def
   match body with
   | Children v ->
       (match v with
-      | Seq [v0; v1; v2; v3; v4] ->
+      | Seq [v0; v1; v2; v3] ->
           (
-            Run.opt
-              (fun v -> trans_attribute (Run.matcher_token v))
-              v0
-            ,
             Run.repeat
-              (fun v -> trans_class_attribute (Run.matcher_token v))
-              v1
+              (fun v ->
+                (match v with
+                | Alt (0, v) ->
+                    `Attr (
+                      trans_attribute (Run.matcher_token v)
+                    )
+                | Alt (1, v) ->
+                    `Class_attr (
+                      trans_class_attribute (Run.matcher_token v)
+                    )
+                | _ -> assert false
+                )
+              )
+              v0
             ,
             Run.opt
               (fun v -> trans_type_literal (Run.matcher_token v))
-              v2
+              v1
             ,
-            trans_variable (Run.matcher_token v3),
+            trans_variable (Run.matcher_token v2),
             Run.opt
               (fun v ->
                 (match v with
@@ -4491,7 +4507,7 @@ and trans_class_property_definition ((kind, body) : mt) : CST.class_property_def
                 | _ -> assert false
                 )
               )
-              v4
+              v3
           )
       | _ -> assert false
       )

@@ -1234,6 +1234,16 @@ and map_anon_choice_addi_exp_4da1943 (env : env) (x : CST.anon_choice_addi_exp_4
     )
   )
 
+and map_anon_choice_attr_dfec0a4 (env : env) (x : CST.anon_choice_attr_dfec0a4) =
+  (match x with
+  | `Attr x -> R.Case ("Attr",
+      map_attribute env x
+    )
+  | `Class_attr x -> R.Case ("Class_attr",
+      map_class_attribute env x
+    )
+  )
+
 and map_anon_choice_gene_tok_f70d4cb (env : env) (x : CST.anon_choice_gene_tok_f70d4cb) =
   (match x with
   | `Gene_tok x -> R.Case ("Gene_tok",
@@ -1396,77 +1406,67 @@ and map_class_base_constructor_call (env : env) ((v1, v2, v3) : CST.class_base_c
   let v3 = map_argument_list env v3 in
   R.Tuple [v1; v2; v3]
 
-and map_class_method_definition (env : env) ((v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11) : CST.class_method_definition) =
+and map_class_method_definition (env : env) ((v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) : CST.class_method_definition) =
   let v1 =
-    (match v1 with
-    | Some x -> R.Option (Some (
-        map_attribute env x
-      ))
-    | None -> R.Option None)
+    R.List (List.map (map_anon_choice_attr_dfec0a4 env) v1)
   in
-  let v2 = R.List (List.map (map_class_attribute env) v2) in
-  let v3 =
-    (match v3 with
+  let v2 =
+    (match v2 with
     | Some x -> R.Option (Some (
         map_type_literal env x
       ))
     | None -> R.Option None)
   in
-  let v4 =
-    (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v4
+  let v3 =
+    (* pattern [a-zA-Z_][a-zA-Z0-9_]* *) token env v3
   in
-  let v5 = (* "(" *) token env v5 in
-  let v6 =
-    (match v6 with
+  let v4 = (* "(" *) token env v4 in
+  let v5 =
+    (match v5 with
     | Some x -> R.Option (Some (
         map_class_method_parameter_list env x
       ))
     | None -> R.Option None)
   in
-  let v7 = (* ")" *) token env v7 in
-  let v8 =
-    (match v8 with
+  let v6 = (* ")" *) token env v6 in
+  let v7 =
+    (match v7 with
     | Some x -> R.Option (Some (
         map_class_base_constructor_call env x
       ))
     | None -> R.Option None)
   in
-  let v9 = (* "{" *) token env v9 in
-  let v10 =
-    (match v10 with
+  let v8 = (* "{" *) token env v8 in
+  let v9 =
+    (match v9 with
     | Some x -> R.Option (Some (
         map_script_block env x
       ))
     | None -> R.Option None)
   in
-  let v11 = (* "}" *) token env v11 in
-  R.Tuple [v1; v2; v3; v4; v5; v6; v7; v8; v9; v10; v11]
+  let v10 = (* "}" *) token env v10 in
+  R.Tuple [v1; v2; v3; v4; v5; v6; v7; v8; v9; v10]
 
-and map_class_property_definition (env : env) ((v1, v2, v3, v4, v5) : CST.class_property_definition) =
+and map_class_property_definition (env : env) ((v1, v2, v3, v4) : CST.class_property_definition) =
   let v1 =
-    (match v1 with
-    | Some x -> R.Option (Some (
-        map_attribute env x
-      ))
-    | None -> R.Option None)
+    R.List (List.map (map_anon_choice_attr_dfec0a4 env) v1)
   in
-  let v2 = R.List (List.map (map_class_attribute env) v2) in
-  let v3 =
-    (match v3 with
+  let v2 =
+    (match v2 with
     | Some x -> R.Option (Some (
         map_type_literal env x
       ))
     | None -> R.Option None)
   in
-  let v4 = map_variable env v4 in
-  let v5 =
-    (match v5 with
+  let v3 = map_variable env v3 in
+  let v4 =
+    (match v4 with
     | Some x -> R.Option (Some (
         map_script_parameter_default env x
       ))
     | None -> R.Option None)
   in
-  R.Tuple [v1; v2; v3; v4; v5]
+  R.Tuple [v1; v2; v3; v4]
 
 and map_command (env : env) (x : CST.command) =
   (match x with
