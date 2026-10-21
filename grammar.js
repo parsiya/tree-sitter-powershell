@@ -306,7 +306,13 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      token(
+        choice(
+          /[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/,
+          // Percentages are words in argument mode, not unary expressions.
+          /-(?:[0-9]|\.[0-9])[^\&\s\(\)\}\|;,]*%[^\&\s\(\)\}\|;,]*/,
+        ),
+      ),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
