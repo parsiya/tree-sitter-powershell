@@ -1,0 +1,188 @@
+===
+Attached dash words: parameter-like names stay literal
+===
+
+echo -Name: -Next -Other tail
+echo -Name:-Next$value
+echo -Name:--Next
+echo -Name:-中$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (parameter_argument_word)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)))))))
+
+===
+Attached dash words: numeric and bare dash values are strings
+===
+
+echo -Name:-1
+echo -Name:-
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)))))))
+
+===
+Attached dash words: quoted and numeric interpolations still expand
+===
+
+echo -Name:-Next"$value"
+echo -Name:-$value
+echo -Name:-1$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal
+                  (variable))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Attached dash words: comma arrays keep the attached value together
+===
+
+echo -Name:-Next,$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)
+            (unary_expression
+              (variable))))))))
+
+===
+Attached dash words: parentheses and trailing colons start another argument
+===
+
+echo -Name:-Next$(Get-Item path)
+echo -Name:-Next:tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (parameter_argument_word)
+            (generic_token)))))))

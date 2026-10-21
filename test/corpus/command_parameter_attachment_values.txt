@@ -1,0 +1,568 @@
+==================
+Attached parameter values (valid): immediate-value
+==================
+
+echo -Name:$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): space-value
+==================
+
+echo -Name: $x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): tab-value
+==================
+
+echo -Name:	$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): nbsp-value
+==================
+
+echo -Name: $x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): no-colon
+==================
+
+echo -Name
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)))))))
+
+==================
+Attached parameter values (valid): separate-colon-variable
+==================
+
+echo -Name :$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument
+              (variable))))))))
+
+==================
+Attached parameter values (valid): separate-bare-colon
+==================
+
+echo -Name :
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument)))))))
+
+==================
+Attached parameter values (valid): attached-colon
+==================
+
+echo -Name::
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (colon_command_argument)))))))
+
+==================
+Attached parameter values (valid): space-colon
+==================
+
+echo -Name: :
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (colon_command_argument)))))))
+
+==================
+Attached parameter values (valid): empty-string
+==================
+
+echo -Name: ""
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Attached parameter values (valid): zero-value
+==================
+
+echo -Name: 0
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+==================
+Attached parameter values (valid): semicolon-after-value
+==================
+
+echo -Name: $x; echo next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Attached parameter values (invalid): empty-eof
+==================
+
+echo -Name:
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)))
+
+==================
+Attached parameter values (invalid): empty-semicolon
+==================
+
+echo -Name:; echo next
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep) (UNEXPECTED 'c')))
+
+==================
+Attached parameter values (invalid): empty-space-semicolon
+==================
+
+echo -Name: ; echo next
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep) (UNEXPECTED 'c')))
+
+==================
+Attached parameter values (invalid): empty-pipeline
+==================
+
+echo -Name: | Out-String
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (command_parameter) (ERROR (command_argument_sep)) (command_argument_sep))) (command (command_name))))))
+
+==================
+Attached parameter values (invalid): empty-redirection
+==================
+
+echo -Name: > out
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (command_parameter) (ERROR (command_argument_sep)) (command_argument_sep) (redirection (file_redirection_operator) (redirected_file_name (command_argument_sep) (generic_token)))))))))
+
+==================
+Attached parameter values (invalid): newline-variable
+==================
+
+echo -Name:
+$x
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))
+
+==================
+Attached parameter values (invalid): newline-command
+==================
+
+echo -Name:
+echo next
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep) (UNEXPECTED 'c')))
+
+==================
+Attached parameter values (invalid): line-comment-eof
+==================
+
+echo -Name: # comment
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (comment))
+
+==================
+Attached parameter values (invalid): line-comment-variable
+==================
+
+echo -Name: # comment
+$x
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (comment) (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))
+
+==================
+Attached parameter values (invalid): line-comment-command
+==================
+
+echo -Name: # comment
+echo next
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep) (comment) (UNEXPECTED 'c')))
+
+==================
+Attached parameter values (valid): block-comment-value
+==================
+
+echo -Name:<# comment #>$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (comment)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): spaced-block-comment-value
+==================
+
+echo -Name: <# comment #> $x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (comment)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): multiline-block-comment-value
+==================
+
+echo -Name: <# comment
+continued #> $x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (comment)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (invalid): block-comment-empty
+==================
+
+echo -Name:<# comment #>
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (comment))
+
+==================
+Attached parameter values (invalid): block-comment-semicolon
+==================
+
+echo -Name: <# comment #>; echo next
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep) (comment) (UNEXPECTED 'c')))
+
+==================
+Attached parameter values (invalid): block-comment-newline
+==================
+
+echo -Name: <# comment #>
+$x
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (comment) (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))
+
+==================
+Attached parameter values (valid): continuation-value
+==================
+
+echo -Name:`
+$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (valid): spaced-continuation-value
+==================
+
+echo -Name: `
+$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Attached parameter values (invalid): continuation-empty
+==================
+
+echo -Name:`
+
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)))
+
+==================
+Attached parameter values (invalid): continuation-comment
+==================
+
+echo -Name:`
+# comment
+$x
+
+---
+
+(program (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)) (comment) (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))
+
+==================
+Attached parameter values (invalid): block-close-empty
+==================
+
+& { echo -Name: }
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_invokation_operator) (command_name_expr (script_block_expression (ERROR (command_name) (command_argument_sep) (command_parameter) (command_argument_sep)))))))))
+
+==================
+Attached parameter values (invalid): parenthesis-close-empty
+==================
+
+echo (echo -Name:)
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (command_parameter))))) (ERROR (command_argument_sep)))))))))))

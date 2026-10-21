@@ -630,6 +630,42 @@
     }
   },
   {
+    "type": "colon_command_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "colon_word_text",
+          "named": true
+        },
+        {
+          "type": "generic_token",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "sub_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "colon_word_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "command",
     "named": true,
     "fields": {
@@ -691,6 +727,10 @@
           "named": true
         },
         {
+          "type": "colon_command_argument",
+          "named": true
+        },
+        {
           "type": "command_argument_sep",
           "named": true
         },
@@ -700,6 +740,10 @@
         },
         {
           "type": "generic_token",
+          "named": true
+        },
+        {
+          "type": "parameter_argument_word",
           "named": true
         },
         {
@@ -2717,6 +2761,10 @@
           "named": true
         },
         {
+          "type": "colon_command_argument",
+          "named": true
+        },
+        {
           "type": "command_argument_sep",
           "named": true
         },
@@ -3635,6 +3683,10 @@
         "required": true,
         "types": [
           {
+            "type": "colon_command_argument",
+            "named": true
+          },
+          {
             "type": "generic_token",
             "named": true
           },
@@ -4411,6 +4463,10 @@
   {
     "type": "param",
     "named": false
+  },
+  {
+    "type": "parameter_argument_word",
+    "named": true
   },
   {
     "type": "path_command_name_token",

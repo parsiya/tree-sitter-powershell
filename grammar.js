@@ -58,6 +58,9 @@ export default grammar({
     $._command_word_part,
     $._command_word_expression,
     $._quoted_argument_boundary,
+    $._parameter_argument_separator,
+    $._parameter_argument_start,
+    $._colon_word_continuation,
     $._error_sentinel,
   ],
 
@@ -119,13 +122,13 @@ export default grammar({
               choice(
                 $.string_literal,
                 $.hash_literal_expression,
-                $.generic_token,
+                $._command_word,
               ),
             ),
           ),
           seq(
             reservedWord('assembly'),
-            field('name', choice($.string_literal, $.generic_token)),
+            field('name', choice($.string_literal, $._command_word)),
           ),
         ),
       ),
@@ -422,7 +425,7 @@ export default grammar({
       choice(
         token(
           choice(
-            /[^\(\)\$\"\'\-\{\}@\|\[`\&\s\u00a0>0-9*][^\&\s\u00a0\(\)\}\|;,]*/,
+            /[^\(\)\$\"\'\-\{\}@\|\[`\&:\s\u00a0>0-9*][^\&\s\u00a0\(\)\}\|;,]*/,
             /[0-9*]([^\&\s\u00a0\(\)\}\|;,>][^\&\s\u00a0\(\)\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
             /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\}\|;,]*%[^\&\s\u00a0\(\)\}\|;,]*/,
@@ -942,7 +945,19 @@ export default grammar({
     _command_element: ($) =>
       prec.right(
         choice(
-          $.command_parameter,
+          seq(
+            $.command_parameter,
+            optional(seq(
+              alias($._parameter_argument_separator, $.command_argument_sep),
+              $._parameter_argument_start,
+              // Keep horizontal trivia outside the required value's extent.
+              repeat(choice(
+                $.command_argument_sep,
+                alias(token(prec(1, /[\t\v\f\u00a0]+/)), $.command_argument_sep),
+              )),
+              $._command_parameter_argument,
+            )),
+          ),
           seq($._command_argument, optional($.argument_list)),
           seq(
             $.command_argument_sep,
@@ -958,9 +973,59 @@ export default grammar({
     // Stop parsing is a token that end the parsing of command line
     stop_parsing: ($) => /--%[^\r\n]*/,
 
-    // Generic token is hard to manage
-    // So a definition is that a generic token must have to begin by one or more space char
-    command_argument_sep: ($) => prec.right(choice(/[ \u00a0]+/, ':')),
+    // A colon is a separator only immediately after a command parameter.
+    command_argument_sep: ($) => prec.right(/[ \u00a0]+/),
+
+    _command_word: ($) => choice($.generic_token, $.colon_command_argument),
+
+    _command_parameter_argument: ($) =>
+      choice(
+        seq(
+          choice($._command_word, $.parameter_argument_word),
+          repeat(seq(',', choice($._command_word, $.unary_expression))),
+        ),
+        seq(
+          $.parameter_argument_word,
+          $._quoted_argument_boundary,
+          $._argument_after_quote,
+        ),
+        $.array_literal_expression,
+      ),
+
+    // Dash-leading tokens are strings, not new parameters or unary expressions,
+    // when a parameter colon has requested a value.
+    parameter_argument_word: ($) => token.immediate(prec(1, new RegExp(
+      String.raw`-+(?:${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*:?|-[0-9.][^\s\u00a0"'\x60$(){}|;,&]*|-`,
+      'u',
+    ))),
+
+    // A colon starts a new command word after an expression, not a member suffix.
+    // Only the immediate colon following a parameter is an attachment separator.
+    colon_command_argument: ($) =>
+      choice(
+        // Label-like words remain literal: `:word$value` does not expand.
+        alias(token(new RegExp(
+          `:(?:${PARAMETER_LETTER}|_)[^\\s\\u00a0(){}|;&,]*`,
+          'u',
+        )), $.generic_token),
+        prec.right(seq(
+          ':',
+          repeat(choice(
+            $.colon_word_text,
+            seq(
+              $._colon_word_continuation,
+              choice($.variable, $.string_literal, $.sub_expression, token.immediate('$')),
+            ),
+          )),
+        )),
+      ),
+
+    colon_word_text: ($) =>
+      choice(
+        token.immediate(prec(1, /[^\s\u00a0"'`$();|&,{}]+/)),
+        // CLI 0.22 misreads the union of \s and \S inside a character class.
+        token.immediate(/`[^\r\n]|`[\r\n]/),
+      ),
 
     // Adapt the grammar to have same behavior
 
@@ -972,9 +1037,9 @@ export default grammar({
             $.command_argument_sep,
             optional(
               seq(
-                $.generic_token,
+                $._command_word,
                 // `Select-Object Id, Name`: an unquoted comma list is one array argument
-                repeat(seq(',', choice($.generic_token, $.unary_expression))),
+                repeat(seq(',', choice($._command_word, $.unary_expression))),
               ),
             ),
           ),
@@ -987,8 +1052,12 @@ export default grammar({
             seq(
               $.command_argument_sep,
               $.unary_expression,
-              repeat1(seq(',', choice($.generic_token, $.unary_expression))),
+              repeat1(seq(',', choice($._command_word, $.unary_expression))),
             ),
+          ),
+          seq(
+            $.colon_command_argument,
+            repeat(seq(',', choice($._command_word, $.unary_expression))),
           ),
           $.parenthesized_expression,
           $.script_block_expression,
@@ -1002,8 +1071,8 @@ export default grammar({
     _argument_after_quote: ($) =>
       choice(
         seq(
-          $.generic_token,
-          repeat(seq(',', choice($.generic_token, $.unary_expression))),
+          $._command_word,
+          repeat(seq(',', choice($._command_word, $.unary_expression))),
         ),
         $.array_literal_expression,
         seq(
