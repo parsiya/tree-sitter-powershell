@@ -4593,6 +4593,27 @@
             ]
           },
           {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_argument_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "quoted_command_argument"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_quoted_argument_boundary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_argument_after_quote"
+              }
+            ]
+          },
+          {
             "type": "SYMBOL",
             "name": "redirection"
           },
@@ -4746,6 +4767,70 @@
           }
         ]
       }
+    },
+    "quoted_command_argument": {
+      "type": "SYMBOL",
+      "name": "string_literal"
+    },
+    "_argument_after_quote": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "generic_token"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "generic_token"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "unary_expression"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "array_literal_expression"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "quoted_command_argument"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_quoted_argument_boundary"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_argument_after_quote"
+            }
+          ]
+        }
+      ]
     },
     "verbatim_command_argument": {
       "type": "SEQ",
@@ -7903,6 +7988,10 @@
     {
       "type": "SYMBOL",
       "name": "_command_word_expression"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_quoted_argument_boundary"
     },
     {
       "type": "SYMBOL",

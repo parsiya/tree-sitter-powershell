@@ -14,7 +14,8 @@ enum TOKEN_TYPE {
     COMMAND_WORD_START,
     COMMAND_WORD_PART,
     COMMAND_WORD_EXPRESSION,
-    // Never produced: disables word lookahead during error recovery.
+    QUOTED_ARGUMENT_BOUNDARY,
+    // Never produced: disables the boundary marker during error recovery.
     ERROR_SENTINEL
 };
 
@@ -287,10 +288,34 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
     return true;
 }
 
+static bool scan_quoted_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[QUOTED_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL]) return false;
+    int32_t c = lexer->lookahead;
+    // Keep expression suffixes, punctuation and elements that already work
+    // without spaces on their existing grammar paths.
+    if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
+        c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
+        c == ',' || c == '>' || c == '<' || c == '(' || c == '{' ||
+        c == '-' || c == '`' || c == '#' || c == 0xfeff ||
+        c == 0x2060 || c == 0x200b || c == 0xa0) return false;
+    lexer->mark_end(lexer);
+    if (c == '*' || (c >= '0' && c <= '9')) {
+        do {
+            lexer->advance(lexer, false);
+        } while (lexer->lookahead >= '0' && lexer->lookahead <= '9');
+        if (lexer->lookahead == '>') return false;
+    }
+    lexer->result_symbol = QUOTED_ARGUMENT_BOUNDARY;
+    return true;
+}
+
 /* --- API Implementation --- */
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (scan_quoted_argument_boundary(lexer, valid_symbols)) return true;
+
     // Before anything that skips spaces: the `{` must directly follow.
     if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
 

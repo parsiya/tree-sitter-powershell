@@ -57,6 +57,7 @@ export default grammar({
     $._command_word_start,
     $._command_word_part,
     $._command_word_expression,
+    $._quoted_argument_boundary,
     $._error_sentinel,
   ],
 
@@ -943,6 +944,12 @@ export default grammar({
         choice(
           $.command_parameter,
           seq($._command_argument, optional($.argument_list)),
+          seq(
+            $.command_argument_sep,
+            $.quoted_command_argument,
+            $._quoted_argument_boundary,
+            $._argument_after_quote,
+          ),
           $.redirection,
           $.stop_parsing,
         ),
@@ -985,6 +992,24 @@ export default grammar({
           ),
           $.parenthesized_expression,
           $.script_block_expression,
+        ),
+      ),
+
+    // A leading quoted string ends an argument even without following spaces.
+    // Keep each adjacent argument visible directly under command_elements.
+    quoted_command_argument: ($) => $.string_literal,
+
+    _argument_after_quote: ($) =>
+      choice(
+        seq(
+          $.generic_token,
+          repeat(seq(',', choice($.generic_token, $.unary_expression))),
+        ),
+        $.array_literal_expression,
+        seq(
+          $.quoted_command_argument,
+          $._quoted_argument_boundary,
+          $._argument_after_quote,
         ),
       ),
 
