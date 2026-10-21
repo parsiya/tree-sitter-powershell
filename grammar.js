@@ -100,10 +100,11 @@ export default grammar({
 
     expandable_string_literal: ($) =>
       seq(
-        /\"(\s*\#*)*/, // this is a trick to avoid tree-sitter allowing comment between tokens, as string should be tokenize but powershell allow subexpression inside it...
+        '"',
         repeat(
           choice(
-            token.immediate(/[^\$\"`]+/),
+            // Comment markers inside strings are text, not extra comments.
+            token.immediate(prec(1, /[^\$\"`]+/)),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
@@ -113,24 +114,31 @@ export default grammar({
           ),
         ),
         repeat(token.immediate('$')),
-        token.immediate(/(\s*\#*)*\"/),
+        token.immediate('"'),
       ),
 
     expandable_here_string_literal: ($) =>
       seq(
         /@\" *\r?\n/,
-        repeat(
-          choice(
-            token.immediate(/[^\$\r\n`]+/),
-            $.variable,
-            $.sub_expression,
-            token.immediate(/(\r?\n)+[^\"\r\n]/),
-            token.immediate(/(\r?\n)+\"[^@]/),
-            token.immediate('$'),
-            token.immediate(/`.{1}|`\r?\n/),
+        choice(
+          // An empty here-string closes immediately after its opening newline.
+          token.immediate(prec(2, '"@')),
+          seq(
+            repeat(
+              choice(
+                token.immediate(prec(1, /[^\$\r\n`]+/)),
+                $.variable,
+                $.sub_expression,
+                // Leave the next line's escape or interpolation prefix intact.
+                token.immediate(/\r?\n/),
+                token.immediate('$'),
+                token.immediate(/`.{1}|`\r?\n/),
+              ),
+            ),
+            // Only the final newline belongs to the closing delimiter.
+            token.immediate(prec(1, /\r?\n\"@/)),
           ),
         ),
-        token.immediate(/(\r?\n)+\"@/),
       ),
 
     verbatim_string_characters: ($) =>
