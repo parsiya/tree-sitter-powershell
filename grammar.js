@@ -34,6 +34,10 @@ const PARAMETER_LETTER =
 const PARAMETER_CHAR =
   String.raw`[^\x00\t-\r "'&(),.:;\[{}|\u0085\u00A0\u1680\u2000-\u200A\u2018-\u201E\u2028\u2029\u202F\u205F\u3000]`;
 
+// Simple names start with a BMP letter or underscore; continuations also allow
+// decimal digits. Include Unicode 16 letters and range interiors missing in CLI 0.22.
+const SIMPLE_NAME_LETTER = new RegExp(PARAMETER_LETTER, 'u');
+
 export default grammar({
   name: 'powershell',
 
@@ -229,10 +233,16 @@ export default grammar({
       ),
 
     // Simple names
-    simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    simple_name: ($) =>
+      token(
+        seq(
+          choice(SIMPLE_NAME_LETTER, '_'),
+          repeat(choice(SIMPLE_NAME_LETTER, /[^\P{Nd}\u{10000}-\u{10FFFF}]/u, '_')),
+        ),
+      ),
 
     // Type names
-    type_identifier: ($) => /[a-zA-Z0-9_]+/,
+    type_identifier: ($) => VARIABLE_NAME,
 
     type_name: ($) =>
       choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),

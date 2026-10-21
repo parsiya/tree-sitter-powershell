@@ -39,6 +39,17 @@ The joined-word scanner uses the checked-in `src/parameter_letters.h` to
 recognize the same parameter starts without relying on the process locale.
 Regenerate it after changing parameter-name rules:
 `node scripts/generate-parameter-letters.mjs`.
+The same header also derives variable-digit ranges from the grammar so Unicode
+variable receivers remain expressions rather than being swallowed as words.
+
+## Simple names
+
+Simple names (including unquoted hashtable keys, members, class/enum names and
+named attribute arguments) accept BMP Unicode letters and underscores, followed
+by BMP letters, decimal digits or underscores. As in PowerShell, combining marks,
+other numeric categories and supplementary-plane letters are not simple-name
+characters. Quoted keys and members are unchanged.
+Unicode class names also work in type references and base-class lists.
 
 ## References
 

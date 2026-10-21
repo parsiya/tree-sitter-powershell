@@ -1,0 +1,37 @@
+===
+Unicode variable receivers stay expressions in command arguments
+===
+
+Write-Output $对象.属性 $对象.方法() $١.值
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))))))))

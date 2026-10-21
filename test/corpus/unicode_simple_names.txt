@@ -1,0 +1,1606 @@
+==================
+Unicode unquoted hashtable keys
+==================
+
+@{ 字节 = 1; 文件名 = 'sample'; 密钥 = $key; 模型 = $model }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (string_literal
+                                                        (verbatim_string_characters))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (variable)))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (variable))))))))))))))))))))))))))))
+
+==================
+Unicode instance member
+==================
+
+$response.数据
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Unicode member assignment
+==================
+
+$response.数据 = 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (member_access
+                              (variable)
+                              (member_name
+                                (simple_name)))))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Unicode method invocation
+==================
+
+$response.模型(1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (integer_literal
+                                                    (decimal_integer_literal)))))))))))))))))))))))))))
+
+==================
+Unicode static member
+==================
+
+[Example]::数据
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Unicode members in an indexed chain
+==================
+
+$response.数据[0].模型
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (element_access
+                              (member_access
+                                (variable)
+                                (member_name
+                                  (simple_name)))
+                              (logical_expression
+                                (bitwise_expression
+                                  (comparison_expression
+                                    (additive_expression
+                                      (multiplicative_expression
+                                        (format_expression
+                                          (range_expression
+                                            (array_literal_expression
+                                              (unary_expression
+                                                (integer_literal
+                                                  (decimal_integer_literal))))))))))))
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Unicode simple names across scripts
+==================
+
+@{ État = 1; Δelta = 2; Данные = 3; 한글 = 4; _数据 = 5 }
+$response.État
+$response.Δelta
+$response.Данные
+$response.한글
+$response._数据
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Unicode class names bases and methods
+==================
+
+class 基础 {}
+class 模型 : 基础 {
+    [void]获取() {}
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name))
+    (class_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_identifier)))
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))))
+
+==================
+Unicode enum name and members
+==================
+
+enum 模型 {
+    字节
+    文件名 = 2
+    密钥 = 3
+    _数据١ = 4
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (simple_name)
+      (enum_member
+        (simple_name))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal)))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal)))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))))
+
+==================
+Unicode named attribute arguments
+==================
+
+[Example(文件名 = 'sample', 模型 = 1, _数据١ = 2)]
+param($value)
+$value
+
+---
+
+(program
+  (param_block
+    (attribute_list
+      (attribute
+        (attribute_name
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (attribute_arguments
+          (attribute_argument
+            (simple_name)
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (verbatim_string_characters))))))))))))
+          (attribute_argument
+            (simple_name)
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))
+          (attribute_argument
+            (simple_name)
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))
+    (parameter_list
+      (script_parameter
+        (variable))))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Unicode decimal digits continue simple names
+==================
+
+@{ 字节١ = 1; 文件名۱ = 2; 密钥१ = 3; 模型１ = 4; _数据1 = 5 }
+$response.数据١
+$response.数据۱
+$response.数据१
+$response.数据１
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Unicode 16 BMP simple-name letters
+==================
+
+@{ ᲉOne = 1; ᲊTwo = 2; ꟋThree = 3; ꟌFour = 4; ꟍFive = 5; ꟚSix = 6; ꟛSeven = 7; ꟜEight = 8 }
+$response.ᲉOne
+$response.ꟋThree
+$response.ꟜEight
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+CJK and Hangul range interiors are simple-name letters
+==================
+
+@{ 㐁 = 1; 䶾 = 2; 丁 = 3; 鿾 = 4; 각 = 5; 힢 = 6 }
+$response.㐁
+$response.鿾
+$response.각
+$response.힢
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Quoted keys and members retain non-simple-name characters
+==================
+
+@{ 'é' = 1; 'a²' = 2; 'aⅧ' = 3; '𐐀' = 4; 'a‌b' = 5; 'a-b' = 6 }
+$response.'é'
+$response.'a²'
+$response.'aⅧ'
+$response.'𐐀'
+$response.'a‌b'
+$response.'a-b'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))))
+
+==================
+Unicode members end before operators
+==================
+
+$response.数据 -eq 1
+$response.模型 + 2
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (member_access
+                              (variable)
+                              (member_name
+                                (simple_name))))))))))
+              (comparison_operator)
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (member_access
+                              (variable)
+                              (member_name
+                                (simple_name)))))))))
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))
+
+==================
+Unicode members in expandable subexpressions
+==================
+
+"value: $($response.数据)"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (member_access
+                                                          (variable)
+                                                          (member_name
+                                                            (simple_name)))))))))))))))))))))))))))))))
+
+==================
+Unicode data name
+==================
+
+data 模型 { 'value' }
+
+---
+
+(program
+  (statement_list
+    (data_statement
+      (data_name
+        (simple_name))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (verbatim_string_characters))))))))))))))))))
+
+==================
+ASCII simple names retain underscore and digit behavior
+==================
+
+[Example(ascii_1 = 1)] param($value)
+@{ _ = 1; ascii_1 = 2 }
+$response.ascii_1
+class _Example1 { [void]_Method2() {} }
+enum _Enum2 { _Value3 }
+
+---
+
+(program
+  (param_block
+    (attribute_list
+      (attribute
+        (attribute_name
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (attribute_arguments
+          (attribute_argument
+            (simple_name)
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))
+    (parameter_list
+      (script_parameter
+        (variable))))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (hash_literal_expression
+                            (hash_literal_body
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal))))))))))))))
+                              (hash_entry
+                                (key_expression
+                                  (simple_name))
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (integer_literal
+                                                        (decimal_integer_literal)))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)))
+    (enum_statement
+      (simple_name)
+      (enum_member
+        (simple_name)))))

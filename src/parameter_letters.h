@@ -4,7 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-static const struct { uint16_t first, last; } parameter_letters[] = {
+typedef struct { uint16_t first, last; } UnicodeNameRange;
+static const UnicodeNameRange parameter_letters[] = {
     {0xaa, 0xaa},
     {0xb5, 0xb5},
     {0xba, 0xba},
@@ -384,17 +385,65 @@ static const struct { uint16_t first, last; } parameter_letters[] = {
     {0xffd2, 0xffd7},
     {0xffda, 0xffdc},
 };
+static const UnicodeNameRange variable_digits[] = {
+    {0x660, 0x669},
+    {0x6f0, 0x6f9},
+    {0x7c0, 0x7c9},
+    {0x966, 0x96f},
+    {0x9e6, 0x9ef},
+    {0xa66, 0xa6f},
+    {0xae6, 0xaef},
+    {0xb66, 0xb6f},
+    {0xbe6, 0xbef},
+    {0xc66, 0xc6f},
+    {0xce6, 0xcef},
+    {0xd66, 0xd6f},
+    {0xde6, 0xdef},
+    {0xe50, 0xe59},
+    {0xed0, 0xed9},
+    {0xf20, 0xf29},
+    {0x1040, 0x1049},
+    {0x1090, 0x1099},
+    {0x17e0, 0x17e9},
+    {0x1810, 0x1819},
+    {0x1946, 0x194f},
+    {0x19d0, 0x19d9},
+    {0x1a80, 0x1a89},
+    {0x1a90, 0x1a99},
+    {0x1b50, 0x1b59},
+    {0x1bb0, 0x1bb9},
+    {0x1c40, 0x1c49},
+    {0x1c50, 0x1c59},
+    {0xa620, 0xa629},
+    {0xa8d0, 0xa8d9},
+    {0xa900, 0xa909},
+    {0xa9d0, 0xa9d9},
+    {0xa9f0, 0xa9f9},
+    {0xaa50, 0xaa59},
+    {0xabf0, 0xabf9},
+    {0xff10, 0xff19},
+};
 
-static inline bool is_unicode_parameter_letter(int32_t code)
+static inline bool unicode_name_contains(const UnicodeNameRange *ranges, unsigned length, int32_t code)
 {
     if (code < 0x80 || code > 0xffff) return false;
-    unsigned left = 0, right = sizeof(parameter_letters) / sizeof(parameter_letters[0]);
+    unsigned left = 0, right = length;
     while (left < right) {
         unsigned middle = left + (right - left) / 2;
-        if (code < parameter_letters[middle].first) right = middle;
-        else if (code > parameter_letters[middle].last) left = middle + 1;
+        if (code < ranges[middle].first) right = middle;
+        else if (code > ranges[middle].last) left = middle + 1;
         else return true;
     }
     return false;
+}
+
+static inline bool is_unicode_parameter_letter(int32_t code)
+{
+    return unicode_name_contains(parameter_letters, sizeof(parameter_letters) / sizeof(parameter_letters[0]), code);
+}
+
+static inline bool is_unicode_variable_digit(int32_t code)
+{
+    return unicode_name_contains(variable_digits, sizeof(variable_digits) / sizeof(variable_digits[0]), code);
 }
 #endif
