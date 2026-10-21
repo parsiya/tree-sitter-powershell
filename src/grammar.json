@@ -4198,7 +4198,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[rR][eE][tT][uU][rR][nN][--]"
+              "value": "[rR][eE][tT][uU][rR][nN][-@]"
             },
             {
               "type": "PATTERN",
