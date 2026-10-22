@@ -1,0 +1,746 @@
+==================
+Leading command escape: escaped leading letter
+==================
+`Write-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading dollar
+==================
+`$example.Name = `$example.Name
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading hash
+==================
+`#example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading opening parenthesis
+==================
+`(example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading closing parenthesis
+==================
+`)example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading plus
+==================
+`+example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading equals
+==================
+`=example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading colon
+==================
+`:example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading double quote
+==================
+`"example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading single quote
+==================
+`'example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading space
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading unicode
+==================
+`éxample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading backtick
+==================
+``example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: escaped leading command after assignment
+==================
+$result = `Write-Output example
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading command escape: escaped leading command after pipe
+==================
+Get-Item example | `Write-Output
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name))))))
+
+==================
+Leading command escape: escaped dollar command argument control
+==================
+Write-Output `$example.Name
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: existing interior escape control
+==================
+Wri`te-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: quoted command piece control
+==================
+Write-'Output' example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: ordinary variable expression control
+==================
+$example.Name = $other.Name
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (variable) (member_name (simple_name))))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (variable) (member_name (simple_name))))))))))))))))))
+
+==================
+Leading command escape: ordinary comment control
+==================
+# example
+Write-Output example
+---
+
+(program (comment) (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading tab escape
+==================
+`texample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading newline escape
+==================
+`nexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading carriage escape
+==================
+`rexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading bell escape
+==================
+`aexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading vertical tab escape
+==================
+`vexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escape escape
+==================
+`eexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading formfeed escape
+==================
+`fexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading backspace escape
+==================
+`bexample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading uppercase escape
+==================
+`Texample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading semicolon
+==================
+`;example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading pipe
+==================
+`|example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading ampersand
+==================
+`&example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading brace
+==================
+`{example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading bracket
+==================
+`[example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading dash
+==================
+`-example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading asterisk
+==================
+`*example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading slash
+==================
+`/example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading at
+==================
+`@example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading bang
+==================
+`!example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading less
+==================
+`<example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading greater
+==================
+`>example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading unicode smart quote
+==================
+`“example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading unicode scalar
+==================
+`😀example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading trivia space
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior trivia space
+==================
+exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: spaced leading trivia space
+==================
+  ` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading trivia tab
+==================
+`	example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior trivia tab
+==================
+exa`	mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: spaced leading trivia tab
+==================
+  `	example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading trivia LF
+==================
+`
+example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior trivia LF
+==================
+exa`
+mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: spaced leading trivia LF
+==================
+  `
+example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading trivia NBSP
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior trivia NBSP
+==================
+exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: spaced leading trivia NBSP
+==================
+  ` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading trivia two spaces
+==================
+`  example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior trivia two spaces
+==================
+exa`  mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: spaced leading trivia two spaces
+==================
+  `  example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "  `Write-Output example"
+==================
+  `Write-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "\n`Write-Output example"
+==================
+
+`Write-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure ";`Write-Output example"
+==================
+;`Write-Output example
+---
+
+(program (statement_list (empty_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "& `Write-Output example"
+==================
+& `Write-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_invokation_operator) (command_name_expr (command_name)) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure ". `Write-Output example"
+==================
+. `Write-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_invokation_operator) (command_name_expr (command_name)) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-\"Output\" example"
+==================
+`Write-"Output" example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-'Output' example"
+==================
+`Write-'Output' example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-\"\"Output example"
+==================
+`Write-""Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write`-Output example"
+==================
+`Write`-Output example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`$example.Name = `$example.Name; Write-Output done"
+==================
+`$example.Name = `$example.Name; Write-Output done
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep) (generic_token))))) (empty_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output | Write-Output"
+==================
+`Write-Output | Write-Output
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep))) (command (command_name))))))
+
+==================
+Leading command escape: structure "`Write-Output > result"
+==================
+`Write-Output > result
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (redirection (file_redirection_operator) (redirected_file_name (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading command escape: structure "`Write-Output`\nNext-Example value"
+==================
+`Write-Output`
+Next-Example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output `\n example"
+==================
+`Write-Output `
+ example
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output` value"
+==================
+`Write-Output` value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name))))))
+
+==================
+Leading command escape: structure "`Write-Output`#tail value"
+==================
+`Write-Output`#tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output`(tail value"
+==================
+`Write-Output`(tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output`\"tail value"
+==================
+`Write-Output`"tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output`$tail value"
+==================
+`Write-Output`$tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output``tail value"
+==================
+`Write-Output``tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output`+tail value"
+==================
+`Write-Output`+tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output`=tail value"
+==================
+`Write-Output`=tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output$tail value"
+==================
+`Write-Output$tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output@tail value"
+==================
+`Write-Output@tail value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`Write-Output; Write-Output next"
+==================
+`Write-Output; Write-Output next
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name)))) (empty_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "`#example value\nWrite-Output next"
+==================
+`#example value
+Write-Output next
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: structure "1 + 2"
+==================
+1 + 2
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))) (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))
+
+==================
+Leading command escape: structure "$example.Name"
+==================
+$example.Name
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (variable) (member_name (simple_name))))))))))))))))
+
+==================
+Leading command escape: structure "Write-Output (1 + 2)"
+==================
+Write-Output (1 + 2)
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))) (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))))))))))))))))))))))
+
+==================
+Leading command escape: structure "$result = `$example.Name"
+==================
+$result = `$example.Name
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name))))))))
+
+==================
+Leading command escape: malformed "`example \""
+:error
+==================
+`example "
+---
+
+(ERROR)
+
+==================
+Leading command escape: malformed "`example |"
+:error
+==================
+`example |
+---
+
+(ERROR)
+
+==================
+Leading command escape: malformed "`example ("
+:error
+==================
+`example (
+---
+
+(ERROR)
+
+==================
+Leading command escape: unescaped pipeline extent control
+==================
+Write-Output | Write-Output
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep))) (command (command_name))))))

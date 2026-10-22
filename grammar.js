@@ -10,12 +10,12 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [$._statement_terminator, $._bare_dashes, $._command_name_escape],
 
   extras: ($) => [
     $.comment,
     /\s/,
-    /`\n/,
+    /`[\s\u00a0]/,
     /`\r\n/,
     /[\uFEFF\u2060\u200B\u00A0]/,
   ],
@@ -306,7 +306,10 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      token(choice(
+        /[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/,
+        /`[^\s\u00a0][^\&\s\(\)\}\|;,]*/,
+      )),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -733,6 +736,8 @@ export default grammar({
     command_name: ($) =>
       seq(
         choice(
+          // At a token boundary escaped whitespace is trivia, not a name.
+          /`[^\s\u00a0]/,
           /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here
@@ -757,7 +762,8 @@ export default grammar({
         ),
         repeat(
           choice(
-            token.immediate(/[^\{\}\(\);,\|\&"'\s\r\n]+/),
+            token.immediate(/[^\{\}\(\);,\|\&`"'\s\r\n]+/),
+            $._command_name_escape,
             seq(token.immediate('"'), $._expandable_string_literal_immediate),
             seq(token.immediate('\''), $._string_literal_immediate),
             token.immediate('""'),

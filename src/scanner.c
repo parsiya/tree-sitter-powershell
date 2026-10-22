@@ -6,7 +6,8 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    COMMAND_NAME_ESCAPE
 };
 
 /* --- API --- */
@@ -82,8 +83,23 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 /* --- API Implementation --- */
 
+// Unlike trivia between tokens, an escape inside a name retains the next
+// character, including whitespace and line endings.
+static bool scan_command_name_escape(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[COMMAND_NAME_ESCAPE] || lexer->lookahead != '`') return false;
+    lexer->advance(lexer, false);
+    if (lexer->eof(lexer)) return false;
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMAND_NAME_ESCAPE;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[COMMAND_NAME_ESCAPE] && lexer->lookahead == '`')
+        return scan_command_name_escape(lexer, valid_symbols);
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

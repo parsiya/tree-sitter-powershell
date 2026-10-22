@@ -1870,8 +1870,17 @@
     "generic_token": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "`[^\\s\\u00a0][^\\&\\s\\(\\)\\}\\|;,]*"
+          }
+        ]
       }
     },
     "_command_token": {
@@ -4106,6 +4115,10 @@
           "members": [
             {
               "type": "PATTERN",
+              "value": "`[^\\s\\u00a0]"
+            },
+            {
+              "type": "PATTERN",
               "value": "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]+"
             },
             {
@@ -4187,8 +4200,12 @@
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^\\{\\}\\(\\);,\\|\\&\"'\\s\\r\\n]+"
+                  "value": "[^\\{\\}\\(\\);,\\|\\&`\"'\\s\\r\\n]+"
                 }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_command_name_escape"
               },
               {
                 "type": "SEQ",
@@ -6545,7 +6562,7 @@
     },
     {
       "type": "PATTERN",
-      "value": "`\\n"
+      "value": "`[\\s\\u00a0]"
     },
     {
       "type": "PATTERN",
@@ -6586,6 +6603,10 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_name_escape"
     }
   ],
   "inline": [],
