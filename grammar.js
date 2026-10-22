@@ -146,7 +146,7 @@ export default grammar({
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@\'\s*\r?\n/,
+          /@\'[\t-\r ]*\r?\n/,
           repeat(choice(/[^\r\n]/, /(\r?\n)+[^\'\r\n]/, /\r?\n\'[^@]/)),
           /(\r?\n)+\'@/,
         ),

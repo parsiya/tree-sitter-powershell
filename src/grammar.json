@@ -690,7 +690,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "@\\'\\s*\\r?\\n"
+            "value": "@\\'[\\t-\\r ]*\\r?\\n"
           },
           {
             "type": "REPEAT",

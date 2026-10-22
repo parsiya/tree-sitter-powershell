@@ -2935,3 +2935,25 @@ Write-Host sentinel
             (command_argument_sep)
             (generic_token)))))))
 
+====================
+Command comma array: invalid-comma-after-comment
+ :error
+====================
+
+Export-ModuleMember First, # boundary
+, Second
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (ERROR)
+            (generic_token)))))))
