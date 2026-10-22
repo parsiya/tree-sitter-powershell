@@ -75,6 +75,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/string-delimiter-values` | Keep spaces, hashes and blank lines in string content rather than delimiter tokens, and recognize immediately empty expandable here-strings. Exact native values are covered in a focused C boundary test and Opengrep units. | Not yet offered. |
 | `fix/quoted-argument-boundaries` | Keep a leading quoted string and its adjacent argument separate, flattening recursive quoted tails and preserving nested commands. Combined batch-001: five more agree; another rejection advances to a colon-word mismatch. | Not yet offered. |
 | `fix/colon-command-words` | Keep colon-prefixed command words separate from expressions; only an immediate parameter colon attaches a required value. Preserve literal BMP labels, interpolation, escaped line endings and exact spans. Dash-leading attached values remain strings, not new parameters. Combined batch-001: one structural mismatch now agrees, no regressions. | Not yet offered. |
+| `fix/completed-expression-arguments` | Keep immediately adjacent completed expressions, quoted values and their following arguments as separate command arguments, including attached parameter values. Prefixed expandable words remain joined. Combined batch-001: one more agrees and three fewer are rejected; no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
