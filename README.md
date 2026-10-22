@@ -59,6 +59,11 @@ by BMP letters, decimal digits or underscores. As in PowerShell, combining marks
 other numeric categories and supplementary-plane letters are not simple-name
 characters. Quoted keys and members are unchanged.
 Unicode class names also work in type references and base-class lists.
+## Parameter blocks
+
+Parameter blocks do not need a newline or semicolon before their body:
+`function Example { param([string]$Message) Write-Output $Message }`.
+Ordinary separators between subsequent statements are still required.
 
 ## References
 
