@@ -1,0 +1,895 @@
+===
+Param boundary: command after typed function parameter
+===
+
+function Example { param([string]$Message) Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: assignment after typed function parameter
+===
+
+function Example { param([string]$Message) $value = $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (assignment_expression
+                (left_assignment_expression
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))
+                (assignement_operator)
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))))))))
+
+===
+Param boundary: tight command after typed function parameter
+===
+
+function Example { param([string]$Message)Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: tight assignment after typed function parameter
+===
+
+function Example { param([string]$Message)$value = $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (assignment_expression
+                (left_assignment_expression
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))
+                (assignement_operator)
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))))))))
+
+===
+Param boundary: top-level command
+===
+
+param([string]$Message) Write-Output $Message
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable))))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Param boundary: top-level assignment
+===
+
+param([string]$Message)$value = $Message
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable))))
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+===
+Param boundary: empty parameter list before literal
+===
+
+function Example { param() 'synthetic value' }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block)
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (string_literal
+                                    (verbatim_string_characters)))))))))))))))))))
+
+===
+Param boundary: parameter default remains separate from body
+===
+
+function Example { param([string]$Message = 'synthetic default') Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable)
+              (script_parameter_default
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (string_literal
+                                    (verbatim_string_characters)))))))))))))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: multiple typed parameters
+===
+
+function Example { param([string]$Message, [int]$Count = 2) Write-Output $Message $Count }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable)
+              (script_parameter_default
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: block and parameter attributes
+===
+
+function Example { [CmdletBinding()] param([Parameter()][string]$Message) Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))))
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (attribute_name
+                    (type_spec
+                      (type_name
+                        (type_identifier)))))
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: block comment
+===
+
+function Example { param([string]$Message)<# boundary #>Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (comment)
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: newline
+===
+
+function Example { param([string]$Message)
+Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: repeated semicolons
+===
+
+function Example { param([string]$Message);;; Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (empty_statement)
+            (empty_statement)
+            (empty_statement)
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: line comment
+===
+
+function Example { param([string]$Message) # boundary
+Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (comment)
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: following if statement
+===
+
+function Example { param([string]$Message) if ($Message) { Write-Output $Message } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (if_statement
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable))))))))))))
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+===
+Param boundary: following return statement
+===
+
+function Example { param([string]$Message) return $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (flow_control_statement
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))))))))))
+
+===
+Param boundary: named blocks
+===
+
+function Example { param([string]$Message) begin { Write-Output 'synthetic begin' } process { Write-Output $Message } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (named_block_list
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (verbatim_string_characters)))))))))))
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+===
+Param boundary: filter command
+===
+
+filter Example { param([string]$Message) Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (attribute_list
+                (attribute
+                  (type_literal
+                    (type_spec
+                      (type_name
+                        (type_identifier))))))
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+Param boundary: scriptblock command
+===
+
+& { param([string]$Message) Write-Output $Message }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (script_block_expression
+              (param_block
+                (parameter_list
+                  (script_parameter
+                    (attribute_list
+                      (attribute
+                        (type_literal
+                          (type_spec
+                            (type_name
+                              (type_identifier))))))
+                    (variable))))
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+===
+Param boundary: scriptblock assignment
+===
+
+& { param([string]$Message) $value = $Message }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (script_block_expression
+              (param_block
+                (parameter_list
+                  (script_parameter
+                    (attribute_list
+                      (attribute
+                        (type_literal
+                          (type_spec
+                            (type_name
+                              (type_identifier))))))
+                    (variable))))
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (assignment_expression
+                        (left_assignment_expression
+                          (logical_expression
+                            (bitwise_expression
+                              (comparison_expression
+                                (additive_expression
+                                  (multiplicative_expression
+                                    (format_expression
+                                      (range_expression
+                                        (array_literal_expression
+                                          (unary_expression
+                                            (variable)))))))))))
+                        (assignement_operator)
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))))
+
+===
+Param boundary: missing parameter close remains invalid
+:error
+===
+
+function Example { param([string]$Message Write-Output $Message }
+
+---
+
+(ERROR)
+
+===
+Param boundary: missing parameter remains invalid
+:error
+===
+
+function Example { param([string]) Write-Output 'synthetic value' }
+
+---
+
+(ERROR)
+
+===
+Param boundary: missing assignment value remains invalid
+:error
+===
+
+function Example { param([string]$Message) $value = }
+
+---
+
+(ERROR)
+
+===
+Param boundary: following statement still requires separator
+:error
+===
+
+function Example { param([string]$Message) $value = $Message $other = 2 }
+
+---
+
+(ERROR)

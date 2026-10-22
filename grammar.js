@@ -333,9 +333,10 @@ export default grammar({
     // Statements
     script_block: ($) =>
       choice(
-        field('script_block_body', $.script_block_body),
+        // Prefer a script block expression's existing outer param_block.
+        prec(1, field('script_block_body', $.script_block_body)),
         seq(
-          seq($.param_block, $._statement_terminator, repeat(';')),
+          seq($.param_block, repeat(';')),
           field('script_block_body', optional($.script_block_body)),
         ),
       ),

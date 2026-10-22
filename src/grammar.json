@@ -1930,11 +1930,15 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "script_block_body",
+          "type": "PREC",
+          "value": 1,
           "content": {
-            "type": "SYMBOL",
-            "name": "script_block_body"
+            "type": "FIELD",
+            "name": "script_block_body",
+            "content": {
+              "type": "SYMBOL",
+              "name": "script_block_body"
+            }
           }
         },
         {
@@ -1946,10 +1950,6 @@
                 {
                   "type": "SYMBOL",
                   "name": "param_block"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_statement_terminator"
                 },
                 {
                   "type": "REPEAT",
