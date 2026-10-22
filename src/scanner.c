@@ -6,7 +6,11 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    COMMAND_WORD_START,
+    COMMAND_WORD_PART,
+    COMMAND_WORD_EXPRESSION,
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -24,6 +28,79 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 /* --- Internal Functions --- */
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
+static bool command_word_end(int32_t c)
+{
+    return c == 0 || iswspace(c) || c == 0xa0 || c == '(' || c == ')' ||
+           c == '{' || c == '}' || c == ';' || c == ',' || c == '|' || c == '&';
+}
+
+static void scan_variable_name(TSLexer *lexer)
+{
+    if (lexer->lookahead == '{') {
+        do {
+            lexer->advance(lexer, false);
+        } while (lexer->lookahead && lexer->lookahead != '}');
+        if (lexer->lookahead) lexer->advance(lexer, false);
+    } else if (lexer->lookahead == '$' || lexer->lookahead == '?' ||
+               lexer->lookahead == '^') {
+        lexer->advance(lexer, false);
+    } else {
+        while (iswalnum(lexer->lookahead) || lexer->lookahead == '_' ||
+               lexer->lookahead == '?') lexer->advance(lexer, false);
+        if (lexer->lookahead == ':') {
+            lexer->advance(lexer, false);
+            while (iswalnum(lexer->lookahead) || lexer->lookahead == '_' ||
+                   lexer->lookahead == '?') lexer->advance(lexer, false);
+        }
+    }
+}
+
+// In argument mode, even a bare '+' starts a word rather than a unary
+// expression. Keep adjacent quotes and subexpressions visible inside it.
+static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (valid_symbols[ERROR_SENTINEL]) return false;
+    bool part = valid_symbols[COMMAND_WORD_PART];
+    if (!part && (!valid_symbols[COMMAND_WORD_START] || lexer->lookahead != '+'))
+        return false;
+    lexer->mark_end(lexer);
+    bool consumed = false;
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (command_word_end(c)) break;
+        if (c == '"' || c == '\'') {
+            if (consumed) break;
+            if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
+            lexer->result_symbol = COMMAND_WORD_EXPRESSION;
+            return true;
+        }
+        if (c == '$') {
+            lexer->mark_end(lexer);
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '(') {
+                if (!consumed) {
+                    if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
+                    lexer->result_symbol = COMMAND_WORD_EXPRESSION;
+                    return true;
+                }
+                lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
+                return true;
+            }
+            scan_variable_name(lexer);
+        } else {
+            lexer->advance(lexer, false);
+            if (c == '`' && lexer->lookahead) {
+                lexer->advance(lexer, false);
+            }
+        }
+        consumed = true;
+        lexer->mark_end(lexer);
+    }
+    if (!consumed) return false;
+    lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
+    return true;
+}
 
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
@@ -84,6 +161,10 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if ((valid_symbols[COMMAND_WORD_START] || valid_symbols[COMMAND_WORD_PART] ||
+         valid_symbols[COMMAND_WORD_EXPRESSION]) &&
+        !command_word_end(lexer->lookahead))
+        return scan_command_word(lexer, valid_symbols);
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

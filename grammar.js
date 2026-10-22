@@ -10,7 +10,14 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_word_start,
+    $._command_word_part,
+    $._command_word_expression,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -306,7 +313,25 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      choice(
+        token(/[^\(\)\$\"\'\+\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+        seq(
+          // After lexer extras, '+' must still start a word, not unary plus.
+          choice(
+            $._command_word_start,
+            token(prec(1, /\+[^\s"'`$(){}|;,&]*/)),
+          ),
+          repeat(
+            choice(
+              $._command_word_part,
+              seq(
+                $._command_word_expression,
+                choice($.string_literal, $.sub_expression),
+              ),
+            ),
+          ),
+        ),
+      ),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -782,6 +807,12 @@ export default grammar({
         choice(
           $.command_parameter,
           seq($._command_argument, optional($.argument_list)),
+          seq(
+            $.command_argument_sep,
+            $.generic_token,
+            alias(token.immediate(/[\t\v\f]+/), $.command_argument_sep),
+            choice($.generic_token, $.array_literal_expression),
+          ),
           $.redirection,
           $.stop_parsing,
         ),
