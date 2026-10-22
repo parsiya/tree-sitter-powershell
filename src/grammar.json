@@ -1868,11 +1868,59 @@
       "value": "\\$\\{[^}]+\\}"
     },
     "generic_token": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^\\(\\)\\$\\\"\\'\\-\\{\\}@\\|\\[`\\&\\s][^\\&\\s\\(\\)\\}\\|;,]*"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_command_word_start"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_command_word_part"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_command_word_expression"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "string_literal"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "sub_expression"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
     },
     "_command_token": {
       "type": "TOKEN",
@@ -6586,6 +6634,22 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_part"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_word_expression"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [],

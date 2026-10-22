@@ -6,7 +6,11 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    COMMAND_WORD_START,
+    COMMAND_WORD_PART,
+    COMMAND_WORD_EXPRESSION,
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -24,6 +28,144 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 /* --- Internal Functions --- */
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
+static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
+
+// Preserve the inherited numeric CST for a complete negative number. In command
+// mode consumers must interpret that existing shape as a word, not negation.
+static bool scan_number_prefix(TSLexer *lexer)
+{
+    bool hex = false;
+    bool real = false;
+    bool digits = false;
+    if (lexer->lookahead == '0') {
+        lexer->advance(lexer, false);
+        digits = true;
+        if (lexer->lookahead == 'x') {
+            lexer->advance(lexer, false);
+            hex = true;
+            digits = false;
+        }
+    }
+    while (digit(lexer->lookahead) ||
+           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+        lexer->advance(lexer, false);
+        digits = true;
+    }
+    if (!hex && lexer->lookahead == '.') {
+        real = true;
+        lexer->advance(lexer, false);
+        digits = false;
+        while (digit(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            digits = true;
+        }
+    }
+    if (!digits) return false;
+    if (!hex && lexer->lookahead == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead)) return false;
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+    } else if (!real && (lexer->lookahead == 'l' || (!hex && lexer->lookahead == 'd'))) {
+        lexer->advance(lexer, false);
+    }
+    int32_t c = lexer->lookahead;
+    if (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead != 'b') return false;
+        lexer->advance(lexer, false);
+    }
+    return true;
+}
+
+static bool command_word_end(int32_t c)
+{
+    return c == 0 || iswspace(c) || c == 0xa0 || c == '(' || c == ')' ||
+           c == '{' || c == '}' || c == ';' || c == ',' || c == '|' || c == '&';
+}
+
+static bool is_quote(int32_t c) { return c == '"' || c == '\''; }
+
+static void scan_variable_name(TSLexer *lexer)
+{
+    if (lexer->lookahead == '{') {
+        do {
+            lexer->advance(lexer, false);
+        } while (lexer->lookahead && lexer->lookahead != '}');
+        if (lexer->lookahead) lexer->advance(lexer, false);
+    } else {
+        while (iswalnum(lexer->lookahead) || lexer->lookahead == '_' ||
+               lexer->lookahead == '?' || lexer->lookahead == ':')
+            lexer->advance(lexer, false);
+    }
+}
+
+// The joined-word path is also used by the combined development grammar.
+// Restrict new starts here to digit/dot-leading dash words.
+static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool part = valid_symbols[COMMAND_WORD_PART];
+    bool start = valid_symbols[COMMAND_WORD_START] && !part;
+    lexer->mark_end(lexer);
+    if (is_quote(lexer->lookahead)) {
+        if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
+        lexer->result_symbol = COMMAND_WORD_EXPRESSION;
+        return true;
+    }
+    bool consumed = false;
+    if (start) {
+        if (lexer->lookahead != '-') return false;
+        lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead) && lexer->lookahead != '.') {
+            if (!valid_symbols[BARE_DASHES]) return false;
+            if (lexer->lookahead == '-') lexer->advance(lexer, false);
+            switch (lexer->lookahead) {
+                case 0: case ' ': case '\t': case '\r': case '\n':
+                case ';': case '|': case '&': case ')': case '}':
+                    lexer->mark_end(lexer);
+                    lexer->result_symbol = BARE_DASHES;
+                    return true;
+                default: return false;
+            }
+        }
+        if (scan_number_prefix(lexer) && command_word_end(lexer->lookahead)) return false;
+        consumed = true;
+        lexer->mark_end(lexer);
+    }
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (command_word_end(c)) break;
+        if (is_quote(c)) break;
+        if (c == '$') {
+            lexer->mark_end(lexer);
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '(') {
+                if (!consumed) {
+                    if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
+                    lexer->result_symbol = COMMAND_WORD_EXPRESSION;
+                } else {
+                    lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
+                }
+                return true;
+            }
+            scan_variable_name(lexer);
+        } else {
+            lexer->advance(lexer, false);
+            if (c == '`') {
+                if (lexer->eof(lexer)) return false;
+                lexer->advance(lexer, false);
+            }
+        }
+        consumed = true;
+        lexer->mark_end(lexer);
+    }
+    if (!consumed) return false;
+    lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
+    return true;
+}
 
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
@@ -84,6 +226,11 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (!valid_symbols[ERROR_SENTINEL] &&
+        (valid_symbols[COMMAND_WORD_START] || valid_symbols[COMMAND_WORD_PART] ||
+         valid_symbols[COMMAND_WORD_EXPRESSION]) &&
+        !command_word_end(lexer->lookahead))
+        return scan_command_word(lexer, valid_symbols);
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

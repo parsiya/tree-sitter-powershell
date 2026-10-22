@@ -10,7 +10,14 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_word_start,
+    $._command_word_part,
+    $._command_word_expression,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -306,7 +313,19 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      choice(
+        token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+        seq(
+          $._command_word_start,
+          repeat(choice(
+            $._command_word_part,
+            seq(
+              $._command_word_expression,
+              choice($.string_literal, $.sub_expression),
+            ),
+          )),
+        ),
+      ),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
