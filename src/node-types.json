@@ -649,6 +649,10 @@
           "named": true
         },
         {
+          "type": "quoted_command_argument",
+          "named": true
+        },
+        {
           "type": "redirection",
           "named": true
         },
@@ -1430,6 +1434,21 @@
         },
         {
           "type": "script_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "generic_token",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_literal",
           "named": true
         }
       ]
@@ -2457,6 +2476,21 @@
     }
   },
   {
+    "type": "quoted_command_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "range_argument_expression",
     "named": true,
     "fields": {},
@@ -3402,14 +3436,6 @@
     "named": false
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
-    "type": "\"\"",
-    "named": false
-  },
-  {
     "type": "$",
     "named": false
   },
@@ -3447,14 +3473,6 @@
   },
   {
     "type": "&&",
-    "named": false
-  },
-  {
-    "type": "'",
-    "named": false
-  },
-  {
-    "type": "''",
     "named": false
   },
   {
@@ -4005,10 +4023,6 @@
   {
     "type": "function",
     "named": false
-  },
-  {
-    "type": "generic_token",
-    "named": true
   },
   {
     "type": "hexadecimal_integer_literal",

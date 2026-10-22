@@ -7,10 +7,22 @@ const PREC = {
   PARAM: 6,
 };
 
+// Native quote families allow mixed opening, closing and doubled delimiters.
+// U+201F is deliberately not a double-quote delimiter.
+const SINGLE_QUOTE = /['\u2018-\u201B]/;
+const DOUBLE_QUOTE = /["\u201C-\u201E]/;
+
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_word_start,
+    $._command_word_part,
+    $._command_word_expression,
+    $._quoted_argument_boundary,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -100,48 +112,58 @@ export default grammar({
 
     expandable_string_literal: ($) =>
       seq(
-        /\"(\s*\#*)*/, // this is a trick to avoid tree-sitter allowing comment between tokens, as string should be tokenize but powershell allow subexpression inside it...
+        DOUBLE_QUOTE,
         repeat(
           choice(
-            token.immediate(/[^\$\"`]+/),
+            token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
             token.immediate(/`.{1}|`\r?\n/),
-            token.immediate('""'),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
             token.immediate('$'),
           ),
         ),
         repeat(token.immediate('$')),
-        token.immediate(/(\s*\#*)*\"/),
+        token.immediate(DOUBLE_QUOTE),
       ),
 
     expandable_here_string_literal: ($) =>
       seq(
-        /@\" *\r?\n/,
-        repeat(
-          choice(
-            token.immediate(/[^\$\r\n`]+/),
-            $.variable,
-            $.sub_expression,
-            token.immediate(/(\r?\n)+[^\"\r\n]/),
-            token.immediate(/(\r?\n)+\"[^@]/),
-            token.immediate('$'),
-            token.immediate(/`.{1}|`\r?\n/),
+        /@["\u201C-\u201E] *\r?\n/,
+        choice(
+          token.immediate(prec(2, /["\u201C-\u201E]@/)),
+          seq(
+            repeat(
+              choice(
+                token.immediate(prec(1, /[^\$\r\n`]+/)),
+                $.variable,
+                $.sub_expression,
+                token.immediate(/\r?\n/),
+                token.immediate('$'),
+                token.immediate(/`.{1}|`\r?\n/),
+              ),
+            ),
+            // Only the final newline belongs to the closing delimiter.
+            token.immediate(prec(1, /\r?\n["\u201C-\u201E]@/)),
           ),
         ),
-        token.immediate(/(\r?\n)+\"@/),
       ),
 
     verbatim_string_characters: ($) =>
-      token(seq('\'', repeat(choice(/[^']+/, '\'\'')), '\'')),
+      token(seq(SINGLE_QUOTE, repeat(choice(/[^'\u2018-\u201B]+/, seq(SINGLE_QUOTE, SINGLE_QUOTE))), SINGLE_QUOTE)),
 
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@\'\s*\r?\n/,
-          repeat(choice(/[^\r\n]/, /(\r?\n)+[^\'\r\n]/, /\r?\n\'[^@]/)),
-          /(\r?\n)+\'@/,
+          /@['\u2018-\u201B]\s*\r?\n/,
+          choice(
+            /['\u2018-\u201B]@/,
+            seq(
+              repeat(choice(/[^\r\n]/, /(\r?\n)+[^'\u2018-\u201B\r\n]/, /\r?\n['\u2018-\u201B][^@]/)),
+              /(\r?\n)+['\u2018-\u201B]@/,
+            ),
+          ),
         ),
       ),
 
@@ -306,9 +328,18 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      choice(
+        token(/[^\(\)\$\"\'\u2018-\u201E\-\{\}@\|\[`\&\s][^"'\u2018-\u201E\&\s\(\)\}\|;,]*/),
+        seq(
+          $._command_word_start,
+          repeat(choice(
+            $._command_word_part,
+            seq($._command_word_expression, $.string_literal),
+          )),
+        ),
+      ),
 
-    _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
+    _command_token: ($) => token(/[^\(\)\{\}\s;\&"'\u2018-\u201E][^\(\)\{\}\s;\&]*/),
 
     // Parameters
     command_parameter: ($) =>
@@ -318,7 +349,14 @@ export default grammar({
             // `-Name`, `-Name1`, `--long-flag`, `-A5`
             /-+[a-zA-Z_?\-`][a-zA-Z0-9_?\-`]*/,
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
-            /--?[a-zA-Z_][a-zA-Z0-9_\-]*=([^\s"'`;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*/,
+            seq(
+              /--?[a-zA-Z_][a-zA-Z0-9_\-]*=/,
+              repeat(choice(
+                /[^\s"'\u2018-\u201E`;|&(){}]/,
+                seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
+                seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
+              )),
+            ),
           ),
         ),
         // A bare `--` or `-` argument (see scanner.c).
@@ -712,28 +750,28 @@ export default grammar({
       seq(
         repeat(
           choice(
-            /[^\$"`]+/,
+            /[^\$"\u201C-\u201E`]+/,
             $.variable,
             /\$`(.{1}|`\r?\n)/,
             /`.{1}|`\r?\n/,
-            '""',
+            seq(DOUBLE_QUOTE, DOUBLE_QUOTE),
             $.sub_expression,
           ),
         ),
         repeat('$'),
-        '"',
+        DOUBLE_QUOTE,
       ),
 
     _string_literal_immediate: ($) =>
       seq(
-        /[^']+/,
-        '\'',
+        /[^'\u2018-\u201B]+/,
+        SINGLE_QUOTE,
       ),
 
     command_name: ($) =>
       seq(
         choice(
-          /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
+          /[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\r\n\[\]\+\-\*\/\$@<\!]+/,
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here
           // https://github.com/airbus-cert/tree-sitter-powershell/issues/24
@@ -757,11 +795,11 @@ export default grammar({
         ),
         repeat(
           choice(
-            token.immediate(/[^\{\}\(\);,\|\&"'\s\r\n]+/),
-            seq(token.immediate('"'), $._expandable_string_literal_immediate),
-            seq(token.immediate('\''), $._string_literal_immediate),
-            token.immediate('""'),
-            token.immediate('\'\''),
+            token.immediate(/[^\{\}\(\);,\|\&"'\u2018-\u201E\s\r\n]+/),
+            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
           ),
         ),
       ),
@@ -782,8 +820,27 @@ export default grammar({
         choice(
           $.command_parameter,
           seq($._command_argument, optional($.argument_list)),
+          seq(
+            $.command_argument_sep,
+            $.quoted_command_argument,
+            $._quoted_argument_boundary,
+            $._argument_after_quote,
+          ),
           $.redirection,
           $.stop_parsing,
+        ),
+      ),
+
+    quoted_command_argument: ($) => $.string_literal,
+
+    _argument_after_quote: ($) =>
+      choice(
+        $.generic_token,
+        $.array_literal_expression,
+        seq(
+          $.quoted_command_argument,
+          $._quoted_argument_boundary,
+          $._argument_after_quote,
         ),
       ),
 

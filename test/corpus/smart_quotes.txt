@@ -1,0 +1,3992 @@
+==================
+Smart quotes 1: single-27-27
+==================
+Write-Output 'sample'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 2: single-27-2018
+==================
+Write-Output 'sample‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 3: single-27-2019
+==================
+Write-Output 'sample’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 4: single-27-201a
+==================
+Write-Output 'sample‚
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 5: single-27-201b
+==================
+Write-Output 'sample‛
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 6: single-2018-27
+==================
+Write-Output ‘sample'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 7: single-2018-2018
+==================
+Write-Output ‘sample‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 8: single-2018-2019
+==================
+Write-Output ‘sample’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 9: single-2018-201a
+==================
+Write-Output ‘sample‚
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 10: single-2018-201b
+==================
+Write-Output ‘sample‛
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 11: single-2019-27
+==================
+Write-Output ’sample'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 12: single-2019-2018
+==================
+Write-Output ’sample‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 13: single-2019-2019
+==================
+Write-Output ’sample’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 14: single-2019-201a
+==================
+Write-Output ’sample‚
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 15: single-2019-201b
+==================
+Write-Output ’sample‛
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 16: single-201a-27
+==================
+Write-Output ‚sample'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 17: single-201a-2018
+==================
+Write-Output ‚sample‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 18: single-201a-2019
+==================
+Write-Output ‚sample’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 19: single-201a-201a
+==================
+Write-Output ‚sample‚
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 20: single-201a-201b
+==================
+Write-Output ‚sample‛
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 21: single-201b-27
+==================
+Write-Output ‛sample'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 22: single-201b-2018
+==================
+Write-Output ‛sample‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 23: single-201b-2019
+==================
+Write-Output ‛sample’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 24: single-201b-201a
+==================
+Write-Output ‛sample‚
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 25: single-201b-201b
+==================
+Write-Output ‛sample‛
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 26: double-22-22
+==================
+Write-Output "sample"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 27: double-22-201c
+==================
+Write-Output "sample“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 28: double-22-201d
+==================
+Write-Output "sample”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 29: double-22-201e
+==================
+Write-Output "sample„
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 30: double-201c-22
+==================
+Write-Output “sample"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 31: double-201c-201c
+==================
+Write-Output “sample“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 32: double-201c-201d
+==================
+Write-Output “sample”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 33: double-201c-201e
+==================
+Write-Output “sample„
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 34: double-201d-22
+==================
+Write-Output ”sample"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 35: double-201d-201c
+==================
+Write-Output ”sample“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 36: double-201d-201d
+==================
+Write-Output ”sample”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 37: double-201d-201e
+==================
+Write-Output ”sample„
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 38: double-201e-22
+==================
+Write-Output „sample"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 39: double-201e-201c
+==================
+Write-Output „sample“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 40: double-201e-201d
+==================
+Write-Output „sample”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 41: double-201e-201e
+==================
+Write-Output „sample„
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 42: double-201f-201f
+==================
+Write-Output ‟sample‟
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Smart quotes 43: smart single escaped by doubling
+==================
+Write-Output ‘can’’t’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 44: mixed single doubled quote
+==================
+Write-Output 'can’'t'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 45: smart single interpolation is literal
+==================
+Write-Output ‘$value’
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 46: smart double interpolation
+==================
+Write-Output “$value”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (variable)))))))))))
+
+==================
+Smart quotes 47: smart double escaped quote
+==================
+Write-Output “pre`”post”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 48: smart double doubled quote
+==================
+Write-Output “pre””post”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 49: smart double quoted command
+==================
+Write-Output “prefix”$value
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Smart quotes 50: smart double inside command word
+==================
+Write-Output pre“two words”post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Smart quotes 51: smart single inside command word
+==================
+Write-Output pre‘two words’post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+==================
+Smart quotes 52: smart double here string
+==================
+Write-Output @“
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 53: smart single here string
+==================
+Write-Output @‘
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 54: smart opening with ASCII here close
+==================
+Write-Output @“
+sample
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 55: ASCII opening with smart here close
+==================
+Write-Output @"
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 56: single-here-''-"\n"-""
+==================
+Write-Output @'
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 57: single-here-''-"\n"-"sample"
+==================
+Write-Output @'
+sample
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 58: single-here-'‘-"\n"-""
+==================
+Write-Output @'
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 59: single-here-'‘-"\n"-"sample"
+==================
+Write-Output @'
+sample
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 60: single-here-'’-"\n"-""
+==================
+Write-Output @'
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 61: single-here-'’-"\n"-"sample"
+==================
+Write-Output @'
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 62: single-here-'‚-"\n"-""
+==================
+Write-Output @'
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 63: single-here-'‚-"\n"-"sample"
+==================
+Write-Output @'
+sample
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 64: single-here-'‛-"\n"-""
+==================
+Write-Output @'
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 65: single-here-'‛-"\n"-"sample"
+==================
+Write-Output @'
+sample
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 66: single-doubled-‘''‘
+==================
+Write-Output ‘pre''post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 67: single-doubled-‘'‘‘
+==================
+Write-Output ‘pre'‘post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 68: single-doubled-‘'’‘
+==================
+Write-Output ‘pre'’post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 69: single-doubled-‘'‚‘
+==================
+Write-Output ‘pre'‚post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 70: single-doubled-‘'‛‘
+==================
+Write-Output ‘pre'‛post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 71: single-here-‘'-"\n"-""
+==================
+Write-Output @‘
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 72: single-here-‘'-"\n"-"sample"
+==================
+Write-Output @‘
+sample
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 73: single-doubled-‘‘'‘
+==================
+Write-Output ‘pre‘'post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 74: single-doubled-‘‘‘‘
+==================
+Write-Output ‘pre‘‘post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 75: single-doubled-‘‘’‘
+==================
+Write-Output ‘pre‘’post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 76: single-doubled-‘‘‚‘
+==================
+Write-Output ‘pre‘‚post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 77: single-doubled-‘‘‛‘
+==================
+Write-Output ‘pre‘‛post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 78: single-here-‘‘-"\n"-""
+==================
+Write-Output @‘
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 79: single-here-‘‘-"\n"-"sample"
+==================
+Write-Output @‘
+sample
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 80: single-doubled-‘’'‘
+==================
+Write-Output ‘pre’'post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 81: single-doubled-‘’‘‘
+==================
+Write-Output ‘pre’‘post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 82: single-doubled-‘’’‘
+==================
+Write-Output ‘pre’’post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 83: single-doubled-‘’‚‘
+==================
+Write-Output ‘pre’‚post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 84: single-doubled-‘’‛‘
+==================
+Write-Output ‘pre’‛post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 85: single-here-‘’-"\n"-""
+==================
+Write-Output @‘
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 86: single-here-‘’-"\n"-"sample"
+==================
+Write-Output @‘
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 87: single-doubled-‘‚'‘
+==================
+Write-Output ‘pre‚'post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 88: single-doubled-‘‚‘‘
+==================
+Write-Output ‘pre‚‘post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 89: single-doubled-‘‚’‘
+==================
+Write-Output ‘pre‚’post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 90: single-doubled-‘‚‚‘
+==================
+Write-Output ‘pre‚‚post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 91: single-doubled-‘‚‛‘
+==================
+Write-Output ‘pre‚‛post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 92: single-here-‘‚-"\n"-""
+==================
+Write-Output @‘
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 93: single-here-‘‚-"\n"-"sample"
+==================
+Write-Output @‘
+sample
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 94: single-doubled-‘‛'‘
+==================
+Write-Output ‘pre‛'post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 95: single-doubled-‘‛‘‘
+==================
+Write-Output ‘pre‛‘post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 96: single-doubled-‘‛’‘
+==================
+Write-Output ‘pre‛’post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 97: single-doubled-‘‛‚‘
+==================
+Write-Output ‘pre‛‚post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 98: single-doubled-‘‛‛‘
+==================
+Write-Output ‘pre‛‛post‘
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Smart quotes 99: single-here-‘‛-"\n"-""
+==================
+Write-Output @‘
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 100: single-here-‘‛-"\n"-"sample"
+==================
+Write-Output @‘
+sample
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 101: single-here-’'-"\n"-""
+==================
+Write-Output @’
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 102: single-here-’'-"\n"-"sample"
+==================
+Write-Output @’
+sample
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 103: single-here-’‘-"\n"-""
+==================
+Write-Output @’
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 104: single-here-’‘-"\n"-"sample"
+==================
+Write-Output @’
+sample
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 105: single-here-’’-"\n"-""
+==================
+Write-Output @’
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 106: single-here-’’-"\n"-"sample"
+==================
+Write-Output @’
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 107: single-here-’‚-"\n"-""
+==================
+Write-Output @’
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 108: single-here-’‚-"\n"-"sample"
+==================
+Write-Output @’
+sample
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 109: single-here-’‛-"\n"-""
+==================
+Write-Output @’
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 110: single-here-’‛-"\n"-"sample"
+==================
+Write-Output @’
+sample
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 111: single-here-‚'-"\n"-""
+==================
+Write-Output @‚
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 112: single-here-‚'-"\n"-"sample"
+==================
+Write-Output @‚
+sample
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 113: single-here-‚‘-"\n"-""
+==================
+Write-Output @‚
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 114: single-here-‚‘-"\n"-"sample"
+==================
+Write-Output @‚
+sample
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 115: single-here-‚’-"\n"-""
+==================
+Write-Output @‚
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 116: single-here-‚’-"\n"-"sample"
+==================
+Write-Output @‚
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 117: single-here-‚‚-"\n"-""
+==================
+Write-Output @‚
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 118: single-here-‚‚-"\n"-"sample"
+==================
+Write-Output @‚
+sample
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 119: single-here-‚‛-"\n"-""
+==================
+Write-Output @‚
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 120: single-here-‚‛-"\n"-"sample"
+==================
+Write-Output @‚
+sample
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 121: single-here-‛'-"\n"-""
+==================
+Write-Output @‛
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 122: single-here-‛'-"\n"-"sample"
+==================
+Write-Output @‛
+sample
+'@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 123: single-here-‛‘-"\n"-""
+==================
+Write-Output @‛
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 124: single-here-‛‘-"\n"-"sample"
+==================
+Write-Output @‛
+sample
+‘@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 125: single-here-‛’-"\n"-""
+==================
+Write-Output @‛
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 126: single-here-‛’-"\n"-"sample"
+==================
+Write-Output @‛
+sample
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 127: single-here-‛‚-"\n"-""
+==================
+Write-Output @‛
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 128: single-here-‛‚-"\n"-"sample"
+==================
+Write-Output @‛
+sample
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 129: single-here-‛‛-"\n"-""
+==================
+Write-Output @‛
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 130: single-here-‛‛-"\n"-"sample"
+==================
+Write-Output @‛
+sample
+‛@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 131: double-here-""-"\n"-""
+==================
+Write-Output @"
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 132: double-here-""-"\n"-"sample"
+==================
+Write-Output @"
+sample
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 133: double-here-"“-"\n"-""
+==================
+Write-Output @"
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 134: double-here-"“-"\n"-"sample"
+==================
+Write-Output @"
+sample
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 135: double-here-"”-"\n"-""
+==================
+Write-Output @"
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 136: double-here-"”-"\n"-"sample"
+==================
+Write-Output @"
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 137: double-here-"„-"\n"-""
+==================
+Write-Output @"
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 138: double-here-"„-"\n"-"sample"
+==================
+Write-Output @"
+sample
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 139: double-doubled-“""“
+==================
+Write-Output “pre""post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 140: double-doubled-“"““
+==================
+Write-Output “pre"“post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 141: double-doubled-“"”“
+==================
+Write-Output “pre"”post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 142: double-doubled-“"„“
+==================
+Write-Output “pre"„post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 143: double-here-“"-"\n"-""
+==================
+Write-Output @“
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 144: double-here-“"-"\n"-"sample"
+==================
+Write-Output @“
+sample
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 145: double-doubled-““"“
+==================
+Write-Output “pre“"post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 146: double-doubled-““““
+==================
+Write-Output “pre““post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 147: double-doubled-““”“
+==================
+Write-Output “pre“”post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 148: double-doubled-““„“
+==================
+Write-Output “pre“„post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 149: double-here-““-"\n"-""
+==================
+Write-Output @“
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 150: double-here-““-"\n"-"sample"
+==================
+Write-Output @“
+sample
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 151: double-doubled-“”"“
+==================
+Write-Output “pre”"post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 152: double-doubled-“”““
+==================
+Write-Output “pre”“post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 153: double-doubled-“””“
+==================
+Write-Output “pre””post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 154: double-doubled-“”„“
+==================
+Write-Output “pre”„post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 155: double-here-“”-"\n"-""
+==================
+Write-Output @“
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 156: double-here-“”-"\n"-"sample"
+==================
+Write-Output @“
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 157: double-doubled-“„"“
+==================
+Write-Output “pre„"post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 158: double-doubled-“„““
+==================
+Write-Output “pre„“post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 159: double-doubled-“„”“
+==================
+Write-Output “pre„”post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 160: double-doubled-“„„“
+==================
+Write-Output “pre„„post“
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 161: double-here-“„-"\n"-""
+==================
+Write-Output @“
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 162: double-here-“„-"\n"-"sample"
+==================
+Write-Output @“
+sample
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 163: double-here-”"-"\n"-""
+==================
+Write-Output @”
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 164: double-here-”"-"\n"-"sample"
+==================
+Write-Output @”
+sample
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 165: double-here-”“-"\n"-""
+==================
+Write-Output @”
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 166: double-here-”“-"\n"-"sample"
+==================
+Write-Output @”
+sample
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 167: double-here-””-"\n"-""
+==================
+Write-Output @”
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 168: double-here-””-"\n"-"sample"
+==================
+Write-Output @”
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 169: double-here-”„-"\n"-""
+==================
+Write-Output @”
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 170: double-here-”„-"\n"-"sample"
+==================
+Write-Output @”
+sample
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 171: double-here-„"-"\n"-""
+==================
+Write-Output @„
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 172: double-here-„"-"\n"-"sample"
+==================
+Write-Output @„
+sample
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 173: double-here-„“-"\n"-""
+==================
+Write-Output @„
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 174: double-here-„“-"\n"-"sample"
+==================
+Write-Output @„
+sample
+“@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 175: double-here-„”-"\n"-""
+==================
+Write-Output @„
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 176: double-here-„”-"\n"-"sample"
+==================
+Write-Output @„
+sample
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 177: double-here-„„-"\n"-""
+==================
+Write-Output @„
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 178: double-here-„„-"\n"-"sample"
+==================
+Write-Output @„
+sample
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 179: extra-1643
+==================
+Write-Output “pre$(Get-Item x)post”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name)
+                              (command_elements
+                                (command_argument_sep)
+                                (generic_token)))))))))))))))))
+
+==================
+Smart quotes 180: extra-1644
+==================
+Write-Output pre“$(Get-Item x)”post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal
+                  (sub_expression
+                    (statement_list
+                      (pipeline
+                        (pipeline_chain
+                          (command
+                            (command_name)
+                            (command_elements
+                              (command_argument_sep)
+                              (generic_token))))))))))))))))
+
+==================
+Smart quotes 181: extra-1645
+==================
+Write-Output pre“can”"t”post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Smart quotes 182: extra-1646
+==================
+Write-Output pre‘can’'t’post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+==================
+Smart quotes 183: extra-1647
+==================
+Write-Output pre`“two`”post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Smart quotes 184: extra-1648
+==================
+Write-Output pre`‘two`’post
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Smart quotes 185: extra-1649
+==================
+Write-Output “pre`”post”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 186: extra-1650
+==================
+Write-Output “`$value”
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+==================
+Smart quotes 187: extra-1651
+==================
+Write-Output @“
+$x
+`$(Get-Item x)
+${other}
+”@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal
+                    (variable)
+                    (variable
+                      (braced_variable))))))))))))
+
+==================
+Smart quotes 188: extra-1652
+==================
+Write-Output @‘
+$x
+`$(Get-Item x)
+${other}
+’@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 189: extra-1653
+==================
+Write-Output @“
+text
+”not a terminator
+more
+„@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal))))))))))
+
+==================
+Smart quotes 190: extra-1654
+==================
+Write-Output @‘
+text
+’not a terminator
+more
+‚@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_here_string_characters))))))))))
+
+==================
+Smart quotes 191: extra-1655
+==================
+Write-Output ‟sample‟
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+==================
+Smart quotes: mixed families do not close a string
+:error
+==================
+Write-Output ‘sample”
+
+---
+
+(ERROR)
+
+==================
+Smart quotes: U+201F does not close a string
+:error
+==================
+Write-Output “sample‟
+
+---
+
+(ERROR)
