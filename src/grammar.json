@@ -527,6 +527,15 @@
                 }
               },
               {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_qualified_variable_in_string"
+                },
+                "named": true,
+                "value": "variable"
+              },
+              {
                 "type": "SYMBOL",
                 "name": "variable"
               },
@@ -602,6 +611,15 @@
                   "type": "PATTERN",
                   "value": "[^\\$\\r\\n`]+"
                 }
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_qualified_variable_in_string"
+                },
+                "named": true,
+                "value": "variable"
               },
               {
                 "type": "SYMBOL",
@@ -1602,6 +1620,10 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "SYMBOL",
+          "name": "_qualified_variable"
+        },
+        {
           "type": "STRING",
           "value": "$$"
         },
@@ -1633,91 +1655,8 @@
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[gG][lL][oO][bB][aA][lL][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "global:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[lL][oO][cC][aA][lL][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "local:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[pP][rR][iI][vV][aA][tT][eE][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "private:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[sS][cC][rR][iI][pP][tT][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "script:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[uU][sS][iI][nN][gG][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "using:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[wW][oO][rR][kK][fF][lL][oO][wW][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "workflow:"
-                          },
-                          {
-                            "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_]+"
-                          }
-                        ]
+                        "type": "PATTERN",
+                        "value": "[a-zA-Z0-9_]+"
                       },
                       {
                         "type": "STRING",
@@ -1753,91 +1692,8 @@
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[gG][lL][oO][bB][aA][lL][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "global:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[lL][oO][cC][aA][lL][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "local:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[pP][rR][iI][vV][aA][tT][eE][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "private:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[sS][cC][rR][iI][pP][tT][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "script:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[uU][sS][iI][nN][gG][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "using:"
-                          },
-                          {
-                            "type": "ALIAS",
-                            "content": {
-                              "type": "PREC",
-                              "value": 1,
-                              "content": {
-                                "type": "PATTERN",
-                                "value": "[wW][oO][rR][kK][fF][lL][oO][wW][::]"
-                              }
-                            },
-                            "named": false,
-                            "value": "workflow:"
-                          },
-                          {
-                            "type": "PATTERN",
-                            "value": "[a-zA-Z0-9_]+"
-                          }
-                        ]
+                        "type": "PATTERN",
+                        "value": "[a-zA-Z0-9_]+"
                       },
                       {
                         "type": "STRING",
@@ -6586,6 +6442,18 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_qualified_variable"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_qualified_variable_in_string"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [],

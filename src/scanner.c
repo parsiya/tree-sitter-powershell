@@ -6,7 +6,10 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    QUALIFIED_VARIABLE,
+    QUALIFIED_VARIABLE_IN_STRING,
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -24,6 +27,48 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 /* --- Internal Functions --- */
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
+static bool variable_char(int32_t c)
+{
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+           (c >= '0' && c <= '9') || c == '_' || c == '?';
+}
+
+// The first colon needs a name; subsequent single colons belong to the path,
+// even at its end. A double colon always starts static member access.
+static unsigned scan_variable_path(TSLexer *lexer)
+{
+    if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') return 0;
+    while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    unsigned colons = 0;
+    while (lexer->lookahead == ':') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == ':') break;
+        if (!colons && !variable_char(lexer->lookahead)) break;
+        colons++;
+        while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+    }
+    return colons;
+}
+
+static bool scan_qualified_variable(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool in_string = valid_symbols[QUALIFIED_VARIABLE_IN_STRING];
+    if (lexer->lookahead != '$' && lexer->lookahead != '@') return false;
+    if (in_string && lexer->lookahead == '@') return false;
+    lexer->advance(lexer, false);
+    if (scan_variable_path(lexer) < 2) return false;
+    // Outside a string, an adjacent word suffix must still win the longest
+    // token match. Its converter, not this variable token, owns interpolation.
+    int32_t c = lexer->lookahead;
+    if (!in_string && c && !iswspace(c) && c != '.' && c != '[' && c != ':' &&
+        c != ')' && c != '}' && c != ';' && c != ',' && c != '|' && c != '&')
+        return false;
+    lexer->result_symbol = in_string ? QUALIFIED_VARIABLE_IN_STRING : QUALIFIED_VARIABLE;
+    return true;
+}
 
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
@@ -84,6 +129,16 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING]) &&
+        !valid_symbols[ERROR_SENTINEL]) {
+        while (!valid_symbols[QUALIFIED_VARIABLE_IN_STRING] && iswspace(lexer->lookahead)) {
+            if (valid_symbols[STATEMENT_TERMINATOR] &&
+                (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
+            skip(lexer);
+        }
+        if (lexer->lookahead == '$' || lexer->lookahead == '@')
+            return scan_qualified_variable(lexer, valid_symbols);
+    }
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

@@ -10,7 +10,13 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._qualified_variable,
+    $._qualified_variable_in_string,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -104,6 +110,7 @@ export default grammar({
         repeat(
           choice(
             token.immediate(/[^\$\"`]+/),
+            alias($._qualified_variable_in_string, $.variable),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
@@ -122,6 +129,7 @@ export default grammar({
         repeat(
           choice(
             token.immediate(/[^\$\r\n`]+/),
+            alias($._qualified_variable_in_string, $.variable),
             $.variable,
             $.sub_expression,
             token.immediate(/(\r?\n)+[^\"\r\n]/),
@@ -255,6 +263,8 @@ export default grammar({
     // Variables
     variable: ($) =>
       choice(
+        // Lookahead keeps a path's single colons distinct from static `::`.
+        $._qualified_variable,
         '$$',
         '$^',
         '$?',
@@ -262,40 +272,14 @@ export default grammar({
         token(
           seq(
             '$',
-            optional(
-              seq(
-                choice(
-                  reservedWord('global:'),
-                  reservedWord('local:'),
-                  reservedWord('private:'),
-                  reservedWord('script:'),
-                  reservedWord('using:'),
-                  reservedWord('workflow:'),
-                  /[a-zA-Z0-9_]+/,
-                ),
-                ':',
-              ),
-            ),
+            optional(seq(/[a-zA-Z0-9_]+/, ':')),
             /[a-zA-Z0-9_]+|\?/,
           ),
         ),
         token(
           seq(
             '@',
-            optional(
-              seq(
-                choice(
-                  reservedWord('global:'),
-                  reservedWord('local:'),
-                  reservedWord('private:'),
-                  reservedWord('script:'),
-                  reservedWord('using:'),
-                  reservedWord('workflow:'),
-                  /[a-zA-Z0-9_]+/,
-                ),
-                ':',
-              ),
-            ),
+            optional(seq(/[a-zA-Z0-9_]+/, ':')),
             /[a-zA-Z0-9_]+|\?/,
           ),
         ),
