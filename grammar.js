@@ -74,6 +74,8 @@ export default grammar({
     $._trailing_dot_type_name,
     $._command_name_start_escape,
     $._command_array_item_start,
+    $._parameter_dot_boundary,
+    $._parameter_dot_literal_boundary,
   ],
 
   extras: ($) => [
@@ -505,13 +507,19 @@ export default grammar({
     _command_token: ($) => token(/[^\(\)\{\}\s\u00a0;\&"'\u2018-\u201E][^\(\)\{\}\s\u00a0;\&]*/),
 
     // Parameters
+    _single_command_parameter: ($) => token(new RegExp(
+      String.raw`-(${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
+      'u',
+    )),
+
     command_parameter: ($) =>
       choice(
+        $._single_command_parameter,
         token(
           choice(
-            // `-Name`, `-Name1`, `--long-flag`, `-A5`
+            // Keep the inherited multiple-dash representation outside this fix.
             new RegExp(
-              String.raw`-+(${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*`,
+              String.raw`--${PARAMETER_CHAR}*`,
               'u',
             ),
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
@@ -1056,6 +1064,17 @@ export default grammar({
               $._command_parameter_argument,
             )),
           ),
+          seq(
+            alias($._single_command_parameter, $.command_parameter),
+            choice(
+              seq($._parameter_dot_boundary, $._argument_after_quote),
+              seq(
+                $._parameter_dot_literal_boundary,
+                $.parameter_dot_literal,
+                $._argument_after_quote,
+              ),
+            ),
+          ),
           prec.dynamic(1, $._adjacent_expression_arguments),
           seq($._command_argument, optional($.argument_list)),
           seq(
@@ -1074,6 +1093,9 @@ export default grammar({
           $.stop_parsing,
         ),
       ),
+
+    // A named token keeps this argument visible after grammar simplification.
+    parameter_dot_literal: ($) => token.immediate('.'),
 
     // Stop parsing is a token that end the parsing of command line
     stop_parsing: ($) => /--%[^\r\n]*/,
