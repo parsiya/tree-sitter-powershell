@@ -72,6 +72,7 @@ export default grammar({
     $._path_command_name_continuation,
     $._command_name_escape,
     $._trailing_dot_type_name,
+    $._command_name_start_escape,
   ],
 
   extras: ($) => [
@@ -79,6 +80,7 @@ export default grammar({
     /\s/,
     /`\n/,
     /`\r\n/,
+    /`[ \t\v\f\r\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/,
     /[\uFEFF\u2060\u200B\u00A0]/,
     // Spaces before a comma (see scanner.c)
     $._spaces_before_comma,
@@ -963,6 +965,8 @@ export default grammar({
     _ordinary_command_name: ($) =>
       seq(
         choice(
+          // At a token boundary escaped whitespace is trivia, not a name.
+          $._command_name_start_escape,
           new RegExp(`[^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*`),
           // A name can start with digits (`7z`), but digits followed by `..`
           // start a range (`1..16`), not a command.
@@ -1000,7 +1004,8 @@ export default grammar({
         ),
         repeat(
           choice(
-            token.immediate(/[^\{\}\(\);,\|\&"'\u2018-\u201E\s\u00a0\r\n]+/),
+            token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n]+/),
+            $._command_name_escape,
             seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
             seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
             token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
