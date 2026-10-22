@@ -3022,18 +3022,17 @@ and map_script_block (env : env) (x : CST.script_block) =
   | `Script_blk_body x -> R.Case ("Script_blk_body",
       map_script_block_body env x
     )
-  | `Param_blk_stmt_term_rep_SEMI_opt_script_blk_body (v1, v2, v3, v4) -> R.Case ("Param_blk_stmt_term_rep_SEMI_opt_script_blk_body",
+  | `Param_blk_rep_SEMI_opt_script_blk_body (v1, v2, v3) -> R.Case ("Param_blk_rep_SEMI_opt_script_blk_body",
       let v1 = map_param_block env v1 in
-      let v2 = (* statement_terminator *) token env v2 in
-      let v3 = R.List (List.map (token env (* ";" *)) v3) in
-      let v4 =
-        (match v4 with
+      let v2 = R.List (List.map (token env (* ";" *)) v2) in
+      let v3 =
+        (match v3 with
         | Some x -> R.Option (Some (
             map_script_block_body env x
           ))
         | None -> R.Option None)
       in
-      R.Tuple [v1; v2; v3; v4]
+      R.Tuple [v1; v2; v3]
     )
   )
 

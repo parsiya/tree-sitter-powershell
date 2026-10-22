@@ -76,6 +76,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/quoted-argument-boundaries` | Keep a leading quoted string and its adjacent argument separate, flattening recursive quoted tails and preserving nested commands. Combined batch-001: five more agree; another rejection advances to a colon-word mismatch. | Not yet offered. |
 | `fix/colon-command-words` | Keep colon-prefixed command words separate from expressions; only an immediate parameter colon attaches a required value. Preserve literal BMP labels, interpolation, escaped line endings and exact spans. Dash-leading attached values remain strings, not new parameters. Combined batch-001: one structural mismatch now agrees, no regressions. | Not yet offered. |
 | `fix/completed-expression-arguments` | Keep immediately adjacent completed expressions, quoted values and their following arguments as separate command arguments, including attached parameter values. Prefixed expandable words remain joined. Combined batch-001: one more agrees and three fewer are rejected; no regressions. | Not yet offered. |
+| `fix/param-block-statement-boundaries` | Accept a function, filter or scriptblock body immediately after `param(...)` without requiring a statement separator. Preserve parameter/default structure and ordinary statement boundaries. Combined batch-001: two more agree; batch-002 remains 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

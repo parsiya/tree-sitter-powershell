@@ -2197,7 +2197,6 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "script_block_body");
       Seq [
         Token (Name "param_block");
-        Token (Name "statement_terminator");
         Repeat (
           Token (Literal ";");
         );
@@ -8062,19 +8061,18 @@ and trans_script_block ((kind, body) : mt) : CST.script_block =
             trans_script_block_body (Run.matcher_token v)
           )
       | Alt (1, v) ->
-          `Param_blk_stmt_term_rep_SEMI_opt_script_blk_body (
+          `Param_blk_rep_SEMI_opt_script_blk_body (
             (match v with
-            | Seq [v0; v1; v2; v3] ->
+            | Seq [v0; v1; v2] ->
                 (
                   trans_param_block (Run.matcher_token v0),
-                  trans_statement_terminator (Run.matcher_token v1),
                   Run.repeat
                     (fun v -> Run.trans_token (Run.matcher_token v))
-                    v2
+                    v1
                   ,
                   Run.opt
                     (fun v -> trans_script_block_body (Run.matcher_token v))
-                    v3
+                    v2
                 )
             | _ -> assert false
             )

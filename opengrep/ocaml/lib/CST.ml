@@ -1529,9 +1529,8 @@ and redirections = redirection list (* one or more *)
 
 and script_block = [
     `Script_blk_body of script_block_body
-  | `Param_blk_stmt_term_rep_SEMI_opt_script_blk_body of (
+  | `Param_blk_rep_SEMI_opt_script_blk_body of (
         param_block
-      * statement_terminator (*tok*)
       * Token.t (* ";" *) list (* zero or more *)
       * script_block_body option
     )
