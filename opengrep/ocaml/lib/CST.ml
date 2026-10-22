@@ -1016,7 +1016,18 @@ and command = [
 ]
 
 and command_argument = [
-    `Cmd_arg_sep_opt_cmd_word_rep_cmd_array_tail of (
+    `Cmd_arg_sep_choice_cmd_word_choice_arg_list of (
+        command_argument_sep
+      * [
+            `Cmd_word of command_word
+          | `Cmd_pipe_prefix_array of command_pipeline_prefix_array
+        ]
+      * [
+            `Arg_list of argument_list
+          | `Paren_exp of parenthesized_expression
+        ]
+    )
+  | `Cmd_arg_sep_opt_cmd_word_rep_cmd_array_tail of (
         command_argument_sep
       * (command_word * command_array_tail list (* zero or more *)) option
     )
@@ -1202,6 +1213,20 @@ and command_parameter_argument = [
     )
   | `Cmd_exp_array of command_expression_array
   | `Cmd_mixed_array of command_mixed_array
+]
+
+and command_pipeline_prefix_array = (
+    command_pipeline_prefix_expression
+  * (Token.t (* "," *) * command_pipeline_prefix_expression)
+      list (* zero or more *)
+)
+
+and command_pipeline_prefix_expression = [
+    `Value of value
+  | `Elem_access of element_access
+  | `Invo_exp of invokation_expression
+  | `Post_incr_exp of post_increment_expression
+  | `Post_decr_exp of post_decrement_expression
 ]
 
 and command_unary_expression = [
@@ -1616,13 +1641,17 @@ and pipeline_chain = [
 
 and pipeline_tail = (Token.t (* "|" *) * command) list (* one or more *)
 
+and post_decrement_expression = (primary_expression * Token.t (* "--" *))
+
+and post_increment_expression = (primary_expression * Token.t (* "++" *))
+
 and primary_expression = [
     `Value of value
   | `Member_access of completed_argument_member
   | `Elem_access of element_access
   | `Invo_exp of invokation_expression
-  | `Post_incr_exp of (primary_expression * Token.t (* "++" *))
-  | `Post_decr_exp of (primary_expression * Token.t (* "--" *))
+  | `Post_incr_exp of post_increment_expression
+  | `Post_decr_exp of post_decrement_expression
 ]
 
 and quoted_command_argument = string_literal
@@ -2169,14 +2198,6 @@ type path_command_name (* inlined *) = (
         ]
     )
       list (* zero or more *)
-)
-
-type post_decrement_expression (* inlined *) = (
-    primary_expression * Token.t (* "--" *)
-)
-
-type post_increment_expression (* inlined *) = (
-    primary_expression * Token.t (* "++" *)
 )
 
 type pre_decrement_expression (* inlined *) = (

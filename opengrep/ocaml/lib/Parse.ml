@@ -1120,6 +1120,17 @@ let children_regexps : (string * Run.exp option) list = [
     Alt [|
       Seq [
         Token (Name "command_argument_sep");
+        Alt [|
+          Token (Name "command_word");
+          Token (Name "command_pipeline_prefix_array");
+        |];
+        Alt [|
+          Token (Name "argument_list");
+          Token (Name "parenthesized_expression");
+        |];
+      ];
+      Seq [
+        Token (Name "command_argument_sep");
         Opt (
           Seq [
             Token (Name "command_word");
@@ -1302,6 +1313,28 @@ let children_regexps : (string * Run.exp option) list = [
       ];
       Token (Name "command_expression_array");
       Token (Name "command_mixed_array");
+    |];
+  );
+  "command_pipeline_prefix_array",
+  Some (
+    Seq [
+      Token (Name "command_pipeline_prefix_expression");
+      Repeat (
+        Seq [
+          Token (Literal ",");
+          Token (Name "command_pipeline_prefix_expression");
+        ];
+      );
+    ];
+  );
+  "command_pipeline_prefix_expression",
+  Some (
+    Alt [|
+      Token (Name "value");
+      Token (Name "element_access");
+      Token (Name "invokation_expression");
+      Token (Name "post_increment_expression");
+      Token (Name "post_decrement_expression");
     |];
   );
   "command_unary_expression",
@@ -5817,6 +5850,39 @@ and trans_command_argument ((kind, body) : mt) : CST.command_argument =
   | Children v ->
       (match v with
       | Alt (0, v) ->
+          `Cmd_arg_sep_choice_cmd_word_choice_arg_list (
+            (match v with
+            | Seq [v0; v1; v2] ->
+                (
+                  trans_command_argument_sep (Run.matcher_token v0),
+                  (match v1 with
+                  | Alt (0, v) ->
+                      `Cmd_word (
+                        trans_command_word (Run.matcher_token v)
+                      )
+                  | Alt (1, v) ->
+                      `Cmd_pipe_prefix_array (
+                        trans_command_pipeline_prefix_array (Run.matcher_token v)
+                      )
+                  | _ -> assert false
+                  )
+                  ,
+                  (match v2 with
+                  | Alt (0, v) ->
+                      `Arg_list (
+                        trans_argument_list (Run.matcher_token v)
+                      )
+                  | Alt (1, v) ->
+                      `Paren_exp (
+                        trans_parenthesized_expression (Run.matcher_token v)
+                      )
+                  | _ -> assert false
+                  )
+                )
+            | _ -> assert false
+            )
+          )
+      | Alt (1, v) ->
           `Cmd_arg_sep_opt_cmd_word_rep_cmd_array_tail (
             (match v with
             | Seq [v0; v1] ->
@@ -5840,7 +5906,7 @@ and trans_command_argument ((kind, body) : mt) : CST.command_argument =
             | _ -> assert false
             )
           )
-      | Alt (1, v) ->
+      | Alt (2, v) ->
           `Cmd_arg_sep_cmd_exp_array (
             (match v with
             | Seq [v0; v1] ->
@@ -5851,7 +5917,7 @@ and trans_command_argument ((kind, body) : mt) : CST.command_argument =
             | _ -> assert false
             )
           )
-      | Alt (2, v) ->
+      | Alt (3, v) ->
           `Cmd_arg_sep_cmd_mixed_array (
             (match v with
             | Seq [v0; v1] ->
@@ -5862,7 +5928,7 @@ and trans_command_argument ((kind, body) : mt) : CST.command_argument =
             | _ -> assert false
             )
           )
-      | Alt (3, v) ->
+      | Alt (4, v) ->
           `Colon_cmd_arg_rep_cmd_array_tail (
             (match v with
             | Seq [v0; v1] ->
@@ -5875,11 +5941,11 @@ and trans_command_argument ((kind, body) : mt) : CST.command_argument =
             | _ -> assert false
             )
           )
-      | Alt (4, v) ->
+      | Alt (5, v) ->
           `Paren_exp (
             trans_parenthesized_expression (Run.matcher_token v)
           )
-      | Alt (5, v) ->
+      | Alt (6, v) ->
           `Script_blk_exp (
             trans_script_block_expression (Run.matcher_token v)
           )
@@ -6232,6 +6298,59 @@ and trans_command_parameter_argument ((kind, body) : mt) : CST.command_parameter
       | Alt (5, v) ->
           `Cmd_mixed_array (
             trans_command_mixed_array (Run.matcher_token v)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+and trans_command_pipeline_prefix_array ((kind, body) : mt) : CST.command_pipeline_prefix_array =
+  match body with
+  | Children v ->
+      (match v with
+      | Seq [v0; v1] ->
+          (
+            trans_command_pipeline_prefix_expression (Run.matcher_token v0)
+            ,
+            Run.repeat
+              (fun v ->
+                (match v with
+                | Seq [v0; v1] ->
+                    (
+                      Run.trans_token (Run.matcher_token v0),
+                      trans_command_pipeline_prefix_expression (Run.matcher_token v1)
+                    )
+                | _ -> assert false
+                )
+              )
+              v1
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
+and trans_command_pipeline_prefix_expression ((kind, body) : mt) : CST.command_pipeline_prefix_expression =
+  match body with
+  | Children v ->
+      (match v with
+      | Alt (0, v) ->
+          `Value (
+            trans_value (Run.matcher_token v)
+          )
+      | Alt (1, v) ->
+          `Elem_access (
+            trans_element_access (Run.matcher_token v)
+          )
+      | Alt (2, v) ->
+          `Invo_exp (
+            trans_invokation_expression (Run.matcher_token v)
+          )
+      | Alt (3, v) ->
+          `Post_incr_exp (
+            trans_post_increment_expression (Run.matcher_token v)
+          )
+      | Alt (4, v) ->
+          `Post_decr_exp (
+            trans_post_decrement_expression (Run.matcher_token v)
           )
       | _ -> assert false
       )

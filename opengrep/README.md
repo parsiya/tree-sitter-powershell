@@ -88,6 +88,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/numeric-dash-command-words` | Recognize digit/dot-leading dash words and preserve adjacent completed arguments in both generators. Inherited numeric CSTs require command-context literal-string conversion; expression negation stays numeric. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/parameter-dot-command-words` | Keep dot-prefixed command values after a real parameter separate, including explicit one-byte dots before variables/ASCII quotes. Preserve true member access, numeric dot literals and parameter-colon attachment. Combined batch-001: two more agree; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/qualified-variable-colons` | Retain full multi-colon qualified references and string-context tokens without stealing `::`, member/index access or colon argument boundaries. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/command-parenthesis-pipelines` | Accept full command pipelines in command-argument suffix parentheses while retaining legacy expression-only suffix trees and real method argument rules. Nested constructor subtrees agree with Native; the original file advances to an independent lone-CR here-string issue. Both batches have no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

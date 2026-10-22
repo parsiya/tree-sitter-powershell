@@ -1873,6 +1873,30 @@ and map_command (env : env) (x : CST.command) =
 
 and map_command_argument (env : env) (x : CST.command_argument) =
   (match x with
+  | `Cmd_arg_sep_choice_cmd_word_choice_arg_list (v1, v2, v3) -> R.Case ("Cmd_arg_sep_choice_cmd_word_choice_arg_list",
+      let v1 = map_command_argument_sep env v1 in
+      let v2 =
+        (match v2 with
+        | `Cmd_word x -> R.Case ("Cmd_word",
+            map_command_word env x
+          )
+        | `Cmd_pipe_prefix_array x -> R.Case ("Cmd_pipe_prefix_array",
+            map_command_pipeline_prefix_array env x
+          )
+        )
+      in
+      let v3 =
+        (match v3 with
+        | `Arg_list x -> R.Case ("Arg_list",
+            map_argument_list env x
+          )
+        | `Paren_exp x -> R.Case ("Paren_exp",
+            map_parenthesized_expression env x
+          )
+        )
+      in
+      R.Tuple [v1; v2; v3]
+    )
   | `Cmd_arg_sep_opt_cmd_word_rep_cmd_array_tail (v1, v2) -> R.Case ("Cmd_arg_sep_opt_cmd_word_rep_cmd_array_tail",
       let v1 = map_command_argument_sep env v1 in
       let v2 =
@@ -2266,6 +2290,36 @@ and map_command_parameter_argument (env : env) (x : CST.command_parameter_argume
     )
   | `Cmd_mixed_array x -> R.Case ("Cmd_mixed_array",
       map_command_mixed_array env x
+    )
+  )
+
+and map_command_pipeline_prefix_array (env : env) ((v1, v2) : CST.command_pipeline_prefix_array) =
+  let v1 = map_command_pipeline_prefix_expression env v1 in
+  let v2 =
+    R.List (List.map (fun (v1, v2) ->
+      let v1 = (* "," *) token env v1 in
+      let v2 = map_command_pipeline_prefix_expression env v2 in
+      R.Tuple [v1; v2]
+    ) v2)
+  in
+  R.Tuple [v1; v2]
+
+and map_command_pipeline_prefix_expression (env : env) (x : CST.command_pipeline_prefix_expression) =
+  (match x with
+  | `Value x -> R.Case ("Value",
+      map_value env x
+    )
+  | `Elem_access x -> R.Case ("Elem_access",
+      map_element_access env x
+    )
+  | `Invo_exp x -> R.Case ("Invo_exp",
+      map_invokation_expression env x
+    )
+  | `Post_incr_exp x -> R.Case ("Post_incr_exp",
+      map_post_increment_expression env x
+    )
+  | `Post_decr_exp x -> R.Case ("Post_decr_exp",
+      map_post_decrement_expression env x
     )
   )
 
@@ -3167,6 +3221,16 @@ and map_pipeline_tail (env : env) (xs : CST.pipeline_tail) =
     R.Tuple [v1; v2]
   ) xs)
 
+and map_post_decrement_expression (env : env) ((v1, v2) : CST.post_decrement_expression) =
+  let v1 = map_primary_expression env v1 in
+  let v2 = (* "--" *) token env v2 in
+  R.Tuple [v1; v2]
+
+and map_post_increment_expression (env : env) ((v1, v2) : CST.post_increment_expression) =
+  let v1 = map_primary_expression env v1 in
+  let v2 = (* "++" *) token env v2 in
+  R.Tuple [v1; v2]
+
 and map_primary_expression (env : env) (x : CST.primary_expression) =
   (match x with
   | `Value x -> R.Case ("Value",
@@ -3181,15 +3245,11 @@ and map_primary_expression (env : env) (x : CST.primary_expression) =
   | `Invo_exp x -> R.Case ("Invo_exp",
       map_invokation_expression env x
     )
-  | `Post_incr_exp (v1, v2) -> R.Case ("Post_incr_exp",
-      let v1 = map_primary_expression env v1 in
-      let v2 = (* "++" *) token env v2 in
-      R.Tuple [v1; v2]
+  | `Post_incr_exp x -> R.Case ("Post_incr_exp",
+      map_post_increment_expression env x
     )
-  | `Post_decr_exp (v1, v2) -> R.Case ("Post_decr_exp",
-      let v1 = map_primary_expression env v1 in
-      let v2 = (* "--" *) token env v2 in
-      R.Tuple [v1; v2]
+  | `Post_decr_exp x -> R.Case ("Post_decr_exp",
+      map_post_decrement_expression env x
     )
   )
 
