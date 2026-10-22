@@ -25,7 +25,9 @@ enum TOKEN_TYPE {
     COMMAND_NAME_ESCAPE,
     TRAILING_DOT_TYPE_NAME,
     COMMAND_NAME_START_ESCAPE,
-    COMMAND_ARRAY_ITEM_START
+    COMMAND_ARRAY_ITEM_START,
+    PARAMETER_DOT_BOUNDARY,
+    PARAMETER_DOT_LITERAL_BOUNDARY
 };
 
 /* --- API --- */
@@ -236,8 +238,13 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
 
     unsigned dashes = 0;
     bool only_dashes = true;
+    bool parameter_dot = false;
     if (parameter) {
         lexer->advance(lexer, false);
+        parameter_dot = ((lexer->lookahead < 0x80 && iswalpha(lexer->lookahead)) ||
+                         is_unicode_parameter_letter(lexer->lookahead) ||
+                         lexer->lookahead == '_' || lexer->lookahead == '?' ||
+                         lexer->lookahead == '`');
         consumed = true;
         dashes = 1;
         if (digit(lexer->lookahead) || lexer->lookahead == '.') {
@@ -251,6 +258,9 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     for (;;) {
         int32_t c = lexer->lookahead;
         if (command_word_end(c)) break;
+        // A later quote must not turn -Name.Property into one joined word.
+        if (parameter_dot && c == '.') return false;
+        if (c == '[') parameter_dot = false;
         if (c == '>') {
             if (start && redirection_prefix) return false;
         } else if ((c < '0' || c > '9') && !(c == '*' && !consumed)) {
@@ -285,6 +295,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         } else {
             lexer->advance(lexer, false);
             if (c == '`') {
+                if (parameter_dot && lexer->lookahead == '.') return false;
                 if (!consumed && !part &&
                     command_array_space(lexer->lookahead)) return false;
                 if (lexer->eof(lexer)) return false;
@@ -634,6 +645,17 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    // A dot ends a parameter name and starts a command word, not a member.
+    if (!valid_symbols[ERROR_SENTINEL] &&
+        (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
+         valid_symbols[PARAMETER_DOT_LITERAL_BOUNDARY]) && lexer->lookahead == '.') {
+        lexer->mark_end(lexer);
+        lexer->advance(lexer, false);
+        bool literal = lexer->lookahead == '$' || lexer->lookahead == '"' ||
+                       lexer->lookahead == '\'';
+        lexer->result_symbol = literal ? PARAMETER_DOT_LITERAL_BOUNDARY : PARAMETER_DOT_BOUNDARY;
+        return valid_symbols[lexer->result_symbol];
+    }
     if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !valid_symbols[ERROR_SENTINEL])
         return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !valid_symbols[ERROR_SENTINEL]) {
