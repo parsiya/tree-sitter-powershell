@@ -118,19 +118,24 @@ export default grammar({
 
     expandable_here_string_literal: ($) =>
       seq(
-        /@\" *\r?\n/,
-        repeat(
-          choice(
-            token.immediate(/[^\$\r\n`]+/),
-            $.variable,
-            $.sub_expression,
-            token.immediate(/(\r?\n)+[^\"\r\n]/),
-            token.immediate(/(\r?\n)+\"[^@]/),
-            token.immediate('$'),
-            token.immediate(/`.{1}|`\r?\n/),
+        /@["\u201C-\u201E] *(\r\n|\n|\r)/,
+        choice(
+          token.immediate(prec(2, /["\u201C-\u201E]@/)),
+          seq(
+            repeat(
+              choice(
+                token.immediate(prec(1, /[^\$\r\n`]+/)),
+                $.variable,
+                $.sub_expression,
+                token.immediate(/\r\n|\n|\r/),
+                token.immediate('$'),
+                // Escape CR alone, leaving a following LF eligible to close.
+                token.immediate(/`[^\r\n]|`\r|`\n/),
+              ),
+            ),
+            token.immediate(prec(1, /(\r\n|\n|\r)["\u201C-\u201E]@/)),
           ),
         ),
-        token.immediate(/(\r?\n)+\"@/),
       ),
 
     verbatim_string_characters: ($) =>
