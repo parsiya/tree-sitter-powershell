@@ -1,0 +1,1499 @@
+===
+Completed expression: adjacent subexpressions and quote
+===
+
+Write-Output $($left)$($right)""
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: leading quote member and quote
+===
+
+Write-Output "prefix"$item.Version"suffix"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: subexpression then word
+===
+
+Write-Output $($left)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: parenthesis then word
+===
+
+Write-Output ($left)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: array expression then word
+===
+
+Write-Output @($left)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (array_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: scriptblock then word
+===
+
+Write-Output {$left}tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: method then quote
+===
+
+Write-Output $item.Trim()"suffix"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: index then quote
+===
+
+Write-Output $item[0]"suffix"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (variable)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: member then quote
+===
+
+Write-Output $item.Version"suffix"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: word-leading subexpression stays joined
+===
+
+Write-Output pre$($left)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Completed expression: variable-leading subexpression stays joined
+===
+
+Write-Output $left$($right)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Completed expression: whitespace-separated subexpressions
+===
+
+Write-Output $($left) $($right) ""
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: quoted interpolation stays joined
+===
+
+Write-Output "pre$($left)tail"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))))
+
+===
+Completed expression: escaped parentheses stay text
+===
+
+Write-Output pre`(tail`)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Completed expression: following parameter stays separate
+===
+
+Write-Output $($left)-NoEnumerate
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (command_parameter)))))))
+
+===
+Completed expression: comma preserves one array argument
+===
+
+Write-Output $($left),$($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable)))))))))))))))
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: adjacent parentheses
+===
+
+Write-Output ($left)($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Completed expression: nested commands remain separate
+===
+
+Write-Output $(Get-Item sample)$(Get-Item other)""
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: embedded command stays in one word
+===
+
+Write-Output pre$(Get-Item sample)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token))))))))))))))
+
+===
+Completed expression: repeated embedded subexpressions stay joined
+===
+
+Write-Output $left$($right)mid$($other)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable))))))))))))))
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Completed expression: quote then word
+===
+
+Write-Output "start"tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (generic_token)))))))
+
+===
+Completed expression: subexpression then variable
+===
+
+Write-Output $($left)$right
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+===
+Completed expression: subexpression then array
+===
+
+Write-Output $($left)@($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (array_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: subexpression then scriptblock
+===
+
+Write-Output $($left){$right}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))))
+
+===
+Completed expression: member then subexpression
+===
+
+Write-Output $item.Version$($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: index then subexpression
+===
+
+Write-Output $item[0]$($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (variable)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: method then subexpression
+===
+
+Write-Output $item.Trim()$($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (variable)
+                  (member_name
+                    (simple_name))
+                  (argument_list))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: immediately parenthesized first argument
+===
+
+Write-Output($left)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: immediate scriptblock first argument
+===
+
+Write-Output{$left}tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (generic_token)))))))
+
+===
+Completed expression: comment cannot introduce an adjacent argument
+===
+
+Write-Output {$left}# explanation
+Write-Output next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))
+    (comment)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Completed expression: quoted comment boundary
+===
+
+Write-Output "value"# explanation
+Write-Output next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))
+    (comment)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Completed expression: block comment boundary
+===
+
+Write-Output $($left)<# explanation #>
+Write-Output next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))
+    (comment)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Completed expression: line continuation before parameter
+===
+
+Write-Output "value"`
+    -NoEnumerate
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Completed expression: newline is not adjacency
+===
+
+Write-Output $($left)
+Write-Output tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Completed expression: following word with embedded expression
+===
+
+Write-Output $($left)pre$($right)tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))))))))
+
+===
+Completed expression: scriptblock then quoted argument
+===
+
+Write-Output {$left}"suffix"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))))
+
+===
+Completed expression: parenthesis then subexpression
+===
+
+Write-Output ($left)$($right)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+===
+Completed expression: subexpression then numeric word
+===
+
+Write-Output $($left)42
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+===
+Completed expression: subexpression then single-quoted argument
+===
+
+Write-Output $($left)'suffix'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+===
+Completed expression: assignment adjacency remains invalid
+:error
+===
+
+$result = $($left)$($right)
+
+---
+
+(ERROR)
+
+===
+Completed expression: unterminated subexpression remains invalid
+:error
+===
+
+Write-Output $($left
+
+---
+
+(ERROR)
+
+===
+Completed expression: method adjacency in assignment remains invalid
+:error
+===
+
+$result = $item.Trim()"suffix"
+
+---
+
+(ERROR)

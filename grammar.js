@@ -10,7 +10,16 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._completed_expression_boundary,
+    $._completed_member_boundary,
+    $._subexpression_word_prefix,
+    $._subexpression_word_part,
+    $._subexpression_word_expression,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -26,6 +35,7 @@ export default grammar({
     [$.class_method_definition, $.attribute],
     [$.expandable_string_literal],
     [$.path_command_name, $._value],
+    [$.member_access, $._completed_argument_receiver],
   ],
 
   rules: {
@@ -306,7 +316,21 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      choice(
+        token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+        seq(
+          $._subexpression_word_prefix,
+          repeat(
+            choice(
+              $._subexpression_word_part,
+              seq(
+                $._subexpression_word_expression,
+                choice($.sub_expression, $.string_literal),
+              ),
+            ),
+          ),
+        ),
+      ),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -781,6 +805,7 @@ export default grammar({
       prec.right(
         choice(
           $.command_parameter,
+          prec.dynamic(1, $._adjacent_expression_arguments),
           seq($._command_argument, optional($.argument_list)),
           $.redirection,
           $.stop_parsing,
@@ -814,6 +839,78 @@ export default grammar({
           $.parenthesized_expression,
           $.script_block_expression,
         ),
+      ),
+
+    // Only a completed expression starts a new argument without whitespace.
+    // A bare variable is deliberately excluded: $left$($right)tail is a word.
+    _adjacent_expression_arguments: ($) =>
+      prec.right(
+        PREC.PARAM,
+        choice(
+          seq(
+            $.command_argument_sep,
+            $._completed_command_argument,
+            $._argument_after_expression,
+          ),
+          seq(
+            choice($.parenthesized_expression, $.script_block_expression),
+            $._completed_expression_boundary,
+            $._argument_after_expression,
+          ),
+        ),
+      ),
+
+    _completed_command_argument: ($) =>
+      alias($._completed_argument_array, $.array_literal_expression),
+
+    _completed_argument_array: ($) =>
+      choice(
+        seq(
+          alias($._completed_argument_value, $.unary_expression),
+          $._completed_expression_boundary,
+        ),
+        seq(
+          alias($._completed_argument_member, $.unary_expression),
+          $._completed_member_boundary,
+        ),
+      ),
+
+    _completed_argument_value: ($) =>
+      choice(
+        $.parenthesized_expression,
+        $.sub_expression,
+        $.array_expression,
+        $.script_block_expression,
+        $.hash_literal_expression,
+        $.element_access,
+        $.invokation_expression,
+        alias($._completed_argument_invocation, $.invokation_expression),
+      ),
+
+    _completed_argument_invocation: ($) =>
+      seq($._completed_argument_receiver, $.argument_list),
+
+    // Keep the old member/call ambiguity until an adjacent argument proves
+    // that the invocation belongs to this completed-expression path.
+    _completed_argument_receiver: ($) =>
+      prec.left(
+        choice(
+          seq($._primary_expression, token.immediate('.'), $.member_name),
+          seq($._primary_expression, '::', $.member_name),
+        ),
+      ),
+
+    _completed_argument_member: ($) =>
+      choice($.member_access, $.string_literal),
+
+    _argument_after_expression: ($) =>
+      choice(
+        seq(
+          $.generic_token,
+          repeat(seq(',', choice($.generic_token, $.unary_expression))),
+        ),
+        $.array_literal_expression,
+        seq($._completed_command_argument, $._argument_after_expression),
       ),
 
     verbatim_command_argument: ($) =>
