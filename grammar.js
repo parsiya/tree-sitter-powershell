@@ -71,6 +71,7 @@ export default grammar({
     $._error_sentinel,
     $._path_command_name_continuation,
     $._command_name_escape,
+    $._trailing_dot_type_name,
   ],
 
   extras: ($) => [
@@ -122,7 +123,7 @@ export default grammar({
             reservedWord('namespace'),
             // PowerShell 7 rejects a quoted namespace, but the parser still
             // reads the line as a using statement.
-            field('name', choice($.type_name, $.string_literal)),
+            field('name', choice(alias($._type_name, $.type_name), $.string_literal)),
           ),
           seq(
             reservedWord('module'),
@@ -276,10 +277,30 @@ export default grammar({
 
     // Nested CLR types form one identifier; dots still separate namespaces.
     type_identifier: ($) =>
-      token(seq(TYPE_IDENTIFIER, repeat(seq('+', TYPE_IDENTIFIER)))),
+      token(seq(
+        choice(SIMPLE_NAME_LETTER, '_'),
+        optional(TYPE_IDENTIFIER),
+        repeat(seq('+', TYPE_IDENTIFIER)),
+      )),
 
     type_name: ($) =>
-      choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),
+      choice(
+        $._type_name,
+        alias($._trailing_dot_type_name, $.type_identifier),
+      ),
+
+    _type_name: ($) =>
+      choice(
+        $.type_identifier,
+        seq(
+          alias($._type_name, $.type_name),
+          '.',
+          alias(
+            token(seq(TYPE_IDENTIFIER, repeat(seq('+', TYPE_IDENTIFIER)))),
+            $.type_identifier,
+          ),
+        ),
+      ),
 
     array_type_name: ($) =>
       seq(

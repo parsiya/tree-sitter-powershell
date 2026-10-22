@@ -22,7 +22,8 @@ enum TOKEN_TYPE {
     COMPLETED_MEMBER_BOUNDARY,
     ERROR_SENTINEL,
     PATH_COMMAND_NAME_CONTINUATION,
-    COMMAND_NAME_ESCAPE
+    COMMAND_NAME_ESCAPE,
+    TRAILING_DOT_TYPE_NAME
 };
 
 /* --- API --- */
@@ -412,6 +413,37 @@ static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *vali
     return false;
 }
 
+static bool type_name_letter(int32_t c)
+{
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+static bool scan_trailing_dot_type_name(TSLexer *lexer)
+{
+    while (iswspace(lexer->lookahead)) skip(lexer);
+    if (!type_name_letter(lexer->lookahead)) return false;
+
+    unsigned dots = 0;
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == '.') {
+            dots++;
+        } else if (type_name_letter(c) || (c >= '0' && c <= '9')) {
+            if (dots > 1) return false;
+            dots = 0;
+        } else {
+            break;
+        }
+        lexer->advance(lexer, false);
+    }
+    // Look past the whole name: matching only "System." would steal the prefix
+    // of an ordinary qualified name such as "System.String".
+    if (!dots) return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = TRAILING_DOT_TYPE_NAME;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[COMMAND_NAME_ESCAPE] && !valid_symbols[ERROR_SENTINEL] &&
@@ -419,6 +451,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         return scan_command_name_escape(lexer, valid_symbols);
     if (scan_path_command_name_continuation(lexer, valid_symbols)) return true;
     if (!valid_symbols[ERROR_SENTINEL]) {
+        if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
         if (valid_symbols[PARAMETER_ARGUMENT_START]) {
             return scan_parameter_argument_start(lexer, valid_symbols);
         }

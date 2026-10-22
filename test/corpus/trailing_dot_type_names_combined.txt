@@ -1,0 +1,71 @@
+===
+Trailing-dot type: original parameter syntax
+===
+
+param([System.Security.]$Headers)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (type_name (type_identifier)))))) (variable)))))
+
+===
+Trailing-dot type: nested array inherited
+===
+
+$Type = [int[][]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))))
+
+===
+Trailing-dot type: array of generic inherited
+===
+
+$Type = [System.Collections.Generic.List[int][]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))))
+
+===
+Trailing-dot type: trailing nested array
+===
+
+$Type = [Example.[][]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))))
+
+===
+Trailing-dot type: trailing generic array
+===
+
+$Type = [Example.[int][]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))))
+
+===
+Trailing-dot type does not widen namespace: trailing namespace
+:error
+===
+
+using namespace Example.
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type does not widen namespace: repeated trailing namespace
+:error
+===
+
+using namespace Example..
+
+---
+
+(ERROR)
