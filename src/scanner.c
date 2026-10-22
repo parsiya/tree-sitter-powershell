@@ -146,6 +146,59 @@ static void scan_variable_name(TSLexer *lexer)
     }
 }
 
+static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
+
+// Preserve the inherited numeric CST for a complete negative number. In command
+// mode consumers must interpret that existing shape as a word, not negation.
+static bool scan_number_prefix(TSLexer *lexer)
+{
+    bool hex = false;
+    bool real = false;
+    bool digits = false;
+    if (lexer->lookahead == '0') {
+        lexer->advance(lexer, false);
+        digits = true;
+        if (towlower(lexer->lookahead) == 'x') {
+            lexer->advance(lexer, false);
+            hex = true;
+            digits = false;
+        }
+    }
+    while (digit(lexer->lookahead) ||
+           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+        lexer->advance(lexer, false);
+        digits = true;
+    }
+    if (!hex && lexer->lookahead == '.') {
+        real = true;
+        lexer->advance(lexer, false);
+        digits = false;
+        while (digit(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            digits = true;
+        }
+    }
+    if (!digits) return false;
+    if (!hex && towlower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead)) return false;
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+    } else if (!real && (towlower(lexer->lookahead) == 'l' ||
+                        (!hex && towlower(lexer->lookahead) == 'd'))) {
+        lexer->advance(lexer, false);
+    }
+    int32_t c = towlower(lexer->lookahead);
+    if (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p') {
+        lexer->advance(lexer, false);
+        if (towlower(lexer->lookahead) != 'b') return false;
+        lexer->advance(lexer, false);
+    }
+    return true;
+}
+
 // Only start a word when it is not a standalone expression. Once an unquoted
 // word has begun, adjacent quotes and $() belong to it. Leave those expressions
 // in the tree so that nested commands remain visible to syntax consumers.
@@ -183,6 +236,18 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
 
     unsigned dashes = 0;
     bool only_dashes = true;
+    if (parameter) {
+        lexer->advance(lexer, false);
+        consumed = true;
+        dashes = 1;
+        if (digit(lexer->lookahead) || lexer->lookahead == '.') {
+            parameter = false;
+            joined = true;
+            only_dashes = false;
+            if (scan_number_prefix(lexer) && command_word_end(lexer->lookahead)) return false;
+        }
+        lexer->mark_end(lexer);
+    }
     for (;;) {
         int32_t c = lexer->lookahead;
         if (command_word_end(c)) break;

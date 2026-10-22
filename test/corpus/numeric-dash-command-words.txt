@@ -1,0 +1,625 @@
+==================
+Numeric dash: digit-leading argument in an assignment
+==================
+$result = Invoke-Example -4tuln
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (generic_token)))))))))
+
+==================
+Numeric dash: malformed decimal-looking words
+==================
+Invoke-Example -123abc -1foo -1e -1e+ -1.2.3
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: malformed hexadecimal-looking word
+==================
+Invoke-Example -0xzz
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: dot-leading words
+==================
+Invoke-Example -.thing -. -..
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: punctuation stays in a word
+==================
+Invoke-Example -1:tail -1=value -1+2 -1/2 -1%tail
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: attached double quote
+==================
+Invoke-Example -4tuln"tail"
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Numeric dash: attached single quote
+==================
+Invoke-Example -4tuln'two words'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+==================
+Numeric dash: attached variable
+==================
+Invoke-Example -4tuln$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: attached nested command
+==================
+Invoke-Example -4tuln$(Get-Nested)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Numeric dash: escaped space
+==================
+Invoke-Example -4tuln` space
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: escaped punctuation
+==================
+Invoke-Example -4tuln`;tail -4tuln`"tail
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: adjacent scriptblock stays separate
+==================
+Invoke-Example -4tuln{ Get-Nested }
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name))))))))))))))
+
+==================
+Numeric dash: negative integer with attached quote
+==================
+Invoke-Example -1"tail"
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Numeric dash: negative integer with attached variable
+==================
+Invoke-Example -1$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: negative integer with attached subexpression
+==================
+Invoke-Example -1$(Get-Nested)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Numeric dash: negative fraction with attached quote
+==================
+Invoke-Example -.5'two words'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))))))))
+
+==================
+Numeric dash: negative fraction with attached variable
+==================
+Invoke-Example -.5$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: negative fraction with attached subexpression
+==================
+Invoke-Example -.5$(Get-Nested)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Numeric dash: word array item
+==================
+Invoke-Example first,-4tuln,last
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)))))))
+
+==================
+Numeric dash: array starting with a word
+==================
+Invoke-Example -4tuln,last
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))))
+
+==================
+Numeric dash: attached redirection-like text is a word
+==================
+Invoke-Example -4tuln>out -1>out -.5>out
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: command boundaries
+==================
+Invoke-Example -4tuln | Get-Next
+Invoke-Example -4tuln; Get-Next
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)))
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Numeric dash: escaped newline continues arguments
+==================
+Invoke-Example -4tuln`
+next
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash: preserve inherited pure-negative public CST
+==================
+Invoke-Example -1 -1.5 -.5 -0x10 -1kb
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (decimal_integer_literal))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (real_literal)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (real_literal)))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (hexadecimal_integer_literal))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (decimal_integer_literal))))))))))))
+
+==================
+Numeric dash: preserve expression-mode negation
+==================
+$result = -1
+Invoke-Example (-1)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (expression_with_unary_operator
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (expression_with_unary_operator
+                                          (unary_expression
+                                            (integer_literal
+                                              (decimal_integer_literal))))))))))))))))))))))))
+
+==================
+Numeric dash: preserve subtraction and ordinary parameters
+==================
+$result = $left - $right
+Invoke-Example -Name value -A5
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)))))))
