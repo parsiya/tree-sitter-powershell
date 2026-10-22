@@ -37,7 +37,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == '}') return true;
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
-            if (lexer->lookahead == '\n') return true;
+            if (lexer->lookahead == '\r' || lexer->lookahead == '\n') return true;
             if (!iswspace(lexer->lookahead)) return false;
             skip(lexer);
         }
