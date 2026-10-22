@@ -27,7 +27,9 @@ enum TOKEN_TYPE {
     COMMAND_NAME_START_ESCAPE,
     COMMAND_ARRAY_ITEM_START,
     PARAMETER_DOT_BOUNDARY,
-    PARAMETER_DOT_LITERAL_BOUNDARY
+    PARAMETER_DOT_LITERAL_BOUNDARY,
+    QUALIFIED_VARIABLE,
+    QUALIFIED_VARIABLE_IN_STRING
 };
 
 /* --- API --- */
@@ -129,7 +131,41 @@ static bool variable_char(int32_t c)
            is_unicode_variable_digit(c) || c == '_' || c == '?';
 }
 
-static void scan_variable_name(TSLexer *lexer)
+// The first colon needs a name; subsequent single colons belong to the path,
+// even at its end. A double colon always starts static member access.
+static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
+{
+    if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') return 0;
+    while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    unsigned colons = 0;
+    while (lexer->lookahead == ':') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == ':') {
+            *static_access = true;
+            break;
+        }
+        if (!colons && !variable_char(lexer->lookahead)) break;
+        colons++;
+        while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+    }
+    return colons;
+}
+
+static bool scan_qualified_variable(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool in_string = valid_symbols[QUALIFIED_VARIABLE_IN_STRING];
+    if (lexer->lookahead != '$' && lexer->lookahead != '@') return false;
+    if (in_string && lexer->lookahead == '@') return false;
+    lexer->advance(lexer, false);
+    bool static_access = false;
+    if (scan_variable_path(lexer, &static_access) < 2) return false;
+    lexer->result_symbol = in_string ? QUALIFIED_VARIABLE_IN_STRING : QUALIFIED_VARIABLE;
+    return true;
+}
+
+static unsigned scan_variable_name(TSLexer *lexer, bool *static_access)
 {
     if (lexer->lookahead == '{') {
         do {
@@ -140,12 +176,9 @@ static void scan_variable_name(TSLexer *lexer)
                lexer->lookahead == '^') {
         lexer->advance(lexer, false);
     } else {
-        while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
-        if (lexer->lookahead == ':') {
-            lexer->advance(lexer, false);
-            while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
-        }
+        return scan_variable_path(lexer, static_access);
     }
+    return 0;
 }
 
 static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
@@ -230,9 +263,17 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     if (start && lexer->lookahead == '$') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '(') return false;
-        scan_variable_name(lexer);
+        bool static_access = false;
+        unsigned colons = scan_variable_name(lexer, &static_access);
         if (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
-            lexer->lookahead == '[') return false;
+            lexer->lookahead == '[' || lexer->lookahead == '>' ||
+            (static_access && colons >= 2)) {
+            if (colons >= 2 && valid_symbols[QUALIFIED_VARIABLE]) {
+                lexer->result_symbol = QUALIFIED_VARIABLE;
+                return true;
+            }
+            return false;
+        }
         joined = consumed = true;
     }
 
@@ -290,7 +331,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
                 lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
                 return true;
             }
-            scan_variable_name(lexer);
+            bool static_access = false;
+            scan_variable_name(lexer, &static_access);
             joined = true;
         } else {
             lexer->advance(lexer, false);
@@ -699,6 +741,21 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
     if (scan_argument_boundary(lexer, valid_symbols)) return true;
+
+    bool word = valid_symbols[COMMAND_WORD_START] || valid_symbols[COMMAND_WORD_PART] ||
+                valid_symbols[COMMAND_WORD_EXPRESSION];
+    if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING]) &&
+        !valid_symbols[ERROR_SENTINEL] &&
+        (valid_symbols[QUALIFIED_VARIABLE_IN_STRING] || !word || lexer->lookahead == '@')) {
+        while (!valid_symbols[QUALIFIED_VARIABLE_IN_STRING] &&
+               command_array_space(lexer->lookahead)) {
+            if (valid_symbols[STATEMENT_TERMINATOR] &&
+                (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
+            skip(lexer);
+        }
+        if (lexer->lookahead == '$' || lexer->lookahead == '@')
+            return scan_qualified_variable(lexer, valid_symbols);
+    }
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.

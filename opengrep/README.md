@@ -87,6 +87,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/command-comma-array-boundaries` | Preserve post-comma escaped trivia and complete mixed arrays, ending words before adjacent scriptblocks. Restore the original ADSyncTools export list and following commands. Equivalent explicit here-string header whitespace works with both generators. Combined batch-001: two more agree and three fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/numeric-dash-command-words` | Recognize digit/dot-leading dash words and preserve adjacent completed arguments in both generators. Inherited numeric CSTs require command-context literal-string conversion; expression negation stays numeric. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/parameter-dot-command-words` | Keep dot-prefixed command values after a real parameter separate, including explicit one-byte dots before variables/ASCII quotes. Preserve true member access, numeric dot literals and parameter-colon attachment. Combined batch-001: two more agree; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/qualified-variable-colons` | Retain full multi-colon qualified references and string-context tokens without stealing `::`, member/index access or colon argument boundaries. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
