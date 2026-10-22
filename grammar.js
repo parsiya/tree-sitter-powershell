@@ -76,6 +76,8 @@ export default grammar({
     $._command_array_item_start,
     $._parameter_dot_boundary,
     $._parameter_dot_literal_boundary,
+    $._qualified_variable,
+    $._qualified_variable_in_string,
   ],
 
   extras: ($) => [
@@ -214,6 +216,7 @@ export default grammar({
           choice(
             // Comment markers inside strings are text, not extra comments.
             token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+            alias($._qualified_variable_in_string, $.variable),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
@@ -236,6 +239,7 @@ export default grammar({
             repeat(
               choice(
                 token.immediate(prec(1, /[^\$\r\n`]+/)),
+                alias($._qualified_variable_in_string, $.variable),
                 $.variable,
                 $.sub_expression,
                 // Leave the next line's escape or interpolation prefix intact.
@@ -421,6 +425,8 @@ export default grammar({
     // Variables
     variable: ($) =>
       choice(
+        // Lookahead keeps a path's single colons distinct from static `::`.
+        $._qualified_variable,
         '$$',
         '$^',
         '$?',
@@ -428,40 +434,14 @@ export default grammar({
         token(
           seq(
             '$',
-            optional(
-              seq(
-                choice(
-                  reservedWord('global:'),
-                  reservedWord('local:'),
-                  reservedWord('private:'),
-                  reservedWord('script:'),
-                  reservedWord('using:'),
-                  reservedWord('workflow:'),
-                  VARIABLE_NAME,
-                ),
-                ':',
-              ),
-            ),
+            optional(seq(VARIABLE_NAME, ':')),
             choice(VARIABLE_REFERENCE, '?'),
           ),
         ),
         token(
           seq(
             '@',
-            optional(
-              seq(
-                choice(
-                  reservedWord('global:'),
-                  reservedWord('local:'),
-                  reservedWord('private:'),
-                  reservedWord('script:'),
-                  reservedWord('using:'),
-                  reservedWord('workflow:'),
-                  VARIABLE_NAME,
-                ),
-                ':',
-              ),
-            ),
+            optional(seq(VARIABLE_NAME, ':')),
             choice(VARIABLE_REFERENCE, '?'),
           ),
         ),

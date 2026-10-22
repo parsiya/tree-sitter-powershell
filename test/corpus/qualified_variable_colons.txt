@@ -1,0 +1,840 @@
+==================
+Using provider path in a subexpression
+==================
+
+Write-Output "$($using:env:Example)/tail"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))))
+
+==================
+Multiple provider path components
+==================
+
+$env:One:Two:Three
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Scoped provider-looking name
+==================
+
+$script:env:Example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Unknown provider and three components
+==================
+
+$foo:bar:baz
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Nested using and scope path
+==================
+
+$using:script:env:Example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Mixed-case path is preserved
+==================
+
+$UsInG:EnV:ExAmPlE
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Numeric provider path
+==================
+
+$1:2:3
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Underscore provider path
+==================
+
+$_:_:_
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Question mark inside qualified path
+==================
+
+$a:?:b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Trailing single colon in an already-qualified path
+==================
+
+$a:b:
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Trailing single colon after several components
+==================
+
+$a:b:c:
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
+
+==================
+Static access after a qualified path
+==================
+
+$using:env:Example::Member
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Ordinary static access is not a path
+==================
+
+$value::Member
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+One-colon static access is not a longer path
+==================
+
+$env:Example::Member
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Property after a qualified path
+==================
+
+$using:env:Example.Length
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Index after a qualified path
+==================
+
+$using:env:Example[0]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (variable)
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))))))))))))
+
+==================
+Property after trailing path colon
+==================
+
+$a:b:.Name
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Qualified path assignment
+==================
+
+$result = $using:env:Example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Qualified path command argument
+==================
+
+Write-Output $using:env:Example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Qualified path parameter attachment
+==================
+
+Write-Output -Name:$using:env:Example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Qualified interpolation
+==================
+
+Write-Output "$using:env:Example"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (variable)))))))))))
+
+==================
+Nested qualified interpolation
+==================
+
+Write-Output "head$(Write-Output "$($using:env:Example)/inner")tail"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name)
+                              (command_elements
+                                (command_argument_sep)
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (expandable_string_literal
+                                        (sub_expression
+                                          (statement_list
+                                            (pipeline
+                                              (pipeline_chain
+                                                (logical_expression
+                                                  (bitwise_expression
+                                                    (comparison_expression
+                                                      (additive_expression
+                                                        (multiplicative_expression
+                                                          (format_expression
+                                                            (range_expression
+                                                              (array_literal_expression
+                                                                (unary_expression
+                                                                  (variable))))))))))))))))))))))))))))))))))
+
+==================
+Qualified here-string subexpression
+==================
+
+Write-Output @"
+$($using:env:Example)/tail
+"@
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_here_string_literal
+                    (sub_expression
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))))
+
+==================
+Quoted static delimiter remains string content
+==================
+
+Write-Output "$using:env:Example::Member"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (variable)))))))))))
+
+==================
+Single quotes do not interpolate
+==================
+
+Write-Output '$using:env:Example'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Literal colon command word
+==================
+
+Write-Output a:b:c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Label-like literal colon word
+==================
+
+Write-Output :a:b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (colon_command_argument
+              (generic_token))))))))
+
+==================
+Colon parameter string attachment
+==================
+
+Write-Output -Name:value:tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Braced using path is unchanged
+==================
+
+${using:env:Example}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable
+                            (braced_variable)))))))))))))))
+
+==================
+Braced trailing colon is unchanged
+==================
+
+${a:b:}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable
+                            (braced_variable)))))))))))))))
+
+==================
+Braced double colon is not static access
+==================
+
+${a::b}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable
+                            (braced_variable)))))))))))))))
+
+==================
+Braced punctuation remains in the name
+==================
+
+${a:b:.Name}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable
+                            (braced_variable)))))))))))))))
+
+==================
+Missing using path is invalid
+==================
+
+$using:
+
+---
+
+(program (ERROR (variable)))
+
+==================
+Computed using path is invalid
+==================
+
+$using:($value)
+
+---
+
+(program (ERROR (variable)) (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))))))))
+
+==================
+Missing ordinary provider name is invalid
+==================
+
+$env:
+
+---
+
+(program (ERROR (variable)))
