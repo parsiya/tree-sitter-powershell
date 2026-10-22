@@ -78,6 +78,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/completed-expression-arguments` | Keep immediately adjacent completed expressions, quoted values and their following arguments as separate command arguments, including attached parameter values. Prefixed expandable words remain joined. Combined batch-001: one more agrees and three fewer are rejected; no regressions. | Not yet offered. |
 | `fix/param-block-statement-boundaries` | Accept a function, filter or scriptblock body immediately after `param(...)` without requiring a statement separator. Preserve parameter/default structure and ordinary statement boundaries. Combined batch-001: two more agree; batch-002 remains 795/795, no regressions. | Not yet offered. |
 | `fix/smart-quote-delimiters` | Recognize Native smart single/double quote families, mixed delimiters and here-strings without changing original bytes. Keep empty or blank-only verbatim here-strings from swallowing following commands. Combined batch-001: two more agree and one fewer is rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/absolute-command-paths` | Recognize slash-leading command names and structured invoked paths, preserving quotes, escapes, interpolation, redirection and division controls. Combined batch-001: two more agree and six fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

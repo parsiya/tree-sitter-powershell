@@ -20,7 +20,9 @@ enum TOKEN_TYPE {
     COLON_WORD_CONTINUATION,
     COMPLETED_EXPRESSION_BOUNDARY,
     COMPLETED_MEMBER_BOUNDARY,
-    ERROR_SENTINEL
+    ERROR_SENTINEL,
+    PATH_COMMAND_NAME_CONTINUATION,
+    COMMAND_NAME_ESCAPE
 };
 
 /* --- API --- */
@@ -381,8 +383,41 @@ static bool scan_parameter_argument_start(TSLexer *lexer, const bool *valid_symb
 
 /* --- API Implementation --- */
 
+static bool scan_command_name_escape(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[ERROR_SENTINEL] ||
+        lexer->lookahead != '`') return false;
+    lexer->advance(lexer, false);
+    if (lexer->eof(lexer)) return false;
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMAND_NAME_ESCAPE;
+    return true;
+}
+
+// A path's pieces must touch. In particular, quoted and escaped pieces must
+// not absorb the next argument after an invocation operator.
+static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[PATH_COMMAND_NAME_CONTINUATION] || valid_symbols[ERROR_SENTINEL]) return false;
+    int32_t c = lexer->lookahead;
+    if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') ||
+        (c >= 'A' && c <= 'Z') || c == '_' || c == '?' || c == '-' ||
+        c == '.' || c == '\\' || c == '/' || c == '$' || c == '@' ||
+        c == '"' || c == '\'' || c == '`' || (c >= 0x2018 && c <= 0x201e)) {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = PATH_COMMAND_NAME_CONTINUATION;
+        return true;
+    }
+    return false;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[COMMAND_NAME_ESCAPE] && !valid_symbols[ERROR_SENTINEL] &&
+        lexer->lookahead == '`')
+        return scan_command_name_escape(lexer, valid_symbols);
+    if (scan_path_command_name_continuation(lexer, valid_symbols)) return true;
     if (!valid_symbols[ERROR_SENTINEL]) {
         if (valid_symbols[PARAMETER_ARGUMENT_START]) {
             return scan_parameter_argument_start(lexer, valid_symbols);
