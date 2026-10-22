@@ -281,7 +281,16 @@ export default grammar({
     type_name: ($) =>
       choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),
 
-    array_type_name: ($) => seq($.type_name, '['),
+    array_type_name: ($) =>
+      seq(
+        choice(
+          $.type_name,
+          // Wrap one complete element type so each array keeps its own rank.
+          alias($._array_type_spec, $.type_spec),
+          alias($._generic_type_spec, $.type_spec),
+        ),
+        '[',
+      ),
     generic_type_name: ($) => seq($.type_name, '['),
 
     // Operators and punctuators
@@ -1728,10 +1737,16 @@ export default grammar({
 
     type_spec: ($) =>
       choice(
-        seq($.array_type_name, optional($.dimension), ']'),
-        seq($.generic_type_name, $.generic_type_arguments, ']'),
+        $._array_type_spec,
+        $._generic_type_spec,
         $.type_name,
       ),
+
+    _array_type_spec: ($) =>
+      seq($.array_type_name, optional($.dimension), ']'),
+
+    _generic_type_spec: ($) =>
+      seq($.generic_type_name, $.generic_type_arguments, ']'),
 
     dimension: ($) => repeat1(','),
 

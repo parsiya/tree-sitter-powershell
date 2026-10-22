@@ -1,0 +1,132 @@
+===
+Nested array type: jagged parameter
+===
+
+param([byte[][]]$Bytes)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))) (variable)))))
+
+===
+Nested array type: triple jagged parameter
+===
+
+param([byte[][][]]$Bytes)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))))) (variable)))))
+
+===
+Nested array type: jagged function parameter
+===
+
+function Example { param([byte[][]]$Bytes) $Bytes }
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Nested array type: bracketed jagged generic argument
+===
+
+$Type = [System.Collections.Generic.List[[byte[][]]]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))))))))))))))
+
+===
+Nested array type: nested CLR type vector
+===
+
+$Type = [System.Environment+SpecialFolder[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_name (type_identifier)) (type_identifier))))))))))))))))))))
+
+===
+Nested array type: plain vector control
+===
+
+param([byte[]]$Bytes)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_name (type_identifier))))))) (variable)))))
+
+===
+Nested array type: plain matrix control
+===
+
+param([byte[,]]$Bytes)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))) (variable)))))
+
+===
+Nested array type: spaced array suffix
+===
+
+param([byte[] []]$Bytes)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier))))))))) (variable)))))
+
+===
+Nested array type: value: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]
+===
+
+$Type = [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))))))))))))))))))
+
+===
+Nested array type: cast: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]
+===
+
+$Value = [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$InputValue
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))) (unary_expression (variable)))))))))))))))))))
+
+===
+Nested array type: parameter: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]
+===
+
+function Use-Type {
+param([System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value)
+$Value
+}
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Nested array type: field: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]
+===
+
+class Example { [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_property_definition (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))) (variable)))))
+
+===
+Nested array type: method: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]
+===
+
+class Example { [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]] Use([System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value) { return $Value } }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_method_definition (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))) (simple_name) (class_method_parameter_list (class_method_parameter (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_literal (type_spec (array_type_name (type_name (type_identifier))))) (type_literal (type_spec (array_type_name (type_spec (array_type_name (type_name (type_identifier)))))))))))))) (variable))) (script_block (script_block_body (statement_list (flow_control_statement (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))
