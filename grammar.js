@@ -233,7 +233,7 @@ export default grammar({
 
     expandable_here_string_literal: ($) =>
       seq(
-        /@["\u201C-\u201E] *\r?\n/,
+        /@["\u201C-\u201E] *(\r\n|\n|\r)/,
         choice(
           // An empty here-string closes immediately after its opening newline.
           token.immediate(prec(2, /["\u201C-\u201E]@/)),
@@ -245,13 +245,14 @@ export default grammar({
                 $.variable,
                 $.sub_expression,
                 // Leave the next line's escape or interpolation prefix intact.
-                token.immediate(/\r?\n/),
+                token.immediate(/\r\n|\n|\r/),
                 token.immediate('$'),
-                token.immediate(/`.{1}|`\r?\n/),
+                // Escape CR alone, leaving a following LF eligible to close.
+                token.immediate(/`[^\r\n]|`\r|`\n/),
               ),
             ),
             // Only the final newline belongs to the closing delimiter.
-            token.immediate(prec(1, /\r?\n["\u201C-\u201E]@/)),
+            token.immediate(prec(1, /(\r\n|\n|\r)["\u201C-\u201E]@/)),
           ),
         ),
       ),
