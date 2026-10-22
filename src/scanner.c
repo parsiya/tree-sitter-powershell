@@ -24,7 +24,8 @@ enum TOKEN_TYPE {
     PATH_COMMAND_NAME_CONTINUATION,
     COMMAND_NAME_ESCAPE,
     TRAILING_DOT_TYPE_NAME,
-    COMMAND_NAME_START_ESCAPE
+    COMMAND_NAME_START_ESCAPE,
+    COMMAND_ARRAY_ITEM_START
 };
 
 /* --- API --- */
@@ -42,6 +43,42 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 /* --- Internal Functions --- */
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
+static bool command_array_space(int32_t c)
+{
+    return iswspace(c) || c == 0x85 || c == 0xa0 || c == 0x1680 ||
+           (c >= 0x2000 && c <= 0x200a) || c == 0x2028 || c == 0x2029 ||
+           c == 0x202f || c == 0x205f || c == 0x3000;
+}
+
+// After a command comma, escaped whitespace is trivia, not an array value.
+// Leave comments to the ordinary extras lexer so they stay visible in the CST.
+static bool scan_command_array_item_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[COMMAND_ARRAY_ITEM_START]) return false;
+    for (;;) {
+        if (command_array_space(lexer->lookahead)) {
+            skip(lexer);
+        } else if (lexer->lookahead == '`') {
+            lexer->mark_end(lexer);
+            skip(lexer);
+            if (!command_array_space(lexer->lookahead)) {
+                lexer->result_symbol = COMMAND_ARRAY_ITEM_START;
+                return true;
+            }
+            skip(lexer);
+        } else {
+            lexer->mark_end(lexer);
+            if (lexer->lookahead == '#' || lexer->lookahead == ',') return false;
+            if (lexer->lookahead == '<') {
+                skip(lexer);
+                if (lexer->lookahead == '#') return false;
+            }
+            lexer->result_symbol = COMMAND_ARRAY_ITEM_START;
+            return true;
+        }
+    }
+}
 
 static bool is_quote(int32_t c)
 {
@@ -184,7 +221,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             lexer->advance(lexer, false);
             if (c == '`') {
                 if (!consumed && !part &&
-                    (lexer->lookahead == '\r' || lexer->lookahead == '\n')) return false;
+                    command_array_space(lexer->lookahead)) return false;
                 if (lexer->eof(lexer)) return false;
                 if (lexer->lookahead) lexer->advance(lexer, false);
                 joined = true;
@@ -528,6 +565,8 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !valid_symbols[ERROR_SENTINEL])
+        return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !valid_symbols[ERROR_SENTINEL]) {
         while (command_name_space(lexer->lookahead)) {
             if (valid_symbols[STATEMENT_TERMINATOR] &&

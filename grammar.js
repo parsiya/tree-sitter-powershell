@@ -73,6 +73,7 @@ export default grammar({
     $._command_name_escape,
     $._trailing_dot_type_name,
     $._command_name_start_escape,
+    $._command_array_item_start,
   ],
 
   extras: ($) => [
@@ -475,10 +476,10 @@ export default grammar({
       choice(
         token(
           choice(
-            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|\[`\&:\s\u00a0>0-9*][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*/,
-            /[0-9*]([^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,>][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*)?/,
+            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|\[`,;\&:\s\u00a0>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
+            /[0-9*]([^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,>][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
-            /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\}\|;,]*%[^\&\s\u00a0\(\)\}\|;,]*/,
+            /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\{\}\|;,`]*%[^\&\s\u00a0\(\)\{\}\|;,`]*/,
           ),
         ),
         seq(
@@ -1086,7 +1087,7 @@ export default grammar({
       choice(
         seq(
           choice($._command_word, $.parameter_argument_word),
-          repeat(seq(',', choice($._command_word, $.unary_expression))),
+          repeat($._command_array_tail),
         ),
         seq(
           $.parameter_argument_word,
@@ -1099,7 +1100,8 @@ export default grammar({
           $._argument_after_quote,
         ),
         seq($._completed_command_argument, $._argument_after_quote),
-        $.array_literal_expression,
+        alias($._command_expression_array, $.array_literal_expression),
+        $._command_mixed_array,
       ),
 
     // Dash-leading tokens are strings, not new parameters or unary expressions,
@@ -1149,29 +1151,91 @@ export default grammar({
               seq(
                 $._command_word,
                 // `Select-Object Id, Name`: an unquoted comma list is one array argument
-                repeat(seq(',', choice($._command_word, $.unary_expression))),
+                repeat($._command_array_tail),
               ),
             ),
           ),
-          seq($.command_argument_sep, $.array_literal_expression),
+          seq(
+            $.command_argument_sep,
+            alias($._command_expression_array, $.array_literal_expression),
+          ),
           // `New-Object T "a", $b, word`: a comma list that starts with an
           // expression and has unquoted words. array_literal_expression wins
           // when both match.
           prec.dynamic(
             -1,
-            seq(
-              $.command_argument_sep,
-              $.unary_expression,
-              repeat1(seq(',', choice($._command_word, $.unary_expression))),
-            ),
+            seq($.command_argument_sep, $._command_mixed_array),
           ),
           seq(
             $.colon_command_argument,
-            repeat(seq(',', choice($._command_word, $.unary_expression))),
+            repeat($._command_array_tail),
           ),
           $.parenthesized_expression,
           $.script_block_expression,
         ),
+      ),
+
+    _command_array_tail: ($) =>
+      seq(
+        ',',
+        $._command_array_item_start,
+        choice(
+          $._command_array_word,
+          alias($._command_unary_expression, $.unary_expression),
+        ),
+      ),
+
+    _command_array_word: ($) =>
+      choice($._command_word, alias($.command_parameter, $.generic_token)),
+
+    _command_expression_array: ($) =>
+      prec.left(
+        seq(
+          alias($._command_unary_expression, $.unary_expression),
+          repeat(seq(
+            ',',
+            $._command_array_item_start,
+            alias($._command_unary_expression, $.unary_expression),
+          )),
+        ),
+      ),
+
+    _command_mixed_array: ($) =>
+      seq(
+        alias($._command_unary_expression, $.unary_expression),
+        repeat(seq(
+          ',',
+          $._command_array_item_start,
+          alias($._command_unary_expression, $.unary_expression),
+        )),
+        ',',
+        $._command_array_item_start,
+        $._command_array_word,
+        repeat($._command_array_tail),
+      ),
+
+    _command_unary_expression: ($) =>
+      prec.right(
+        choice(
+          $._primary_expression,
+          alias($._command_unary_operator, $.expression_with_unary_operator),
+        ),
+      ),
+
+    // A command comma requests a value; another comma is not unary array syntax.
+    _command_unary_operator: ($) =>
+      choice(
+        seq(reservedWord('-not'), $.unary_expression),
+        seq('!', $.unary_expression),
+        seq(reservedWord('-bnot'), $.unary_expression),
+        seq('+', $.unary_expression),
+        seq('-', $.unary_expression),
+        $.pre_increment_expression,
+        $.pre_decrement_expression,
+        $.cast_expression,
+        $.attributed_expression,
+        seq(reservedWord('-split'), $.unary_expression),
+        seq(reservedWord('-join'), $.unary_expression),
       ),
 
     // A leading quoted string ends an argument even without following spaces.
@@ -1228,9 +1292,10 @@ export default grammar({
       choice(
         seq(
           $._command_word,
-          repeat(seq(',', choice($._command_word, $.unary_expression))),
+          repeat($._command_array_tail),
         ),
-        $.array_literal_expression,
+        alias($._command_expression_array, $.array_literal_expression),
+        $._command_mixed_array,
         seq($._completed_command_argument, $._argument_after_quote),
         seq(
           $.quoted_command_argument,
@@ -1459,17 +1524,7 @@ export default grammar({
     expression_with_unary_operator: ($) =>
       choice(
         seq(',', $.unary_expression),
-        seq(reservedWord('-not'), $.unary_expression),
-        seq('!', $.unary_expression),
-        seq(reservedWord('-bnot'), $.unary_expression),
-        seq('+', $.unary_expression),
-        seq('-', $.unary_expression),
-        $.pre_increment_expression,
-        $.pre_decrement_expression,
-        $.cast_expression,
-        $.attributed_expression,
-        seq(reservedWord('-split'), $.unary_expression),
-        seq(reservedWord('-join'), $.unary_expression),
+        $._command_unary_operator,
       ),
 
     pre_increment_expression: ($) => seq('++', $.unary_expression),

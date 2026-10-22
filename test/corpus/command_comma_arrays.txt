@@ -1,0 +1,2964 @@
+====================
+Command comma array: words-plain
+====================
+
+Get-Item First, Second, Third
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: words-parameter
+====================
+
+Get-Item First, Second, Third -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: words-redirect
+====================
+
+Get-Item First, Second, Third >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: words-block
+====================
+
+Get-Item First, Second, Third{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: words-blockBody
+====================
+
+Get-Item First, Second, Third{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: variables-plain
+====================
+
+Get-Item $first, $second, $third
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: variables-parameter
+====================
+
+Get-Item $first, $second, $third -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: variables-redirect
+====================
+
+Get-Item $first, $second, $third >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: variables-block
+====================
+
+Get-Item $first, $second, $third{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable)))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: variables-blockBody
+====================
+
+Get-Item $first, $second, $third{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable))
+              (unary_expression
+                (variable)))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: quotes-plain
+====================
+
+Get-Item "First", 'Second', "Third"
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters)))
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: quotes-parameter
+====================
+
+Get-Item "First", 'Second', "Third" -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters)))
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: quotes-redirect
+====================
+
+Get-Item "First", 'Second', "Third" >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters)))
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: quotes-block
+====================
+
+Get-Item "First", 'Second', "Third"{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters)))
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: quotes-blockBody
+====================
+
+Get-Item "First", 'Second', "Third"{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal)))
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters)))
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: numbers-plain
+====================
+
+Get-Item 1, 2, 3
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: numbers-parameter
+====================
+
+Get-Item 1, 2, 3 -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: numbers-redirect
+====================
+
+Get-Item 1, 2, 3 >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: numbers-block
+====================
+
+Get-Item 1, 2, 3{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: numbers-blockBody
+====================
+
+Get-Item 1, 2, 3{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal)))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedWord-plain
+====================
+
+Get-Item First, $second, "Third", 4
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedWord-parameter
+====================
+
+Get-Item First, $second, "Third", 4 -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedWord-redirect
+====================
+
+Get-Item First, $second, "Third", 4 >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedWord-block
+====================
+
+Get-Item First, $second, "Third", 4{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedWord-blockBody
+====================
+
+Get-Item First, $second, "Third", 4{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedExpression-plain
+====================
+
+Get-Item $first, Second, "Third", 4
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedExpression-parameter
+====================
+
+Get-Item $first, Second, "Third", 4 -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedExpression-redirect
+====================
+
+Get-Item $first, Second, "Third", 4 >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedExpression-block
+====================
+
+Get-Item $first, Second, "Third", 4{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedExpression-blockBody
+====================
+
+Get-Item $first, Second, "Third", 4{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (generic_token)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedQuote-plain
+====================
+
+Get-Item "First", Second, $third
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (unary_expression
+              (variable))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedQuote-parameter
+====================
+
+Get-Item "First", Second, $third -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (unary_expression
+              (variable))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedQuote-redirect
+====================
+
+Get-Item "First", Second, $third >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (unary_expression
+              (variable))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedQuote-block
+====================
+
+Get-Item "First", Second, $third{
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (unary_expression
+              (variable))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: mixedQuote-blockBody
+====================
+
+Get-Item "First", Second, $third{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (unary_expression
+              (variable))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: parenthesized-plain
+====================
+
+Get-Item ($first), Second, (1 + 2)
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: parenthesized-parameter
+====================
+
+Get-Item ($first), Second, (1 + 2) -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: parenthesized-redirect
+====================
+
+Get-Item ($first), Second, (1 + 2) >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: parenthesized-block
+====================
+
+Get-Item ($first), Second, (1 + 2){
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: parenthesized-blockBody
+====================
+
+Get-Item ($first), Second, (1 + 2){ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: nested-plain
+====================
+
+Get-Item First, ($second, $third), @(1, 2)
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (unary_expression
+              (array_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: nested-parameter
+====================
+
+Get-Item First, ($second, $third), @(1, 2) -Verbose
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (unary_expression
+              (array_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: nested-redirect
+====================
+
+Get-Item First, ($second, $third), @(1, 2) >out.txt
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (unary_expression
+              (array_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: nested-block
+====================
+
+Get-Item First, ($second, $third), @(1, 2){
+}
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (unary_expression
+              (array_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))
+            (script_block_expression)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: nested-blockBody
+====================
+
+Get-Item First, ($second, $third), @(1, 2){ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (unary_expression
+              (array_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal)))
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-45
+====================
+
+Export-ModuleMember First,Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-46
+====================
+
+Export-ModuleMember First, Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-47
+====================
+
+Export-ModuleMember First , Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-48
+====================
+
+Export-ModuleMember First,
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-50
+====================
+
+Export-ModuleMember First, # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-51
+====================
+
+Export-ModuleMember First,<# boundary #>Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-52
+====================
+
+Export-ModuleMember First,` 
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-53
+====================
+
+Export-ModuleMember First,`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-54
+====================
+
+Export-ModuleMember First, `   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-55
+====================
+
+Export-ModuleMember First,`
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-57
+====================
+
+Export-ModuleMember First `
+, Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: separator-58
+====================
+
+Export-ModuleMember First,
+# first
+# second
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: escaped-comment-First
+====================
+
+Export-ModuleMember First,`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: escaped-comment-$first
+====================
+
+Export-ModuleMember $first,`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (variable))
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: escaped-comment-"First"
+====================
+
+Export-ModuleMember "First",`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: escaped-comment-1
+====================
+
+Export-ModuleMember 1,`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (integer_literal
+                (decimal_integer_literal)))
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: escaped-comment-($first)
+====================
+
+Export-ModuleMember ($first),`   # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (unary_expression
+              (parenthesized_expression
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: invalid-68
+====================
+
+Get-Item ,
+
+---
+
+(ERROR)
+
+====================
+Command comma array: invalid-69
+====================
+
+Get-Item First,
+
+---
+
+(program
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (generic_token)))
+
+====================
+Command comma array: invalid-70
+====================
+
+Get-Item First,,Second
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (ERROR)
+            (generic_token)))))))
+
+====================
+Command comma array: invalid-71
+====================
+
+Get-Item First, ,$second
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (ERROR)
+            (unary_expression
+              (variable))))))))
+
+====================
+Command comma array: invalid-72
+====================
+
+Get-Item First, # boundary
+
+---
+
+(program
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (generic_token)
+    (comment)))
+
+====================
+Command comma array: invalid-73
+====================
+
+Get-Item First, -Verbose
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))))
+
+====================
+Command comma array: invalid-74
+====================
+
+Get-Item First, >out.txt
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (ERROR)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))))
+
+====================
+Command comma array: invalid-75
+====================
+
+Get-Item First,; Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (ERROR
+              (UNEXPECTED 'r'))
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: invalid-76
+====================
+
+Get-Item First,`   # boundary
+
+---
+
+(program
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (generic_token)
+    (comment)))
+
+====================
+Command comma array: invalid-77
+====================
+
+$obj.Method(First,,Second)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (ERROR
+                                (simple_name)
+                                (simple_name)))))))))))))))))
+
+====================
+Command comma array: invalid-78
+====================
+
+$obj.Method(1,)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (integer_literal
+                                                    (decimal_integer_literal))))))))))))
+                              (ERROR))))))))))))))))
+
+====================
+Command comma array: invalid-79
+====================
+
+Get-Item First, Second{
+
+---
+
+(program
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (generic_token)
+    (generic_token)))
+
+====================
+Command comma array: invalid-80
+====================
+
+Get-Item First, Second{ $x = }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (script_block_expression
+              (ERROR
+                (left_assignment_expression
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))
+                (assignement_operator)))))))))
+
+====================
+Command comma array: unicode-prefix
+====================
+
+# café 😀
+Get-Item First, $second, "Third"{ Write-Host inside }
+Write-Host sentinel
+
+---
+
+(program
+  (comment)
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (unary_expression
+              (variable))
+            (unary_expression
+              (string_literal
+                (expandable_string_literal)))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: pipeline-tight-boundary
+====================
+
+Get-Item First, Second|Write-Output
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))
+        (command
+          (command_name))))))
+
+====================
+Command comma array: multi-trivia-99
+====================
+
+Export-ModuleMember First,# first
+`   # second
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: multi-trivia-100
+====================
+
+Export-ModuleMember First,<# first #>`   # second
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: multi-trivia-101
+====================
+
+Export-ModuleMember First,# first
+` 
+`   # second
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: multi-trivia-102
+====================
+
+Export-ModuleMember First,`  # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: multi-trivia-103
+====================
+
+Export-ModuleMember First,`	 # boundary
+Second
+Write-Host sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (comment)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+====================
+Command comma array: invalid-comma-after-comment
+====================
+
+Export-ModuleMember First, # boundary
+, Second
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))
+    (ERROR)
+    (comment))
+  (ERROR
+    (simple_name)))
