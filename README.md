@@ -8,6 +8,8 @@ Opening, closing and doubled quotes may mix within a family, including
 here-string delimiters. U+201F is ordinary text, not a quote delimiter.
 Quoted pieces within a command word remain part of that word; a leading
 quoted argument remains separate from an adjacent argument.
+Here-strings stop at the first closing-delimiter line, including when their
+body is empty or contains only blank lines; subsequent statements stay separate.
 
 ## References
 

@@ -734,45 +734,65 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "@['\\u2018-\\u201B]\\s*\\r?\\n"
+            "value": "@['\\u2018-\\u201B][^\\S\\r\\n]*\\r?\\n"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "PATTERN",
-                "value": "['\\u2018-\\u201B]@"
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "REPEAT",
-                    "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
                       "type": "CHOICE",
                       "members": [
                         {
                           "type": "PATTERN",
-                          "value": "[^\\r\\n]"
+                          "value": "[^'\\u2018-\\u201B\\r\\n][^\\r\\n]*"
                         },
                         {
-                          "type": "PATTERN",
-                          "value": "(\\r?\\n)+[^'\\u2018-\\u201B\\r\\n]"
-                        },
-                        {
-                          "type": "PATTERN",
-                          "value": "\\r?\\n['\\u2018-\\u201B][^@]"
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "PATTERN",
+                              "value": "['\\u2018-\\u201B]"
+                            },
+                            {
+                              "type": "CHOICE",
+                              "members": [
+                                {
+                                  "type": "PATTERN",
+                                  "value": "[^@\\r\\n][^\\r\\n]*"
+                                },
+                                {
+                                  "type": "BLANK"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
+                    },
+                    {
+                      "type": "BLANK"
                     }
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "(\\r?\\n)+['\\u2018-\\u201B]@"
-                  }
-                ]
-              }
-            ]
+                  ]
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "\\r?\\n"
+                }
+              ]
+            }
+          },
+          {
+            "type": "PATTERN",
+            "value": "['\\u2018-\\u201B]"
+          },
+          {
+            "type": "STRING",
+            "value": "@"
           }
         ]
       }
