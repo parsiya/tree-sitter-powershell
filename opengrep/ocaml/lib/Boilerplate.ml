@@ -25,8 +25,8 @@ let map_tok_choice_pat_1bbb0cf (env : env) (tok : CST.tok_choice_pat_1bbb0cf) =
 let map_pat_exit_ (env : env) (tok : CST.pat_exit_) =
   (* pattern [eE][xX][iI][tT][--] *) token env tok
 
-let map_imm_tok_pat_421479c (env : env) (tok : CST.imm_tok_pat_421479c) =
-  (* pattern "[\"\\u201C-\\u201E]" *) token env tok
+let map_imm_tok_pat_3d58547_pat_3d58547 (env : env) (tok : CST.imm_tok_pat_3d58547_pat_3d58547) =
+  (* imm_tok_pat_3d58547_pat_3d58547 *) token env tok
 
 let map_pat_4b2636b (env : env) (tok : CST.pat_4b2636b) =
   (* pattern "[^\\{\\}\\(\\);,\\|\\&`\"'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9][^\\{\\}\\(\\);,\\|\\&`\"'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *) token env tok
@@ -515,11 +515,11 @@ let map_pat__inotcs (env : env) (tok : CST.pat__inotcs) =
 let map_command_token (env : env) (tok : CST.command_token) =
   (* command_token *) token env tok
 
-let map_imm_tok_pat_3d58547_pat_3d58547 (env : env) (tok : CST.imm_tok_pat_3d58547_pat_3d58547) =
-  (* imm_tok_pat_3d58547_pat_3d58547 *) token env tok
+let map_imm_tok_pat_3d58547 (env : env) (tok : CST.imm_tok_pat_3d58547) =
+  (* pattern "['\\u2018-\\u201B]" *) token env tok
 
-let map_imm_tok_pat_509ec78 (env : env) (tok : CST.imm_tok_pat_509ec78) =
-  (* pattern \r?\n *) token env tok
+let map_imm_tok_pat_421479c_pat_421479c (env : env) (tok : CST.imm_tok_pat_421479c_pat_421479c) =
+  (* imm_tok_pat_421479c_pat_421479c *) token env tok
 
 let map_pat_param (env : env) (tok : CST.pat_param) =
   (* pattern [pP][aA][rR][aA][mM] *) token env tok
@@ -644,8 +644,8 @@ let map_pat_proc_ (env : env) (tok : CST.pat_proc_) =
 let map_path_command_name_continuation (env : env) (tok : CST.path_command_name_continuation) =
   (* path_command_name_continuation *) token env tok
 
-let map_imm_tok_pat_421479c_pat_421479c (env : env) (tok : CST.imm_tok_pat_421479c_pat_421479c) =
-  (* imm_tok_pat_421479c_pat_421479c *) token env tok
+let map_imm_tok_pat_421479c (env : env) (tok : CST.imm_tok_pat_421479c) =
+  (* pattern "[\"\\u201C-\\u201E]" *) token env tok
 
 let map_pat__cnotin (env : env) (tok : CST.pat__cnotin) =
   (* pattern [--][cC][nN][oO][tT][iI][nN] *) token env tok
@@ -728,8 +728,8 @@ let map_pat_end (env : env) (tok : CST.pat_end) =
 let map_pat__ilike (env : env) (tok : CST.pat__ilike) =
   (* pattern [--][iI][lL][iI][kK][eE] *) token env tok
 
-let map_imm_tok_pat_3d58547 (env : env) (tok : CST.imm_tok_pat_3d58547) =
-  (* pattern "['\\u2018-\\u201B]" *) token env tok
+let map_imm_tok_pat_2bb0af8 (env : env) (tok : CST.imm_tok_pat_2bb0af8) =
+  (* pattern \r\n|\r|\n *) token env tok
 
 let map_pat__lt (env : env) (tok : CST.pat__lt) =
   (* pattern [--][lL][tT] *) token env tok
@@ -844,16 +844,6 @@ let map_foreach_parameter (env : env) (x : CST.foreach_parameter) =
     )
   )
 
-let map_anon_choice_SEMI_fddb21e (env : env) (x : CST.anon_choice_SEMI_fddb21e) =
-  (match x with
-  | `SEMI tok -> R.Case ("SEMI",
-      (* ";" *) token env tok
-    )
-  | `Imm_tok_pat_509ec78 x -> R.Case ("Imm_tok_pat_509ec78",
-      map_imm_tok_pat_509ec78 env x
-    )
-  )
-
 let map_command_argument_sep (env : env) (x : CST.command_argument_sep) =
   map_pat_6a8c7a7 env x
 
@@ -888,6 +878,16 @@ let map_block_name (env : env) (x : CST.block_name) =
     )
   | `Pat_end x -> R.Case ("Pat_end",
       map_pat_end env x
+    )
+  )
+
+let map_anon_choice_SEMI_5afeefe (env : env) (x : CST.anon_choice_SEMI_5afeefe) =
+  (match x with
+  | `SEMI tok -> R.Case ("SEMI",
+      (* ";" *) token env tok
+    )
+  | `Imm_tok_pat_2bb0af8 x -> R.Case ("Imm_tok_pat_2bb0af8",
+      map_imm_tok_pat_2bb0af8 env x
     )
   )
 
@@ -2932,7 +2932,7 @@ and map_labeled_statement (env : env) (x : CST.labeled_statement) =
             let v2 =
               (match v2 with
               | Some (v1, v2, v3) -> R.Option (Some (
-                  let v1 = map_anon_choice_SEMI_fddb21e env v1 in
+                  let v1 = map_anon_choice_SEMI_5afeefe env v1 in
                   let v2 =
                     (match v2 with
                     | Some (v1, v2) -> R.Option (Some (
@@ -2945,7 +2945,7 @@ and map_labeled_statement (env : env) (x : CST.labeled_statement) =
                   let v3 =
                     (match v3 with
                     | Some (v1, v2) -> R.Option (Some (
-                        let v1 = map_anon_choice_SEMI_fddb21e env v1 in
+                        let v1 = map_anon_choice_SEMI_5afeefe env v1 in
                         let v2 =
                           (match v2 with
                           | Some (v1, v2) -> R.Option (Some (

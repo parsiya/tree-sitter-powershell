@@ -48,6 +48,14 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
+static bool line_end(int32_t c) { return c == '\r' || c == '\n'; }
+
+static void skip_line_end(TSLexer *lexer)
+{
+    if (lexer->lookahead == '\r') skip(lexer);
+    if (lexer->lookahead == '\n') skip(lexer);
+}
+
 static bool command_array_space(int32_t c)
 {
     return iswspace(c) || c == 0x85 || c == 0xa0 || c == 0x1680 ||
@@ -103,7 +111,7 @@ static bool else_follows(TSLexer *lexer)
     for (;;) {
         while (iswspace(lexer->lookahead)) skip(lexer);
         if (lexer->lookahead != '#') break;
-        while (lexer->lookahead != 0 && lexer->lookahead != '\n') skip(lexer);
+        while (lexer->lookahead != 0 && !line_end(lexer->lookahead)) skip(lexer);
     }
 
     const char *keyword = "else";
@@ -365,11 +373,11 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
 {
     bool allow_pipe = true;
     bool allow_else = valid_symbols[ELSE_CLAUSE_AHEAD];
-    skip(lexer); // The newline after the left-hand side.
+    skip_line_end(lexer); // The newline after the left-hand side.
     for (;;) {
-        while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
+        while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
         if (lexer->lookahead == '#') {
-            while (lexer->lookahead && lexer->lookahead != '\n') skip(lexer);
+            while (lexer->lookahead && !line_end(lexer->lookahead)) skip(lexer);
         } else if (lexer->lookahead == '<') {
             allow_else = false;
             skip(lexer);
@@ -394,17 +402,17 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
                 }
             }
             if (depth) return false;
-            while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
-            if (lexer->lookahead != '\n') continue;
-        } else if (lexer->lookahead == '\n') {
+            while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
+            if (!line_end(lexer->lookahead)) continue;
+        } else if (line_end(lexer->lookahead)) {
             allow_pipe = false;
             if (!allow_else) return false;
         } else {
             if (lexer->lookahead == '|') return allow_pipe;
             return allow_else && else_follows(lexer);
         }
-        if (lexer->lookahead != '\n') return false;
-        skip(lexer);
+        if (!line_end(lexer->lookahead)) return false;
+        skip_line_end(lexer);
     }
 }
 
@@ -420,7 +428,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == '}') return true;
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
-            if (lexer->lookahead == '\n') return !statement_continuation_follows(lexer, valid_symbols);
+            if (line_end(lexer->lookahead)) return !statement_continuation_follows(lexer, valid_symbols);
             if (!iswspace(lexer->lookahead)) return false;
             skip(lexer);
         }
@@ -490,9 +498,8 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
         } else if (lexer->lookahead == '`') {
             *skipped_backtick = true;
             skip(lexer);
-            if (lexer->lookahead == '\r') skip(lexer);
-            if (lexer->lookahead != '\n') return false;
-            skip(lexer);
+            if (!line_end(lexer->lookahead)) return false;
+            skip_line_end(lexer);
         } else {
             break;
         }

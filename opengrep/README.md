@@ -90,6 +90,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/qualified-variable-colons` | Retain full multi-colon qualified references and string-context tokens without stealing `::`, member/index access or colon argument boundaries. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/command-parenthesis-pipelines` | Accept full command pipelines in command-argument suffix parentheses while retaining legacy expression-only suffix trees and real method argument rules. Nested constructor subtrees agree with Native; the original file advances to an independent lone-CR here-string issue. Both batches have no regressions. | Not yet offered. |
 | `fix/lone-cr-here-string-content` | Preserve lone CR data, Native header/footer endings and escaped-CR/LF distinctions in expandable here-strings without normalizing bytes or swallowing following commands. Batch-001 has no remaining UTF-8 grammar rejection; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/cr-statement-boundaries` | Recognize lone CR statement/comment/for-header boundaries and escaped comma continuation without changing literal CR data or LF-based source points. Combined batch-001: one structural difference now agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 

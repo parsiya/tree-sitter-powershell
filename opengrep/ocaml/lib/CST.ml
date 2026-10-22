@@ -12,7 +12,7 @@ type tok_choice_pat_1bbb0cf = Token.t
 
 type pat_exit_ = Token.t (* pattern [eE][xX][iI][tT][--] *)
 
-type imm_tok_pat_421479c = Token.t (* pattern "[\"\\u201C-\\u201E]" *)
+type imm_tok_pat_3d58547_pat_3d58547 = Token.t
 
 type pat_4b2636b =
   Token.t (* pattern "[^\\{\\}\\(\\);,\\|\\&`\"'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!0-9][^\\{\\}\\(\\);,\\|\\&`\"'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!]*" *)
@@ -309,9 +309,9 @@ type pat__inotcs =
 
 type command_token = Token.t
 
-type imm_tok_pat_3d58547_pat_3d58547 = Token.t
+type imm_tok_pat_3d58547 = Token.t (* pattern "['\\u2018-\\u201B]" *)
 
-type imm_tok_pat_509ec78 = Token.t (* pattern \r?\n *)
+type imm_tok_pat_421479c_pat_421479c = Token.t
 
 type pat_param = Token.t (* pattern [pP][aA][rR][aA][mM] *)
 
@@ -398,7 +398,7 @@ type pat_proc_ = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS][--] *)
 
 type path_command_name_continuation = Token.t
 
-type imm_tok_pat_421479c_pat_421479c = Token.t
+type imm_tok_pat_421479c = Token.t (* pattern "[\"\\u201C-\\u201E]" *)
 
 type pat__cnotin = Token.t (* pattern [--][cC][nN][oO][tT][iI][nN] *)
 
@@ -457,7 +457,7 @@ type pat_end = Token.t (* pattern [eE][nN][dD] *)
 
 type pat__ilike = Token.t (* pattern [--][iI][lL][iI][kK][eE] *)
 
-type imm_tok_pat_3d58547 = Token.t (* pattern "['\\u2018-\\u201B]" *)
+type imm_tok_pat_2bb0af8 = Token.t (* pattern \r\n|\r|\n *)
 
 type pat__lt = Token.t (* pattern [--][lL][tT] *)
 
@@ -532,11 +532,6 @@ type type_name = [
 
 type foreach_parameter = [ `Pat__para of pat__para ]
 
-type anon_choice_SEMI_fddb21e = [
-    `SEMI of Token.t (* ";" *)
-  | `Imm_tok_pat_509ec78 of imm_tok_pat_509ec78
-]
-
 type command_argument_sep = pat_6a8c7a7
 
 type integer_literal = [
@@ -553,6 +548,11 @@ type block_name = [
   | `Pat_begin of pat_begin
   | `Pat_proc of pat_proc
   | `Pat_end of pat_end
+]
+
+type anon_choice_SEMI_5afeefe = [
+    `SEMI of Token.t (* ";" *)
+  | `Imm_tok_pat_2bb0af8 of imm_tok_pat_2bb0af8
 ]
 
 type anon_choice_pat__and_bad5cfe = [
@@ -1506,10 +1506,10 @@ and labeled_statement = [
       * (
             (for_initializer * statement_terminator (*tok*)) option
           * (
-                anon_choice_SEMI_fddb21e
+                anon_choice_SEMI_5afeefe
               * (for_condition * statement_terminator (*tok*)) option
               * (
-                    anon_choice_SEMI_fddb21e
+                    anon_choice_SEMI_5afeefe
                   * (for_iterator * statement_terminator (*tok*)) option
                 )
                   option
@@ -2084,10 +2084,10 @@ type for_statement (* inlined *) = (
   * (
         (for_initializer * statement_terminator (*tok*)) option
       * (
-            anon_choice_SEMI_fddb21e
+            anon_choice_SEMI_5afeefe
           * (for_condition * statement_terminator (*tok*)) option
           * (
-                anon_choice_SEMI_fddb21e
+                anon_choice_SEMI_5afeefe
               * (for_iterator * statement_terminator (*tok*)) option
             )
               option
