@@ -6,7 +6,8 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    TRAILING_DOT_TYPE_NAME
 };
 
 /* --- API --- */
@@ -82,8 +83,40 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 /* --- API Implementation --- */
 
+static bool type_name_letter(int32_t c)
+{
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+static bool scan_trailing_dot_type_name(TSLexer *lexer)
+{
+    while (iswspace(lexer->lookahead)) skip(lexer);
+    if (!type_name_letter(lexer->lookahead)) return false;
+
+    unsigned dots = 0;
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == '.') {
+            dots++;
+        } else if (type_name_letter(c) || (c >= '0' && c <= '9')) {
+            if (dots > 1) return false;
+            dots = 0;
+        } else {
+            break;
+        }
+        lexer->advance(lexer, false);
+    }
+    // Look past the whole name: matching only "System." would steal the prefix
+    // of an ordinary qualified name such as "System.String".
+    if (!dots) return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = TRAILING_DOT_TYPE_NAME;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

@@ -1,0 +1,904 @@
+===
+Trailing-dot type: classification: System.Security.
+===
+
+$Type = [System.Security.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example.
+===
+
+$Type = [Example.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example..
+===
+
+$Type = [Example..]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example...
+===
+
+$Type = [Example...]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example.Namespace..
+===
+
+$Type = [Example.Namespace..]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: .Example
+:error
+===
+
+$Type = [.Example]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: ..Example
+:error
+===
+
+$Type = [..Example]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: .
+:error
+===
+
+$Type = [.]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: ..
+:error
+===
+
+$Type = [..]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: ...
+:error
+===
+
+$Type = [...]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: .Example.
+:error
+===
+
+$Type = [.Example.]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: .Example.Namespace.
+:error
+===
+
+$Type = [.Example.Namespace.]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: Example .
+:error
+===
+
+$Type = [Example .]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: Example.<space>
+===
+
+$Type = [Example. ]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example . Namespace.
+:error
+===
+
+$Type = [Example . Namespace.]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: Example. .
+:error
+===
+
+$Type = [Example. .]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: Example. .Namespace
+:error
+===
+
+$Type = [Example. .Namespace]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: classification: Example.123.
+===
+
+$Type = [Example.123.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: Example.123
+===
+
+$Type = [Example.123]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_name (type_identifier)) (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: classification: _Example.
+===
+
+$Type = [_Example.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: value: System.Security.
+===
+
+$Type = [System.Security.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: cast: System.Security.
+===
+
+$Value = [System.Security.]$InputValue
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (variable)))))))))))))))))))
+
+===
+Trailing-dot type: parameter: System.Security.
+===
+
+function Use-Type { param([System.Security.]$Value)
+$Value }
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (type_name (type_identifier)))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Trailing-dot type: property: System.Security.
+===
+
+class ExampleClass { [System.Security.]$Value }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_property_definition (type_literal (type_spec (type_name (type_identifier)))) (variable)))))
+
+===
+Trailing-dot type: method: System.Security.
+===
+
+class ExampleClass { [System.Security.] Use([System.Security.]$Value) { return $Value } }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_method_definition (type_literal (type_spec (type_name (type_identifier)))) (simple_name) (class_method_parameter_list (class_method_parameter (type_literal (type_spec (type_name (type_identifier)))) (variable))) (script_block (script_block_body (statement_list (flow_control_statement (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))
+
+===
+Trailing-dot type: array: System.Security.
+===
+
+$Type = [System.Security.[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))
+
+===
+Trailing-dot type: ranked array: System.Security.
+===
+
+$Type = [System.Security.[,,]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))))))))))))))))
+
+===
+Trailing-dot type: generic base: System.Security.
+===
+
+$Type = [System.Security.[int]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: generic argument: System.Security.
+===
+
+$Type = [System.Collections.Generic.List[System.Security.]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: value: Example.
+===
+
+$Type = [Example.]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: cast: Example.
+===
+
+$Value = [Example.]$InputValue
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (variable)))))))))))))))))))
+
+===
+Trailing-dot type: parameter: Example.
+===
+
+function Use-Type { param([Example.]$Value)
+$Value }
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (type_name (type_identifier)))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Trailing-dot type: property: Example.
+===
+
+class ExampleClass { [Example.]$Value }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_property_definition (type_literal (type_spec (type_name (type_identifier)))) (variable)))))
+
+===
+Trailing-dot type: method: Example.
+===
+
+class ExampleClass { [Example.] Use([Example.]$Value) { return $Value } }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_method_definition (type_literal (type_spec (type_name (type_identifier)))) (simple_name) (class_method_parameter_list (class_method_parameter (type_literal (type_spec (type_name (type_identifier)))) (variable))) (script_block (script_block_body (statement_list (flow_control_statement (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))
+
+===
+Trailing-dot type: array: Example.
+===
+
+$Type = [Example.[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))
+
+===
+Trailing-dot type: ranked array: Example.
+===
+
+$Type = [Example.[,,]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))))))))))))))))
+
+===
+Trailing-dot type: generic base: Example.
+===
+
+$Type = [Example.[int]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: generic argument: Example.
+===
+
+$Type = [System.Collections.Generic.List[Example.]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: value: Example..
+===
+
+$Type = [Example..]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: cast: Example..
+===
+
+$Value = [Example..]$InputValue
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (variable)))))))))))))))))))
+
+===
+Trailing-dot type: parameter: Example..
+===
+
+function Use-Type { param([Example..]$Value)
+$Value }
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (type_name (type_identifier)))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Trailing-dot type: property: Example..
+===
+
+class ExampleClass { [Example..]$Value }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_property_definition (type_literal (type_spec (type_name (type_identifier)))) (variable)))))
+
+===
+Trailing-dot type: method: Example..
+===
+
+class ExampleClass { [Example..] Use([Example..]$Value) { return $Value } }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_method_definition (type_literal (type_spec (type_name (type_identifier)))) (simple_name) (class_method_parameter_list (class_method_parameter (type_literal (type_spec (type_name (type_identifier)))) (variable))) (script_block (script_block_body (statement_list (flow_control_statement (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))
+
+===
+Trailing-dot type: array: Example..
+===
+
+$Type = [Example..[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))
+
+===
+Trailing-dot type: ranked array: Example..
+===
+
+$Type = [Example..[,,]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))))))))))))))))
+
+===
+Trailing-dot type: generic base: Example..
+===
+
+$Type = [Example..[int]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: generic argument: Example..
+===
+
+$Type = [System.Collections.Generic.List[Example..]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: value: Example.Namespace...
+===
+
+$Type = [Example.Namespace...]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: cast: Example.Namespace...
+===
+
+$Value = [Example.Namespace...]$InputValue
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (variable)))))))))))))))))))
+
+===
+Trailing-dot type: parameter: Example.Namespace...
+===
+
+function Use-Type { param([Example.Namespace...]$Value)
+$Value }
+
+---
+
+(program (statement_list (function_statement (function_name) (script_block (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (type_name (type_identifier)))))) (variable)))) (script_block_body (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))
+
+===
+Trailing-dot type: property: Example.Namespace...
+===
+
+class ExampleClass { [Example.Namespace...]$Value }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_property_definition (type_literal (type_spec (type_name (type_identifier)))) (variable)))))
+
+===
+Trailing-dot type: method: Example.Namespace...
+===
+
+class ExampleClass { [Example.Namespace...] Use([Example.Namespace...]$Value) { return $Value } }
+
+---
+
+(program (statement_list (class_statement (simple_name) (class_method_definition (type_literal (type_spec (type_name (type_identifier)))) (simple_name) (class_method_parameter_list (class_method_parameter (type_literal (type_spec (type_name (type_identifier)))) (variable))) (script_block (script_block_body (statement_list (flow_control_statement (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))))))))))
+
+===
+Trailing-dot type: array: Example.Namespace...
+===
+
+$Type = [Example.Namespace...[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))
+
+===
+Trailing-dot type: ranked array: Example.Namespace...
+===
+
+$Type = [Example.Namespace...[,,]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))))))))))))))))
+
+===
+Trailing-dot type: generic base: Example.Namespace...
+===
+
+$Type = [Example.Namespace...[int]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: generic argument: Example.Namespace...
+===
+
+$Type = [System.Collections.Generic.List[Example.Namespace...]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: value: 123.
+:error
+===
+
+$Type = [123.]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: cast: 123.
+:error
+===
+
+$Value = [123.]$InputValue
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: parameter: 123.
+:error
+===
+
+function Use-Type { param([123.]$Value)
+$Value }
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: property: 123.
+:error
+===
+
+class ExampleClass { [123.]$Value }
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: method: 123.
+:error
+===
+
+class ExampleClass { [123.] Use([123.]$Value) { return $Value } }
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: array: 123.
+:error
+===
+
+$Type = [123.[]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: ranked array: 123.
+:error
+===
+
+$Type = [123.[,,]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: generic base: 123.
+:error
+===
+
+$Type = [123.[int]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: generic argument: 123.
+:error
+===
+
+$Type = [System.Collections.Generic.List[123.]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: unicode prefix bytes
+===
+
+# π🙂 bytes
+$Type = [Example.Namespace...]
+
+---
+
+(program (comment) (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: plain type
+===
+
+$Type = [System.Int32]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (type_name (type_name (type_identifier)) (type_identifier)))))))))))))))))))
+
+===
+Trailing-dot type: plain array
+===
+
+$Type = [System.Int32[]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_name (type_identifier)) (type_identifier))))))))))))))))))))
+
+===
+Trailing-dot type: plain generic
+===
+
+$Type = [System.Collections.Generic.List[int]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_name (type_name (type_name (type_identifier)) (type_identifier)) (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))))
+
+===
+Trailing-dot type: member
+===
+
+$value.Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (variable) (member_name (simple_name))))))))))))))))
+
+===
+Trailing-dot type: static member
+===
+
+[System.Int32]::MaxValue
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (type_literal (type_spec (type_name (type_name (type_identifier)) (type_identifier)))) (member_name (simple_name))))))))))))))))
+
+===
+Trailing-dot type: member on trailing dot type
+===
+
+[Example.]::Member
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (member_access (type_literal (type_spec (type_name (type_identifier)))) (member_name (simple_name))))))))))))))))
+
+===
+Trailing-dot type: division
+===
+
+$value / 2
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))) (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))
+
+===
+Trailing-dot type: range
+===
+
+$Value = (1)..3
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))))))))))))))))) (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))))
+
+===
+Trailing-dot type: range endpoints
+===
+
+$Value = (1)..(3)
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))))))))))))))))) (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))))))))))))))))
+
+===
+Trailing-dot type: range with types
+===
+
+$Value = [int]1..[int]3
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (integer_literal (decimal_integer_literal)))))))) (array_literal_expression (unary_expression (expression_with_unary_operator (cast_expression (type_literal (type_spec (type_name (type_identifier)))) (unary_expression (integer_literal (decimal_integer_literal))))))))))))))))))))
+
+===
+Trailing-dot type: trailing array argument
+===
+
+$Type = [Example[Other.[]]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (array_type_name (type_name (type_identifier))))))))))))))))))))))
+
+===
+Trailing-dot type: invalid incomplete type
+:error
+===
+
+$Type = [Example.
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: invalid generic suffix
+:error
+===
+
+$Type = [Example.[][int]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: invalid numeric generic argument
+:error
+===
+
+$Type = [Example.[1]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: invalid later numeric generic argument
+:error
+===
+
+$Type = [Example.[int,1]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: numeric generic inherited control
+:error
+===
+
+$Type = [Example[1]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: numeric type inherited control
+:error
+===
+
+$Type = [123]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: rank two trailing array
+===
+
+$Type = [Example.[,]]
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (array_type_name (type_name (type_identifier))) (dimension))))))))))))))))))
+
+===
+Trailing-dot type: invalid generic missing argument
+:error
+===
+
+$Type = [Example.[int,]]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: invalid type followed identifier
+:error
+===
+
+$Type = [Example. Other]
+
+---
+
+(ERROR)
+
+===
+Trailing-dot type: invalid type leading slash
+:error
+===
+
+$Type = [/Example.]
+
+---
+
+(ERROR)

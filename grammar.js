@@ -10,7 +10,11 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._trailing_dot_type_name,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -149,10 +153,23 @@ export default grammar({
     simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     // Type names
-    type_identifier: ($) => /[a-zA-Z0-9_]+/,
+    type_identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     type_name: ($) =>
-      choice($.type_identifier, seq($.type_name, '.', $.type_identifier)),
+      choice(
+        $._type_name,
+        alias($._trailing_dot_type_name, $.type_identifier),
+      ),
+
+    _type_name: ($) =>
+      choice(
+        $.type_identifier,
+        seq(
+          alias($._type_name, $.type_name),
+          '.',
+          alias(/[a-zA-Z0-9_]+/, $.type_identifier),
+        ),
+      ),
 
     array_type_name: ($) => seq($.type_name, '['),
     generic_type_name: ($) => seq($.type_name, '['),

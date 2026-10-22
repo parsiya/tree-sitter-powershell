@@ -725,9 +725,27 @@
     },
     "type_identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9_]+"
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
     "type_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_type_name"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_trailing_dot_type_name"
+          },
+          "named": true,
+          "value": "type_identifier"
+        }
+      ]
+    },
+    "_type_name": {
       "type": "CHOICE",
       "members": [
         {
@@ -738,16 +756,26 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "type_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_type_name"
+              },
+              "named": true,
+              "value": "type_name"
             },
             {
               "type": "STRING",
               "value": "."
             },
             {
-              "type": "SYMBOL",
-              "name": "type_identifier"
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[a-zA-Z0-9_]+"
+              },
+              "named": true,
+              "value": "type_identifier"
             }
           ]
         }
@@ -6586,6 +6614,10 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_trailing_dot_type_name"
     }
   ],
   "inline": [],
