@@ -254,7 +254,7 @@ export default grammar({
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@['\u2018-\u201B][^\S\r\n]*\r?\n/,
+          /@['\u2018-\u201B][ \t\v\f]*\r?\n/,
           // A content line cannot begin with a closing delimiter. In particular,
           // an empty or blank-only body must not consume a later here-string.
           repeat(seq(
