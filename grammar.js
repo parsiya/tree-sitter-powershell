@@ -10,13 +10,21 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes, $._command_name_escape],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_name_escape,
+    $._command_name_start_escape,
+    // Never emitted; disable context-dependent scanning during error recovery.
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
     /\s/,
-    /`[\s\u00a0]/,
+    /`\n/,
     /`\r\n/,
+    /`[ \t\v\f\r\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/,
     /[\uFEFF\u2060\u200B\u00A0]/,
   ],
 
@@ -308,7 +316,7 @@ export default grammar({
     generic_token: ($) =>
       token(choice(
         /[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/,
-        /`[^\s\u00a0][^\&\s\(\)\}\|;,]*/,
+        /`[^\s\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000][^\&\s\(\)\}\|;,]*/,
       )),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
@@ -737,7 +745,7 @@ export default grammar({
       seq(
         choice(
           // At a token boundary escaped whitespace is trivia, not a name.
-          /`[^\s\u00a0]/,
+          $._command_name_start_escape,
           /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here

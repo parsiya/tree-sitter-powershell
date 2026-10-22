@@ -573,15 +573,6 @@ Next-Example value
 (program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
 
 ==================
-Leading command escape: structure "`Write-Output `\n example"
-==================
-`Write-Output `
- example
----
-
-(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
-
-==================
 Leading command escape: structure "`Write-Output` value"
 ==================
 `Write-Output` value
@@ -744,3 +735,265 @@ Write-Output | Write-Output
 ---
 
 (program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep))) (command (command_name))))))
+
+==================
+Leading command escape: Unicode escape `u{41}xample value
+==================
+`u{41}xample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: Unicode escape `u{1f600}xample value
+==================
+`u{1f600}xample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: Unicode escape exa`u{41}mple value
+==================
+exa`u{41}mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: Unicode escape `u{0}xample value
+==================
+`u{0}xample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: Unicode escape `u{10ffff}xample value
+==================
+`u{10ffff}xample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: Unicode escape `u{d800}xample value
+==================
+`u{d800}xample value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: malformed Unicode escape `u{}xample value
+:error
+==================
+`u{}xample value
+---
+
+(ERROR)
+
+==================
+Leading command escape: malformed Unicode escape `u{zz}xample value
+:error
+==================
+`u{zz}xample value
+---
+
+(ERROR)
+
+==================
+Leading command escape: malformed Unicode escape `u{110000}xample value
+:error
+==================
+`u{110000}xample value
+---
+
+(ERROR)
+
+==================
+Leading command escape: malformed Unicode escape `u{0000041}xample value
+:error
+==================
+`u{0000041}xample value
+---
+
+(ERROR)
+
+==================
+Leading command escape: leading escaped whitespace U+85
+==================
+`example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+85
+==================
+`exa`mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+1680
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+1680
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+2000
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+2000
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+2003
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+2003
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+200a
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+200a
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+2028
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+2028
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+2029
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+2029
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+202f
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+202f
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+205f
+==================
+` example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+205f
+==================
+`exa` mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: leading escaped whitespace U+3000
+==================
+`　example value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: interior escaped whitespace U+3000
+==================
+`exa`　mple value
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading command escape: flow boundary "throw\nreturn"
+==================
+throw
+return
+---
+
+(program (statement_list (flow_control_statement) (flow_control_statement)))
+
+==================
+Leading command escape: flow boundary "return\n`Write-Output value"
+==================
+return
+`Write-Output value
+---
+
+(program (statement_list (flow_control_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))

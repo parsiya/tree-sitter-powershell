@@ -11,7 +11,10 @@ escapes and adjacent quoted pieces. Escape decoding is left to consumers:
 `` Wri`te-Output `` contains a tab, not the name `Write-Output`.
 
 At a token boundary, backtick-escaped whitespace is trivia. Inside an already
-started name, it is part of the name; this includes escaped line endings.
+started name, it is part of the name. An attached backtick-LF retains a literal
+LF; an attached backtick-CRLF escapes the CR while the LF still ends the
+statement. Space-separated backtick-LF/CRLF remains continuation trivia.
+Unicode `` `u{...} `` escapes stay together, including their braces.
 
 ## References
 
