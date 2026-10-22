@@ -4362,6 +4362,58 @@
         "type": "CHOICE",
         "members": [
           {
+            "type": "PREC_DYNAMIC",
+            "value": -1,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "command_argument_sep"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "generic_token"
+                    },
+                    {
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "_command_pipeline_prefix_array"
+                      },
+                      "named": true,
+                      "value": "array_literal_expression"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PREC_DYNAMIC",
+                      "value": 3,
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "argument_list"
+                      }
+                    },
+                    {
+                      "type": "PREC_DYNAMIC",
+                      "value": -1,
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "parenthesized_expression"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
             "type": "SEQ",
             "members": [
               {
@@ -4435,6 +4487,70 @@
           }
         ]
       }
+    },
+    "_command_pipeline_prefix_array": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_command_pipeline_prefix_expression"
+            },
+            "named": true,
+            "value": "unary_expression"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_command_pipeline_prefix_expression"
+                  },
+                  "named": true,
+                  "value": "unary_expression"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_command_pipeline_prefix_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "element_access"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "invokation_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "post_increment_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "post_decrement_expression"
+        }
+      ]
     },
     "verbatim_command_argument": {
       "type": "SEQ",
@@ -6575,6 +6691,14 @@
     [
       "path_command_name",
       "_value"
+    ],
+    [
+      "_command_pipeline_prefix_expression",
+      "_primary_expression"
+    ],
+    [
+      "array_literal_expression",
+      "range_argument_expression"
     ]
   ],
   "precedences": [],

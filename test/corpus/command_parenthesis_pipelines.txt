@@ -1,0 +1,1140 @@
+===
+Command parentheses: word followed by a command pipeline
+===
+
+New-Object Example.Type(Get-Item example)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: variable followed by a command pipeline
+===
+
+Write-Output $value(Get-Item example)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: double-quoted prefix
+===
+
+Write-Output "prefix"(Get-Item example)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: single-quoted prefix
+===
+
+Write-Output 'prefix'(Get-Item example)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: nested constructor-shaped commands
+===
+
+$result = New-Object Example.Type(New-Object Example.Inner('sample'))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (generic_token)
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token)
+                          (argument_list
+                            (argument_expression_list
+                              (argument_expression
+                                (logical_argument_expression
+                                  (bitwise_argument_expression
+                                    (comparison_argument_expression
+                                      (additive_argument_expression
+                                        (multiplicative_argument_expression
+                                          (format_argument_expression
+                                            (range_argument_expression
+                                              (unary_expression
+                                                (string_literal
+                                                  (verbatim_string_characters))))))))))))))))))))))))))
+
+===
+Command parentheses: deeply nested constructor-shaped commands
+===
+
+$result = New-Object Example.Type(New-Object Example.Inner(New-Object Example.Leaf('sample')))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (generic_token)
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token)
+                          (parenthesized_expression
+                            (pipeline
+                              (pipeline_chain
+                                (command
+                                  (command_name)
+                                  (command_elements
+                                    (command_argument_sep)
+                                    (generic_token)
+                                    (argument_list
+                                      (argument_expression_list
+                                        (argument_expression
+                                          (logical_argument_expression
+                                            (bitwise_argument_expression
+                                              (comparison_argument_expression
+                                                (additive_argument_expression
+                                                  (multiplicative_argument_expression
+                                                    (format_argument_expression
+                                                      (range_argument_expression
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (verbatim_string_characters)))))))))))))))))))))))))))))))
+
+===
+Command parentheses: nested commands inside a real method
+===
+
+$items.Add((New-Object Example.Type(New-Object Example.Inner('sample'))))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (parenthesized_expression
+                                                    (pipeline
+                                                      (pipeline_chain
+                                                        (command
+                                                          (command_name)
+                                                          (command_elements
+                                                            (command_argument_sep)
+                                                            (generic_token)
+                                                            (parenthesized_expression
+                                                              (pipeline
+                                                                (pipeline_chain
+                                                                  (command
+                                                                    (command_name)
+                                                                    (command_elements
+                                                                      (command_argument_sep)
+                                                                      (generic_token)
+                                                                      (argument_list
+                                                                        (argument_expression_list
+                                                                          (argument_expression
+                                                                            (logical_argument_expression
+                                                                              (bitwise_argument_expression
+                                                                                (comparison_argument_expression
+                                                                                  (additive_argument_expression
+                                                                                    (multiplicative_argument_expression
+                                                                                      (format_argument_expression
+                                                                                        (range_argument_expression
+                                                                                          (unary_expression
+                                                                                            (string_literal
+                                                                                              (verbatim_string_characters))))))))))))))))))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: mixed constructor arguments
+===
+
+$result = New-Object Example.Type(New-Object Example.Inner("alpha", $value))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (generic_token)
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token)
+                          (argument_list
+                            (argument_expression_list
+                              (argument_expression
+                                (logical_argument_expression
+                                  (bitwise_argument_expression
+                                    (comparison_argument_expression
+                                      (additive_argument_expression
+                                        (multiplicative_argument_expression
+                                          (format_argument_expression
+                                            (range_argument_expression
+                                              (unary_expression
+                                                (string_literal
+                                                  (expandable_string_literal)))))))))))
+                              (argument_expression
+                                (logical_argument_expression
+                                  (bitwise_argument_expression
+                                    (comparison_argument_expression
+                                      (additive_argument_expression
+                                        (multiplicative_argument_expression
+                                          (format_argument_expression
+                                            (range_argument_expression
+                                              (unary_expression
+                                                (variable)))))))))))))))))))))))))
+
+===
+Command parentheses: nested expression arrays stay nested
+===
+
+New-Object Example.Type(1, (2, 3))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (parenthesized_expression
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))))))))))))))))))))))))))))))
+
+===
+Command parentheses: array expression arguments stay nested
+===
+
+New-Object Example.Type(@('alpha', 'beta'), @('gamma'))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (array_expression
+                                    (statement_list
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (string_literal
+                                                              (verbatim_string_characters)))
+                                                          (unary_expression
+                                                            (string_literal
+                                                              (verbatim_string_characters))))))))))))))))))))))))
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (array_expression
+                                    (statement_list
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (string_literal
+                                                              (verbatim_string_characters))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: expression-only suffix keeps its argument list
+===
+
+New-Object Example.Type($first, $second)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (variable))))))))))
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (variable))))))))))))))))))
+
+===
+Command parentheses: variable numeric suffix keeps its argument list
+===
+
+Write-Output $value(1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))))
+
+===
+Command parentheses: command pipeline tail
+===
+
+New-Object Example.Type(Get-Item example | Select-Object Name)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token)
+                      (command_argument_sep)))
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: expression pipeline tail
+===
+
+Write-Output $value($value | Write-Output)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable))))))))))
+                  (command
+                    (command_name)))))))))))
+
+===
+Command parentheses: nested parenthesized command
+===
+
+Write-Output Example.Type((Get-Item example))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (parenthesized_expression
+                                    (pipeline
+                                      (pipeline_chain
+                                        (command
+                                          (command_name)
+                                          (command_elements
+                                            (command_argument_sep)
+                                            (generic_token)))))))))))))))))))))))
+
+===
+Command parentheses: invocation operator in pipeline
+===
+
+New-Object Example.Type(& Get-Item example)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_invokation_operator)
+                    (command_name_expr
+                      (path_command_name
+                        (path_command_name_token)))
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: redirection in pipeline
+===
+
+New-Object Example.Type(Get-Item example 2>$null)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token)
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: command parameter in pipeline
+===
+
+New-Object Example.Type(Get-Item example -ErrorAction Stop)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token)
+                      (command_argument_sep)
+                      (command_parameter)
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Command parentheses: real method retains explicit nested parentheses
+===
+
+$result = $value.Method((Get-Item example))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (simple_name))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (parenthesized_expression
+                                                        (pipeline
+                                                          (pipeline_chain
+                                                            (command
+                                                              (command_name)
+                                                              (command_elements
+                                                                (command_argument_sep)
+                                                                (generic_token)))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: real static method in expression context
+===
+
+$result = [Example]::Method((Get-Item example))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (member_name
+                                  (simple_name))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (parenthesized_expression
+                                                        (pipeline
+                                                          (pipeline_chain
+                                                            (command
+                                                              (command_name)
+                                                              (command_elements
+                                                                (command_argument_sep)
+                                                                (generic_token)))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: real method with ordinary expression arguments
+===
+
+$result = $value.Method($first, $second)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (simple_name))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (variable))))))))))
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (variable))))))))))))))))))))))))))))
+
+===
+Command parentheses: real empty method
+===
+
+$result = $value.Method()
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (simple_name))
+                                (argument_list)))))))))))))))))
+
+===
+Command parentheses: computed method in expression context
+===
+
+$result = $value.($member)((Get-Item example))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (parenthesized_expression
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable))))))))))))))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (parenthesized_expression
+                                                        (pipeline
+                                                          (pipeline_chain
+                                                            (command
+                                                              (command_name)
+                                                              (command_elements
+                                                                (command_argument_sep)
+                                                                (generic_token)))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: index receiver in expression context
+===
+
+$result = $values[0].Method((Get-Item example))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (element_access
+                                  (variable)
+                                  (logical_expression
+                                    (bitwise_expression
+                                      (comparison_expression
+                                        (additive_expression
+                                          (multiplicative_expression
+                                            (format_expression
+                                              (range_expression
+                                                (array_literal_expression
+                                                  (unary_expression
+                                                    (integer_literal
+                                                      (decimal_integer_literal))))))))))))
+                                (member_name
+                                  (simple_name))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (parenthesized_expression
+                                                        (pipeline
+                                                          (pipeline_chain
+                                                            (command
+                                                              (command_name)
+                                                              (command_elements
+                                                                (command_argument_sep)
+                                                                (generic_token)))))))))))))))))))))))))))))))))
+
+===
+Command parentheses: argument following command parentheses
+===
+
+Write-Output Example.Type(Get-Item example) tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))
+            (command_argument_sep)
+            (generic_token)))))))

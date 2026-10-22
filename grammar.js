@@ -26,6 +26,8 @@ export default grammar({
     [$.class_method_definition, $.attribute],
     [$.expandable_string_literal],
     [$.path_command_name, $._value],
+    [$._command_pipeline_prefix_expression, $._primary_expression],
+    [$.array_literal_expression, $.range_argument_expression],
   ],
 
   rules: {
@@ -800,6 +802,20 @@ export default grammar({
       prec.right(
         PREC.PARAM,
         choice(
+          // A command suffix can contain a pipeline. Member access is excluded:
+          // a member followed by '(' must still parse as a real method call.
+          prec.dynamic(-1, seq(
+            $.command_argument_sep,
+            choice(
+              $.generic_token,
+              alias($._command_pipeline_prefix_array, $.array_literal_expression),
+            ),
+            choice(
+              // Outrank adjacent-expression alternatives without changing their trees.
+              prec.dynamic(3, $.argument_list),
+              prec.dynamic(-1, $.parenthesized_expression),
+            ),
+          )),
           seq(
             $.command_argument_sep,
             optional(
@@ -814,6 +830,24 @@ export default grammar({
           $.parenthesized_expression,
           $.script_block_expression,
         ),
+      ),
+
+    _command_pipeline_prefix_array: ($) =>
+      prec.left(seq(
+        alias($._command_pipeline_prefix_expression, $.unary_expression),
+        repeat(seq(
+          ',',
+          alias($._command_pipeline_prefix_expression, $.unary_expression),
+        )),
+      )),
+
+    _command_pipeline_prefix_expression: ($) =>
+      choice(
+        $._value,
+        $.element_access,
+        $.invokation_expression,
+        $.post_increment_expression,
+        $.post_decrement_expression,
       ),
 
     verbatim_command_argument: ($) =>
