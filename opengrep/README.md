@@ -80,6 +80,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/smart-quote-delimiters` | Recognize Native smart single/double quote families, mixed delimiters and here-strings without changing original bytes. Keep empty or blank-only verbatim here-strings from swallowing following commands. Combined batch-001: two more agree and one fewer is rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/absolute-command-paths` | Recognize slash-leading command names and structured invoked paths, preserving quotes, escapes, interpolation, redirection and division controls. Combined batch-001: two more agree and six fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/plus-command-arguments` | Treat `+`, `+1` and plus-leading expandable words as command arguments while preserving expression-mode plus operators. Separate following values, including tab-separated tails. Combined batch-001: three more agree and one fewer is rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/nested-array-types` | Accept recursive vector/rectangular array suffixes and arrays of generic types while retaining each rank and element type. Combined batch-001: one more agrees and two fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
