@@ -10,14 +10,21 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._command_array_item_start,
+    $._spaces_before_comma,
+  ],
 
   extras: ($) => [
     $.comment,
     /\s/,
     /`\n/,
     /`\r\n/,
+    /`[ \t\v\f\r\u00a0]/,
     /[\uFEFF\u2060\u200B\u00A0]/,
+    $._spaces_before_comma,
   ],
 
   conflicts: ($) => [
@@ -306,7 +313,10 @@ export default grammar({
 
     // Commands
     generic_token: ($) =>
-      token(/[^\(\)\$\"\'\-\{\}@\|\[`\&\s][^\&\s\(\)\}\|;,]*/),
+      token(seq(
+        /[^\(\)\$\"\'\-\{\}@\|\[`,;\&>\s]/,
+        repeat(choice(/`[^\r\n]/, /[^\&\s\(\)\{\}\|;,`]/)),
+      )),
 
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
@@ -806,14 +816,81 @@ export default grammar({
               seq(
                 $.generic_token,
                 // `Select-Object Id, Name`: an unquoted comma list is one array argument
-                repeat(seq(',', choice($.generic_token, $.unary_expression))),
+                repeat($._command_array_tail),
               ),
             ),
           ),
-          seq($.command_argument_sep, $.array_literal_expression),
+          seq(
+            $.command_argument_sep,
+            alias($._command_expression_array, $.array_literal_expression),
+          ),
+          prec.dynamic(
+            -1,
+            seq(
+              $.command_argument_sep,
+              alias($._command_unary_expression, $.unary_expression),
+              repeat(seq(
+                ',',
+                $._command_array_item_start,
+                alias($._command_unary_expression, $.unary_expression),
+              )),
+              ',',
+              $._command_array_item_start,
+              $._command_array_word,
+              repeat($._command_array_tail),
+            ),
+          ),
           $.parenthesized_expression,
           $.script_block_expression,
         ),
+      ),
+
+    _command_array_tail: ($) =>
+      seq(
+        ',',
+        $._command_array_item_start,
+        choice(
+          $._command_array_word,
+          alias($._command_unary_expression, $.unary_expression),
+        ),
+      ),
+
+    _command_array_word: ($) =>
+      choice($.generic_token, alias($.command_parameter, $.generic_token)),
+
+    _command_expression_array: ($) =>
+      prec.left(
+        seq(
+          alias($._command_unary_expression, $.unary_expression),
+          repeat(seq(
+            ',',
+            $._command_array_item_start,
+            alias($._command_unary_expression, $.unary_expression),
+          )),
+        ),
+      ),
+
+    _command_unary_expression: ($) =>
+      prec.right(
+        choice(
+          $._primary_expression,
+          alias($._command_unary_operator, $.expression_with_unary_operator),
+        ),
+      ),
+
+    // A command comma requests a value; another comma is not unary array syntax.
+    _command_unary_operator: ($) =>
+      choice(
+        seq(reservedWord('-not'), $.unary_expression),
+        seq('!', $.unary_expression),
+        seq(reservedWord('-bnot'), $.unary_expression),
+        seq('+', $.unary_expression),
+        seq('-', $.unary_expression),
+        $.pre_increment_expression,
+        $.pre_decrement_expression,
+        $.cast_expression,
+        seq(reservedWord('-split'), $.unary_expression),
+        seq(reservedWord('-join'), $.unary_expression),
       ),
 
     verbatim_command_argument: ($) =>
@@ -828,7 +905,7 @@ export default grammar({
       ),
 
     redirected_file_name: ($) =>
-      choice($._command_argument, $._primary_expression),
+      choice($._command_argument, $._primary_expression, $.generic_token),
 
     // Class
     class_attribute: ($) =>
@@ -992,16 +1069,7 @@ export default grammar({
     expression_with_unary_operator: ($) =>
       choice(
         seq(',', $.unary_expression),
-        seq(reservedWord('-not'), $.unary_expression),
-        seq('!', $.unary_expression),
-        seq(reservedWord('-bnot'), $.unary_expression),
-        seq('+', $.unary_expression),
-        seq('-', $.unary_expression),
-        $.pre_increment_expression,
-        $.pre_decrement_expression,
-        $.cast_expression,
-        seq(reservedWord('-split'), $.unary_expression),
-        seq(reservedWord('-join'), $.unary_expression),
+        $._command_unary_operator,
       ),
 
     pre_increment_expression: ($) => seq('++', $.unary_expression),
@@ -1043,7 +1111,7 @@ export default grammar({
       seq('@(', field('statements', optional($.statement_list)), ')'),
 
     script_block_expression: ($) =>
-      seq('{', optional($.param_block), $.script_block, '}'),
+      seq('{', optional($.param_block), optional($.script_block), '}'),
 
     hash_literal_expression: ($) =>
       seq('@{', optional($.hash_literal_body), '}'),

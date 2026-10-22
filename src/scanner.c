@@ -6,7 +6,9 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    COMMAND_ARRAY_ITEM_START,
+    SPACES_BEFORE_COMMA
 };
 
 /* --- API --- */
@@ -24,6 +26,66 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 /* --- Internal Functions --- */
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+
+static bool command_array_space(int32_t c)
+{
+    return iswspace(c) || c == 0x85 || c == 0xa0 || c == 0x1680 ||
+           (c >= 0x2000 && c <= 0x200a) || c == 0x2028 || c == 0x2029 ||
+           c == 0x202f || c == 0x205f || c == 0x3000;
+}
+
+static bool scan_spaces_before_comma(TSLexer *lexer, const bool *valid_symbols, bool *skipped_backtick)
+{
+    if (!valid_symbols[SPACES_BEFORE_COMMA]) return false;
+    bool skipped = false;
+    for (;;) {
+        if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            skip(lexer);
+        } else if (lexer->lookahead == '`') {
+            *skipped_backtick = true;
+            skip(lexer);
+            if (lexer->lookahead == '\r') skip(lexer);
+            if (lexer->lookahead != '\n') return false;
+            skip(lexer);
+        } else {
+            break;
+        }
+        skipped = true;
+    }
+    if (!skipped || lexer->lookahead != ',') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = SPACES_BEFORE_COMMA;
+    return true;
+}
+
+// After a command comma, escaped whitespace is trivia, not an array value.
+// Leave comments to the ordinary extras lexer so they stay visible in the CST.
+static bool scan_command_array_item_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[COMMAND_ARRAY_ITEM_START]) return false;
+    for (;;) {
+        if (command_array_space(lexer->lookahead)) {
+            skip(lexer);
+        } else if (lexer->lookahead == '`') {
+            lexer->mark_end(lexer);
+            skip(lexer);
+            if (!command_array_space(lexer->lookahead)) {
+                lexer->result_symbol = COMMAND_ARRAY_ITEM_START;
+                return true;
+            }
+            skip(lexer);
+        } else {
+            lexer->mark_end(lexer);
+            if (lexer->lookahead == '#' || lexer->lookahead == ',') return false;
+            if (lexer->lookahead == '<') {
+                skip(lexer);
+                if (lexer->lookahead == '#') return false;
+            }
+            lexer->result_symbol = COMMAND_ARRAY_ITEM_START;
+            return true;
+        }
+    }
+}
 
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
@@ -86,6 +148,10 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 {
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
+    if (scan_command_array_item_start(lexer, valid_symbols)) return true;
+    bool skipped_backtick = false;
+    if (scan_spaces_before_comma(lexer, valid_symbols, &skipped_backtick)) return true;
+    if (skipped_backtick) return false;
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;
     return scan_statement_terminator(payload, lexer, valid_symbols);
 }

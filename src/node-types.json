@@ -1436,6 +1436,11 @@
     }
   },
   {
+    "type": "generic_token",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "generic_type_arguments",
     "named": true,
     "fields": {},
@@ -2677,7 +2682,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "param_block",
@@ -4005,10 +4010,6 @@
   {
     "type": "function",
     "named": false
-  },
-  {
-    "type": "generic_token",
-    "named": true
   },
   {
     "type": "hexadecimal_integer_literal",
