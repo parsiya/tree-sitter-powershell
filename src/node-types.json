@@ -649,6 +649,10 @@
           "named": true
         },
         {
+          "type": "quoted_command_argument",
+          "named": true
+        },
+        {
           "type": "redirection",
           "named": true
         },
@@ -2470,6 +2474,21 @@
         },
         {
           "type": "statement_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quoted_command_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_literal",
           "named": true
         }
       ]

@@ -17,6 +17,8 @@ export default grammar({
     $._command_word_part,
     $._command_word_expression,
     $._error_sentinel,
+    $._quoted_argument_boundary,
+    $._completed_expression_boundary,
   ],
 
   extras: ($) => [
@@ -801,6 +803,7 @@ export default grammar({
         choice(
           $.command_parameter,
           seq($._command_argument, optional($.argument_list)),
+          $._adjacent_expression_arguments,
           $.redirection,
           $.stop_parsing,
         ),
@@ -833,6 +836,51 @@ export default grammar({
           $.parenthesized_expression,
           $.script_block_expression,
         ),
+      ),
+
+    quoted_command_argument: ($) => $.string_literal,
+
+    _adjacent_expression_arguments: ($) =>
+      prec.right(
+        PREC.PARAM,
+        choice(
+          seq(
+            $.command_argument_sep,
+            $._completed_command_argument,
+            $._argument_after_quote,
+          ),
+          seq(
+            $.command_argument_sep,
+            $.quoted_command_argument,
+            $._quoted_argument_boundary,
+            $._argument_after_quote,
+          ),
+          seq(
+            $.parenthesized_expression,
+            $._completed_expression_boundary,
+            $._argument_after_quote,
+          ),
+        ),
+      ),
+
+    _completed_command_argument: ($) =>
+      alias($._completed_argument_array, $.array_literal_expression),
+
+    _completed_argument_array: ($) =>
+      seq(
+        alias($._completed_argument_value, $.unary_expression),
+        $._completed_expression_boundary,
+      ),
+
+    _completed_argument_value: ($) => $.parenthesized_expression,
+
+    _argument_after_quote: ($) =>
+      choice(
+        seq(
+          $.generic_token,
+          repeat(seq(',', choice($.generic_token, $.unary_expression))),
+        ),
+        $.array_literal_expression,
       ),
 
     verbatim_command_argument: ($) =>

@@ -1,0 +1,337 @@
+==================
+Numeric dash adjacency: preserve a leading double-quoted argument
+==================
+Invoke-Example "head"-4tuln
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: preserve a leading single-quoted argument
+==================
+Invoke-Example 'head'-.thing
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: preserve a leading expandable quoted argument
+==================
+Invoke-Example "$value"-4tuln
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal
+                  (variable))))
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: integer keeps its inherited public shape
+==================
+Invoke-Example "head"-1
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (decimal_integer_literal))))))))))))
+
+==================
+Numeric dash adjacency: fraction keeps its inherited public shape
+==================
+Invoke-Example "head"-.5
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (real_literal)))))))))))
+
+==================
+Numeric dash adjacency: preserve a completed parenthesized argument
+==================
+Invoke-Example ($value)-4tuln
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: integer after a completed parenthesized argument
+==================
+Invoke-Example ($value)-1
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (expression_with_unary_operator
+                  (unary_expression
+                    (integer_literal
+                      (decimal_integer_literal))))))))))))
+
+==================
+Numeric dash adjacency: attached quoted tail stays in the second argument
+==================
+Invoke-Example "head"-4tuln"tail"
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))))))))
+
+==================
+Numeric dash adjacency: attached variable stays in the second argument
+==================
+Invoke-Example "head"-4tuln$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: nested command stays visible in the second argument
+==================
+Invoke-Example "head"-4tuln$(Get-Nested)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Numeric dash adjacency: array tail stays with the second argument
+==================
+Invoke-Example "head"-4tuln,last
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: a failed lookahead preserves an ordinary parameter
+==================
+Invoke-Example "head"-Name value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Numeric dash adjacency: a failed lookahead preserves a double-dash option
+==================
+Invoke-Example "head"--name=value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_parameter)))))))
+
+==================
+Numeric dash adjacency: preserve explicit expression subtraction
+==================
+Invoke-Example ("head"-4)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (string_literal
+                                            (expandable_string_literal))))))))
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))))))))

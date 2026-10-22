@@ -10,7 +10,9 @@ enum TOKEN_TYPE {
     COMMAND_WORD_START,
     COMMAND_WORD_PART,
     COMMAND_WORD_EXPRESSION,
-    ERROR_SENTINEL
+    ERROR_SENTINEL,
+    QUOTED_ARGUMENT_BOUNDARY,
+    COMPLETED_EXPRESSION_BOUNDARY
 };
 
 /* --- API --- */
@@ -88,6 +90,16 @@ static bool command_word_end(int32_t c)
 }
 
 static bool is_quote(int32_t c) { return c == '"' || c == '\''; }
+
+static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+{
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (!digit(lexer->lookahead) && lexer->lookahead != '.') return false;
+    lexer->result_symbol = valid_symbols[QUOTED_ARGUMENT_BOUNDARY] ?
+        QUOTED_ARGUMENT_BOUNDARY : COMPLETED_EXPRESSION_BOUNDARY;
+    return true;
+}
 
 static void scan_variable_name(TSLexer *lexer)
 {
@@ -226,6 +238,11 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    // A failed dash lookahead has advanced, so return directly and let the
+    // lexer rewind before trying an ordinary parameter or subtraction token.
+    if (!valid_symbols[ERROR_SENTINEL] && lexer->lookahead == '-' &&
+        (valid_symbols[QUOTED_ARGUMENT_BOUNDARY] || valid_symbols[COMPLETED_EXPRESSION_BOUNDARY]))
+        return scan_argument_boundary(lexer, valid_symbols);
     if (!valid_symbols[ERROR_SENTINEL] &&
         (valid_symbols[COMMAND_WORD_START] || valid_symbols[COMMAND_WORD_PART] ||
          valid_symbols[COMMAND_WORD_EXPRESSION]) &&

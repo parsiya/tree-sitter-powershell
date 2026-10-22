@@ -4370,6 +4370,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_adjacent_expression_arguments"
+          },
+          {
+            "type": "SYMBOL",
             "name": "redirection"
           },
           {
@@ -4483,6 +4487,148 @@
           }
         ]
       }
+    },
+    "quoted_command_argument": {
+      "type": "SYMBOL",
+      "name": "string_literal"
+    },
+    "_adjacent_expression_arguments": {
+      "type": "PREC_RIGHT",
+      "value": 6,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_argument_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_completed_command_argument"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_argument_after_quote"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_argument_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "quoted_command_argument"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_quoted_argument_boundary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_argument_after_quote"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "parenthesized_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_completed_expression_boundary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_argument_after_quote"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_completed_command_argument": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_completed_argument_array"
+      },
+      "named": true,
+      "value": "array_literal_expression"
+    },
+    "_completed_argument_array": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_completed_argument_value"
+          },
+          "named": true,
+          "value": "unary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_completed_expression_boundary"
+        }
+      ]
+    },
+    "_completed_argument_value": {
+      "type": "SYMBOL",
+      "name": "parenthesized_expression"
+    },
+    "_argument_after_quote": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "generic_token"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "generic_token"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "unary_expression"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "array_literal_expression"
+        }
+      ]
     },
     "verbatim_command_argument": {
       "type": "SEQ",
@@ -6650,6 +6796,14 @@
     {
       "type": "SYMBOL",
       "name": "_error_sentinel"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_quoted_argument_boundary"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_completed_expression_boundary"
     }
   ],
   "inline": [],
