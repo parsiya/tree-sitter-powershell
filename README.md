@@ -29,6 +29,15 @@ including in comma-separated argument lists. In expressions, `%` remains the
 remainder operator; ordinary negative numbers and numeric suffixes retain their
 existing syntax trees.
 
+Completed expressions can end a command argument without whitespace:
+`Write-Output $($left)$($right)""` has three arguments, as does
+`Write-Output "prefix"$item.Version"suffix"`. Members, indexes and method calls
+remain part of their receiver expression. By contrast, `pre$($left)tail` and
+`$left$($right)tail` each remain one expandable word. Adjacency does not extend
+expression mode: `$result = $($left)$($right)` is invalid.
+Synthetic CST regressions and boundary controls are in
+`test/corpus/completed_expression_arguments.txt`.
+
 ## Command parameters
 
 Named command parameters accept Unicode letters in the basic multilingual plane,

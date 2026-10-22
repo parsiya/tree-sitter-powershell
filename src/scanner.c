@@ -18,6 +18,8 @@ enum TOKEN_TYPE {
     PARAMETER_ARGUMENT_SEPARATOR,
     PARAMETER_ARGUMENT_START,
     COLON_WORD_CONTINUATION,
+    COMPLETED_EXPRESSION_BOUNDARY,
+    COMPLETED_MEMBER_BOUNDARY,
     ERROR_SENTINEL
 };
 
@@ -290,25 +292,34 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
     return true;
 }
 
-static bool scan_quoted_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
 {
-    if (!valid_symbols[QUOTED_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL]) return false;
+    if (valid_symbols[ERROR_SENTINEL]) return false;
+    bool quoted = valid_symbols[QUOTED_ARGUMENT_BOUNDARY];
+    bool value = valid_symbols[COMPLETED_EXPRESSION_BOUNDARY];
+    bool member = valid_symbols[COMPLETED_MEMBER_BOUNDARY];
+    if (!quoted && !value && !member) return false;
     int32_t c = lexer->lookahead;
     // Keep expression suffixes, punctuation and elements that already work
     // without spaces on their existing grammar paths.
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
-        c == ',' || c == '>' || c == '<' || c == '(' || c == '{' ||
+        c == ',' || c == '>' || c == '<' ||
         c == '-' || c == '`' || c == '#' || c == 0xfeff ||
         c == 0x2060 || c == 0x200b || c == 0xa0) return false;
+    if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
-    if (c == '*' || (c >= '0' && c <= '9')) {
+    if (c == '?') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
+    } else if (c == '*' || (c >= '0' && c <= '9')) {
         do {
             lexer->advance(lexer, false);
         } while (lexer->lookahead >= '0' && lexer->lookahead <= '9');
         if (lexer->lookahead == '>') return false;
     }
-    lexer->result_symbol = QUOTED_ARGUMENT_BOUNDARY;
+    lexer->result_symbol = quoted ? QUOTED_ARGUMENT_BOUNDARY :
+        value ? COMPLETED_EXPRESSION_BOUNDARY : COMPLETED_MEMBER_BOUNDARY;
     return true;
 }
 
@@ -385,10 +396,17 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             return true;
         }
     }
-    if (scan_quoted_argument_boundary(lexer, valid_symbols)) return true;
-
     // Before anything that skips spaces: the `{` must directly follow.
     if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
+
+    // Suffix/redirection lookahead cannot be rewound before another scanner.
+    if ((valid_symbols[QUOTED_ARGUMENT_BOUNDARY] ||
+         valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
+         valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
+        (lexer->lookahead == '?' || lexer->lookahead == '*' ||
+         (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
+        return scan_argument_boundary(lexer, valid_symbols);
+    if (scan_argument_boundary(lexer, valid_symbols)) return true;
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.

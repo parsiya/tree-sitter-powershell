@@ -61,6 +61,8 @@ export default grammar({
     $._parameter_argument_separator,
     $._parameter_argument_start,
     $._colon_word_continuation,
+    $._completed_expression_boundary,
+    $._completed_member_boundary,
     $._error_sentinel,
   ],
 
@@ -958,6 +960,7 @@ export default grammar({
               $._command_parameter_argument,
             )),
           ),
+          prec.dynamic(1, $._adjacent_expression_arguments),
           seq($._command_argument, optional($.argument_list)),
           seq(
             $.command_argument_sep,
@@ -989,6 +992,12 @@ export default grammar({
           $._quoted_argument_boundary,
           $._argument_after_quote,
         ),
+        seq(
+          $.quoted_command_argument,
+          $._quoted_argument_boundary,
+          $._argument_after_quote,
+        ),
+        seq($._completed_command_argument, $._argument_after_quote),
         $.array_literal_expression,
       ),
 
@@ -1068,6 +1077,52 @@ export default grammar({
     // Keep each adjacent argument visible directly under command_elements.
     quoted_command_argument: ($) => $.string_literal,
 
+    // A bare variable is not complete: $left$($right)tail remains one word.
+    _adjacent_expression_arguments: ($) =>
+      prec.right(
+        PREC.PARAM,
+        choice(
+          seq(
+            $.command_argument_sep,
+            $._completed_command_argument,
+            $._argument_after_quote,
+          ),
+          seq(
+            choice($.parenthesized_expression, $.script_block_expression),
+            $._completed_expression_boundary,
+            $._argument_after_quote,
+          ),
+        ),
+      ),
+
+    _completed_command_argument: ($) =>
+      alias($._completed_argument_array, $.array_literal_expression),
+
+    _completed_argument_array: ($) =>
+      choice(
+        seq(
+          alias($._completed_argument_value, $.unary_expression),
+          $._completed_expression_boundary,
+        ),
+        seq(
+          alias($._completed_argument_member, $.unary_expression),
+          $._completed_member_boundary,
+        ),
+      ),
+
+    _completed_argument_value: ($) =>
+      choice(
+        $.parenthesized_expression,
+        $.sub_expression,
+        $.array_expression,
+        $.script_block_expression,
+        $.hash_literal_expression,
+        $.element_access,
+        $.invokation_expression,
+      ),
+
+    _completed_argument_member: ($) => $.member_access,
+
     _argument_after_quote: ($) =>
       choice(
         seq(
@@ -1075,6 +1130,7 @@ export default grammar({
           repeat(seq(',', choice($._command_word, $.unary_expression))),
         ),
         $.array_literal_expression,
+        seq($._completed_command_argument, $._argument_after_quote),
         seq(
           $.quoted_command_argument,
           $._quoted_argument_boundary,
