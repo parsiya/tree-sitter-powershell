@@ -720,7 +720,7 @@ export default grammar({
             ),
             optional(
               seq(
-                choice(';', token.immediate(/\r?\n/)),
+                choice(';', token.immediate(/\r\n|\r|\n/)),
                 optional(
                   seq(
                     field('for_condition', $.for_condition),
@@ -729,7 +729,7 @@ export default grammar({
                 ),
                 optional(
                   seq(
-                    choice(';', token.immediate(/\r?\n/)),
+                    choice(';', token.immediate(/\r\n|\r|\n/)),
                     optional(
                       seq(
                         field('for_iterator', $.for_iterator),

@@ -3255,7 +3255,7 @@
                               "type": "IMMEDIATE_TOKEN",
                               "content": {
                                 "type": "PATTERN",
-                                "value": "\\r?\\n"
+                                "value": "\\r\\n|\\r|\\n"
                               }
                             }
                           ]
@@ -3302,7 +3302,7 @@
                                       "type": "IMMEDIATE_TOKEN",
                                       "content": {
                                         "type": "PATTERN",
-                                        "value": "\\r?\\n"
+                                        "value": "\\r\\n|\\r|\\n"
                                       }
                                     }
                                   ]
