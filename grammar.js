@@ -443,14 +443,18 @@ export default grammar({
       choice(
         token(
           choice(
-            /[^\(\)\$\"\'\u2018-\u201E\-\{\}@\|\[`\&:\s\u00a0>0-9*][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*/,
+            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|\[`\&:\s\u00a0>0-9*][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*/,
             /[0-9*]([^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,>][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
             /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\}\|;,]*%[^\&\s\u00a0\(\)\}\|;,]*/,
           ),
         ),
         seq(
-          $._command_word_start,
+          // After lexer extras, '+' must still start a word, not unary plus.
+          choice(
+            $._command_word_start,
+            token(prec(1, /\+[^\s\u00a0"'\u2018-\u201E`$(){}|;,&]*/)),
+          ),
           repeat(
             choice(
               $._command_word_part,
@@ -1018,6 +1022,12 @@ export default grammar({
           ),
           prec.dynamic(1, $._adjacent_expression_arguments),
           seq($._command_argument, optional($.argument_list)),
+          seq(
+            $.command_argument_sep,
+            $.generic_token,
+            alias(token.immediate(/[\t\v\f]+/), $.command_argument_sep),
+            $._argument_after_quote,
+          ),
           seq(
             $.command_argument_sep,
             $.quoted_command_argument,

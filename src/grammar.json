@@ -2074,7 +2074,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[^\\(\\)\\$\\\"\\'\\u2018-\\u201E\\-\\{\\}@\\|\\[`\\&:\\s\\u00a0>0-9*][^\"'\\u2018-\\u201E\\&\\s\\u00a0\\(\\)\\}\\|;,]*"
+                "value": "[^\\(\\)\\$\\\"\\'\\u2018-\\u201E\\+\\-\\{\\}@\\|\\[`\\&:\\s\\u00a0>0-9*][^\"'\\u2018-\\u201E\\&\\s\\u00a0\\(\\)\\}\\|;,]*"
               },
               {
                 "type": "PATTERN",
@@ -2091,8 +2091,24 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_command_word_start"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_command_word_start"
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "\\+[^\\s\\u00a0\"'\\u2018-\\u201E`$(){}|;,&]*"
+                    }
+                  }
+                }
+              ]
             },
             {
               "type": "REPEAT",
@@ -5003,6 +5019,35 @@
                     "type": "BLANK"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_argument_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "generic_token"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[\\t\\v\\f]+"
+                  }
+                },
+                "named": true,
+                "value": "command_argument_sep"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_argument_after_quote"
               }
             ]
           },

@@ -1,0 +1,35 @@
+==================
+PLUS combined command arguments: quote then adjacent plus
+==================
+Write-Output "prefix"+$value
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (quoted_command_argument (string_literal (expandable_string_literal))) (generic_token)))))))
+
+==================
+PLUS combined command arguments: plus with quote then star suffix
+==================
+Write-Host "prefix" + "="*12 -ForegroundColor Cyan
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal)))) (command_argument_sep) (generic_token) (command_argument_sep) (quoted_command_argument (string_literal (expandable_string_literal))) (generic_token) (command_argument_sep) (command_parameter) (command_argument_sep) (generic_token)))))))
+
+==================
+PLUS combined command arguments: bare plus method following
+==================
+Write-Output + $value.Method(1)
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep) (array_literal_expression (unary_expression (invokation_expression (variable) (member_name (simple_name)) (argument_list (argument_expression_list (argument_expression (logical_argument_expression (bitwise_argument_expression (comparison_argument_expression (additive_argument_expression (multiplicative_argument_expression (format_argument_expression (range_argument_expression (unary_expression (integer_literal (decimal_integer_literal))))))))))))))))))))))
+
+==================
+PLUS combined command arguments: bare plus colon following
+==================
+Write-Output + :word
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep) (colon_command_argument (generic_token))))))))
