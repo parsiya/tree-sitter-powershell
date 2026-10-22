@@ -204,6 +204,55 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     return true;
 }
 
+// A leading | or || continues the preceding pipeline, but an empty line
+// terminates it. Comment-only lines do not count as empty lines.
+static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool allow_pipe = true;
+    bool allow_else = valid_symbols[ELSE_CLAUSE_AHEAD];
+    skip(lexer); // The newline after the left-hand side.
+    for (;;) {
+        while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
+        if (lexer->lookahead == '#') {
+            while (lexer->lookahead && lexer->lookahead != '\n') skip(lexer);
+        } else if (lexer->lookahead == '<') {
+            allow_else = false;
+            skip(lexer);
+            if (lexer->lookahead != '#') return false;
+            skip(lexer);
+            unsigned depth = 1;
+            while (depth && lexer->lookahead) {
+                if (lexer->lookahead == '<') {
+                    skip(lexer);
+                    if (lexer->lookahead == '#') {
+                        skip(lexer);
+                        depth++;
+                    }
+                } else if (lexer->lookahead == '#') {
+                    skip(lexer);
+                    if (lexer->lookahead == '>') {
+                        skip(lexer);
+                        depth--;
+                    }
+                } else {
+                    skip(lexer);
+                }
+            }
+            if (depth) return false;
+            while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
+            if (lexer->lookahead != '\n') continue;
+        } else if (lexer->lookahead == '\n') {
+            allow_pipe = false;
+            if (!allow_else) return false;
+        } else {
+            if (lexer->lookahead == '|') return allow_pipe;
+            return allow_else && else_follows(lexer);
+        }
+        if (lexer->lookahead != '\n') return false;
+        skip(lexer);
+    }
+}
+
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[STATEMENT_TERMINATOR]) {
@@ -216,9 +265,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == '}') return true;
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
-            if (lexer->lookahead == '\n') {
-                return !(valid_symbols[ELSE_CLAUSE_AHEAD] && else_follows(lexer));
-            }
+            if (lexer->lookahead == '\n') return !statement_continuation_follows(lexer, valid_symbols);
             if (!iswspace(lexer->lookahead)) return false;
             skip(lexer);
         }
