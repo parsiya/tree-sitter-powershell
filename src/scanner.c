@@ -464,11 +464,15 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '-' || c == '`' || c == '#' || c == 0xfeff ||
+        c == '`' || c == '#' || c == 0xfeff ||
         c == 0x2060 || c == 0x200b || c == 0xa0) return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
-    if (c == '?') {
+    if (c == '-') {
+        if (!quoted && !value) return false;
+        lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead) && lexer->lookahead != '.') return false;
+    } else if (c == '?') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
     } else if (c == '*' || (c >= '0' && c <= '9')) {
@@ -665,11 +669,11 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     // Before anything that skips spaces: the `{` must directly follow.
     if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
 
-    // Suffix/redirection lookahead cannot be rewound before another scanner.
+    // Dash/suffix/redirection lookahead cannot be rewound before another scanner.
     if ((valid_symbols[QUOTED_ARGUMENT_BOUNDARY] ||
          valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
-        (lexer->lookahead == '?' || lexer->lookahead == '*' ||
+        (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
     if (scan_argument_boundary(lexer, valid_symbols)) return true;
