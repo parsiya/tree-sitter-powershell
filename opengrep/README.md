@@ -84,6 +84,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/trailing-dot-type-names` | Preserve contiguous ASCII qualified type spellings with trailing dots as complete identifiers, without broadening namespace directives or normalizing to a different type. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/leading-command-escapes` | Accept escaped first command-name characters and preserve literal dollars, punctuation, quote pieces and escape values. Keep boundary whitespace trivia distinct from attached escapes. Combined batch-001: two more agree; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/leading-pipeline-continuation` | Recognize next-line `|` and `||` through nonblank/comment-only lines without consuming source; retain blank-line and semicolon termination. Combined batch-001: two more agree; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/command-comma-array-boundaries` | Preserve post-comma escaped trivia and complete mixed arrays, ending words before adjacent scriptblocks. Restore the original ADSyncTools export list and following commands. Equivalent explicit here-string header whitespace works with both generators. Combined batch-001: two more agree and three fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
