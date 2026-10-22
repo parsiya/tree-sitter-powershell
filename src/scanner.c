@@ -39,6 +39,11 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
+static bool is_quote(int32_t c)
+{
+    return c == '"' || c == '\'' || (c >= 0x2018 && c <= 0x201e);
+}
+
 static bool is_word_char(int32_t c)
 {
     return iswalnum(c) || c == '_' || c == '-';
@@ -110,7 +115,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     bool start = valid_symbols[COMMAND_WORD_START] && !part;
     lexer->mark_end(lexer);
 
-    if (lexer->lookahead == '"' || lexer->lookahead == '\'') {
+    if (is_quote(lexer->lookahead)) {
         if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
         lexer->result_symbol = COMMAND_WORD_EXPRESSION;
         return true;
@@ -149,7 +154,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
                           c == '_' || c == '?')) parameter_name = true;
         if (c == '-') dashes++;
         else only_dashes = false;
-        if (c == '"' || c == '\'') {
+        if (is_quote(c)) {
             joined = quoted = true;
             break;
         }
@@ -390,7 +395,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             return true;
         }
         if (valid_symbols[COLON_WORD_CONTINUATION] &&
-            (lexer->lookahead == '$' || lexer->lookahead == '"' || lexer->lookahead == '\'')) {
+            (lexer->lookahead == '$' || is_quote(lexer->lookahead))) {
             lexer->mark_end(lexer);
             lexer->result_symbol = COLON_WORD_CONTINUATION;
             return true;

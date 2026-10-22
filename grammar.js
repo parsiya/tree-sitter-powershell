@@ -7,12 +7,17 @@ const PREC = {
   PARAM: 6,
 };
 
+// Native quote families allow mixed opening, closing and doubled delimiters.
+// U+201F is deliberately not a double-quote delimiter.
+const SINGLE_QUOTE = /['\u2018-\u201B]/;
+const DOUBLE_QUOTE = /["\u201C-\u201E]/;
+
 // Number suffixes are case-insensitive in PowerShell: 1KB, 1kb and 0X1F.
 const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
 const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
 
 // Characters that cannot appear in the first part of a command name.
-const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
+const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
 // PowerShell tests UTF-16 characters with Char.IsLetterOrDigit, not Unicode
 // identifier rules: combining marks and supplementary-plane letters end a name.
 // Explicit letter ranges also cover tree-sitter 0.22's missing UnicodeData
@@ -196,29 +201,29 @@ export default grammar({
 
     expandable_string_literal: ($) =>
       seq(
-        '"',
+        DOUBLE_QUOTE,
         repeat(
           choice(
             // Comment markers inside strings are text, not extra comments.
-            token.immediate(prec(1, /[^\$\"`]+/)),
+            token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
             $.variable,
             $.sub_expression,
             token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
             token.immediate(/`.{1}|`\r?\n/),
-            token.immediate('""'),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
             token.immediate('$'),
           ),
         ),
         repeat(token.immediate('$')),
-        token.immediate('"'),
+        token.immediate(DOUBLE_QUOTE),
       ),
 
     expandable_here_string_literal: ($) =>
       seq(
-        /@\" *\r?\n/,
+        /@["\u201C-\u201E] *\r?\n/,
         choice(
           // An empty here-string closes immediately after its opening newline.
-          token.immediate(prec(2, '"@')),
+          token.immediate(prec(2, /["\u201C-\u201E]@/)),
           seq(
             repeat(
               choice(
@@ -232,20 +237,25 @@ export default grammar({
               ),
             ),
             // Only the final newline belongs to the closing delimiter.
-            token.immediate(prec(1, /\r?\n\"@/)),
+            token.immediate(prec(1, /\r?\n["\u201C-\u201E]@/)),
           ),
         ),
       ),
 
     verbatim_string_characters: ($) =>
-      token(seq('\'', repeat(choice(/[^']+/, '\'\'')), '\'')),
+      token(seq(SINGLE_QUOTE, repeat(choice(/[^'\u2018-\u201B]+/, seq(SINGLE_QUOTE, SINGLE_QUOTE))), SINGLE_QUOTE)),
 
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@\'\s*\r?\n/,
-          repeat(choice(/[^\r\n]/, /(\r?\n)+[^\'\r\n]/, /\r?\n\'[^@]/)),
-          /(\r?\n)+\'@/,
+          /@['\u2018-\u201B]\s*\r?\n/,
+          choice(
+            /['\u2018-\u201B]@/,
+            seq(
+              repeat(choice(/[^\r\n]/, /(\r?\n)+[^'\u2018-\u201B\r\n]/, /\r?\n['\u2018-\u201B][^@]/)),
+              /(\r?\n)+['\u2018-\u201B]@/,
+            ),
+          ),
         ),
       ),
 
@@ -427,8 +437,8 @@ export default grammar({
       choice(
         token(
           choice(
-            /[^\(\)\$\"\'\-\{\}@\|\[`\&:\s\u00a0>0-9*][^\&\s\u00a0\(\)\}\|;,]*/,
-            /[0-9*]([^\&\s\u00a0\(\)\}\|;,>][^\&\s\u00a0\(\)\}\|;,]*)?/,
+            /[^\(\)\$\"\'\u2018-\u201E\-\{\}@\|\[`\&:\s\u00a0>0-9*][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*/,
+            /[0-9*]([^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,>][^"'\u2018-\u201E\&\s\u00a0\(\)\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
             /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\}\|;,]*%[^\&\s\u00a0\(\)\}\|;,]*/,
           ),
@@ -449,7 +459,7 @@ export default grammar({
 
     // Does not start with `"`, so a quoted switch clause condition such as
     // `"a b" { }` is read as a string and not as the longer word `"a`.
-    _command_token: ($) => token(/[^\(\)\{\}\s\u00a0;\&"][^\(\)\{\}\s\u00a0;\&]*/),
+    _command_token: ($) => token(/[^\(\)\{\}\s\u00a0;\&"'\u2018-\u201E][^\(\)\{\}\s\u00a0;\&]*/),
 
     // Parameters
     command_parameter: ($) =>
@@ -462,9 +472,13 @@ export default grammar({
               'u',
             ),
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
-            new RegExp(
-              String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=([^\s\u00a0"'\x60;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*`,
-              'u',
+            seq(
+              new RegExp(String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
+              repeat(choice(
+                /[^\s\u00a0"'\u2018-\u201E`;|&(){}]/,
+                seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
+                seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
+              )),
             ),
           ),
         ),
@@ -869,22 +883,22 @@ export default grammar({
       seq(
         repeat(
           choice(
-            /[^\$"`]+/,
+            /[^\$"\u201C-\u201E`]+/,
             $.variable,
             /\$`(.{1}|`\r?\n)/,
             /`.{1}|`\r?\n/,
-            '""',
+            seq(DOUBLE_QUOTE, DOUBLE_QUOTE),
             $.sub_expression,
           ),
         ),
         repeat('$'),
-        '"',
+        DOUBLE_QUOTE,
       ),
 
     _string_literal_immediate: ($) =>
       seq(
-        /[^']+/,
-        '\'',
+        /[^'\u2018-\u201B]+/,
+        SINGLE_QUOTE,
       ),
 
     command_name: ($) =>
@@ -927,11 +941,11 @@ export default grammar({
         ),
         repeat(
           choice(
-            token.immediate(/[^\{\}\(\);,\|\&"'\s\u00a0\r\n]+/),
-            seq(token.immediate('"'), $._expandable_string_literal_immediate),
-            seq(token.immediate('\''), $._string_literal_immediate),
-            token.immediate('""'),
-            token.immediate('\'\''),
+            token.immediate(/[^\{\}\(\);,\|\&"'\u2018-\u201E\s\u00a0\r\n]+/),
+            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
           ),
         ),
       ),
@@ -1007,7 +1021,7 @@ export default grammar({
     // Dash-leading tokens are strings, not new parameters or unary expressions,
     // when a parameter colon has requested a value.
     parameter_argument_word: ($) => token.immediate(prec(1, new RegExp(
-      String.raw`-+(?:${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*:?|-[0-9.][^\s\u00a0"'\x60$(){}|;,&]*|-`,
+      String.raw`-+(?:${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*:?|-[0-9.][^\s\u00a0"'\u2018-\u201E\x60$(){}|;,&]*|-`,
       'u',
     ))),
 
@@ -1034,7 +1048,7 @@ export default grammar({
 
     colon_word_text: ($) =>
       choice(
-        token.immediate(prec(1, /[^\s\u00a0"'`$();|&,{}]+/)),
+        token.immediate(prec(1, /[^\s\u00a0"'\u2018-\u201E`$();|&,{}]+/)),
         // CLI 0.22 misreads the union of \s and \S inside a character class.
         token.immediate(/`[^\r\n]|`[\r\n]/),
       ),
