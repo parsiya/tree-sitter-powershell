@@ -1,0 +1,1140 @@
+==================
+Leading pipeline: leading pipe command
+==================
+Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe expression
+==================
+(Get-Item example)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe comma array
+==================
+(Get-Item first),
+(Get-Item second)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))) (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe assignment
+==================
+$result = Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading pipeline: leading pipe with comment
+==================
+Write-Output first
+# boundary
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe after blank line
+:error
+==================
+Write-Output first
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: leading pipe after block comment
+==================
+Write-Output first
+<# boundary #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe CRLF
+==================
+Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe in scriptblock
+==================
+& { Write-Output first
+| Select-Object Name }
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_invokation_operator) (command_name_expr (script_block_expression (script_block (script_block_body (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))
+
+==================
+Leading pipeline: trailing pipe control
+==================
+Write-Output first |
+Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: separate statements control
+==================
+Write-Output first
+Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: semicolon before pipe invalid
+:error
+==================
+Write-Output first;
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe without left command invalid
+:error
+==================
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: leading double pipe classification
+==================
+Write-Output first
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading double ampersand classification
+:error
+==================
+Write-Output first
+&& Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: quoted pipe control
+==================
+Write-Output "first
+| second"
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal))))))))))
+
+==================
+Leading pipeline: indented pipe
+==================
+Write-Output first
+  | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: repeated pipe
+==================
+Write-Output first
+| Select-Object Name
+| Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading chain after pipe
+==================
+Write-Output first
+| Select-Object Name
+|| Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: trailing chain
+==================
+Write-Output first ||
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: trailing and chain
+==================
+Write-Output first &&
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: single-line pipe
+==================
+Write-Output first | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: single-line or chain
+==================
+Write-Output first || Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: quoted pipe argument
+==================
+Write-Output 'first|second'
+| Select-Object "naïve"
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (verbatim_string_characters)))))) (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal))))))))))
+
+==================
+Leading pipeline: unicode prefix spans
+==================
+# café 🦊
+Write-Output "naïve"
+| Select-Object Name
+
+---
+
+(program (comment) (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal)))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: comment then or chain
+==================
+Write-Output first
+# comment
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (comment) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block comment then or chain
+==================
+Write-Output first
+<# comment #>
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (comment) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: multiple comment lines
+==================
+Write-Output first
+# one
+# two
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: multiline block comment
+==================
+Write-Output first
+<# one
+
+two #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: inline block comment
+==================
+Write-Output first <# one #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block comment before pipe
+==================
+Write-Output first
+<# one #> | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: two block comments
+==================
+Write-Output first
+<# one #> <# two #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block and line comment
+==================
+Write-Output first
+<# one #> # two
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: expression lhs
+==================
+$value
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: numeric array lhs
+==================
+1, 2
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))) (unary_expression (integer_literal (decimal_integer_literal))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: array expression lhs
+==================
+@(Write-Output first)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (array_expression (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: return pipeline
+==================
+return Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (flow_control_statement (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))
+
+==================
+Leading pipeline: assignment or chain
+==================
+$value = Write-Output first
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading pipeline: parenthesized or chain
+==================
+(Write-Output first)
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: independent statement after pipeline
+==================
+Write-Output first
+| Select-Object Name
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: semicolon after pipeline
+==================
+Write-Output first
+| Select-Object Name; Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (empty_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: inline separator trivia control
+==================
+Write-Output first <# one #> | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep (comment)))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: wide separator trivia control
+==================
+Write-Output first   | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: pipe after whitespace blank
+:error
+==================
+Write-Output first
+ 	
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after comment and blank
+:error
+==================
+Write-Output first
+# one
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after blank and comment
+:error
+==================
+Write-Output first
+
+# one
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after block and blank
+:error
+==================
+Write-Output first
+<# one #>
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain after blank
+:error
+==================
+Write-Output first
+
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain after semicolon
+:error
+==================
+Write-Output first;
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain without lhs
+:error
+==================
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: and chain after comment
+:error
+==================
+Write-Output first
+# one
+&& Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: missing rhs
+:error
+==================
+Write-Output first
+|
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: missing or rhs
+:error
+==================
+Write-Output first
+||
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: no pipeline after break
+:error
+==================
+break
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: leading pipe command CRLF
+==================
+Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe expression CRLF
+==================
+(Get-Item example)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe comma array CRLF
+==================
+(Get-Item first),
+(Get-Item second)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))) (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe assignment CRLF
+==================
+$result = Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading pipeline: leading pipe with comment CRLF
+==================
+Write-Output first
+# boundary
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe after blank line CRLF
+:error
+==================
+Write-Output first
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: leading pipe after block comment CRLF
+==================
+Write-Output first
+<# boundary #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading pipe in scriptblock CRLF
+==================
+& { Write-Output first
+| Select-Object Name }
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_invokation_operator) (command_name_expr (script_block_expression (script_block (script_block_body (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))
+
+==================
+Leading pipeline: trailing pipe control CRLF
+==================
+Write-Output first |
+Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: separate statements control CRLF
+==================
+Write-Output first
+Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: semicolon before pipe invalid CRLF
+:error
+==================
+Write-Output first;
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe without left command invalid CRLF
+:error
+==================
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: leading double pipe classification CRLF
+==================
+Write-Output first
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading double ampersand classification CRLF
+:error
+==================
+Write-Output first
+&& Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: quoted pipe control CRLF
+==================
+Write-Output "first
+| second"
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal))))))))))
+
+==================
+Leading pipeline: indented pipe CRLF
+==================
+Write-Output first
+  | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: repeated pipe CRLF
+==================
+Write-Output first
+| Select-Object Name
+| Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: leading chain after pipe CRLF
+==================
+Write-Output first
+| Select-Object Name
+|| Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: trailing chain CRLF
+==================
+Write-Output first ||
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: trailing and chain CRLF
+==================
+Write-Output first &&
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: single-line pipe CRLF
+==================
+Write-Output first | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: single-line or chain CRLF
+==================
+Write-Output first || Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: quoted pipe argument CRLF
+==================
+Write-Output 'first|second'
+| Select-Object "naïve"
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (verbatim_string_characters)))))) (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal))))))))))
+
+==================
+Leading pipeline: unicode prefix spans CRLF
+==================
+# café 🦊
+Write-Output "naïve"
+| Select-Object Name
+
+---
+
+(program (comment) (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (array_literal_expression (unary_expression (string_literal (expandable_string_literal)))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: comment then or chain CRLF
+==================
+Write-Output first
+# comment
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (comment) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block comment then or chain CRLF
+==================
+Write-Output first
+<# comment #>
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (comment) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: multiple comment lines CRLF
+==================
+Write-Output first
+# one
+# two
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: multiline block comment CRLF
+==================
+Write-Output first
+<# one
+
+two #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: inline block comment CRLF
+==================
+Write-Output first <# one #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block comment before pipe CRLF
+==================
+Write-Output first
+<# one #> | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: two block comments CRLF
+==================
+Write-Output first
+<# one #> <# two #>
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: block and line comment CRLF
+==================
+Write-Output first
+<# one #> # two
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (comment) (command_argument_sep))) (comment) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: expression lhs CRLF
+==================
+$value
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: numeric array lhs CRLF
+==================
+1, 2
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))) (unary_expression (integer_literal (decimal_integer_literal))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: array expression lhs CRLF
+==================
+@(Write-Output first)
+| Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (array_expression (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: return pipeline CRLF
+==================
+return Write-Output first
+| Select-Object Name
+
+---
+
+(program (statement_list (flow_control_statement (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))))))
+
+==================
+Leading pipeline: assignment or chain CRLF
+==================
+$value = Write-Output first
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (assignment_expression (left_assignment_expression (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))) (assignement_operator) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))
+
+==================
+Leading pipeline: parenthesized or chain CRLF
+==================
+(Write-Output first)
+|| Write-Output second
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (parenthesized_expression (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))))))))))) (pipeline_chain_tail) (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: independent statement after pipeline CRLF
+==================
+Write-Output first
+| Select-Object Name
+Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: semicolon after pipeline CRLF
+==================
+Write-Output first
+| Select-Object Name; Write-Output last
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token))) (command (command_name) (command_elements (command_argument_sep) (generic_token))))) (empty_statement) (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: inline separator trivia control CRLF
+==================
+Write-Output first <# one #> | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep (comment)))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: wide separator trivia control CRLF
+==================
+Write-Output first   | Select-Object Name
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name) (command_elements (command_argument_sep) (generic_token)))))))
+
+==================
+Leading pipeline: pipe after whitespace blank CRLF
+:error
+==================
+Write-Output first
+ 	
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after comment and blank CRLF
+:error
+==================
+Write-Output first
+# one
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after blank and comment CRLF
+:error
+==================
+Write-Output first
+
+# one
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: pipe after block and blank CRLF
+:error
+==================
+Write-Output first
+<# one #>
+
+| Select-Object Name
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain after blank CRLF
+:error
+==================
+Write-Output first
+
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain after semicolon CRLF
+:error
+==================
+Write-Output first;
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: or chain without lhs CRLF
+:error
+==================
+|| Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: and chain after comment CRLF
+:error
+==================
+Write-Output first
+# one
+&& Write-Output second
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: missing rhs CRLF
+:error
+==================
+Write-Output first
+|
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: missing or rhs CRLF
+:error
+==================
+Write-Output first
+||
+
+---
+
+(ERROR)
+
+==================
+Leading pipeline: no pipeline after break CRLF
+:error
+==================
+break
+| Select-Object Name
+
+---
+
+(ERROR)
+

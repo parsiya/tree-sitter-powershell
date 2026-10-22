@@ -25,6 +25,48 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
+// A leading | or || continues the preceding pipeline, but an empty line
+// terminates it. Comment-only lines do not count as empty lines.
+static bool leading_pipe_follows(TSLexer *lexer)
+{
+    skip(lexer); // The newline after the left-hand side.
+    for (;;) {
+        while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
+        if (lexer->lookahead == '#') {
+            while (lexer->lookahead && lexer->lookahead != '\n') skip(lexer);
+        } else if (lexer->lookahead == '<') {
+            skip(lexer);
+            if (lexer->lookahead != '#') return false;
+            skip(lexer);
+            unsigned depth = 1;
+            while (depth && lexer->lookahead) {
+                if (lexer->lookahead == '<') {
+                    skip(lexer);
+                    if (lexer->lookahead == '#') {
+                        skip(lexer);
+                        depth++;
+                    }
+                } else if (lexer->lookahead == '#') {
+                    skip(lexer);
+                    if (lexer->lookahead == '>') {
+                        skip(lexer);
+                        depth--;
+                    }
+                } else {
+                    skip(lexer);
+                }
+            }
+            if (depth) return false;
+            while (lexer->lookahead != '\n' && iswspace(lexer->lookahead)) skip(lexer);
+            if (lexer->lookahead != '\n') continue;
+        } else {
+            return lexer->lookahead == '|';
+        }
+        if (lexer->lookahead != '\n') return false;
+        skip(lexer);
+    }
+}
+
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[STATEMENT_TERMINATOR]) {
@@ -37,7 +79,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == '}') return true;
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
-            if (lexer->lookahead == '\n') return true;
+            if (lexer->lookahead == '\n') return !leading_pipe_follows(lexer);
             if (!iswspace(lexer->lookahead)) return false;
             skip(lexer);
         }
