@@ -146,6 +146,59 @@ static void scan_variable_name(TSLexer *lexer)
     }
 }
 
+static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
+
+// Preserve the inherited numeric CST for a complete negative number. In command
+// mode consumers must interpret that existing shape as a word, not negation.
+static bool scan_number_prefix(TSLexer *lexer)
+{
+    bool hex = false;
+    bool real = false;
+    bool digits = false;
+    if (lexer->lookahead == '0') {
+        lexer->advance(lexer, false);
+        digits = true;
+        if (towlower(lexer->lookahead) == 'x') {
+            lexer->advance(lexer, false);
+            hex = true;
+            digits = false;
+        }
+    }
+    while (digit(lexer->lookahead) ||
+           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+        lexer->advance(lexer, false);
+        digits = true;
+    }
+    if (!hex && lexer->lookahead == '.') {
+        real = true;
+        lexer->advance(lexer, false);
+        digits = false;
+        while (digit(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            digits = true;
+        }
+    }
+    if (!digits) return false;
+    if (!hex && towlower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead)) return false;
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+    } else if (!real && (towlower(lexer->lookahead) == 'l' ||
+                        (!hex && towlower(lexer->lookahead) == 'd'))) {
+        lexer->advance(lexer, false);
+    }
+    int32_t c = towlower(lexer->lookahead);
+    if (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p') {
+        lexer->advance(lexer, false);
+        if (towlower(lexer->lookahead) != 'b') return false;
+        lexer->advance(lexer, false);
+    }
+    return true;
+}
+
 // Only start a word when it is not a standalone expression. Once an unquoted
 // word has begun, adjacent quotes and $() belong to it. Leave those expressions
 // in the tree so that nested commands remain visible to syntax consumers.
@@ -183,6 +236,18 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
 
     unsigned dashes = 0;
     bool only_dashes = true;
+    if (parameter) {
+        lexer->advance(lexer, false);
+        consumed = true;
+        dashes = 1;
+        if (digit(lexer->lookahead) || lexer->lookahead == '.') {
+            parameter = false;
+            joined = true;
+            only_dashes = false;
+            if (scan_number_prefix(lexer) && command_word_end(lexer->lookahead)) return false;
+        }
+        lexer->mark_end(lexer);
+    }
     for (;;) {
         int32_t c = lexer->lookahead;
         if (command_word_end(c)) break;
@@ -399,11 +464,15 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '-' || c == '`' || c == '#' || c == 0xfeff ||
+        c == '`' || c == '#' || c == 0xfeff ||
         c == 0x2060 || c == 0x200b || c == 0xa0) return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
-    if (c == '?') {
+    if (c == '-') {
+        if (!quoted && !value) return false;
+        lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead) && lexer->lookahead != '.') return false;
+    } else if (c == '?') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
     } else if (c == '*' || (c >= '0' && c <= '9')) {
@@ -600,11 +669,11 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     // Before anything that skips spaces: the `{` must directly follow.
     if (scan_script_block_argument_start(payload, lexer, valid_symbols)) return true;
 
-    // Suffix/redirection lookahead cannot be rewound before another scanner.
+    // Dash/suffix/redirection lookahead cannot be rewound before another scanner.
     if ((valid_symbols[QUOTED_ARGUMENT_BOUNDARY] ||
          valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
-        (lexer->lookahead == '?' || lexer->lookahead == '*' ||
+        (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
     if (scan_argument_boundary(lexer, valid_symbols)) return true;
