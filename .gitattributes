@@ -1,5 +1,8 @@
 * text eol=lf
 
+# Preserve the embedded CRLF regression sources.
+test/corpus/sequential_here_strings.txt -text
+
 src/*.json linguist-generated
 src/parser.c linguist-generated
 src/tree_sitter/* linguist-generated

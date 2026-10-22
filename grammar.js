@@ -248,14 +248,18 @@ export default grammar({
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@['\u2018-\u201B]\s*\r?\n/,
-          choice(
-            /['\u2018-\u201B]@/,
-            seq(
-              repeat(choice(/[^\r\n]/, /(\r?\n)+[^'\u2018-\u201B\r\n]/, /\r?\n['\u2018-\u201B][^@]/)),
-              /(\r?\n)+['\u2018-\u201B]@/,
-            ),
-          ),
+          /@['\u2018-\u201B][^\S\r\n]*\r?\n/,
+          // A content line cannot begin with a closing delimiter. In particular,
+          // an empty or blank-only body must not consume a later here-string.
+          repeat(seq(
+            optional(choice(
+              /[^'\u2018-\u201B\r\n][^\r\n]*/,
+              seq(SINGLE_QUOTE, optional(/[^@\r\n][^\r\n]*/)),
+            )),
+            /\r?\n/,
+          )),
+          SINGLE_QUOTE,
+          '@',
         ),
       ),
 
