@@ -1,0 +1,1601 @@
+==================
+Absolute paths: absolute executable
+==================
+/opt/tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: absolute executable assignment
+==================
+$result = /opt/tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (generic_token)))))))))
+
+==================
+Absolute paths: absolute executable parenthesized
+==================
+$result = (/opt/tools/example status)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (parenthesized_expression
+                                (pipeline
+                                  (pipeline_chain
+                                    (command
+                                      (command_name)
+                                      (command_elements
+                                        (command_argument_sep)
+                                        (generic_token)))))))))))))))))))))
+
+==================
+Absolute paths: absolute executable in hashtable
+==================
+$result = @{ Value = /opt/tools/example status }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (hash_literal_expression
+                                (hash_literal_body
+                                  (hash_entry
+                                    (key_expression
+                                      (simple_name))
+                                    (pipeline
+                                      (pipeline_chain
+                                        (command
+                                          (command_name)
+                                          (command_elements
+                                            (command_argument_sep)
+                                            (generic_token)))))))))))))))))))))))
+
+==================
+Absolute paths: absolute executable in cast hashtable
+==================
+[Example]@{ Value = /opt/tools/example status }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (hash_literal_expression
+                                  (hash_literal_body
+                                    (hash_entry
+                                      (key_expression
+                                        (simple_name))
+                                      (pipeline
+                                        (pipeline_chain
+                                          (command
+                                            (command_name)
+                                            (command_elements
+                                              (command_argument_sep)
+                                              (generic_token))))))))))))))))))))))))
+
+==================
+Absolute paths: absolute executable pipeline
+==================
+/opt/tools/example status | Select-Object Name
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: absolute executable after pipe
+==================
+Get-Item example | /opt/tools/example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Absolute paths: root command
+==================
+/ example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: double slash command is not comment
+==================
+if ($true) { // example }
+
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)
+                (command_elements
+                  (command_argument_sep)
+                  (generic_token))))))))))
+
+==================
+Absolute paths: triple slash command
+==================
+/// example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash followed by quoted segment
+==================
+/opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: backtick escaped slash path space
+==================
+/opt/two` words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation absolute path
+==================
+. /opt/tools/example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token))))))))
+
+==================
+Absolute paths: call invocation absolute path
+==================
+& /opt/tools/example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token))))))))
+
+==================
+Absolute paths: relative executable control
+==================
+./tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: parent executable control
+==================
+../tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: division expression control
+==================
+$result = 8 / 2
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Absolute paths: division variable control
+==================
+$result = $left / $right
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Absolute paths: compound division control
+==================
+$result /= 2
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Absolute paths: division precedence control
+==================
+$result = 2 + 8 / 2
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Absolute paths: absolute-looking command argument
+==================
+Write-Output /opt/tools/example
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash argument control
+==================
+Write-Output /
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: single quoted segment
+==================
+/opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped quote
+==================
+/opt/two`"words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped single quote
+==================
+/opt/two`'words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped semicolon
+==================
+/opt/two`;words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped pipe
+==================
+/opt/two`|words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped closing brace
+==================
+/opt/two`}words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped backtick
+==================
+/opt/two``words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped slash
+==================
+/opt/`/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: utf8 command path
+==================
+/opt/'é space'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation quoted path
+==================
+. /opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: call invocation quoted path
+==================
+& /opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation path arguments
+==================
+. /opt/tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: call invocation path arguments
+==================
+& /opt/tools/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation escaped path
+==================
+. /opt/two` words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: call invocation escaped path
+==================
+& /opt/two` words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation variable path
+==================
+. /opt/$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: call invocation variable path
+==================
+& /opt/$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: dot invocation quoted variable path
+==================
+. /opt/"$name words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: call invocation quoted variable path
+==================
+& /opt/"$name words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: escaped line continuation path
+==================
+/opt/two`
+words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: root dot invocation
+==================
+. /
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (command_name)))))))
+
+==================
+Absolute paths: root call invocation
+==================
+& /
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (command_name)))))))
+
+==================
+Absolute paths: adjacent greater-than command text
+==================
+/opt/tools/example>/dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Absolute paths: adjacent root greater-than command text
+==================
+/>/dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Absolute paths: adjacent relative greater-than command text
+==================
+./tools/example>/dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Absolute paths: variable redirection target
+==================
+/opt/tools/example > $null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))))))))
+
+==================
+Absolute paths: spaced path redirection target
+==================
+/opt/tools/example > /dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (generic_token)))))))))
+
+==================
+Absolute paths: quoted redirection target
+==================
+/opt/tools/example > "/dev/null"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (string_literal
+                      (expandable_string_literal))))))))))))
+
+==================
+Absolute paths: double slash pipeline
+==================
+// | ///
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Absolute paths: slash in subexpression
+==================
+$value = $(/opt/tools/example status)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)
+                                        (command_elements
+                                          (command_argument_sep)
+                                          (generic_token))))))))))))))))))))))
+
+==================
+Absolute paths: slash in array expression
+==================
+$value = @(/opt/tools/example status)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (array_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)
+                                        (command_elements
+                                          (command_argument_sep)
+                                          (generic_token))))))))))))))))))))))
+
+==================
+Absolute paths: slash in condition
+==================
+if (/opt/tools/example status) { Write-Output yes }
+
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (command
+            (command_name)
+            (command_elements
+              (command_argument_sep)
+              (generic_token)))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)
+                (command_elements
+                  (command_argument_sep)
+                  (generic_token))))))))))
+
+==================
+Absolute paths: simple cast hashtable control
+==================
+[Example]@{ Value = 1 }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (cast_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (unary_expression
+                                (hash_literal_expression
+                                  (hash_literal_body
+                                    (hash_entry
+                                      (key_expression
+                                        (simple_name))
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal))))))))))))))))))))))))))))))))
+
+==================
+Absolute paths: adjacent numeric division
+==================
+$value = 8/2
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal)))))))))))))))))
+
+==================
+Absolute paths: adjacent variable division
+==================
+$value = $left/$right
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Absolute paths: nested division
+==================
+Write-Output (8 / 2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (integer_literal
+                                            (decimal_integer_literal)))))))
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (integer_literal
+                                          (decimal_integer_literal))))))))))))))))))))))
+
+==================
+Absolute paths: array division
+==================
+$value = @(8 / 2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (array_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))))))
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal))))))))))))))))))))))))))))))
+
+==================
+Absolute paths: cast division
+==================
+$value = [double](8/2)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (expression_with_unary_operator
+                                (cast_expression
+                                  (type_literal
+                                    (type_spec
+                                      (type_name
+                                        (type_identifier))))
+                                  (unary_expression
+                                    (parenthesized_expression
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (multiplicative_expression
+                                                      (format_expression
+                                                        (range_expression
+                                                          (array_literal_expression
+                                                            (unary_expression
+                                                              (integer_literal
+                                                                (decimal_integer_literal)))))))
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal))))))))))))))))))))))))))))))))
+
+==================
+Absolute paths: indexed division
+==================
+$value = $items[8/2]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (element_access
+                                (variable)
+                                (logical_expression
+                                  (bitwise_expression
+                                    (comparison_expression
+                                      (additive_expression
+                                        (multiplicative_expression
+                                          (multiplicative_expression
+                                            (format_expression
+                                              (range_expression
+                                                (array_literal_expression
+                                                  (unary_expression
+                                                    (integer_literal
+                                                      (decimal_integer_literal)))))))
+                                          (format_expression
+                                            (range_expression
+                                              (array_literal_expression
+                                                (unary_expression
+                                                  (integer_literal
+                                                    (decimal_integer_literal)))))))))))))))))))))))))))

@@ -10,7 +10,13 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._path_command_name_continuation,
+    $._command_name_escape,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -730,7 +736,26 @@ export default grammar({
         '\'',
       ),
 
-    command_name: ($) =>
+    // A slash starts a command only where a command name is expected. Keep
+    // relative slash prefixes together so `./tool` is not dot invocation.
+    _slash_command_name: ($) =>
+      seq(
+        choice('/', /\.{1,2}\//),
+        repeat(
+          choice(
+            token.immediate(/[^\{\}\(\);,\|\&`"'\s\r\n]+/),
+            $._command_name_escape,
+            seq(token.immediate('"'), $._expandable_string_literal_immediate),
+            seq(token.immediate('\''), $._string_literal_immediate),
+            token.immediate('""'),
+            token.immediate('\'\''),
+          ),
+        ),
+      ),
+
+    command_name: ($) => choice($._slash_command_name, $._ordinary_command_name),
+
+    _ordinary_command_name: ($) =>
       seq(
         choice(
           /[^\{\}\(\);,\|\&`"'\s\r\n\[\]\+\-\*\/\$@<\!]+/,
@@ -766,11 +791,25 @@ export default grammar({
         ),
       ),
 
-    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\]+/,
+    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,
 
     // Use to parse command path
     path_command_name: ($) =>
-      repeat1(choice($.path_command_name_token, $.variable)),
+      seq(
+        choice($.path_command_name_token, $.variable),
+        repeat(seq(
+          $._path_command_name_continuation,
+          choice(
+            $.path_command_name_token,
+            $.variable,
+            seq(token.immediate('"'), $._expandable_string_literal_immediate),
+            seq(token.immediate('\''), $._string_literal_immediate),
+            token.immediate('""'),
+            token.immediate('\'\''),
+            $._command_name_escape,
+          ),
+        )),
+      ),
 
     command_name_expr: ($) =>
       choice($.command_name, $.path_command_name, $._primary_expression),
