@@ -82,6 +82,7 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/plus-command-arguments` | Treat `+`, `+1` and plus-leading expandable words as command arguments while preserving expression-mode plus operators. Separate following values, including tab-separated tails. Combined batch-001: three more agree and one fewer is rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/nested-array-types` | Accept recursive vector/rectangular array suffixes and arrays of generic types while retaining each rank and element type. Combined batch-001: one more agrees and two fewer are rejected; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/trailing-dot-type-names` | Preserve contiguous ASCII qualified type spellings with trailing dots as complete identifiers, without broadening namespace directives or normalizing to a different type. Combined batch-001: one more agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `fix/leading-command-escapes` | Accept escaped first command-name characters and preserve literal dollars, punctuation, quote pieces and escape values. Keep boundary whitespace trivia distinct from attached escapes. Combined batch-001: two more agree; batch-002 stays 795/795, no regressions. | Not yet offered. |
 
 Opengrep-only addition in `grammar.cjs`:
 
