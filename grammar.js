@@ -69,6 +69,8 @@ export default grammar({
     $._completed_expression_boundary,
     $._completed_member_boundary,
     $._error_sentinel,
+    $._path_command_name_continuation,
+    $._command_name_escape,
   ],
 
   extras: ($) => [
@@ -905,7 +907,26 @@ export default grammar({
         SINGLE_QUOTE,
       ),
 
-    command_name: ($) =>
+    // A slash starts a command only where a command name is expected. Keep
+    // relative slash prefixes together so `./tool` is not dot invocation.
+    _slash_command_name: ($) =>
+      seq(
+        choice('/', /\.{1,2}\//),
+        repeat(
+          choice(
+            token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n]+/),
+            $._command_name_escape,
+            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
+          ),
+        ),
+      ),
+
+    command_name: ($) => choice($._slash_command_name, $._ordinary_command_name),
+
+    _ordinary_command_name: ($) =>
       seq(
         choice(
           new RegExp(`[^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*`),
@@ -958,7 +979,21 @@ export default grammar({
 
     // Use to parse command path
     path_command_name: ($) =>
-      repeat1(choice($.path_command_name_token, $.variable)),
+      seq(
+        choice($.path_command_name_token, $.variable),
+        repeat(seq(
+          $._path_command_name_continuation,
+          choice(
+            $.path_command_name_token,
+            $.variable,
+            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
+            $._command_name_escape,
+          ),
+        )),
+      ),
 
     command_name_expr: ($) =>
       choice($.command_name, $.path_command_name, $._primary_expression),

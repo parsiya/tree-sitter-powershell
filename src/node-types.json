@@ -2426,6 +2426,10 @@
           "named": true
         },
         {
+          "type": "sub_expression",
+          "named": true
+        },
+        {
           "type": "variable",
           "named": true
         }

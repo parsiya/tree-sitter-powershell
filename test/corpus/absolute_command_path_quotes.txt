@@ -1,0 +1,3287 @@
+==================
+Absolute paths: slash path "/opt/" single delimiter 0-0
+==================
+/opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 0-0
+==================
+./opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 0-0
+==================
+. /opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 0-0
+==================
+& /opt/'two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 0-1
+==================
+/opt/'two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 0-1
+==================
+./opt/'two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 0-1
+==================
+. /opt/'two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 0-1
+==================
+& /opt/'two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 0-2
+==================
+/opt/'two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 0-2
+==================
+./opt/'two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 0-2
+==================
+. /opt/'two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 0-2
+==================
+& /opt/'two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 0-3
+==================
+/opt/'two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 0-3
+==================
+./opt/'two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 0-3
+==================
+. /opt/'two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 0-3
+==================
+& /opt/'two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 0-4
+==================
+/opt/'two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 0-4
+==================
+./opt/'two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 0-4
+==================
+. /opt/'two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 0-4
+==================
+& /opt/'two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 1-0
+==================
+/opt/‘two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 1-0
+==================
+./opt/‘two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 1-0
+==================
+. /opt/‘two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 1-0
+==================
+& /opt/‘two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 1-1
+==================
+/opt/‘two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 1-1
+==================
+./opt/‘two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 1-1
+==================
+. /opt/‘two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 1-1
+==================
+& /opt/‘two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 1-2
+==================
+/opt/‘two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 1-2
+==================
+./opt/‘two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 1-2
+==================
+. /opt/‘two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 1-2
+==================
+& /opt/‘two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 1-3
+==================
+/opt/‘two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 1-3
+==================
+./opt/‘two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 1-3
+==================
+. /opt/‘two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 1-3
+==================
+& /opt/‘two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 1-4
+==================
+/opt/‘two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 1-4
+==================
+./opt/‘two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 1-4
+==================
+. /opt/‘two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 1-4
+==================
+& /opt/‘two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 2-0
+==================
+/opt/’two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 2-0
+==================
+./opt/’two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 2-0
+==================
+. /opt/’two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 2-0
+==================
+& /opt/’two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 2-1
+==================
+/opt/’two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 2-1
+==================
+./opt/’two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 2-1
+==================
+. /opt/’two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 2-1
+==================
+& /opt/’two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 2-2
+==================
+/opt/’two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 2-2
+==================
+./opt/’two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 2-2
+==================
+. /opt/’two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 2-2
+==================
+& /opt/’two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 2-3
+==================
+/opt/’two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 2-3
+==================
+./opt/’two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 2-3
+==================
+. /opt/’two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 2-3
+==================
+& /opt/’two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 2-4
+==================
+/opt/’two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 2-4
+==================
+./opt/’two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 2-4
+==================
+. /opt/’two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 2-4
+==================
+& /opt/’two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 3-0
+==================
+/opt/‚two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 3-0
+==================
+./opt/‚two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 3-0
+==================
+. /opt/‚two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 3-0
+==================
+& /opt/‚two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 3-1
+==================
+/opt/‚two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 3-1
+==================
+./opt/‚two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 3-1
+==================
+. /opt/‚two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 3-1
+==================
+& /opt/‚two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 3-2
+==================
+/opt/‚two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 3-2
+==================
+./opt/‚two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 3-2
+==================
+. /opt/‚two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 3-2
+==================
+& /opt/‚two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 3-3
+==================
+/opt/‚two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 3-3
+==================
+./opt/‚two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 3-3
+==================
+. /opt/‚two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 3-3
+==================
+& /opt/‚two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 3-4
+==================
+/opt/‚two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 3-4
+==================
+./opt/‚two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 3-4
+==================
+. /opt/‚two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 3-4
+==================
+& /opt/‚two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 4-0
+==================
+/opt/‛two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 4-0
+==================
+./opt/‛two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 4-0
+==================
+. /opt/‛two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 4-0
+==================
+& /opt/‛two words'/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 4-1
+==================
+/opt/‛two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 4-1
+==================
+./opt/‛two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 4-1
+==================
+. /opt/‛two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 4-1
+==================
+& /opt/‛two words‘/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 4-2
+==================
+/opt/‛two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 4-2
+==================
+./opt/‛two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 4-2
+==================
+. /opt/‛two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 4-2
+==================
+& /opt/‛two words’/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 4-3
+==================
+/opt/‛two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 4-3
+==================
+./opt/‛two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 4-3
+==================
+. /opt/‛two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 4-3
+==================
+& /opt/‛two words‚/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" single delimiter 4-4
+==================
+/opt/‛two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" single delimiter 4-4
+==================
+./opt/‛two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" single delimiter 4-4
+==================
+. /opt/‛two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" single delimiter 4-4
+==================
+& /opt/‛two words‛/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 0-0
+==================
+/opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 0-0
+==================
+./opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 0-0
+==================
+. /opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 0-0
+==================
+& /opt/"two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 0-1
+==================
+/opt/"two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 0-1
+==================
+./opt/"two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 0-1
+==================
+. /opt/"two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 0-1
+==================
+& /opt/"two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 0-2
+==================
+/opt/"two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 0-2
+==================
+./opt/"two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 0-2
+==================
+. /opt/"two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 0-2
+==================
+& /opt/"two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 0-3
+==================
+/opt/"two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 0-3
+==================
+./opt/"two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 0-3
+==================
+. /opt/"two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 0-3
+==================
+& /opt/"two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 1-0
+==================
+/opt/“two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 1-0
+==================
+./opt/“two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 1-0
+==================
+. /opt/“two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 1-0
+==================
+& /opt/“two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 1-1
+==================
+/opt/“two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 1-1
+==================
+./opt/“two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 1-1
+==================
+. /opt/“two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 1-1
+==================
+& /opt/“two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 1-2
+==================
+/opt/“two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 1-2
+==================
+./opt/“two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 1-2
+==================
+. /opt/“two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 1-2
+==================
+& /opt/“two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 1-3
+==================
+/opt/“two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 1-3
+==================
+./opt/“two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 1-3
+==================
+. /opt/“two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 1-3
+==================
+& /opt/“two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 2-0
+==================
+/opt/”two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 2-0
+==================
+./opt/”two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 2-0
+==================
+. /opt/”two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 2-0
+==================
+& /opt/”two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 2-1
+==================
+/opt/”two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 2-1
+==================
+./opt/”two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 2-1
+==================
+. /opt/”two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 2-1
+==================
+& /opt/”two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 2-2
+==================
+/opt/”two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 2-2
+==================
+./opt/”two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 2-2
+==================
+. /opt/”two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 2-2
+==================
+& /opt/”two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 2-3
+==================
+/opt/”two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 2-3
+==================
+./opt/”two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 2-3
+==================
+. /opt/”two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 2-3
+==================
+& /opt/”two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 3-0
+==================
+/opt/„two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 3-0
+==================
+./opt/„two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 3-0
+==================
+. /opt/„two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 3-0
+==================
+& /opt/„two words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 3-1
+==================
+/opt/„two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 3-1
+==================
+./opt/„two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 3-1
+==================
+. /opt/„two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 3-1
+==================
+& /opt/„two words“/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 3-2
+==================
+/opt/„two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 3-2
+==================
+./opt/„two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 3-2
+==================
+. /opt/„two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 3-2
+==================
+& /opt/„two words”/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "/opt/" double delimiter 3-3
+==================
+/opt/„two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "./opt/" double delimiter 3-3
+==================
+./opt/„two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path ". /opt/" double delimiter 3-3
+==================
+. /opt/„two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: slash path "& /opt/" double delimiter 3-3
+==================
+& /opt/„two words„/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion . /opt/$name/example
+==================
+. /opt/$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion . /opt/"$name words"/example
+==================
+. /opt/"$name words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion . /opt/two` words/example
+==================
+. /opt/two` words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion . /opt/`$name/example
+==================
+. /opt/`$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion & /opt/$name/example
+==================
+& /opt/$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion & /opt/"$name words"/example
+==================
+& /opt/"$name words"/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion & /opt/two` words/example
+==================
+& /opt/two` words/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Absolute paths: invoked path existing expansion & /opt/`$name/example
+==================
+& /opt/`$name/example status
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (path_command_name_token)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))

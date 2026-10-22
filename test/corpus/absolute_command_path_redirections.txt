@@ -1,0 +1,41 @@
+==================
+Absolute paths: absolute executable with redirection
+==================
+/opt/tools/example status 2>/dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))))
+
+==================
+Absolute paths: attached error redirection
+==================
+/opt/tools/example 2>/dev/null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (redirection
+              (file_redirection_operator)
+              (redirected_file_name
+                (generic_token)))))))))
