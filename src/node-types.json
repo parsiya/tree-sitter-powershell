@@ -645,6 +645,10 @@
           "named": true
         },
         {
+          "type": "parameter_dot_literal",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -2159,6 +2163,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "parameter_dot_literal",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "parameter_list",

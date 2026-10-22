@@ -4296,8 +4296,95 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "command_parameter"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "command_parameter"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_parameter_dot_boundary"
+                          },
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SEQ",
+                                "members": [
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "generic_token"
+                                  },
+                                  {
+                                    "type": "REPEAT",
+                                    "content": {
+                                      "type": "SEQ",
+                                      "members": [
+                                        {
+                                          "type": "STRING",
+                                          "value": ","
+                                        },
+                                        {
+                                          "type": "CHOICE",
+                                          "members": [
+                                            {
+                                              "type": "SYMBOL",
+                                              "name": "generic_token"
+                                            },
+                                            {
+                                              "type": "SYMBOL",
+                                              "name": "unary_expression"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "array_literal_expression"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_parameter_dot_literal_boundary"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "parameter_dot_literal"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "array_literal_expression"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
           },
           {
             "type": "SEQ",
@@ -4329,6 +4416,13 @@
             "name": "stop_parsing"
           }
         ]
+      }
+    },
+    "parameter_dot_literal": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "."
       }
     },
     "stop_parsing": {
@@ -6586,6 +6680,18 @@
     {
       "type": "SYMBOL",
       "name": "_bare_dashes"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_parameter_dot_boundary"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_parameter_dot_literal_boundary"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [],

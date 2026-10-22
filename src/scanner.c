@@ -6,7 +6,10 @@
 
 enum TOKEN_TYPE {
     STATEMENT_TERMINATOR,
-    BARE_DASHES
+    BARE_DASHES,
+    PARAMETER_DOT_BOUNDARY,
+    PARAMETER_DOT_LITERAL_BOUNDARY,
+    ERROR_SENTINEL
 };
 
 /* --- API --- */
@@ -84,6 +87,17 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    // A dot ends a parameter name and starts a command word, not a member.
+    if (!valid_symbols[ERROR_SENTINEL] &&
+        (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
+         valid_symbols[PARAMETER_DOT_LITERAL_BOUNDARY]) && lexer->lookahead == '.') {
+        lexer->mark_end(lexer);
+        lexer->advance(lexer, false);
+        bool literal = lexer->lookahead == '$' || lexer->lookahead == '"' ||
+                       lexer->lookahead == '\'';
+        lexer->result_symbol = literal ? PARAMETER_DOT_LITERAL_BOUNDARY : PARAMETER_DOT_BOUNDARY;
+        return valid_symbols[lexer->result_symbol];
+    }
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
     if (scan_bare_dashes(payload, lexer, valid_symbols)) return true;

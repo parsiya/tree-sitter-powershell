@@ -10,7 +10,13 @@ const PREC = {
 export default grammar({
   name: 'powershell',
 
-  externals: ($) => [$._statement_terminator, $._bare_dashes],
+  externals: ($) => [
+    $._statement_terminator,
+    $._bare_dashes,
+    $._parameter_dot_boundary,
+    $._parameter_dot_literal_boundary,
+    $._error_sentinel,
+  ],
 
   extras: ($) => [
     $.comment,
@@ -780,12 +786,34 @@ export default grammar({
     _command_element: ($) =>
       prec.right(
         choice(
-          $.command_parameter,
+          seq(
+            $.command_parameter,
+            optional(choice(
+              seq(
+                $._parameter_dot_boundary,
+                choice(
+                  seq(
+                    $.generic_token,
+                    repeat(seq(',', choice($.generic_token, $.unary_expression))),
+                  ),
+                  $.array_literal_expression,
+                ),
+              ),
+              seq(
+                $._parameter_dot_literal_boundary,
+                $.parameter_dot_literal,
+                $.array_literal_expression,
+              ),
+            )),
+          ),
           seq($._command_argument, optional($.argument_list)),
           $.redirection,
           $.stop_parsing,
         ),
       ),
+
+    // A named token keeps this argument visible after grammar simplification.
+    parameter_dot_literal: ($) => token.immediate('.'),
 
     // Stop parsing is a token that end the parsing of command line
     stop_parsing: ($) => /--%[^\r\n]*/,

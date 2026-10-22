@@ -1,0 +1,640 @@
+==================
+Parameter dot: literal dot after a real parameter
+==================
+Invoke-Example -F. 'sample'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Parameter dot: made-up assignment and path
+==================
+$answer = Invoke-Example -F. 'sample' /made/up/path
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (command_parameter)
+                (generic_token)
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (string_literal
+                      (verbatim_string_characters))))
+                (command_argument_sep)
+                (generic_token)))))))))
+
+==================
+Parameter dot: dot-prefixed word
+==================
+Invoke-Example -Name.Property
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)))))))
+
+==================
+Parameter dot: two dot-prefixed values
+==================
+Invoke-Example -One.foo -Two.bar
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)))))))
+
+==================
+Parameter dot: fraction remains a number
+==================
+Invoke-Example -Name.5
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (array_literal_expression
+              (unary_expression
+                (real_literal)))))))))
+
+==================
+Parameter dot: numeric comma array
+==================
+Invoke-Example -Name.5,2
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (array_literal_expression
+              (unary_expression
+                (real_literal))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+==================
+Parameter dot: word comma array
+==================
+Invoke-Example -Name.Property,$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (unary_expression
+              (variable))))))))
+
+==================
+Parameter dot: dot comma array
+==================
+Invoke-Example -Name.,other
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (generic_token)))))))
+
+==================
+Parameter dot: dot before an immediate variable
+==================
+Invoke-Example -Name.$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Parameter dot: dot before an immediate quoted string
+==================
+Invoke-Example -Name.'sample'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Parameter dot: dot before an immediate expandable string
+==================
+Invoke-Example -Name."$value"
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal
+                    (variable)))))))))))
+
+==================
+Parameter dot: dot before an immediate subexpression
+==================
+Invoke-Example -Name.$($value)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable))))))))))))))))))))))
+
+==================
+Parameter dot: dot before an immediate braced variable
+==================
+Invoke-Example -Name.${value}
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (variable
+                  (braced_variable))))))))))
+
+==================
+Parameter dot: preserve the following member expression
+==================
+Invoke-Example -Name.$value.Property
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parameter_dot_literal)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (variable)
+                  (member_name
+                    (simple_name)))))))))))
+
+==================
+Parameter dot: dot before parentheses
+==================
+Invoke-Example -Name.($value)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))))))))))
+
+==================
+Parameter dot: word before parentheses
+==================
+Invoke-Example -Name.Property($value)
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))))))))))
+
+==================
+Parameter dot: expandable dot-prefixed word
+==================
+Invoke-Example -Name.Property$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)))))))
+
+==================
+Parameter dot: quoted word fragment
+==================
+Invoke-Example -Name.Property'sample'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)))))))
+
+==================
+Parameter dot: quoted argument before the parameter
+==================
+Invoke-Example "head" -F. 'sample'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (command_parameter)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Parameter dot: spacing before the dot word
+==================
+Invoke-Example -Name .Property
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Parameter dot: colon attachment remains separate
+==================
+Invoke-Example -Name:$value
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Parameter dot: expression-mode members are unchanged
+==================
+$answer = $value.Property[0]
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (element_access
+                                (member_access
+                                  (variable)
+                                  (member_name
+                                    (simple_name)))
+                                (logical_expression
+                                  (bitwise_expression
+                                    (comparison_expression
+                                      (additive_expression
+                                        (multiplicative_expression
+                                          (format_expression
+                                            (range_expression
+                                              (array_literal_expression
+                                                (unary_expression
+                                                  (integer_literal
+                                                    (decimal_integer_literal)))))))))))))))))))))))))))
+
+==================
+Parameter dot: expression-mode method calls are unchanged
+==================
+$answer = $value.Method()
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (simple_name))
+                                (argument_list)))))))))))))))))
+
+==================
+Parameter dot: expression-mode division is unchanged
+==================
+$answer = $left / $right
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Parameter dot: a quoted spelling is just a string
+==================
+Invoke-Example '-Name.Property'
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))))))))
+
+==================
+Parameter dot: missing comma item is rejected
+:error
+==================
+Invoke-Example -Name.,
+---
+
+(ERROR)
+
+==================
+Parameter dot: missing member is rejected
+:error
+==================
+$answer = $value.
+---
+
+(ERROR)
