@@ -317,12 +317,16 @@ export default grammar({
     _command_token: ($) => token(/[^\(\)\{\}\s;\&]+/),
 
     // Parameters
+    _single_command_parameter: ($) =>
+      token(/-[a-zA-Z_?`][a-zA-Z0-9_?\-`]*/),
+
     command_parameter: ($) =>
       choice(
+        $._single_command_parameter,
         token(
           choice(
-            // `-Name`, `-Name1`, `--long-flag`, `-A5`
-            /-+[a-zA-Z_?\-`][a-zA-Z0-9_?\-`]*/,
+            // Keep the inherited multiple-dash representation outside this fix.
+            /--[a-zA-Z0-9_?\-`]*/,
             // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
             /--?[a-zA-Z_][a-zA-Z0-9_\-]*=([^\s"'`;|&(){}]|"[^"\r\n]*"|'[^'\r\n]*')*/,
           ),
@@ -786,9 +790,10 @@ export default grammar({
     _command_element: ($) =>
       prec.right(
         choice(
+          $.command_parameter,
           seq(
-            $.command_parameter,
-            optional(choice(
+            alias($._single_command_parameter, $.command_parameter),
+            choice(
               seq(
                 $._parameter_dot_boundary,
                 choice(
@@ -804,7 +809,7 @@ export default grammar({
                 $.parameter_dot_literal,
                 $.array_literal_expression,
               ),
-            )),
+            ),
           ),
           seq($._command_argument, optional($.argument_list)),
           $.redirection,

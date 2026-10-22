@@ -1881,9 +1881,20 @@
         "value": "[^\\(\\)\\{\\}\\s;\\&]+"
       }
     },
+    "_single_command_parameter": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "-[a-zA-Z_?`][a-zA-Z0-9_?\\-`]*"
+      }
+    },
     "command_parameter": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_single_command_parameter"
+        },
         {
           "type": "TOKEN",
           "content": {
@@ -1891,7 +1902,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "-+[a-zA-Z_?\\-`][a-zA-Z0-9_?\\-`]*"
+                "value": "--[a-zA-Z0-9_?\\-`]*"
               },
               {
                 "type": "PATTERN",
@@ -4296,80 +4307,67 @@
         "type": "CHOICE",
         "members": [
           {
+            "type": "SYMBOL",
+            "name": "command_parameter"
+          },
+          {
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "command_parameter"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_single_command_parameter"
+                },
+                "named": true,
+                "value": "command_parameter"
               },
               {
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "CHOICE",
+                    "type": "SEQ",
                     "members": [
                       {
-                        "type": "SEQ",
+                        "type": "SYMBOL",
+                        "name": "_parameter_dot_boundary"
+                      },
+                      {
+                        "type": "CHOICE",
                         "members": [
                           {
-                            "type": "SYMBOL",
-                            "name": "_parameter_dot_boundary"
-                          },
-                          {
-                            "type": "CHOICE",
+                            "type": "SEQ",
                             "members": [
                               {
-                                "type": "SEQ",
-                                "members": [
-                                  {
-                                    "type": "SYMBOL",
-                                    "name": "generic_token"
-                                  },
-                                  {
-                                    "type": "REPEAT",
-                                    "content": {
-                                      "type": "SEQ",
+                                "type": "SYMBOL",
+                                "name": "generic_token"
+                              },
+                              {
+                                "type": "REPEAT",
+                                "content": {
+                                  "type": "SEQ",
+                                  "members": [
+                                    {
+                                      "type": "STRING",
+                                      "value": ","
+                                    },
+                                    {
+                                      "type": "CHOICE",
                                       "members": [
                                         {
-                                          "type": "STRING",
-                                          "value": ","
+                                          "type": "SYMBOL",
+                                          "name": "generic_token"
                                         },
                                         {
-                                          "type": "CHOICE",
-                                          "members": [
-                                            {
-                                              "type": "SYMBOL",
-                                              "name": "generic_token"
-                                            },
-                                            {
-                                              "type": "SYMBOL",
-                                              "name": "unary_expression"
-                                            }
-                                          ]
+                                          "type": "SYMBOL",
+                                          "name": "unary_expression"
                                         }
                                       ]
                                     }
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "array_literal_expression"
+                                  ]
+                                }
                               }
                             ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "_parameter_dot_literal_boundary"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "parameter_dot_literal"
                           },
                           {
                             "type": "SYMBOL",
@@ -4380,7 +4378,21 @@
                     ]
                   },
                   {
-                    "type": "BLANK"
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_parameter_dot_literal_boundary"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "parameter_dot_literal"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "array_literal_expression"
+                      }
+                    ]
                   }
                 ]
               }
