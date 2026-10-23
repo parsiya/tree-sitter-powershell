@@ -1,0 +1,154 @@
+[
+ {
+  "name": "script default generic static",
+  "source": "function F { param($p = [X]::Y[int]($a)) }"
+ },
+ {
+  "name": "script default generic then next parameter",
+  "source": "function F { param($p = [X]::Y[int]($a), $q) }"
+ },
+ {
+  "name": "script default generic next parameter with default",
+  "source": "function F { param($p = [X]::Y[int]($a), $q = 1) }"
+ },
+ {
+  "name": "script default generic no space comma",
+  "source": "function F { param($p = [X]::Y[int]($a),$q) }"
+ },
+ {
+  "name": "script default instance generic",
+  "source": "function F { param($p = $x.M[int]($y)) }"
+ },
+ {
+  "name": "script default instance generic member chain",
+  "source": "function F { param($p = $x.M[int]($y).N, $q) }"
+ },
+ {
+  "name": "script default generic result call",
+  "source": "function F { param($p = $x.M[int]($y).N(1), $q) }"
+ },
+ {
+  "name": "script default generic element access",
+  "source": "function F { param($p = $x.M[int]($y)[0], $q) }"
+ },
+ {
+  "name": "script default generic post increment",
+  "source": "function F { param($p = $x.M[int]($y)++, $q) }"
+ },
+ {
+  "name": "script default generic additive",
+  "source": "function F { param($p = [X]::Y[int]($a) + 1, $q) }"
+ },
+ {
+  "name": "script default generic right operand",
+  "source": "function F { param($p = 1 + [X]::Y[int]($a), $q) }"
+ },
+ {
+  "name": "script default generic comparison",
+  "source": "function F { param($p = [X]::Y[int]($a) -eq 2, $q) }"
+ },
+ {
+  "name": "script default generic ternary",
+  "source": "function F { param($p = $c ? [X]::Y[int](1) : $x.M[int](2), $q) }"
+ },
+ {
+  "name": "script default generic range",
+  "source": "function F { param($p = [X]::Y[int](1)..[X]::Y[int](2), $q) }"
+ },
+ {
+  "name": "script default generic unary operand",
+  "source": "function F { param($p = -not [X]::Y[int](1), $q) }"
+ },
+ {
+  "name": "script default generic parenthesized",
+  "source": "function F { param($p = ([X]::Y[int](1)), $q) }"
+ },
+ {
+  "name": "script default generic type args several",
+  "source": "function F { param($p = [X]::Y[int,string]($a), $q) }"
+ },
+ {
+  "name": "script default generic spaced arguments",
+  "source": "function F { param($p = [X]::Y[int]( $a, $b ), $q) }"
+ },
+ {
+  "name": "script default generic attribute and type",
+  "source": "function F { param([int]$p = [X]::Y[int]($a), [string]$q) }"
+ },
+ {
+  "name": "script default plain array stays rejected",
+  "source": "function F { param($p = [X]::Y[int]($a), 2) }"
+ },
+ {
+  "name": "script default generic comma then generic is not a parameter",
+  "source": "function F { param($p = 1, [X]::Y[int]($a)) }"
+ },
+ {
+  "name": "script default generic comma array stays rejected",
+  "source": "function F { param($p = [X]::Y[int]($a), [X]::Y[int]($b)) }"
+ },
+ {
+  "name": "script default unary comma stays rejected",
+  "source": "function F { param($p = ,[X]::Y[int]($a), $q) }"
+ },
+ {
+  "name": "script default generic space before paren rejected",
+  "source": "function F { param($p = [X]::Y[int] ($a)) }"
+ },
+ {
+  "name": "script default generic argument list rejected",
+  "source": "function F { param($p = foo [X]::Y[int]($a)) }"
+ },
+ {
+  "name": "script default generic command argument rejected",
+  "source": "function F { param($p = foo $x.M[int]($a)) }"
+ },
+ {
+  "name": "script default plain static call",
+  "source": "function F { param($p = [X]::Y($a), $q) }"
+ },
+ {
+  "name": "script default non-generic element access",
+  "source": "function F { param($p = $x.M[0], $q) }"
+ },
+ {
+  "name": "param block default generic",
+  "source": "param($p = [X]::Y[int]($a), $q) $p"
+ },
+ {
+  "name": "param block default generic with attribute",
+  "source": "[CmdletBinding()] param([Parameter()] $p = $x.M[int]($y), $q) $p"
+ },
+ {
+  "name": "class method default generic",
+  "source": "class C { M($p = [X]::Y[int]($a), $q) { } }"
+ },
+ {
+  "name": "class method default generic last",
+  "source": "class C { M($p = [X]::Y[int]($a)) { } }"
+ },
+ {
+  "name": "class method default generic typed",
+  "source": "class C { M([int]$p = $x.M[int]($y), [string]$q = 'a') { } }"
+ },
+ {
+  "name": "class method default generic then bare comma value rejected",
+  "source": "class C { M($p = [X]::Y[int]($a), 2) { } }"
+ },
+ {
+  "name": "expression generic call still parses",
+  "source": "$a = [X]::Y[int]($a), 2"
+ },
+ {
+  "name": "command argument generic call still rejected",
+  "source": "foo $x.M[int]($a)"
+ },
+ {
+  "name": "command argument static generic call",
+  "source": "foo [X]::Y[int]($a)"
+ },
+ {
+  "name": "expression statement generic call",
+  "source": "[X]::Y[int]($a)"
+ }
+]

@@ -1925,10 +1925,12 @@ export default grammar({
 
     // Like a command array item, a default has no unary comma: a comma ends it.
     // A bare type ends at the comma too, it does not cast `,x` (_attribute_type_value).
+    // A generic method call is an expression operand, as in unary_expression.
     _class_default_array: ($) =>
       choice(
         alias($._command_unary_expression, $.unary_expression),
         alias($._attribute_type_value, $.unary_expression),
+        alias($._generic_primary_expression, $.unary_expression),
       ),
 
     class_method_parameter_list: ($) =>

@@ -1,0 +1,273 @@
+==================
+Parameter default: generic method call ends at the comma
+==================
+
+function F { param($p = [X]::Y[int]($a), $q = 1) }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (variable)
+              (script_parameter_default
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (invokation_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))
+                                    (member_name
+                                      (simple_name))
+                                    (generic_method_arguments
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))
+                                    (argument_list
+                                      (argument_expression_list
+                                        (argument_expression
+                                          (logical_argument_expression
+                                            (bitwise_argument_expression
+                                              (comparison_argument_expression
+                                                (additive_argument_expression
+                                                  (multiplicative_argument_expression
+                                                    (format_argument_expression
+                                                      (range_argument_expression
+                                                        (unary_expression
+                                                          (variable))))))))))))))))))))))))
+            (script_parameter
+              (variable)
+              (script_parameter_default
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))))
+
+==================
+Parameter default: generic call in ternary and range
+==================
+
+function F { param($p = $c ? [X]::Y[int](1) : $x.M[int](2), $q = [X]::Y[int](1)..[X]::Y[int](2)) }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (variable)
+              (script_parameter_default
+                (ternary_expression
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable))))))))))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (invokation_expression
+                                      (type_literal
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (member_name
+                                        (simple_name))
+                                      (generic_method_arguments
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (argument_list
+                                        (argument_expression_list
+                                          (argument_expression
+                                            (logical_argument_expression
+                                              (bitwise_argument_expression
+                                                (comparison_argument_expression
+                                                  (additive_argument_expression
+                                                    (multiplicative_argument_expression
+                                                      (format_argument_expression
+                                                        (range_argument_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal)))))))))))))))))))))))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (invokation_expression
+                                      (variable)
+                                      (member_name
+                                        (simple_name))
+                                      (generic_method_arguments
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (argument_list
+                                        (argument_expression_list
+                                          (argument_expression
+                                            (logical_argument_expression
+                                              (bitwise_argument_expression
+                                                (comparison_argument_expression
+                                                  (additive_argument_expression
+                                                    (multiplicative_argument_expression
+                                                      (format_argument_expression
+                                                        (range_argument_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal))))))))))))))))))))))))))
+            (script_parameter
+              (variable)
+              (script_parameter_default
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (invokation_expression
+                                      (type_literal
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (member_name
+                                        (simple_name))
+                                      (generic_method_arguments
+                                        (type_spec
+                                          (type_name
+                                            (type_identifier))))
+                                      (argument_list
+                                        (argument_expression_list
+                                          (argument_expression
+                                            (logical_argument_expression
+                                              (bitwise_argument_expression
+                                                (comparison_argument_expression
+                                                  (additive_argument_expression
+                                                    (multiplicative_argument_expression
+                                                      (format_argument_expression
+                                                        (range_argument_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal)))))))))))))))))
+                              (array_literal_expression
+                                (unary_expression
+                                  (invokation_expression
+                                    (type_literal
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))
+                                    (member_name
+                                      (simple_name))
+                                    (generic_method_arguments
+                                      (type_spec
+                                        (type_name
+                                          (type_identifier))))
+                                    (argument_list
+                                      (argument_expression_list
+                                        (argument_expression
+                                          (logical_argument_expression
+                                            (bitwise_argument_expression
+                                              (comparison_argument_expression
+                                                (additive_argument_expression
+                                                  (multiplicative_argument_expression
+                                                    (format_argument_expression
+                                                      (range_argument_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))))))))))))))))))))))))))))))
+
+==================
+Parameter default: generic call in class method
+==================
+
+class C { M($p = [X]::Y[int]($a), $q) { } }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (invokation_expression
+                                  (type_literal
+                                    (type_spec
+                                      (type_name
+                                        (type_identifier))))
+                                  (member_name
+                                    (simple_name))
+                                  (generic_method_arguments
+                                    (type_spec
+                                      (type_name
+                                        (type_identifier))))
+                                  (argument_list
+                                    (argument_expression_list
+                                      (argument_expression
+                                        (logical_argument_expression
+                                          (bitwise_argument_expression
+                                            (comparison_argument_expression
+                                              (additive_argument_expression
+                                                (multiplicative_argument_expression
+                                                  (format_argument_expression
+                                                    (range_argument_expression
+                                                      (unary_expression
+                                                        (variable))))))))))))))))))))))))
+          (class_method_parameter
+            (variable)))))))
