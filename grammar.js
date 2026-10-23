@@ -83,6 +83,7 @@ export default grammar({
     $._trailing_dot_real_literal,
     $._variable_command_name_continuation,
     $._invocation_argument_boundary,
+    $._variable_before_literal_dot,
   ],
 
   extras: ($) => [
@@ -1121,7 +1122,7 @@ export default grammar({
     stop_parsing: ($) => choice('--%', /--%[^\r\n]+/),
 
     // A colon is a separator only immediately after a command parameter.
-    command_argument_sep: ($) => prec.right(/[ \u00a0]+/),
+    command_argument_sep: ($) => prec.right(/[ \t\u00a0]+/),
 
     _command_word: ($) => choice($.generic_token, $.colon_command_argument),
 
@@ -1342,7 +1343,9 @@ export default grammar({
         $.invokation_expression,
       ),
 
-    _completed_argument_member: ($) => $.member_access,
+    _completed_argument_member: ($) =>
+      // Ordinary variables must remain on the command-array expression path.
+      choice($.member_access, alias($._variable_before_literal_dot, $.variable)),
 
     _argument_after_quote: ($) =>
       choice(
