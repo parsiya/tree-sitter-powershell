@@ -1,0 +1,50 @@
+[
+ {
+  "name": "none-lf",
+  "source": "$value = @'\n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "none-crlf",
+  "source": "$value = @'\r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "spaces-lf",
+  "source": "$value = @'        \n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "spaces-crlf",
+  "source": "$value = @'        \r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "tab-lf",
+  "source": "$value = @'\t\n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "tab-crlf",
+  "source": "$value = @'\t\r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "vertical-tab-lf",
+  "source": "$value = @'\u000b\n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "vertical-tab-crlf",
+  "source": "$value = @'\u000b\r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "form-feed-lf",
+  "source": "$value = @'\f\n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "form-feed-crlf",
+  "source": "$value = @'\f\r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "mixed-lf",
+  "source": "$value = @' \t\u000b\f \n{\n    \"MadeUp\": null\n}\n'@\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixed-crlf",
+  "source": "$value = @' \t\u000b\f \r\n{\r\n    \"MadeUp\": null\r\n}\r\n'@\r\nWrite-Host sentinel\r\n"
+ }
+]

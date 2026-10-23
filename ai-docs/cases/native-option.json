@@ -1,0 +1,54 @@
+[
+ {
+  "name": "double dash option",
+  "source": "Write-Output --name"
+ },
+ {
+  "name": "double dash option equals",
+  "source": "Write-Output --name=value"
+ },
+ {
+  "name": "single dash equals",
+  "source": "Write-Output -name=value"
+ },
+ {
+  "name": "double dash colon",
+  "source": "Write-Output --name:value"
+ },
+ {
+  "name": "triple dash option",
+  "source": "Write-Output ---name"
+ },
+ {
+  "name": "double dash quoted option",
+  "source": "Write-Output --name='two words'"
+ },
+ {
+  "name": "double dash smart option",
+  "source": "Write-Output --name=‘two words’"
+ },
+ {
+  "name": "double dash interpolation",
+  "source": "Write-Output --name=$value"
+ },
+ {
+  "name": "double dash quoted interpolation",
+  "source": "Write-Output --name=\"$value\""
+ },
+ {
+  "name": "double dash subexpression",
+  "source": "Write-Output --name=$(Get-Item example)"
+ },
+ {
+  "name": "single dash proper parameter",
+  "source": "Write-Output -Name $value"
+ },
+ {
+  "name": "double dash attached parameter",
+  "source": "Write-Output --Name:$value"
+ },
+ {
+  "name": "native-looking short argument",
+  "source": "Write-Output -A5"
+ }
+]

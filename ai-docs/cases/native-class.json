@@ -1,0 +1,30 @@
+[
+ {
+  "name": "tests/parsing/powershell/class_enum.ps1",
+  "source": "enum Result {\n    Success\n    Failure = 2\n    Unknown = 0x10\n}\n\nclass Base {\n}\n\nclass Log : Base, IDisposable {\n    [string]$Path\n    static [int]$Count = 0\n    hidden $Cache\n    [ValidateNotNull()][string]$Name\n\n    Log([string]$path) {\n        $this.Path = $path\n    }\n\n    [void] Write([string]$message, $level) {\n        Add-Content -Path $this.Path -Value $message\n    }\n\n    static [Log] Create() {\n        return [Log]::new('log.txt')\n    }\n\n    [void] Dispose() {\n    }\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/class_property.ps1",
+  "source": "# ERROR:\nclass LOG {\n    [int]$Count\n    [STRING]$Path\n}\n\nclass Other {\n    [string]$Path\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/class_property_type.ps1",
+  "source": "class Log {\n    [int]$Path\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/class_method.ps1",
+  "source": "# ERROR:\nclass Log {\n    [string]$Path\n    [void] Write([string]$message) {\n        Add-Content -Path $this.Path -Value $message\n    }\n}\n\nclass Other {\n    [string]$Path\n    [void] Write([string]$message) {\n        Add-Content -Path $this.Path -Value $message\n    }\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/class_method_body.ps1",
+  "source": "class Log {\n    [void] Write([string]$message) {\n        Set-Content -Path $this.Path -Value $message\n        Add-Content -Path $this.Path -Value $this.Path\n    }\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/enum.ps1",
+  "source": "# ERROR:\nenum RESULT {\n    SUCCESS\n}\n\nenum Status {\n    Success\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/enum_member.ps1",
+  "source": "enum Result {\n    Failure\n}\n"
+ }
+]

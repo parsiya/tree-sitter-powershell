@@ -1,0 +1,12 @@
+{
+ "suite": "leading-command-unicode-escape",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":5,"agree":3,"invalid_rejected":2,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "`u{41}xample value": {"status":"agree","differences":[]},
+  "`u{1f600}xample value": {"status":"agree","differences":[]},
+  "exa`u{41}mple value": {"status":"agree","differences":[]},
+  "`u{zz}xample value": {"status":"invalid-rejected","differences":[]},
+  "`u{110000}xample value": {"status":"invalid-rejected","differences":[]}
+ }
+}

@@ -1,0 +1,334 @@
+[
+ {
+  "name": "jagged parameter",
+  "source": "param([byte[][]]$Bytes)"
+ },
+ {
+  "name": "triple jagged parameter",
+  "source": "param([byte[][][]]$Bytes)"
+ },
+ {
+  "name": "jagged function parameter",
+  "source": "function Example { param([byte[][]]$Bytes) $Bytes }"
+ },
+ {
+  "name": "jagged class method parameter",
+  "source": "class Example { [void] Use([byte[][]]$Bytes) {} }"
+ },
+ {
+  "name": "jagged class property",
+  "source": "class Example { [byte[][]]$Bytes }"
+ },
+ {
+  "name": "jagged return type",
+  "source": "class Example { [byte[][]] Use() { return $null } }"
+ },
+ {
+  "name": "jagged type value",
+  "source": "$Type = [byte[][]]"
+ },
+ {
+  "name": "jagged cast",
+  "source": "$Bytes = [byte[][]]$value"
+ },
+ {
+  "name": "matrix inside vector",
+  "source": "$Type = [int[,][]]"
+ },
+ {
+  "name": "vector inside matrix",
+  "source": "$Type = [int[][,]]"
+ },
+ {
+  "name": "nested matrix ranks",
+  "source": "$Type = [int[,][,,]]"
+ },
+ {
+  "name": "array generic argument",
+  "source": "$Type = [System.Collections.Generic.List[byte[]]]"
+ },
+ {
+  "name": "jagged generic argument",
+  "source": "$Type = [System.Collections.Generic.List[byte[][]]]"
+ },
+ {
+  "name": "generic vector",
+  "source": "$Type = [System.Collections.Generic.List[int][]]"
+ },
+ {
+  "name": "generic jagged vector",
+  "source": "$Type = [System.Collections.Generic.List[int][][]]"
+ },
+ {
+  "name": "bracketed jagged generic argument",
+  "source": "$Type = [System.Collections.Generic.List[[byte[][]]]]"
+ },
+ {
+  "name": "nested CLR type vector",
+  "source": "$Type = [System.Environment+SpecialFolder[]]"
+ },
+ {
+  "name": "plain vector control",
+  "source": "param([byte[]]$Bytes)"
+ },
+ {
+  "name": "plain matrix control",
+  "source": "param([byte[,]]$Bytes)"
+ },
+ {
+  "name": "trailing dotted type",
+  "source": "param([System.Security.]$Headers)"
+ },
+ {
+  "name": "spaced array suffix",
+  "source": "param([byte[] []]$Bytes)"
+ },
+ {
+  "name": "invalid incomplete rank",
+  "source": "param([byte[][,]$Bytes)"
+ },
+ {
+  "name": "invalid incomplete outer type",
+  "source": "param([byte[][]$Bytes)"
+ },
+ {
+  "name": "value: int[][][][]",
+  "source": "$Type = [int[][][][]]"
+ },
+ {
+  "name": "cast: int[][][][]",
+  "source": "$Value = [int[][][][]]$InputValue"
+ },
+ {
+  "name": "parameter: int[][][][]",
+  "source": "function Use-Type {\nparam([int[][][][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: int[][][][]",
+  "source": "class Example { [int[][][][]]$Value }"
+ },
+ {
+  "name": "method: int[][][][]",
+  "source": "class Example { [int[][][][]] Use([int[][][][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: int[,,][][,][]",
+  "source": "$Type = [int[,,][][,][]]"
+ },
+ {
+  "name": "cast: int[,,][][,][]",
+  "source": "$Value = [int[,,][][,][]]$InputValue"
+ },
+ {
+  "name": "parameter: int[,,][][,][]",
+  "source": "function Use-Type {\nparam([int[,,][][,][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: int[,,][][,][]",
+  "source": "class Example { [int[,,][][,][]]$Value }"
+ },
+ {
+  "name": "method: int[,,][][,][]",
+  "source": "class Example { [int[,,][][,][]] Use([int[,,][][,][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "cast: int[,][,,]",
+  "source": "$Value = [int[,][,,]]$InputValue"
+ },
+ {
+  "name": "parameter: int[,][,,]",
+  "source": "function Use-Type {\nparam([int[,][,,]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: int[,][,,]",
+  "source": "class Example { [int[,][,,]]$Value }"
+ },
+ {
+  "name": "method: int[,][,,]",
+  "source": "class Example { [int[,][,,]] Use([int[,][,,]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: int[,,][,]",
+  "source": "$Type = [int[,,][,]]"
+ },
+ {
+  "name": "cast: int[,,][,]",
+  "source": "$Value = [int[,,][,]]$InputValue"
+ },
+ {
+  "name": "parameter: int[,,][,]",
+  "source": "function Use-Type {\nparam([int[,,][,]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: int[,,][,]",
+  "source": "class Example { [int[,,][,]]$Value }"
+ },
+ {
+  "name": "method: int[,,][,]",
+  "source": "class Example { [int[,,][,]] Use([int[,,][,]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.List[int][,][]",
+  "source": "$Type = [System.Collections.Generic.List[int][,][]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.List[int][,][]",
+  "source": "$Value = [System.Collections.Generic.List[int][,][]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.List[int][,][]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.List[int][,][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.List[int][,][]",
+  "source": "class Example { [System.Collections.Generic.List[int][,][]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.List[int][,][]",
+  "source": "class Example { [System.Collections.Generic.List[int][,][]] Use([System.Collections.Generic.List[int][,][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.List[int[][,]][,,]",
+  "source": "$Type = [System.Collections.Generic.List[int[][,]][,,]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.List[int[][,]][,,]",
+  "source": "$Value = [System.Collections.Generic.List[int[][,]][,,]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.List[int[][,]][,,]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.List[int[][,]][,,]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.List[int[][,]][,,]",
+  "source": "class Example { [System.Collections.Generic.List[int[][,]][,,]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.List[int[][,]][,,]",
+  "source": "class Example { [System.Collections.Generic.List[int[][,]][,,]] Use([System.Collections.Generic.List[int[][,]][,,]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.Dictionary[string,byte[][]][]",
+  "source": "$Type = [System.Collections.Generic.Dictionary[string,byte[][]][]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.Dictionary[string,byte[][]][]",
+  "source": "$Value = [System.Collections.Generic.Dictionary[string,byte[][]][]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.Dictionary[string,byte[][]][]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.Dictionary[string,byte[][]][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.Dictionary[string,byte[][]][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[string,byte[][]][]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.Dictionary[string,byte[][]][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[string,byte[][]][]] Use([System.Collections.Generic.Dictionary[string,byte[][]][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]",
+  "source": "$Type = [System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]",
+  "source": "$Value = [System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]] Use([System.Collections.Generic.Dictionary[string[],System.Collections.Generic.List[int[,][]][]][][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: int [ , ] [ ]",
+  "source": "$Type = [int [ , ] [ ]]"
+ },
+ {
+  "name": "cast: int [ , ] [ ]",
+  "source": "$Value = [int [ , ] [ ]]$InputValue"
+ },
+ {
+  "name": "parameter: int [ , ] [ ]",
+  "source": "function Use-Type {\nparam([int [ , ] [ ]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: int [ , ] [ ]",
+  "source": "class Example { [int [ , ] [ ]]$Value }"
+ },
+ {
+  "name": "method: int [ , ] [ ]",
+  "source": "class Example { [int [ , ] [ ]] Use([int [ , ] [ ]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.List[ int [ ] [ , ] ] [ ]",
+  "source": "$Type = [System.Collections.Generic.List[ int [ ] [ , ] ] [ ]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.List[ int [ ] [ , ] ] [ ]",
+  "source": "$Value = [System.Collections.Generic.List[ int [ ] [ , ] ] [ ]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.List[ int [ ] [ , ] ] [ ]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.List[ int [ ] [ , ] ] [ ]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.List[ int [ ] [ , ] ] [ ]",
+  "source": "class Example { [System.Collections.Generic.List[ int [ ] [ , ] ] [ ]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.List[ int [ ] [ , ] ] [ ]",
+  "source": "class Example { [System.Collections.Generic.List[ int [ ] [ , ] ] [ ]] Use([System.Collections.Generic.List[ int [ ] [ , ] ] [ ]]$Value) { return $Value } }"
+ },
+ {
+  "name": "value: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]",
+  "source": "$Type = [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]"
+ },
+ {
+  "name": "cast: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]",
+  "source": "$Value = [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$InputValue"
+ },
+ {
+  "name": "parameter: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]",
+  "source": "function Use-Type {\nparam([System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value)\n$Value\n}"
+ },
+ {
+  "name": "field: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value }"
+ },
+ {
+  "name": "method: System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]",
+  "source": "class Example { [System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]] Use([System.Collections.Generic.Dictionary[[string[]],[byte[][]]][][]]$Value) { return $Value } }"
+ },
+ {
+  "name": "unicode prefix original bytes",
+  "source": "# π🙂 original bytes\r\n$Type = [int[,][]]"
+ },
+ {
+  "name": "invalid generic suffix argument",
+  "source": "$Type = [int[][string]]"
+ },
+ {
+  "name": "invalid generic incomplete array",
+  "source": "$Type = [System.Collections.Generic.List[int[][]]"
+ },
+ {
+  "name": "invalid array rank content",
+  "source": "$Type = [int[][1]]"
+ },
+ {
+  "name": "plain generic control",
+  "source": "$Type = [System.Collections.Generic.List[int]]"
+ },
+ {
+  "name": "plain type control",
+  "source": "$Type = [System.Int32]"
+ }
+]

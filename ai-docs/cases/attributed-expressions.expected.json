@@ -1,0 +1,27 @@
+{
+ "suite": "attributed-expressions",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":20,"agree":11,"invalid_rejected":0,"known":0,"fail":9,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "function-body assignment": {"status":"agree","differences":[]},
+  "validated assignment": {"status":"agree","differences":[]},
+  "attributed variable": {"status":"agree","differences":[]},
+  "multiple attributes": {"status":"agree","differences":[]},
+  "typed assignment": {"status":"agree","differences":[]},
+  "typed attribute": {"status":"agree","differences":[]},
+  "attribute then type": {"status":"agree","differences":[]},
+  "attributed literal": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attributed parentheses": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attributed unary": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attribute member": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attribute call": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attribute array": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "parameter attributes": {"status":"agree","differences":[]},
+  "ordinary cast": {"status":"agree","differences":[]},
+  "function statement": {"status":"agree","differences":[]},
+  "attribute scriptblock": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attribute newline": {"status":"agree","differences":[]},
+  "attribute addition": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "attribute nested cast member": {"status":"fail","differences":["validity native=invalid ts=valid"]}
+ }
+}

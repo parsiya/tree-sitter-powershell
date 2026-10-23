@@ -1,0 +1,110 @@
+[
+ {
+  "name": "jagged parameter",
+  "source": "param([byte[][]]$Bytes)"
+ },
+ {
+  "name": "jagged class parameter",
+  "source": "class Example { [void] Use([byte[][]]$Bytes) {} }"
+ },
+ {
+  "name": "trailing namespace dot",
+  "source": "param([Example.Namespace.]$Headers)"
+ },
+ {
+  "name": "cast hashtable at start",
+  "source": "[ExampleType]@{ Name = 'example' }"
+ },
+ {
+  "name": "cast hashtable inside assignment",
+  "source": "$value = [ExampleType]@{ Name = 'example' }"
+ },
+ {
+  "name": "param followed by command",
+  "source": "function Example { param([string]$Message) Write-Output $Message }"
+ },
+ {
+  "name": "param followed by assignment",
+  "source": "function Example { param([string]$Message) $value = $Message }"
+ },
+ {
+  "name": "top level param followed by command",
+  "source": "param([string]$Message) Write-Output $Message"
+ },
+ {
+  "name": "type-valued parameter default",
+  "source": "param([type]$Type = [string])"
+ },
+ {
+  "name": "absolute command path assignment",
+  "source": "$value = /usr/bin/example status"
+ },
+ {
+  "name": "absolute command path",
+  "source": "/usr/bin/example status"
+ },
+ {
+  "name": "double slash command",
+  "source": "if ($true) { // example }"
+ },
+ {
+  "name": "bare plus then member",
+  "source": "Write-Output \"error\" + $err.Exception.Message"
+ },
+ {
+  "name": "bare plus then quoted multiply",
+  "source": "Write-Host \"prefix\" + \"=\"*12 -ForegroundColor Cyan"
+ },
+ {
+  "name": "bare plus then number",
+  "source": "Write-Output + 1"
+ },
+ {
+  "name": "comma spaced strings",
+  "source": "Get-Item First, Second, Third -Verbose"
+ },
+ {
+  "name": "static-looking command argument",
+  "source": "Write-Output [Example]::New('text')"
+ },
+ {
+  "name": "variable parenthesized command argument",
+  "source": "Write-Output $value(Get-Item example)"
+ },
+ {
+  "name": "assigned try catch",
+  "source": "$result = try { Get-Item example } catch { $null }"
+ },
+ {
+  "name": "assigned try newline catch",
+  "source": "$result = try { Get-Item example }\ncatch { $null }"
+ },
+ {
+  "name": "smart closing quote",
+  "source": "$value.Trim(\"example”)"
+ },
+ {
+  "name": "smart quote command argument",
+  "source": "Write-Output “example”"
+ },
+ {
+  "name": "CR command boundary",
+  "source": "Write-Output first\rWrite-Output second"
+ },
+ {
+  "name": "escaped spaces before comment in comma list",
+  "source": "Export-ModuleMember First, `   # comment\nSecond"
+ },
+ {
+  "name": "escaped space after parenthesized argument",
+  "source": "Write-Output (Get-Item example)`             "
+ },
+ {
+  "name": "invalid jagged type control",
+  "source": "param([byte[][)$Bytes)"
+ },
+ {
+  "name": "invalid param control",
+  "source": "function Example { param([string]$Message Write-Output $Message }"
+ }
+]

@@ -1,0 +1,430 @@
+[
+ {
+  "name": "leading pipe command",
+  "source": "Write-Output first\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe expression",
+  "source": "(Get-Item example)\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe comma array",
+  "source": "(Get-Item first),\n(Get-Item second)\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe assignment",
+  "source": "$result = Write-Output first\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe with comment",
+  "source": "Write-Output first\n# boundary\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after blank line",
+  "source": "Write-Output first\n\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after block comment",
+  "source": "Write-Output first\n<# boundary #>\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe in scriptblock",
+  "source": "& { Write-Output first\n| Select-Object Name }"
+ },
+ {
+  "name": "trailing pipe control",
+  "source": "Write-Output first |\nSelect-Object Name"
+ },
+ {
+  "name": "separate statements control",
+  "source": "Write-Output first\nWrite-Output second"
+ },
+ {
+  "name": "semicolon before pipe invalid",
+  "source": "Write-Output first;\n| Select-Object Name"
+ },
+ {
+  "name": "pipe without left command invalid",
+  "source": "| Select-Object Name"
+ },
+ {
+  "name": "leading double pipe classification",
+  "source": "Write-Output first\n|| Write-Output second"
+ },
+ {
+  "name": "leading double ampersand classification",
+  "source": "Write-Output first\n&& Write-Output second"
+ },
+ {
+  "name": "quoted pipe control",
+  "source": "Write-Output \"first\n| second\""
+ },
+ {
+  "name": "escaped pipe control",
+  "source": "Write-Output first\n`| second"
+ },
+ {
+  "name": "indented pipe",
+  "source": "Write-Output first\n  | Select-Object Name"
+ },
+ {
+  "name": "repeated pipe",
+  "source": "Write-Output first\n| Select-Object Name\n| Write-Output last"
+ },
+ {
+  "name": "leading chain after pipe",
+  "source": "Write-Output first\n| Select-Object Name\n|| Write-Output last"
+ },
+ {
+  "name": "trailing chain",
+  "source": "Write-Output first ||\nWrite-Output last"
+ },
+ {
+  "name": "trailing and chain",
+  "source": "Write-Output first &&\nWrite-Output last"
+ },
+ {
+  "name": "single-line pipe",
+  "source": "Write-Output first | Select-Object Name"
+ },
+ {
+  "name": "single-line or chain",
+  "source": "Write-Output first || Write-Output last"
+ },
+ {
+  "name": "quoted pipe argument",
+  "source": "Write-Output 'first|second'\n| Select-Object \"naïve\""
+ },
+ {
+  "name": "escaped pipe argument",
+  "source": "Write-Output first`|second\n| Select-Object Name"
+ },
+ {
+  "name": "unicode prefix spans",
+  "source": "# café 🦊\nWrite-Output \"naïve\"\n| Select-Object Name"
+ },
+ {
+  "name": "comment then or chain",
+  "source": "Write-Output first\n# comment\n|| Write-Output second"
+ },
+ {
+  "name": "block comment then or chain",
+  "source": "Write-Output first\n<# comment #>\n|| Write-Output second"
+ },
+ {
+  "name": "multiple comment lines",
+  "source": "Write-Output first\n# one\n# two\n| Select-Object Name"
+ },
+ {
+  "name": "multiline block comment",
+  "source": "Write-Output first\n<# one\n\ntwo #>\n| Select-Object Name"
+ },
+ {
+  "name": "inline block comment",
+  "source": "Write-Output first <# one #>\n| Select-Object Name"
+ },
+ {
+  "name": "block comment before pipe",
+  "source": "Write-Output first\n<# one #> | Select-Object Name"
+ },
+ {
+  "name": "two block comments",
+  "source": "Write-Output first\n<# one #> <# two #>\n| Select-Object Name"
+ },
+ {
+  "name": "block and line comment",
+  "source": "Write-Output first\n<# one #> # two\n| Select-Object Name"
+ },
+ {
+  "name": "expression lhs",
+  "source": "$value\n| Select-Object Name"
+ },
+ {
+  "name": "numeric array lhs",
+  "source": "1, 2\n| Select-Object Name"
+ },
+ {
+  "name": "array expression lhs",
+  "source": "@(Write-Output first)\n| Select-Object Name"
+ },
+ {
+  "name": "return pipeline",
+  "source": "return Write-Output first\n| Select-Object Name"
+ },
+ {
+  "name": "assignment or chain",
+  "source": "$value = Write-Output first\n|| Write-Output second"
+ },
+ {
+  "name": "parenthesized or chain",
+  "source": "(Write-Output first)\n|| Write-Output second"
+ },
+ {
+  "name": "independent statement after pipeline",
+  "source": "Write-Output first\n| Select-Object Name\nWrite-Output last"
+ },
+ {
+  "name": "semicolon after pipeline",
+  "source": "Write-Output first\n| Select-Object Name; Write-Output last"
+ },
+ {
+  "name": "escaped newline before pipe",
+  "source": "Write-Output first`\n| Select-Object Name"
+ },
+ {
+  "name": "inline separator trivia control",
+  "source": "Write-Output first <# one #> | Select-Object Name"
+ },
+ {
+  "name": "wide separator trivia control",
+  "source": "Write-Output first   | Select-Object Name"
+ },
+ {
+  "name": "escaped literal baseline control",
+  "source": "Write-Output first`|second"
+ },
+ {
+  "name": "pipe after whitespace blank",
+  "source": "Write-Output first\n \t\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after comment and blank",
+  "source": "Write-Output first\n# one\n\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after blank and comment",
+  "source": "Write-Output first\n\n# one\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after block and blank",
+  "source": "Write-Output first\n<# one #>\n\n| Select-Object Name"
+ },
+ {
+  "name": "or chain after blank",
+  "source": "Write-Output first\n\n|| Write-Output second"
+ },
+ {
+  "name": "or chain after semicolon",
+  "source": "Write-Output first;\n|| Write-Output second"
+ },
+ {
+  "name": "or chain without lhs",
+  "source": "|| Write-Output second"
+ },
+ {
+  "name": "and chain after comment",
+  "source": "Write-Output first\n# one\n&& Write-Output second"
+ },
+ {
+  "name": "missing rhs",
+  "source": "Write-Output first\n|"
+ },
+ {
+  "name": "missing or rhs",
+  "source": "Write-Output first\n||"
+ },
+ {
+  "name": "no pipeline after break",
+  "source": "break\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe expression CRLF",
+  "source": "(Get-Item example)\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe comma array CRLF",
+  "source": "(Get-Item first),\r\n(Get-Item second)\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe assignment CRLF",
+  "source": "$result = Write-Output first\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe with comment CRLF",
+  "source": "Write-Output first\r\n# boundary\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after blank line CRLF",
+  "source": "Write-Output first\r\n\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after block comment CRLF",
+  "source": "Write-Output first\r\n<# boundary #>\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe in scriptblock CRLF",
+  "source": "& { Write-Output first\r\n| Select-Object Name }"
+ },
+ {
+  "name": "trailing pipe control CRLF",
+  "source": "Write-Output first |\r\nSelect-Object Name"
+ },
+ {
+  "name": "separate statements control CRLF",
+  "source": "Write-Output first\r\nWrite-Output second"
+ },
+ {
+  "name": "semicolon before pipe invalid CRLF",
+  "source": "Write-Output first;\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading double pipe classification CRLF",
+  "source": "Write-Output first\r\n|| Write-Output second"
+ },
+ {
+  "name": "leading double ampersand classification CRLF",
+  "source": "Write-Output first\r\n&& Write-Output second"
+ },
+ {
+  "name": "quoted pipe control CRLF",
+  "source": "Write-Output \"first\r\n| second\""
+ },
+ {
+  "name": "escaped pipe control CRLF",
+  "source": "Write-Output first\r\n`| second"
+ },
+ {
+  "name": "indented pipe CRLF",
+  "source": "Write-Output first\r\n  | Select-Object Name"
+ },
+ {
+  "name": "repeated pipe CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name\r\n| Write-Output last"
+ },
+ {
+  "name": "leading chain after pipe CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name\r\n|| Write-Output last"
+ },
+ {
+  "name": "trailing chain CRLF",
+  "source": "Write-Output first ||\r\nWrite-Output last"
+ },
+ {
+  "name": "trailing and chain CRLF",
+  "source": "Write-Output first &&\r\nWrite-Output last"
+ },
+ {
+  "name": "quoted pipe argument CRLF",
+  "source": "Write-Output 'first|second'\r\n| Select-Object \"naïve\""
+ },
+ {
+  "name": "escaped pipe argument CRLF",
+  "source": "Write-Output first`|second\r\n| Select-Object Name"
+ },
+ {
+  "name": "unicode prefix spans CRLF",
+  "source": "# café 🦊\r\nWrite-Output \"naïve\"\r\n| Select-Object Name"
+ },
+ {
+  "name": "comment then or chain CRLF",
+  "source": "Write-Output first\r\n# comment\r\n|| Write-Output second"
+ },
+ {
+  "name": "block comment then or chain CRLF",
+  "source": "Write-Output first\r\n<# comment #>\r\n|| Write-Output second"
+ },
+ {
+  "name": "multiple comment lines CRLF",
+  "source": "Write-Output first\r\n# one\r\n# two\r\n| Select-Object Name"
+ },
+ {
+  "name": "multiline block comment CRLF",
+  "source": "Write-Output first\r\n<# one\r\n\r\ntwo #>\r\n| Select-Object Name"
+ },
+ {
+  "name": "inline block comment CRLF",
+  "source": "Write-Output first <# one #>\r\n| Select-Object Name"
+ },
+ {
+  "name": "block comment before pipe CRLF",
+  "source": "Write-Output first\r\n<# one #> | Select-Object Name"
+ },
+ {
+  "name": "two block comments CRLF",
+  "source": "Write-Output first\r\n<# one #> <# two #>\r\n| Select-Object Name"
+ },
+ {
+  "name": "block and line comment CRLF",
+  "source": "Write-Output first\r\n<# one #> # two\r\n| Select-Object Name"
+ },
+ {
+  "name": "expression lhs CRLF",
+  "source": "$value\r\n| Select-Object Name"
+ },
+ {
+  "name": "numeric array lhs CRLF",
+  "source": "1, 2\r\n| Select-Object Name"
+ },
+ {
+  "name": "array expression lhs CRLF",
+  "source": "@(Write-Output first)\r\n| Select-Object Name"
+ },
+ {
+  "name": "return pipeline CRLF",
+  "source": "return Write-Output first\r\n| Select-Object Name"
+ },
+ {
+  "name": "assignment or chain CRLF",
+  "source": "$value = Write-Output first\r\n|| Write-Output second"
+ },
+ {
+  "name": "parenthesized or chain CRLF",
+  "source": "(Write-Output first)\r\n|| Write-Output second"
+ },
+ {
+  "name": "independent statement after pipeline CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name\r\nWrite-Output last"
+ },
+ {
+  "name": "semicolon after pipeline CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name; Write-Output last"
+ },
+ {
+  "name": "escaped newline before pipe CRLF",
+  "source": "Write-Output first`\r\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after whitespace blank CRLF",
+  "source": "Write-Output first\r\n \t\r\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after comment and blank CRLF",
+  "source": "Write-Output first\r\n# one\r\n\r\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after blank and comment CRLF",
+  "source": "Write-Output first\r\n\r\n# one\r\n| Select-Object Name"
+ },
+ {
+  "name": "pipe after block and blank CRLF",
+  "source": "Write-Output first\r\n<# one #>\r\n\r\n| Select-Object Name"
+ },
+ {
+  "name": "or chain after blank CRLF",
+  "source": "Write-Output first\r\n\r\n|| Write-Output second"
+ },
+ {
+  "name": "or chain after semicolon CRLF",
+  "source": "Write-Output first;\r\n|| Write-Output second"
+ },
+ {
+  "name": "and chain after comment CRLF",
+  "source": "Write-Output first\r\n# one\r\n&& Write-Output second"
+ },
+ {
+  "name": "missing rhs CRLF",
+  "source": "Write-Output first\r\n|"
+ },
+ {
+  "name": "missing or rhs CRLF",
+  "source": "Write-Output first\r\n||"
+ },
+ {
+  "name": "no pipeline after break CRLF",
+  "source": "break\r\n| Select-Object Name"
+ }
+]

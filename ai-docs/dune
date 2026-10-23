@@ -1,0 +1,3 @@
+; Keep local/ (Git-ignored outputs, caches, vendor downloads and corpus links) out of
+; Opengrep's dune source tree: src/main/dune depends on (source_tree languages).
+(dirs :standard \ local)

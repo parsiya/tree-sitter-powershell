@@ -1,0 +1,398 @@
+[
+ {
+  "name": "classification: System.Security.",
+  "source": "$Type = [System.Security.]"
+ },
+ {
+  "name": "classification: Example.",
+  "source": "$Type = [Example.]"
+ },
+ {
+  "name": "classification: Example..",
+  "source": "$Type = [Example..]"
+ },
+ {
+  "name": "classification: Example...",
+  "source": "$Type = [Example...]"
+ },
+ {
+  "name": "classification: Example.Namespace..",
+  "source": "$Type = [Example.Namespace..]"
+ },
+ {
+  "name": "classification: .Example",
+  "source": "$Type = [.Example]"
+ },
+ {
+  "name": "classification: ..Example",
+  "source": "$Type = [..Example]"
+ },
+ {
+  "name": "classification: .",
+  "source": "$Type = [.]"
+ },
+ {
+  "name": "classification: ..",
+  "source": "$Type = [..]"
+ },
+ {
+  "name": "classification: ...",
+  "source": "$Type = [...]"
+ },
+ {
+  "name": "classification: Example..Namespace",
+  "source": "$Type = [Example..Namespace]"
+ },
+ {
+  "name": "classification: Example...Namespace",
+  "source": "$Type = [Example...Namespace]"
+ },
+ {
+  "name": "classification: Example..Namespace.",
+  "source": "$Type = [Example..Namespace.]"
+ },
+ {
+  "name": "classification: .Example.",
+  "source": "$Type = [.Example.]"
+ },
+ {
+  "name": "classification: .Example.Namespace.",
+  "source": "$Type = [.Example.Namespace.]"
+ },
+ {
+  "name": "classification: Example .",
+  "source": "$Type = [Example .]"
+ },
+ {
+  "name": "classification: Example. ",
+  "source": "$Type = [Example. ]"
+ },
+ {
+  "name": "classification: Example . Namespace.",
+  "source": "$Type = [Example . Namespace.]"
+ },
+ {
+  "name": "classification: Example. .",
+  "source": "$Type = [Example. .]"
+ },
+ {
+  "name": "classification: Example. .Namespace",
+  "source": "$Type = [Example. .Namespace]"
+ },
+ {
+  "name": "classification: Example`.",
+  "source": "$Type = [Example`.]"
+ },
+ {
+  "name": "classification: Example+Nested.",
+  "source": "$Type = [Example+Nested.]"
+ },
+ {
+  "name": "classification: Example.+Nested",
+  "source": "$Type = [Example.+Nested]"
+ },
+ {
+  "name": "classification: Example.+Nested.",
+  "source": "$Type = [Example.+Nested.]"
+ },
+ {
+  "name": "classification: Example+Nested..",
+  "source": "$Type = [Example+Nested..]"
+ },
+ {
+  "name": "classification: Example.123.",
+  "source": "$Type = [Example.123.]"
+ },
+ {
+  "name": "classification: Example.123",
+  "source": "$Type = [Example.123]"
+ },
+ {
+  "name": "classification: _Example.",
+  "source": "$Type = [_Example.]"
+ },
+ {
+  "name": "classification: Éxample.",
+  "source": "$Type = [Éxample.]"
+ },
+ {
+  "name": "classification: Example.Éxample.",
+  "source": "$Type = [Example.Éxample.]"
+ },
+ {
+  "name": "cast: System.Security.",
+  "source": "$Value = [System.Security.]$InputValue"
+ },
+ {
+  "name": "parameter: System.Security.",
+  "source": "function Use-Type { param([System.Security.]$Value)\n$Value }"
+ },
+ {
+  "name": "property: System.Security.",
+  "source": "class ExampleClass { [System.Security.]$Value }"
+ },
+ {
+  "name": "method: System.Security.",
+  "source": "class ExampleClass { [System.Security.] Use([System.Security.]$Value) { return $Value } }"
+ },
+ {
+  "name": "array: System.Security.",
+  "source": "$Type = [System.Security.[]]"
+ },
+ {
+  "name": "ranked array: System.Security.",
+  "source": "$Type = [System.Security.[,,]]"
+ },
+ {
+  "name": "generic base: System.Security.",
+  "source": "$Type = [System.Security.[int]]"
+ },
+ {
+  "name": "generic argument: System.Security.",
+  "source": "$Type = [System.Collections.Generic.List[System.Security.]]"
+ },
+ {
+  "name": "cast: Example.",
+  "source": "$Value = [Example.]$InputValue"
+ },
+ {
+  "name": "parameter: Example.",
+  "source": "function Use-Type { param([Example.]$Value)\n$Value }"
+ },
+ {
+  "name": "property: Example.",
+  "source": "class ExampleClass { [Example.]$Value }"
+ },
+ {
+  "name": "method: Example.",
+  "source": "class ExampleClass { [Example.] Use([Example.]$Value) { return $Value } }"
+ },
+ {
+  "name": "array: Example.",
+  "source": "$Type = [Example.[]]"
+ },
+ {
+  "name": "ranked array: Example.",
+  "source": "$Type = [Example.[,,]]"
+ },
+ {
+  "name": "generic base: Example.",
+  "source": "$Type = [Example.[int]]"
+ },
+ {
+  "name": "generic argument: Example.",
+  "source": "$Type = [System.Collections.Generic.List[Example.]]"
+ },
+ {
+  "name": "cast: Example..",
+  "source": "$Value = [Example..]$InputValue"
+ },
+ {
+  "name": "parameter: Example..",
+  "source": "function Use-Type { param([Example..]$Value)\n$Value }"
+ },
+ {
+  "name": "property: Example..",
+  "source": "class ExampleClass { [Example..]$Value }"
+ },
+ {
+  "name": "method: Example..",
+  "source": "class ExampleClass { [Example..] Use([Example..]$Value) { return $Value } }"
+ },
+ {
+  "name": "array: Example..",
+  "source": "$Type = [Example..[]]"
+ },
+ {
+  "name": "ranked array: Example..",
+  "source": "$Type = [Example..[,,]]"
+ },
+ {
+  "name": "generic base: Example..",
+  "source": "$Type = [Example..[int]]"
+ },
+ {
+  "name": "generic argument: Example..",
+  "source": "$Type = [System.Collections.Generic.List[Example..]]"
+ },
+ {
+  "name": "value: Example.Namespace...",
+  "source": "$Type = [Example.Namespace...]"
+ },
+ {
+  "name": "cast: Example.Namespace...",
+  "source": "$Value = [Example.Namespace...]$InputValue"
+ },
+ {
+  "name": "parameter: Example.Namespace...",
+  "source": "function Use-Type { param([Example.Namespace...]$Value)\n$Value }"
+ },
+ {
+  "name": "property: Example.Namespace...",
+  "source": "class ExampleClass { [Example.Namespace...]$Value }"
+ },
+ {
+  "name": "method: Example.Namespace...",
+  "source": "class ExampleClass { [Example.Namespace...] Use([Example.Namespace...]$Value) { return $Value } }"
+ },
+ {
+  "name": "array: Example.Namespace...",
+  "source": "$Type = [Example.Namespace...[]]"
+ },
+ {
+  "name": "ranked array: Example.Namespace...",
+  "source": "$Type = [Example.Namespace...[,,]]"
+ },
+ {
+  "name": "generic base: Example.Namespace...",
+  "source": "$Type = [Example.Namespace...[int]]"
+ },
+ {
+  "name": "generic argument: Example.Namespace...",
+  "source": "$Type = [System.Collections.Generic.List[Example.Namespace...]]"
+ },
+ {
+  "name": "value: 123.",
+  "source": "$Type = [123.]"
+ },
+ {
+  "name": "cast: 123.",
+  "source": "$Value = [123.]$InputValue"
+ },
+ {
+  "name": "parameter: 123.",
+  "source": "function Use-Type { param([123.]$Value)\n$Value }"
+ },
+ {
+  "name": "property: 123.",
+  "source": "class ExampleClass { [123.]$Value }"
+ },
+ {
+  "name": "method: 123.",
+  "source": "class ExampleClass { [123.] Use([123.]$Value) { return $Value } }"
+ },
+ {
+  "name": "array: 123.",
+  "source": "$Type = [123.[]]"
+ },
+ {
+  "name": "ranked array: 123.",
+  "source": "$Type = [123.[,,]]"
+ },
+ {
+  "name": "generic base: 123.",
+  "source": "$Type = [123.[int]]"
+ },
+ {
+  "name": "generic argument: 123.",
+  "source": "$Type = [System.Collections.Generic.List[123.]]"
+ },
+ {
+  "name": "original parameter syntax",
+  "source": "param([System.Security.]$Headers)"
+ },
+ {
+  "name": "unicode prefix bytes",
+  "source": "# π🙂 bytes\r\n$Type = [Example.Namespace...]"
+ },
+ {
+  "name": "plain type",
+  "source": "$Type = [System.Int32]"
+ },
+ {
+  "name": "plain array",
+  "source": "$Type = [System.Int32[]]"
+ },
+ {
+  "name": "plain generic",
+  "source": "$Type = [System.Collections.Generic.List[int]]"
+ },
+ {
+  "name": "member",
+  "source": "$value.Name"
+ },
+ {
+  "name": "static member",
+  "source": "[System.Int32]::MaxValue"
+ },
+ {
+  "name": "member on trailing dot type",
+  "source": "[Example.]::Member"
+ },
+ {
+  "name": "division",
+  "source": "$value / 2"
+ },
+ {
+  "name": "range",
+  "source": "$Value = (1)..3"
+ },
+ {
+  "name": "range endpoints",
+  "source": "$Value = (1)..(3)"
+ },
+ {
+  "name": "range with types",
+  "source": "$Value = [int]1..[int]3"
+ },
+ {
+  "name": "nested array inherited",
+  "source": "$Type = [int[][]]"
+ },
+ {
+  "name": "array of generic inherited",
+  "source": "$Type = [System.Collections.Generic.List[int][]]"
+ },
+ {
+  "name": "trailing nested array",
+  "source": "$Type = [Example.[][]]"
+ },
+ {
+  "name": "trailing generic array",
+  "source": "$Type = [Example.[int][]]"
+ },
+ {
+  "name": "trailing array argument",
+  "source": "$Type = [Example[Other.[]]]"
+ },
+ {
+  "name": "invalid incomplete type",
+  "source": "$Type = [Example."
+ },
+ {
+  "name": "invalid generic suffix",
+  "source": "$Type = [Example.[][int]]"
+ },
+ {
+  "name": "invalid numeric generic argument",
+  "source": "$Type = [Example.[1]]"
+ },
+ {
+  "name": "invalid later numeric generic argument",
+  "source": "$Type = [Example.[int,1]]"
+ },
+ {
+  "name": "numeric generic inherited control",
+  "source": "$Type = [Example[1]]"
+ },
+ {
+  "name": "numeric type inherited control",
+  "source": "$Type = [123]"
+ },
+ {
+  "name": "rank two trailing array",
+  "source": "$Type = [Example.[,]]"
+ },
+ {
+  "name": "invalid generic missing argument",
+  "source": "$Type = [Example.[int,]]"
+ },
+ {
+  "name": "invalid type followed identifier",
+  "source": "$Type = [Example. Other]"
+ },
+ {
+  "name": "invalid type leading slash",
+  "source": "$Type = [/Example.]"
+ }
+]

@@ -1,0 +1,24 @@
+{
+ "suite": "leading-pipeline-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":17,"agree":12,"invalid_rejected":4,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "leading pipe command": {"status":"agree","differences":[]},
+  "leading pipe expression": {"status":"agree","differences":[]},
+  "leading pipe comma array": {"status":"agree","differences":[]},
+  "leading pipe assignment": {"status":"agree","differences":[]},
+  "leading pipe with comment": {"status":"agree","differences":[]},
+  "leading pipe after blank line": {"status":"invalid-rejected","differences":[]},
+  "leading pipe after block comment": {"status":"agree","differences":[]},
+  "leading pipe CRLF": {"status":"agree","differences":[]},
+  "leading pipe in scriptblock": {"status":"agree","differences":[]},
+  "trailing pipe control": {"status":"known","differences":[]},
+  "separate statements control": {"status":"agree","differences":[]},
+  "semicolon before pipe invalid": {"status":"invalid-rejected","differences":[]},
+  "pipe without left command invalid": {"status":"invalid-rejected","differences":[]},
+  "leading double pipe classification": {"status":"agree","differences":[]},
+  "leading double ampersand classification": {"status":"invalid-rejected","differences":[]},
+  "quoted pipe control": {"status":"agree","differences":[]},
+  "escaped pipe control": {"status":"agree","differences":[]}
+ }
+}

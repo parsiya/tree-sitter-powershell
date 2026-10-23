@@ -1,0 +1,19 @@
+# Smoke rules: `validate.mjs full` scans every readable PowerShell file of each corpus
+# batch with these. Each pattern starts with the command name; smoke/verify-smoke.mjs
+# checks that every finding's bytes start with it.
+rules:
+  - id: powershell-write-host
+    languages: [powershell]
+    message: Write-Host arguments
+    severity: INFO
+    pattern: Write-Host $...ARGS
+  - id: powershell-write-verbose
+    languages: [powershell]
+    message: Write-Verbose arguments
+    severity: INFO
+    pattern: Write-Verbose $...ARGS
+  - id: powershell-register-argumentcompleter
+    languages: [powershell]
+    message: Argument completer registration
+    severity: INFO
+    pattern: Register-ArgumentCompleter $...ARGS

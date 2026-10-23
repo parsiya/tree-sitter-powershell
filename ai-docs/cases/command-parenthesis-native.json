@@ -1,0 +1,46 @@
+[
+ {
+  "name": "word followed by command parentheses",
+  "source": "New-Object Example.Type(Get-Item example)"
+ },
+ {
+  "name": "variable followed by command parentheses",
+  "source": "Write-Output $value(Get-Item example)"
+ },
+ {
+  "name": "nested command constructor syntax",
+  "source": "$result = New-Object Example.Type(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "nested constructor inside real method",
+  "source": "$items.Add((New-Object Example.Type(New-Object Example.Inner('sample'))))"
+ },
+ {
+  "name": "word parentheses expression array control",
+  "source": "New-Object Example.Type($first, $second)"
+ },
+ {
+  "name": "variable parentheses numeric control",
+  "source": "Write-Output $value(1)"
+ },
+ {
+  "name": "quoted prefix followed by command parentheses",
+  "source": "Write-Output \"prefix\"(Get-Item example)"
+ },
+ {
+  "name": "real method explicit nested command control",
+  "source": "Write-Output $value.Method((Get-Item example))"
+ },
+ {
+  "name": "static-looking word separate issue",
+  "source": "Write-Output [Example]::Method(Get-Item example)"
+ },
+ {
+  "name": "empty parentheses invalid",
+  "source": "New-Object Example.Type()"
+ },
+ {
+  "name": "bare command inside real method invalid",
+  "source": "$value.Method(Get-Item example)"
+ }
+]

@@ -1,0 +1,24 @@
+{
+ "suite": "comma-continuation-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":17,"agree":17,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "2-items-1-escaped-spaces": {"status":"agree","differences":[]},
+  "2-items-3-escaped-spaces": {"status":"agree","differences":[]},
+  "2-items-4-escaped-spaces": {"status":"agree","differences":[]},
+  "32-items-1-escaped-spaces": {"status":"agree","differences":[]},
+  "32-items-3-escaped-spaces": {"status":"agree","differences":[]},
+  "32-items-4-escaped-spaces": {"status":"agree","differences":[]},
+  "100-items-1-escaped-spaces": {"status":"agree","differences":[]},
+  "100-items-3-escaped-spaces": {"status":"agree","differences":[]},
+  "100-items-4-escaped-spaces": {"status":"agree","differences":[]},
+  "400-items-1-escaped-spaces": {"status":"agree","differences":[]},
+  "400-items-3-escaped-spaces": {"status":"agree","differences":[]},
+  "400-items-4-escaped-spaces": {"status":"agree","differences":[]},
+  "short escaped-space comment list": {"status":"agree","differences":[]},
+  "immediate escaped-space comment list": {"status":"agree","differences":[]},
+  "immediate escaped-space CRLF comment list": {"status":"agree","differences":[]},
+  "spaced words after commas": {"status":"agree","differences":[]},
+  "scriptblock after comma word": {"status":"agree","differences":[]}
+ }
+}

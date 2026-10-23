@@ -1,0 +1,194 @@
+[
+ {
+  "name": "Completed expression: adjacent subexpressions and quote",
+  "source": "Write-Output $($left)$($right)\"\""
+ },
+ {
+  "name": "Completed expression: leading quote member and quote",
+  "source": "Write-Output \"prefix\"$item.Version\"suffix\""
+ },
+ {
+  "name": "Completed expression: subexpression then word",
+  "source": "Write-Output $($left)tail"
+ },
+ {
+  "name": "Completed expression: parenthesis then word",
+  "source": "Write-Output ($left)tail"
+ },
+ {
+  "name": "Completed expression: array expression then word",
+  "source": "Write-Output @($left)tail"
+ },
+ {
+  "name": "Completed expression: scriptblock then word",
+  "source": "Write-Output {$left}tail"
+ },
+ {
+  "name": "Completed expression: method then quote",
+  "source": "Write-Output $item.Trim()\"suffix\""
+ },
+ {
+  "name": "Completed expression: index then quote",
+  "source": "Write-Output $item[0]\"suffix\""
+ },
+ {
+  "name": "Completed expression: member then quote",
+  "source": "Write-Output $item.Version\"suffix\""
+ },
+ {
+  "name": "Completed expression: word-leading subexpression stays joined",
+  "source": "Write-Output pre$($left)tail"
+ },
+ {
+  "name": "Completed expression: variable-leading subexpression stays joined",
+  "source": "Write-Output $left$($right)tail"
+ },
+ {
+  "name": "Completed expression: whitespace-separated subexpressions",
+  "source": "Write-Output $($left) $($right) \"\""
+ },
+ {
+  "name": "Completed expression: quoted interpolation stays joined",
+  "source": "Write-Output \"pre$($left)tail\""
+ },
+ {
+  "name": "Completed expression: escaped parentheses stay text",
+  "source": "Write-Output pre`(tail`)"
+ },
+ {
+  "name": "Completed expression: following parameter stays separate",
+  "source": "Write-Output $($left)-NoEnumerate"
+ },
+ {
+  "name": "Completed expression: comma preserves one array argument",
+  "source": "Write-Output $($left),$($right)"
+ },
+ {
+  "name": "Completed expression: adjacent parentheses",
+  "source": "Write-Output ($left)($right)"
+ },
+ {
+  "name": "Completed expression: nested commands remain separate",
+  "source": "Write-Output $(Get-Item sample)$(Get-Item other)\"\""
+ },
+ {
+  "name": "Completed expression: embedded command stays in one word",
+  "source": "Write-Output pre$(Get-Item sample)tail"
+ },
+ {
+  "name": "Completed expression: repeated embedded subexpressions stay joined",
+  "source": "Write-Output $left$($right)mid$($other)tail"
+ },
+ {
+  "name": "Completed expression: quote then word",
+  "source": "Write-Output \"start\"tail"
+ },
+ {
+  "name": "Completed expression: subexpression then variable",
+  "source": "Write-Output $($left)$right"
+ },
+ {
+  "name": "Completed expression: subexpression then array",
+  "source": "Write-Output $($left)@($right)"
+ },
+ {
+  "name": "Completed expression: subexpression then scriptblock",
+  "source": "Write-Output $($left){$right}"
+ },
+ {
+  "name": "Completed expression: member then subexpression",
+  "source": "Write-Output $item.Version$($right)"
+ },
+ {
+  "name": "Completed expression: index then subexpression",
+  "source": "Write-Output $item[0]$($right)"
+ },
+ {
+  "name": "Completed expression: method then subexpression",
+  "source": "Write-Output $item.Trim()$($right)"
+ },
+ {
+  "name": "Completed expression: immediately parenthesized first argument",
+  "source": "Write-Output($left)tail"
+ },
+ {
+  "name": "Completed expression: immediate scriptblock first argument",
+  "source": "Write-Output{$left}tail"
+ },
+ {
+  "name": "Completed expression: comment cannot introduce an adjacent argument",
+  "source": "Write-Output {$left}# explanation\nWrite-Output next"
+ },
+ {
+  "name": "Completed expression: quoted comment boundary",
+  "source": "Write-Output \"value\"# explanation\nWrite-Output next"
+ },
+ {
+  "name": "Completed expression: block comment boundary",
+  "source": "Write-Output $($left)<# explanation #>\nWrite-Output next"
+ },
+ {
+  "name": "Completed expression: line continuation before parameter",
+  "source": "Write-Output \"value\"`\n    -NoEnumerate"
+ },
+ {
+  "name": "Completed expression: newline is not adjacency",
+  "source": "Write-Output $($left)\nWrite-Output tail"
+ },
+ {
+  "name": "Completed expression: following word with embedded expression",
+  "source": "Write-Output $($left)pre$($right)tail"
+ },
+ {
+  "name": "Completed expression: scriptblock then quoted argument",
+  "source": "Write-Output {$left}\"suffix\""
+ },
+ {
+  "name": "Completed expression: parenthesis then subexpression",
+  "source": "Write-Output ($left)$($right)"
+ },
+ {
+  "name": "Completed expression: subexpression then numeric word",
+  "source": "Write-Output $($left)42"
+ },
+ {
+  "name": "Completed expression: subexpression then single-quoted argument",
+  "source": "Write-Output $($left)'suffix'"
+ },
+ {
+  "name": "Completed expression: assignment adjacency remains invalid",
+  "source": "$result = $($left)$($right)"
+ },
+ {
+  "name": "Completed expression: unterminated subexpression remains invalid",
+  "source": "Write-Output $($left"
+ },
+ {
+  "name": "Completed expression: method adjacency in assignment remains invalid",
+  "source": "$result = $item.Trim()\"suffix\""
+ },
+ {
+  "name": "scope control: variable before parentheses",
+  "source": "Write-Output $left(Get-Item example)"
+ },
+ {
+  "name": "line continuation CRLF",
+  "source": "Write-Output \"value\"`\r\n    -NoEnumerate"
+ },
+ {
+  "name": "scope control: static-looking command word",
+  "source": "Write-Output [Text.Encoding]::UTF8.GetString($bytes)"
+ },
+ {
+  "name": "scope control: mixed comma array",
+  "source": "Write-Output $left,word,$right"
+ },
+ {
+  "name": "scope control: bare plus",
+  "source": "Write-Output + $item.Version"
+ },
+ {
+  "name": "scope control: method without adjacency",
+  "source": "Write-Output $item.Trim()"
+ }
+]

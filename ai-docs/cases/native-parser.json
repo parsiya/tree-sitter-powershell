@@ -1,0 +1,222 @@
+[
+ {
+  "name": "tests/parsing/powershell/basic.ps1",
+  "source": "param([string]$Path)\n\n$values = @(1, 2, 3)\n$options = @{ Path = $Path; Raw = $true }\nGet-Content @options | Write-Output\n$value = [System.IO.File]::ReadAllText($Path)\n$length = $value.Length\nWrite-Output \"value: $value\"\nWrite-Output '$value'\n\nif ($length -gt 0) {\n    Write-Output $value\n} else {\n    Write-Output 'empty'\n}\n\nforeach ($item in $values) {\n    Write-Output $item\n}\n"
+ },
+ {
+  "name": "tests/parsing/powershell/command_arguments.ps1",
+  "source": "param([string]$Path)\n\nNew-Object System.IO.StreamReader($Path, $true)\nWrite-Output (1 + 2)\nWrite-Output (1, 2)\nWrite-Output label(1)\nWrite-Output label(1, 2)\n\n$values.ForEach{ Write-Output $_ }\n$values.Where({ $_ -gt 0 })\n\nfunction Get-Value() {\n    param([string]$Name)\n    Write-Output $Name\n}\ntool -o tsv 2>$null\ntool value >>log.txt\nWrite-Output (1KB + 10MB + 0X1F)\n"
+ },
+ {
+  "name": "tests/parsing/powershell/comments.ps1",
+  "source": "# A comment-only PowerShell file is valid.\n<#\nThis is also a comment.\n#>\n"
+ },
+ {
+  "name": "tests/parsing/powershell/control_flow.ps1",
+  "source": "$count = 0\n++${count}\n--${count}\n${count}++\n${count}--\n\nfor ($i = 0; $i -lt 3; $i++) {\n    Write-Output $i\n}\nfor (; $count -lt 3;) {\n    ++${count}\n}\nfor (;;) {\n    break\n}\n\ndo {\n    $count++\n} until ($count -ge 3)\n\nswitch ($count) {\n    1 { Write-Output 'one' }\n    'two' { Write-Output 'two' }\n    { $_ -gt 2 } { Write-Output 'many' }\n    default { Write-Output 'other' }\n}\nswitch -Regex -CaseSensitive ($value) {\n    '^a' { Write-Output 'a' }\n}\nswitch -File 'input.txt' {\n    'value' { Write-Output 'value' }\n}\n\ntry {\n    throw 'failure'\n} catch {\n    throw\n}\nexit 1\n:outer foreach ($item in $items) {\n    foreach ($part in $item) {\n        if ($part) { continue outer }\n        break outer\n    }\n}\n$class = if ($item) { 'on' }\nelseif ($other) { 'off' }\nelse { '' }\n1..16 | ForEach-Object { $_ }\n0..($count - 1)\n"
+ },
+ {
+  "name": "tests/parsing/powershell/empty.ps1",
+  "source": ""
+ },
+ {
+  "name": "tests/parsing/powershell/filter.ps1",
+  "source": "filter Get-Value {\n    [CmdletBinding()]\n    param([string]$Prefix)\n    Write-Output \"$Prefix $_\"\n}\n"
+ },
+ {
+  "name": "tests/parsing/powershell/function.ps1",
+  "source": "function Get-Value {\n    [CmdletBinding()]\n    param([Parameter(Mandatory=$true)][string]$Name)\n    process {\n        return $Name\n    }\n}\n\nGet-Value -Name 'example'\n"
+ },
+ {
+  "name": "tests/parsing/powershell/metadata.ps1",
+  "source": "param([int][string]$Value)\n\n$script = {\n    [CmdletBinding()]\n    param([string]$Name)\n    Write-Output $Name\n}\n\n$Value > 'output.txt'\n$Value 2> 'errors.txt' | Write-Output\n"
+ },
+ {
+  "name": "tests/parsing/powershell/types.ps1",
+  "source": "param(\n    [string[]]$Names,\n    [int[,]]$Grid,\n    [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[int[]]]]$Lookup\n)\n\n$array = [string[]]$Names\n$matrix = [int[,]]$Grid\n$cube = [int[,,]]$Grid\n$lookup = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[int[]]]]$Lookup\n$listType = [System.Collections.Generic.List[string]]\n$matrixType = [int[,]]\n\nfunction Get-Names([string[]]$Names) {\n    return [string[]]$Names\n}\n\nWrite-Output [string[]]\nWrite-Output ([System.Collections.Generic.List[int]])\n"
+ },
+ {
+  "name": "tests/patterns/powershell/adjacent_argument.ps1",
+  "source": "# ERROR:\nNew-Object System.IO.StreamReader($path, $true)\n# ERROR:\nNew-Object System.IO.StreamReader ($other, $false)\n\nNew-Object OtherType($path, $true)\nNew-Object System.IO.StreamReader($path)\nNew-Object System.IO.StreamReader $path $true\n"
+ },
+ {
+  "name": "tests/patterns/powershell/array_rank.ps1",
+  "source": "# ERROR:\n[int[,]]$Grid\n# ERROR:\n[INT[,]]$Other\n\n[int[]]$Grid\n[int[,,]]$Grid\n[string[,]]$Grid\n"
+ },
+ {
+  "name": "tests/patterns/powershell/array_type.ps1",
+  "source": "# ERROR:\n[string[]]$Names\n# ERROR:\n[STRING[]]$Other\n\n[int[]]$Names\n[string]$Names\n[string[,]]$Names\n"
+ },
+ {
+  "name": "tests/patterns/powershell/assignment.ps1",
+  "source": "# ERROR:\n$Data = Get-Content $Path\n\n$other = Get-Item $Path\n"
+ },
+ {
+  "name": "tests/patterns/powershell/bare_throw.ps1",
+  "source": "# ERROR:\nthrow\n\nthrow 'failure'\nreturn\n"
+ },
+ {
+  "name": "tests/patterns/powershell/bare_type_argument.ps1",
+  "source": "# ERROR:\nWrite-Output [string[]]\n# ERROR:\nWrite-Output '[string[]]'\n\nWrite-Output [STRING[]]\nWrite-Output [string[,]]\nWrite-Output ([string[]])\n"
+ },
+ {
+  "name": "tests/patterns/powershell/call_operator.ps1",
+  "source": "# ERROR:\n& $command $argument\n\n# ERROR:\n& 'Write-Output' 'hello'\n\nWrite-Output $argument\n"
+ },
+ {
+  "name": "tests/patterns/powershell/case_insensitive.ps1",
+  "source": "# ERROR:\nWRITE-OUTPUT 'hello'\n\n# ERROR:\nwRiTe-OuTpUt 'hello'\n\nWrite-Output 'HELLO'\nWrite-Error 'hello'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/concrete_syntax.ps1",
+  "source": "# ERROR:\nWrite-Output 'hello'\n\n# ERROR:\nWrite-Output \"hello\"\n\nWrite-Error 'hello'\nWrite-Output 'other'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/do_until.ps1",
+  "source": "# ERROR:\ndo {\n    Write-Output $value\n} until ($done)\n\ndo {\n    Write-Output $value\n} while ($done)\n"
+ },
+ {
+  "name": "tests/patterns/powershell/dots_args.ps1",
+  "source": "# ERROR:\nWrite-Output\n\n# ERROR:\nWrite-Output 1 2\n\n# ERROR:\nWrite-Output -NoEnumerate $items\n\nWrite-Error $items\n"
+ },
+ {
+  "name": "tests/patterns/powershell/dots_stmts.ps1",
+  "source": "function Test-First {\n    # ERROR:\n    Write-Output 'start'\n    Write-Output $value\n    Write-Output 'end'\n}\n\nfunction Test-Second {\n    # ERROR:\n    Write-Output 'start'\n    Write-Output 'end'\n}\n\nfunction Test-Other {\n    Write-Output 'different'\n    Write-Output 'end'\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/empty_function_header.ps1",
+  "source": "# ERROR:\nfunction Get-Value() {\n    param([string]$Name)\n    Write-Output $Name\n}\n# ERROR:\nfunction Get-Value {\n    param([string]$Other)\n    Write-Output $Other\n}\n\nfunction Get-Other() {\n    param([string]$Name)\n    Write-Output $Name\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/environment_variable.ps1",
+  "source": "# ERROR:\nWrite-Output $env:PATH\n\n# ERROR:\nWrite-Output $ENV:PATH\n\nWrite-Output $env:path\nWrite-Output $PATH\n"
+ },
+ {
+  "name": "tests/patterns/powershell/exit_status.ps1",
+  "source": "# ERROR:\nexit 1\n# ERROR:\nEXIT 1\n\nexit 0\nexit\nreturn 1\n"
+ },
+ {
+  "name": "tests/patterns/powershell/expression_redirection.ps1",
+  "source": "# ERROR:\n$value > 'output.txt'\n# ERROR:\n$other > \"output.txt\"\n\n$value >> 'output.txt'\n$value > 'other.txt'\n$value 2> 'output.txt'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/filter.ps1",
+  "source": "# ERROR:\nfilter Get-Value {\n    Write-Output $_\n}\n# ERROR:\nFILTER GET-VALUE {\n    Write-Output ${_}\n}\n\nfunction Get-Value {\n    Write-Output $_\n}\nfilter Get-Other {\n    Write-Output $_\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/for_loop.ps1",
+  "source": "# ERROR:\nfor ($i = 0; $i -lt 3; $i++) {\n    Write-Output $i\n}\n# ERROR:\nFOR ($j = 0; $j -lt 3; $j++) {\n    Write-Output $j\n}\n\nfor ($i = 1; $i -lt 3; $i++) {\n    Write-Output $i\n}\nfor ($i = 0; $i -lt 4; $i++) {\n    Write-Output $i\n}\nfor ($i = 0; $i -lt 3; $i--) {\n    Write-Output $i\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/function.ps1",
+  "source": "# ERROR:\nfunction Test-Value {\n    Write-Output 'hello'\n}\n\n# ERROR:\nfunction TEST-VALUE {\n    Write-Output 1\n    Write-Output 2\n}\n\nfunction Test-Other {\n    Write-Output 'hello'\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/generic_type.ps1",
+  "source": "# ERROR:\n[System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[int[]]]]$Lookup\n# ERROR:\n[SYSTEM.COLLECTIONS.GENERIC.DICTIONARY[STRING, SYSTEM.COLLECTIONS.GENERIC.LIST[INT[]]]]$Other\n\n[System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[string[]]]]$Lookup\n[System.Collections.Generic.Dictionary[int, System.Collections.Generic.List[int[]]]]$Lookup\n[System.Collections.Generic.List[int[]]]$Lookup\n[System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[int[,]]]]$Lookup\n"
+ },
+ {
+  "name": "tests/patterns/powershell/here_string.ps1",
+  "source": "# ERROR:\nWrite-Output @'\nhello\n'@\n\n# ERROR:\nWrite-Output @\"\nhello\n\"@\n\nWrite-Output @'\nother\n'@\n"
+ },
+ {
+  "name": "tests/patterns/powershell/increment.ps1",
+  "source": "# ERROR:\n${count}++\n# ERROR:\n${COUNT}++\n\n++${count}\n${count}--\n--${count}\n${other}++\n"
+ },
+ {
+  "name": "tests/patterns/powershell/interpolation.ps1",
+  "source": "# ERROR:\nWrite-Output \"hello $Name\"\n\n# ERROR:\nWrite-Output \"hello $(Get-Item $Path)\"\n\nWrite-Output \"goodbye $Name\"\n"
+ },
+ {
+  "name": "tests/patterns/powershell/literal_variable.ps1",
+  "source": "# ERROR:\nWrite-Output $Name\n\n# ERROR:\nWrite-Output ${NAME}\n\nWrite-Output $other\nWrite-Output 'Name'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/member_foreach.ps1",
+  "source": "# ERROR:\n$values.ForEach{ Write-Output $item }\n# ERROR:\n$other.FOREACH{ Write-Output 'value' }\n\n$values.ForEach{ Write-Error $item }\n$values.Where({ Write-Output $item })\n"
+ },
+ {
+  "name": "tests/patterns/powershell/metavar_arg.ps1",
+  "source": "# ERROR:\nWrite-Output $value\n\n# ERROR:\nWrite-Output 'text'\n\n# ERROR:\nWrite-Output (1 + 2)\n\nWrite-Error $value\nWrite-Output\n"
+ },
+ {
+  "name": "tests/patterns/powershell/metavar_equality_var.ps1",
+  "source": "# ERROR:\nCompare-Object $first $FIRST\n\nCompare-Object $first $second\n"
+ },
+ {
+  "name": "tests/patterns/powershell/metavar_func_def.ps1",
+  "source": "# ERROR:\nfunction Test-First {\n    Write-Output 'one'\n}\n\n# ERROR:\nfunction Test-Second {\n    Write-Output 'two'\n}\n\nTest-First\n"
+ },
+ {
+  "name": "tests/patterns/powershell/method_argument.ps1",
+  "source": "# ERROR:\nWrite-Output $value.ToString()\n# ERROR:\nWrite-Output $other.TOSTRING()\n\nWrite-Output $value.ToString\nWrite-Output $value.ToString(1)\nWrite-Output $value.OtherMethod()\nWrite-Output $value.ToString (1)\n"
+ },
+ {
+  "name": "tests/patterns/powershell/method_argument_values.ps1",
+  "source": "# ERROR:\nWrite-Output $value.Substring(1, 2)\n# ERROR:\nWrite-Output $other.SUBSTRING(3, 4)\n\nWrite-Output $value.Substring(1)\nWrite-Output $value.Substring\nWrite-Output Other(1, 2)\nWrite-Output $value.Substring (1, 2)\n"
+ },
+ {
+  "name": "tests/patterns/powershell/named_ellipsis.ps1",
+  "source": "# ERROR:\nWrite-Output\n\n# ERROR:\nWrite-Output 'one' 'two'\n\nWrite-Error 'one'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/pipeline.ps1",
+  "source": "# ERROR:\nGet-Content $path | Write-Output $value\n\nWrite-Output $value | Get-Content $path\nGet-Content $path\nWrite-Output $value\n"
+ },
+ {
+  "name": "tests/patterns/powershell/scoped_variable.ps1",
+  "source": "# ERROR:\nWrite-Output $script:NAME\n\nWrite-Output $local:Name\nWrite-Output $Name\n"
+ },
+ {
+  "name": "tests/patterns/powershell/switch_mode.ps1",
+  "source": "# ERROR:\nswitch -Regex ($value) {\n    'a' { Write-Output 'matched' }\n}\n# ERROR:\nSWITCH -REGEX ($other) {\n    'a' { Write-Output 'other' }\n}\n\nswitch -Wildcard ($value) {\n    'a' { Write-Output 'matched' }\n}\nswitch ($value) {\n    'a' { Write-Output 'matched' }\n}\nswitch -Regex -CaseSensitive ($value) {\n    'a' { Write-Output 'matched' }\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/type_constraints.ps1",
+  "source": "# ERROR:\nfunction Convert-Value {\n    param([int][string]$Value)\n    Write-Output $Value\n}\n\nfunction Convert-Value {\n    param([string][int]$Value)\n    Write-Output $Value\n}\nfunction Convert-Value {\n    param([string]$Value)\n    Write-Output $Value\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/type_literal.ps1",
+  "source": "# ERROR:\n$type = [string[]]\n# ERROR:\n$other = [STRING[]]\n\n$type = [string]\n$type = [string[,]]\n$type = [System.Collections.Generic.List[string]]\n"
+ },
+ {
+  "name": "tests/patterns/powershell/uppercase_variable.ps1",
+  "source": "# ERROR:\nWrite-Output $X\n\nWrite-Output $Y\nWrite-Output 'X'\n"
+ },
+ {
+  "name": "tests/rules/powershell_types.ps1",
+  "source": "# ruleid: powershell-array-cast\n[STRING[]]$Names\n# ruleid: powershell-array-cast\n[string[]](1, 2)\n\n# ok: powershell-array-cast\n[int[]]$Names\n# ok: powershell-array-cast\n[string[,]]$Names\n\n# ruleid: powershell-generic-cast\n[System.Collections.Generic.List[string[]]]$Names\n# ruleid: powershell-generic-cast\n[SYSTEM.COLLECTIONS.GENERIC.LIST[STRING[]]]$Other\n\n# ok: powershell-generic-cast\n[System.Collections.Generic.List[int[]]]$Names\n"
+ },
+ {
+  "name": "empty constructor argument",
+  "source": "New-Object System.Object()"
+ },
+ {
+  "name": "adjacent scalar argument",
+  "source": "Write-Output label(1)"
+ },
+ {
+  "name": "adjacent array argument",
+  "source": "New-Object System.IO.StreamReader($Path, $true)"
+ },
+ {
+  "name": "duplicate nonempty parameter lists",
+  "source": "function Example($First) {\nparam($Second)\nWrite-Output $Second\n}"
+ },
+ {
+  "name": "multiple parameter type constraints",
+  "source": "param([int][string]$Value)"
+ },
+ {
+  "name": "member foreach with parentheses",
+  "source": "$values.ForEach({ Write-Output $_ })"
+ },
+ {
+  "name": "member foreach without parentheses",
+  "source": "$values.ForEach{ Write-Output $_ }"
+ },
+ {
+  "name": "reduction: script block attributes",
+  "source": "$plain = {\n    param($Item)\n    Write-Output $Item\n}\n$withOptions = {\n    [CmdletBinding(ConfirmImpact = 'Low')]\n    param($Item)\n    Write-Output $Item\n}\n"
+ }
+]

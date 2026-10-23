@@ -1,0 +1,30 @@
+{
+ "suite": "nested-array-type-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":23,"agree":21,"invalid_rejected":2,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "jagged parameter": {"status":"agree","differences":[]},
+  "triple jagged parameter": {"status":"agree","differences":[]},
+  "jagged function parameter": {"status":"agree","differences":[]},
+  "jagged class method parameter": {"status":"agree","differences":[]},
+  "jagged class property": {"status":"agree","differences":[]},
+  "jagged return type": {"status":"agree","differences":[]},
+  "jagged type value": {"status":"agree","differences":[]},
+  "jagged cast": {"status":"agree","differences":[]},
+  "matrix inside vector": {"status":"agree","differences":[]},
+  "vector inside matrix": {"status":"agree","differences":[]},
+  "nested matrix ranks": {"status":"agree","differences":[]},
+  "array generic argument": {"status":"agree","differences":[]},
+  "jagged generic argument": {"status":"agree","differences":[]},
+  "generic vector": {"status":"agree","differences":[]},
+  "generic jagged vector": {"status":"agree","differences":[]},
+  "bracketed jagged generic argument": {"status":"agree","differences":[]},
+  "nested CLR type vector": {"status":"agree","differences":[]},
+  "plain vector control": {"status":"agree","differences":[]},
+  "plain matrix control": {"status":"agree","differences":[]},
+  "trailing dotted type": {"status":"agree","differences":[]},
+  "spaced array suffix": {"status":"agree","differences":[]},
+  "invalid incomplete rank": {"status":"invalid-rejected","differences":[]},
+  "invalid incomplete outer type": {"status":"invalid-rejected","differences":[]}
+ }
+}

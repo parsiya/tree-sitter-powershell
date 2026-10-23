@@ -1,0 +1,70 @@
+[
+ {
+  "name": "leading pipe command",
+  "source": "Write-Output first\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe expression",
+  "source": "(Get-Item example)\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe comma array",
+  "source": "(Get-Item first),\n(Get-Item second)\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe assignment",
+  "source": "$result = Write-Output first\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe with comment",
+  "source": "Write-Output first\n# boundary\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after blank line",
+  "source": "Write-Output first\n\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe after block comment",
+  "source": "Write-Output first\n<# boundary #>\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe CRLF",
+  "source": "Write-Output first\r\n| Select-Object Name"
+ },
+ {
+  "name": "leading pipe in scriptblock",
+  "source": "& { Write-Output first\n| Select-Object Name }"
+ },
+ {
+  "name": "trailing pipe control",
+  "source": "Write-Output first |\nSelect-Object Name"
+ },
+ {
+  "name": "separate statements control",
+  "source": "Write-Output first\nWrite-Output second"
+ },
+ {
+  "name": "semicolon before pipe invalid",
+  "source": "Write-Output first;\n| Select-Object Name"
+ },
+ {
+  "name": "pipe without left command invalid",
+  "source": "| Select-Object Name"
+ },
+ {
+  "name": "leading double pipe classification",
+  "source": "Write-Output first\n|| Write-Output second"
+ },
+ {
+  "name": "leading double ampersand classification",
+  "source": "Write-Output first\n&& Write-Output second"
+ },
+ {
+  "name": "quoted pipe control",
+  "source": "Write-Output \"first\n| second\""
+ },
+ {
+  "name": "escaped pipe control",
+  "source": "Write-Output first\n`| second"
+ }
+]

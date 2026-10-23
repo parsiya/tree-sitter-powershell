@@ -1,0 +1,28 @@
+{
+ "suite": "leading-command-escape-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":21,"agree":19,"invalid_rejected":1,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "escaped leading letter": {"status":"agree","differences":[]},
+  "escaped leading dollar": {"status":"agree","differences":[]},
+  "escaped leading hash": {"status":"agree","differences":[]},
+  "escaped leading opening parenthesis": {"status":"agree","differences":[]},
+  "escaped leading closing parenthesis": {"status":"agree","differences":[]},
+  "escaped leading plus": {"status":"agree","differences":[]},
+  "escaped leading equals": {"status":"agree","differences":[]},
+  "escaped leading colon": {"status":"agree","differences":[]},
+  "escaped leading double quote": {"status":"agree","differences":[]},
+  "escaped leading single quote": {"status":"agree","differences":[]},
+  "escaped leading space": {"status":"agree","differences":[]},
+  "escaped leading unicode": {"status":"agree","differences":[]},
+  "escaped leading backtick": {"status":"agree","differences":[]},
+  "escaped leading command after assignment": {"status":"agree","differences":[]},
+  "escaped leading command after pipe": {"status":"known","differences":[]},
+  "escaped dollar command argument control": {"status":"agree","differences":[]},
+  "existing interior escape control": {"status":"agree","differences":[]},
+  "quoted command piece control": {"status":"agree","differences":[]},
+  "ordinary variable expression control": {"status":"agree","differences":[]},
+  "ordinary comment control": {"status":"agree","differences":[]},
+  "incomplete assignment escape invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

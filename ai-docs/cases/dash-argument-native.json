@@ -1,0 +1,78 @@
+[
+ {
+  "name": "digit-leading option word",
+  "source": "$result = Invoke-Example -4tuln"
+ },
+ {
+  "name": "trailing-dot parameter",
+  "source": "$result = Invoke-Example -F. 'sample'"
+ },
+ {
+  "name": "internal-dot parameter",
+  "source": "Invoke-Example -Name.Property value"
+ },
+ {
+  "name": "trailing-dot parameter before expression",
+  "source": "Invoke-Example -Name. $value"
+ },
+ {
+  "name": "numeric dash word",
+  "source": "Invoke-Example -1"
+ },
+ {
+  "name": "decimal dash word",
+  "source": "Invoke-Example -1.5"
+ },
+ {
+  "name": "fraction dash word",
+  "source": "Invoke-Example -.5"
+ },
+ {
+  "name": "hex dash word",
+  "source": "Invoke-Example -0x10"
+ },
+ {
+  "name": "size-suffix dash word",
+  "source": "Invoke-Example -1kb"
+ },
+ {
+  "name": "standalone dash",
+  "source": "Invoke-Example - value"
+ },
+ {
+  "name": "double-dash literal",
+  "source": "Invoke-Example --name=value"
+ },
+ {
+  "name": "quoted double-dash literal",
+  "source": "Invoke-Example --name='two words'"
+ },
+ {
+  "name": "single-dash equals parameter",
+  "source": "Invoke-Example -name=value"
+ },
+ {
+  "name": "single-dash ordinary parameter",
+  "source": "Invoke-Example -Name $value"
+ },
+ {
+  "name": "single-dash compact parameter",
+  "source": "Invoke-Example -A5"
+ },
+ {
+  "name": "numeric array item",
+  "source": "Invoke-Example first,-1,last"
+ },
+ {
+  "name": "negative expression control",
+  "source": "$result = -1"
+ },
+ {
+  "name": "subtraction control",
+  "source": "$result = $left - $right"
+ },
+ {
+  "name": "incomplete negation invalid",
+  "source": "$result = -"
+ }
+]

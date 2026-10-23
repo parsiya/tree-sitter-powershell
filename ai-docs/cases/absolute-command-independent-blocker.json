@@ -1,0 +1,10 @@
+[
+ {
+  "name": "independent bare plus argument",
+  "source": "Invoke-Example $left + $right"
+ },
+ {
+  "name": "independent explicit stdout redirection",
+  "source": "Invoke-Example status 1>/dev/null 2>/dev/null"
+ }
+]

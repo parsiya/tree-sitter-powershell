@@ -1,0 +1,30 @@
+[
+ {
+  "name": "variable wildcard suffix",
+  "source": "Write-Output $file******"
+ },
+ {
+  "name": "variable single wildcard suffix",
+  "source": "Write-Output $file*"
+ },
+ {
+  "name": "variable wildcard prefix control",
+  "source": "Write-Output prefix$file*"
+ },
+ {
+  "name": "variable slash suffix control",
+  "source": "Write-Output $file/path"
+ },
+ {
+  "name": "member wildcard suffix",
+  "source": "Write-Output $item.Name*"
+ },
+ {
+  "name": "synthetic conditional certificate-shaped command",
+  "source": "if ($UseBuiltIn) {\n$Certificate = Load-Example -FileName \"$PSScriptRoot\\sample.pfx\" -Password \"\"\n}\nelseif ($Certificate -eq $null) {\n$Certificate = Load-Example -FileName $FileName******\n$Issuer = Get-ExampleIssuer -Certificate $Certificate -Issuer $Issuer\n}"
+ },
+ {
+  "name": "conditional without wildcard control",
+  "source": "if ($UseBuiltIn) {\n$Certificate = Load-Example -FileName \"$PSScriptRoot\\sample.pfx\" -Password \"\"\n}\nelseif ($Certificate -eq $null) {\n$Certificate = Load-Example -FileName $FileName\n$Issuer = Get-ExampleIssuer -Certificate $Certificate -Issuer $Issuer\n}"
+ }
+]

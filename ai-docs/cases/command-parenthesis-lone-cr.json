@@ -1,0 +1,18 @@
+[
+ {
+  "name": "lone CR body",
+  "source": "$text = @\"\r\nalpha\rbeta\r\n\"@\r\n"
+ },
+ {
+  "name": "LF body control",
+  "source": "$text = @\"\nalpha\nbeta\n\"@\n"
+ },
+ {
+  "name": "CRLF body control",
+  "source": "$text = @\"\r\nalpha\r\nbeta\r\n\"@\r\n"
+ },
+ {
+  "name": "lone CR HTML-like body",
+  "source": "$text = @\"\r\n<panel>alpha</panel>\r <item>beta</item>\r\n\"@\r\n"
+ }
+]

@@ -1,0 +1,98 @@
+[
+ {
+  "name": "body-cr",
+  "source": "$value = @\"\nalpha\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf",
+  "source": "$value = @\"\nalpha\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf",
+  "source": "$value = @\"\nalpha\r\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-blank-cr",
+  "source": "$value = @\"\nalpha\r\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "hash-cr",
+  "source": "$value = @\"\nalpha\r# body\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "quote-cr",
+  "source": "$value = @\"\nalpha\r\"quoted\"\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "leading-cr",
+  "source": "$value = @\"\n\ralpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "trailing-crlf",
+  "source": "$value = @\"\nalpha\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "variables-cr",
+  "source": "$value = @\"\n$before\r$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "variables-lf",
+  "source": "$value = @\"\n$before\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "variables-crlf",
+  "source": "$value = @\"\n$before\r\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "subexpressions-cr",
+  "source": "$value = @\"\n$(1)\r$(2)\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-dollar-cr",
+  "source": "$value = @\"\n`$before\r`$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-cr",
+  "source": "$value = @\"\nalpha`\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-lf",
+  "source": "$value = @\"\nalpha`\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-crlf",
+  "source": "$value = @\"\nalpha`\r\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-crlf-footer",
+  "source": "$value = @\"\nalpha`\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-cr",
+  "source": "$value = @\"\ralpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "footer-cr",
+  "source": "$value = @\"\nalpha\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "both-cr",
+  "source": "$value = @\"\ralpha\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "empty-cr",
+  "source": "$value = @\"\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "blank-cr",
+  "source": "$value = @\"\r\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "empty-lf",
+  "source": "$value = @\"\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "empty-crlf",
+  "source": "$value = @\"\r\n\"@\nWrite-Output sentinel\n"
+ }
+]

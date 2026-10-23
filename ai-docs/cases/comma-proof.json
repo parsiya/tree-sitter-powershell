@@ -1,0 +1,434 @@
+[
+ {
+  "name": "words-plain",
+  "source": "Get-Item First, Second, Third\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "words-parameter",
+  "source": "Get-Item First, Second, Third -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "words-redirect",
+  "source": "Get-Item First, Second, Third >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "words-block",
+  "source": "Get-Item First, Second, Third{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "words-blockBody",
+  "source": "Get-Item First, Second, Third{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "variables-plain",
+  "source": "Get-Item $first, $second, $third\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "variables-parameter",
+  "source": "Get-Item $first, $second, $third -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "variables-redirect",
+  "source": "Get-Item $first, $second, $third >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "variables-block",
+  "source": "Get-Item $first, $second, $third{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "variables-blockBody",
+  "source": "Get-Item $first, $second, $third{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "quotes-plain",
+  "source": "Get-Item \"First\", 'Second', \"Third\"\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "quotes-parameter",
+  "source": "Get-Item \"First\", 'Second', \"Third\" -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "quotes-redirect",
+  "source": "Get-Item \"First\", 'Second', \"Third\" >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "quotes-block",
+  "source": "Get-Item \"First\", 'Second', \"Third\"{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "quotes-blockBody",
+  "source": "Get-Item \"First\", 'Second', \"Third\"{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "numbers-plain",
+  "source": "Get-Item 1, 2, 3\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "numbers-parameter",
+  "source": "Get-Item 1, 2, 3 -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "numbers-redirect",
+  "source": "Get-Item 1, 2, 3 >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "numbers-block",
+  "source": "Get-Item 1, 2, 3{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "numbers-blockBody",
+  "source": "Get-Item 1, 2, 3{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedWord-plain",
+  "source": "Get-Item First, $second, \"Third\", 4\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedWord-parameter",
+  "source": "Get-Item First, $second, \"Third\", 4 -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedWord-redirect",
+  "source": "Get-Item First, $second, \"Third\", 4 >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedWord-block",
+  "source": "Get-Item First, $second, \"Third\", 4{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedWord-blockBody",
+  "source": "Get-Item First, $second, \"Third\", 4{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedExpression-plain",
+  "source": "Get-Item $first, Second, \"Third\", 4\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedExpression-parameter",
+  "source": "Get-Item $first, Second, \"Third\", 4 -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedExpression-redirect",
+  "source": "Get-Item $first, Second, \"Third\", 4 >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedExpression-block",
+  "source": "Get-Item $first, Second, \"Third\", 4{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedExpression-blockBody",
+  "source": "Get-Item $first, Second, \"Third\", 4{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedQuote-plain",
+  "source": "Get-Item \"First\", Second, $third\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedQuote-parameter",
+  "source": "Get-Item \"First\", Second, $third -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedQuote-redirect",
+  "source": "Get-Item \"First\", Second, $third >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedQuote-block",
+  "source": "Get-Item \"First\", Second, $third{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "mixedQuote-blockBody",
+  "source": "Get-Item \"First\", Second, $third{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "parenthesized-plain",
+  "source": "Get-Item ($first), Second, (1 + 2)\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "parenthesized-parameter",
+  "source": "Get-Item ($first), Second, (1 + 2) -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "parenthesized-redirect",
+  "source": "Get-Item ($first), Second, (1 + 2) >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "parenthesized-block",
+  "source": "Get-Item ($first), Second, (1 + 2){\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "parenthesized-blockBody",
+  "source": "Get-Item ($first), Second, (1 + 2){ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "nested-plain",
+  "source": "Get-Item First, ($second, $third), @(1, 2)\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "nested-parameter",
+  "source": "Get-Item First, ($second, $third), @(1, 2) -Verbose\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "nested-redirect",
+  "source": "Get-Item First, ($second, $third), @(1, 2) >out.txt\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "nested-block",
+  "source": "Get-Item First, ($second, $third), @(1, 2){\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "nested-blockBody",
+  "source": "Get-Item First, ($second, $third), @(1, 2){ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-45",
+  "source": "Export-ModuleMember First,Second\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-46",
+  "source": "Export-ModuleMember First, Second\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-47",
+  "source": "Export-ModuleMember First , Second\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-48",
+  "source": "Export-ModuleMember First,\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-49",
+  "source": "Export-ModuleMember First,\r\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-50",
+  "source": "Export-ModuleMember First, # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-51",
+  "source": "Export-ModuleMember First,<# boundary #>Second\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-52",
+  "source": "Export-ModuleMember First,` \nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-53",
+  "source": "Export-ModuleMember First,`   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-54",
+  "source": "Export-ModuleMember First, `   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-55",
+  "source": "Export-ModuleMember First,`\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-56",
+  "source": "Export-ModuleMember First,`\r\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-57",
+  "source": "Export-ModuleMember First `\n, Second\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-58",
+  "source": "Export-ModuleMember First,\n# first\n# second\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "separator-59",
+  "source": "Export-ModuleMember First,` \r\n# boundary\r\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "escaped-comment-$first",
+  "source": "Export-ModuleMember $first,`   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "escaped-comment-\"First\"",
+  "source": "Export-ModuleMember \"First\",`   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "escaped-comment-1",
+  "source": "Export-ModuleMember 1,`   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "escaped-comment-($first)",
+  "source": "Export-ModuleMember ($first),`   # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "stress-2",
+  "source": "Export-ModuleMember Get-Synthetic0000,`    # boundary\r\n                    Get-Synthetic0001\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "stress-32",
+  "source": "Export-ModuleMember Get-Synthetic0000,`    # boundary\r\n                    Get-Synthetic0001,`    # boundary\r\n                    Get-Synthetic0002,`    # boundary\r\n                    Get-Synthetic0003,`    # boundary\r\n                    Get-Synthetic0004,`    # boundary\r\n                    Get-Synthetic0005,`    # boundary\r\n                    Get-Synthetic0006,`    # boundary\r\n                    Get-Synthetic0007,`    # boundary\r\n                    Get-Synthetic0008,`    # boundary\r\n                    Get-Synthetic0009,`    # boundary\r\n                    Get-Synthetic0010,`    # boundary\r\n                    Get-Synthetic0011,`    # boundary\r\n                    Get-Synthetic0012,`    # boundary\r\n                    Get-Synthetic0013,`    # boundary\r\n                    Get-Synthetic0014,`    # boundary\r\n                    Get-Synthetic0015,`    # boundary\r\n                    Get-Synthetic0016,`    # boundary\r\n                    Get-Synthetic0017,`    # boundary\r\n                    Get-Synthetic0018,`    # boundary\r\n                    Get-Synthetic0019,`    # boundary\r\n                    Get-Synthetic0020,`    # boundary\r\n                    Get-Synthetic0021,`    # boundary\r\n                    Get-Synthetic0022,`    # boundary\r\n                    Get-Synthetic0023,`    # boundary\r\n                    Get-Synthetic0024,`    # boundary\r\n                    Get-Synthetic0025,`    # boundary\r\n                    Get-Synthetic0026,`    # boundary\r\n                    Get-Synthetic0027,`    # boundary\r\n                    Get-Synthetic0028,`    # boundary\r\n                    Get-Synthetic0029,`    # boundary\r\n                    Get-Synthetic0030,`    # boundary\r\n                    Get-Synthetic0031\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "stress-400",
+  "source": "Export-ModuleMember Get-Synthetic0000,`    # boundary\r\n                    Get-Synthetic0001,`    # boundary\r\n                    Get-Synthetic0002,`    # boundary\r\n                    Get-Synthetic0003,`    # boundary\r\n                    Get-Synthetic0004,`    # boundary\r\n                    Get-Synthetic0005,`    # boundary\r\n                    Get-Synthetic0006,`    # boundary\r\n                    Get-Synthetic0007,`    # boundary\r\n                    Get-Synthetic0008,`    # boundary\r\n                    Get-Synthetic0009,`    # boundary\r\n                    Get-Synthetic0010,`    # boundary\r\n                    Get-Synthetic0011,`    # boundary\r\n                    Get-Synthetic0012,`    # boundary\r\n                    Get-Synthetic0013,`    # boundary\r\n                    Get-Synthetic0014,`    # boundary\r\n                    Get-Synthetic0015,`    # boundary\r\n                    Get-Synthetic0016,`    # boundary\r\n                    Get-Synthetic0017,`    # boundary\r\n                    Get-Synthetic0018,`    # boundary\r\n                    Get-Synthetic0019,`    # boundary\r\n                    Get-Synthetic0020,`    # boundary\r\n                    Get-Synthetic0021,`    # boundary\r\n                    Get-Synthetic0022,`    # boundary\r\n                    Get-Synthetic0023,`    # boundary\r\n                    Get-Synthetic0024,`    # boundary\r\n                    Get-Synthetic0025,`    # boundary\r\n                    Get-Synthetic0026,`    # boundary\r\n                    Get-Synthetic0027,`    # boundary\r\n                    Get-Synthetic0028,`    # boundary\r\n                    Get-Synthetic0029,`    # boundary\r\n                    Get-Synthetic0030,`    # boundary\r\n                    Get-Synthetic0031,`    # boundary\r\n                    Get-Synthetic0032,`    # boundary\r\n                    Get-Synthetic0033,`    # boundary\r\n                    Get-Synthetic0034,`    # boundary\r\n                    Get-Synthetic0035,`    # boundary\r\n                    Get-Synthetic0036,`    # boundary\r\n                    Get-Synthetic0037,`    # boundary\r\n                    Get-Synthetic0038,`    # boundary\r\n                    Get-Synthetic0039,`    # boundary\r\n                    Get-Synthetic0040,`    # boundary\r\n                    Get-Synthetic0041,`    # boundary\r\n                    Get-Synthetic0042,`    # boundary\r\n                    Get-Synthetic0043,`    # boundary\r\n                    Get-Synthetic0044,`    # boundary\r\n                    Get-Synthetic0045,`    # boundary\r\n                    Get-Synthetic0046,`    # boundary\r\n                    Get-Synthetic0047,`    # boundary\r\n                    Get-Synthetic0048,`    # boundary\r\n                    Get-Synthetic0049,`    # boundary\r\n                    Get-Synthetic0050,`    # boundary\r\n                    Get-Synthetic0051,`    # boundary\r\n                    Get-Synthetic0052,`    # boundary\r\n                    Get-Synthetic0053,`    # boundary\r\n                    Get-Synthetic0054,`    # boundary\r\n                    Get-Synthetic0055,`    # boundary\r\n                    Get-Synthetic0056,`    # boundary\r\n                    Get-Synthetic0057,`    # boundary\r\n                    Get-Synthetic0058,`    # boundary\r\n                    Get-Synthetic0059,`    # boundary\r\n                    Get-Synthetic0060,`    # boundary\r\n                    Get-Synthetic0061,`    # boundary\r\n                    Get-Synthetic0062,`    # boundary\r\n                    Get-Synthetic0063,`    # boundary\r\n                    Get-Synthetic0064,`    # boundary\r\n                    Get-Synthetic0065,`    # boundary\r\n                    Get-Synthetic0066,`    # boundary\r\n                    Get-Synthetic0067,`    # boundary\r\n                    Get-Synthetic0068,`    # boundary\r\n                    Get-Synthetic0069,`    # boundary\r\n                    Get-Synthetic0070,`    # boundary\r\n                    Get-Synthetic0071,`    # boundary\r\n                    Get-Synthetic0072,`    # boundary\r\n                    Get-Synthetic0073,`    # boundary\r\n                    Get-Synthetic0074,`    # boundary\r\n                    Get-Synthetic0075,`    # boundary\r\n                    Get-Synthetic0076,`    # boundary\r\n                    Get-Synthetic0077,`    # boundary\r\n                    Get-Synthetic0078,`    # boundary\r\n                    Get-Synthetic0079,`    # boundary\r\n                    Get-Synthetic0080,`    # boundary\r\n                    Get-Synthetic0081,`    # boundary\r\n                    Get-Synthetic0082,`    # boundary\r\n                    Get-Synthetic0083,`    # boundary\r\n                    Get-Synthetic0084,`    # boundary\r\n                    Get-Synthetic0085,`    # boundary\r\n                    Get-Synthetic0086,`    # boundary\r\n                    Get-Synthetic0087,`    # boundary\r\n                    Get-Synthetic0088,`    # boundary\r\n                    Get-Synthetic0089,`    # boundary\r\n                    Get-Synthetic0090,`    # boundary\r\n                    Get-Synthetic0091,`    # boundary\r\n                    Get-Synthetic0092,`    # boundary\r\n                    Get-Synthetic0093,`    # boundary\r\n                    Get-Synthetic0094,`    # boundary\r\n                    Get-Synthetic0095,`    # boundary\r\n                    Get-Synthetic0096,`    # boundary\r\n                    Get-Synthetic0097,`    # boundary\r\n                    Get-Synthetic0098,`    # boundary\r\n                    Get-Synthetic0099,`    # boundary\r\n                    Get-Synthetic0100,`    # boundary\r\n                    Get-Synthetic0101,`    # boundary\r\n                    Get-Synthetic0102,`    # boundary\r\n                    Get-Synthetic0103,`    # boundary\r\n                    Get-Synthetic0104,`    # boundary\r\n                    Get-Synthetic0105,`    # boundary\r\n                    Get-Synthetic0106,`    # boundary\r\n                    Get-Synthetic0107,`    # boundary\r\n                    Get-Synthetic0108,`    # boundary\r\n                    Get-Synthetic0109,`    # boundary\r\n                    Get-Synthetic0110,`    # boundary\r\n                    Get-Synthetic0111,`    # boundary\r\n                    Get-Synthetic0112,`    # boundary\r\n                    Get-Synthetic0113,`    # boundary\r\n                    Get-Synthetic0114,`    # boundary\r\n                    Get-Synthetic0115,`    # boundary\r\n                    Get-Synthetic0116,`    # boundary\r\n                    Get-Synthetic0117,`    # boundary\r\n                    Get-Synthetic0118,`    # boundary\r\n                    Get-Synthetic0119,`    # boundary\r\n                    Get-Synthetic0120,`    # boundary\r\n                    Get-Synthetic0121,`    # boundary\r\n                    Get-Synthetic0122,`    # boundary\r\n                    Get-Synthetic0123,`    # boundary\r\n                    Get-Synthetic0124,`    # boundary\r\n                    Get-Synthetic0125,`    # boundary\r\n                    Get-Synthetic0126,`    # boundary\r\n                    Get-Synthetic0127,`    # boundary\r\n                    Get-Synthetic0128,`    # boundary\r\n                    Get-Synthetic0129,`    # boundary\r\n                    Get-Synthetic0130,`    # boundary\r\n                    Get-Synthetic0131,`    # boundary\r\n                    Get-Synthetic0132,`    # boundary\r\n                    Get-Synthetic0133,`    # boundary\r\n                    Get-Synthetic0134,`    # boundary\r\n                    Get-Synthetic0135,`    # boundary\r\n                    Get-Synthetic0136,`    # boundary\r\n                    Get-Synthetic0137,`    # boundary\r\n                    Get-Synthetic0138,`    # boundary\r\n                    Get-Synthetic0139,`    # boundary\r\n                    Get-Synthetic0140,`    # boundary\r\n                    Get-Synthetic0141,`    # boundary\r\n                    Get-Synthetic0142,`    # boundary\r\n                    Get-Synthetic0143,`    # boundary\r\n                    Get-Synthetic0144,`    # boundary\r\n                    Get-Synthetic0145,`    # boundary\r\n                    Get-Synthetic0146,`    # boundary\r\n                    Get-Synthetic0147,`    # boundary\r\n                    Get-Synthetic0148,`    # boundary\r\n                    Get-Synthetic0149,`    # boundary\r\n                    Get-Synthetic0150,`    # boundary\r\n                    Get-Synthetic0151,`    # boundary\r\n                    Get-Synthetic0152,`    # boundary\r\n                    Get-Synthetic0153,`    # boundary\r\n                    Get-Synthetic0154,`    # boundary\r\n                    Get-Synthetic0155,`    # boundary\r\n                    Get-Synthetic0156,`    # boundary\r\n                    Get-Synthetic0157,`    # boundary\r\n                    Get-Synthetic0158,`    # boundary\r\n                    Get-Synthetic0159,`    # boundary\r\n                    Get-Synthetic0160,`    # boundary\r\n                    Get-Synthetic0161,`    # boundary\r\n                    Get-Synthetic0162,`    # boundary\r\n                    Get-Synthetic0163,`    # boundary\r\n                    Get-Synthetic0164,`    # boundary\r\n                    Get-Synthetic0165,`    # boundary\r\n                    Get-Synthetic0166,`    # boundary\r\n                    Get-Synthetic0167,`    # boundary\r\n                    Get-Synthetic0168,`    # boundary\r\n                    Get-Synthetic0169,`    # boundary\r\n                    Get-Synthetic0170,`    # boundary\r\n                    Get-Synthetic0171,`    # boundary\r\n                    Get-Synthetic0172,`    # boundary\r\n                    Get-Synthetic0173,`    # boundary\r\n                    Get-Synthetic0174,`    # boundary\r\n                    Get-Synthetic0175,`    # boundary\r\n                    Get-Synthetic0176,`    # boundary\r\n                    Get-Synthetic0177,`    # boundary\r\n                    Get-Synthetic0178,`    # boundary\r\n                    Get-Synthetic0179,`    # boundary\r\n                    Get-Synthetic0180,`    # boundary\r\n                    Get-Synthetic0181,`    # boundary\r\n                    Get-Synthetic0182,`    # boundary\r\n                    Get-Synthetic0183,`    # boundary\r\n                    Get-Synthetic0184,`    # boundary\r\n                    Get-Synthetic0185,`    # boundary\r\n                    Get-Synthetic0186,`    # boundary\r\n                    Get-Synthetic0187,`    # boundary\r\n                    Get-Synthetic0188,`    # boundary\r\n                    Get-Synthetic0189,`    # boundary\r\n                    Get-Synthetic0190,`    # boundary\r\n                    Get-Synthetic0191,`    # boundary\r\n                    Get-Synthetic0192,`    # boundary\r\n                    Get-Synthetic0193,`    # boundary\r\n                    Get-Synthetic0194,`    # boundary\r\n                    Get-Synthetic0195,`    # boundary\r\n                    Get-Synthetic0196,`    # boundary\r\n                    Get-Synthetic0197,`    # boundary\r\n                    Get-Synthetic0198,`    # boundary\r\n                    Get-Synthetic0199,`    # boundary\r\n                    Get-Synthetic0200,`    # boundary\r\n                    Get-Synthetic0201,`    # boundary\r\n                    Get-Synthetic0202,`    # boundary\r\n                    Get-Synthetic0203,`    # boundary\r\n                    Get-Synthetic0204,`    # boundary\r\n                    Get-Synthetic0205,`    # boundary\r\n                    Get-Synthetic0206,`    # boundary\r\n                    Get-Synthetic0207,`    # boundary\r\n                    Get-Synthetic0208,`    # boundary\r\n                    Get-Synthetic0209,`    # boundary\r\n                    Get-Synthetic0210,`    # boundary\r\n                    Get-Synthetic0211,`    # boundary\r\n                    Get-Synthetic0212,`    # boundary\r\n                    Get-Synthetic0213,`    # boundary\r\n                    Get-Synthetic0214,`    # boundary\r\n                    Get-Synthetic0215,`    # boundary\r\n                    Get-Synthetic0216,`    # boundary\r\n                    Get-Synthetic0217,`    # boundary\r\n                    Get-Synthetic0218,`    # boundary\r\n                    Get-Synthetic0219,`    # boundary\r\n                    Get-Synthetic0220,`    # boundary\r\n                    Get-Synthetic0221,`    # boundary\r\n                    Get-Synthetic0222,`    # boundary\r\n                    Get-Synthetic0223,`    # boundary\r\n                    Get-Synthetic0224,`    # boundary\r\n                    Get-Synthetic0225,`    # boundary\r\n                    Get-Synthetic0226,`    # boundary\r\n                    Get-Synthetic0227,`    # boundary\r\n                    Get-Synthetic0228,`    # boundary\r\n                    Get-Synthetic0229,`    # boundary\r\n                    Get-Synthetic0230,`    # boundary\r\n                    Get-Synthetic0231,`    # boundary\r\n                    Get-Synthetic0232,`    # boundary\r\n                    Get-Synthetic0233,`    # boundary\r\n                    Get-Synthetic0234,`    # boundary\r\n                    Get-Synthetic0235,`    # boundary\r\n                    Get-Synthetic0236,`    # boundary\r\n                    Get-Synthetic0237,`    # boundary\r\n                    Get-Synthetic0238,`    # boundary\r\n                    Get-Synthetic0239,`    # boundary\r\n                    Get-Synthetic0240,`    # boundary\r\n                    Get-Synthetic0241,`    # boundary\r\n                    Get-Synthetic0242,`    # boundary\r\n                    Get-Synthetic0243,`    # boundary\r\n                    Get-Synthetic0244,`    # boundary\r\n                    Get-Synthetic0245,`    # boundary\r\n                    Get-Synthetic0246,`    # boundary\r\n                    Get-Synthetic0247,`    # boundary\r\n                    Get-Synthetic0248,`    # boundary\r\n                    Get-Synthetic0249,`    # boundary\r\n                    Get-Synthetic0250,`    # boundary\r\n                    Get-Synthetic0251,`    # boundary\r\n                    Get-Synthetic0252,`    # boundary\r\n                    Get-Synthetic0253,`    # boundary\r\n                    Get-Synthetic0254,`    # boundary\r\n                    Get-Synthetic0255,`    # boundary\r\n                    Get-Synthetic0256,`    # boundary\r\n                    Get-Synthetic0257,`    # boundary\r\n                    Get-Synthetic0258,`    # boundary\r\n                    Get-Synthetic0259,`    # boundary\r\n                    Get-Synthetic0260,`    # boundary\r\n                    Get-Synthetic0261,`    # boundary\r\n                    Get-Synthetic0262,`    # boundary\r\n                    Get-Synthetic0263,`    # boundary\r\n                    Get-Synthetic0264,`    # boundary\r\n                    Get-Synthetic0265,`    # boundary\r\n                    Get-Synthetic0266,`    # boundary\r\n                    Get-Synthetic0267,`    # boundary\r\n                    Get-Synthetic0268,`    # boundary\r\n                    Get-Synthetic0269,`    # boundary\r\n                    Get-Synthetic0270,`    # boundary\r\n                    Get-Synthetic0271,`    # boundary\r\n                    Get-Synthetic0272,`    # boundary\r\n                    Get-Synthetic0273,`    # boundary\r\n                    Get-Synthetic0274,`    # boundary\r\n                    Get-Synthetic0275,`    # boundary\r\n                    Get-Synthetic0276,`    # boundary\r\n                    Get-Synthetic0277,`    # boundary\r\n                    Get-Synthetic0278,`    # boundary\r\n                    Get-Synthetic0279,`    # boundary\r\n                    Get-Synthetic0280,`    # boundary\r\n                    Get-Synthetic0281,`    # boundary\r\n                    Get-Synthetic0282,`    # boundary\r\n                    Get-Synthetic0283,`    # boundary\r\n                    Get-Synthetic0284,`    # boundary\r\n                    Get-Synthetic0285,`    # boundary\r\n                    Get-Synthetic0286,`    # boundary\r\n                    Get-Synthetic0287,`    # boundary\r\n                    Get-Synthetic0288,`    # boundary\r\n                    Get-Synthetic0289,`    # boundary\r\n                    Get-Synthetic0290,`    # boundary\r\n                    Get-Synthetic0291,`    # boundary\r\n                    Get-Synthetic0292,`    # boundary\r\n                    Get-Synthetic0293,`    # boundary\r\n                    Get-Synthetic0294,`    # boundary\r\n                    Get-Synthetic0295,`    # boundary\r\n                    Get-Synthetic0296,`    # boundary\r\n                    Get-Synthetic0297,`    # boundary\r\n                    Get-Synthetic0298,`    # boundary\r\n                    Get-Synthetic0299,`    # boundary\r\n                    Get-Synthetic0300,`    # boundary\r\n                    Get-Synthetic0301,`    # boundary\r\n                    Get-Synthetic0302,`    # boundary\r\n                    Get-Synthetic0303,`    # boundary\r\n                    Get-Synthetic0304,`    # boundary\r\n                    Get-Synthetic0305,`    # boundary\r\n                    Get-Synthetic0306,`    # boundary\r\n                    Get-Synthetic0307,`    # boundary\r\n                    Get-Synthetic0308,`    # boundary\r\n                    Get-Synthetic0309,`    # boundary\r\n                    Get-Synthetic0310,`    # boundary\r\n                    Get-Synthetic0311,`    # boundary\r\n                    Get-Synthetic0312,`    # boundary\r\n                    Get-Synthetic0313,`    # boundary\r\n                    Get-Synthetic0314,`    # boundary\r\n                    Get-Synthetic0315,`    # boundary\r\n                    Get-Synthetic0316,`    # boundary\r\n                    Get-Synthetic0317,`    # boundary\r\n                    Get-Synthetic0318,`    # boundary\r\n                    Get-Synthetic0319,`    # boundary\r\n                    Get-Synthetic0320,`    # boundary\r\n                    Get-Synthetic0321,`    # boundary\r\n                    Get-Synthetic0322,`    # boundary\r\n                    Get-Synthetic0323,`    # boundary\r\n                    Get-Synthetic0324,`    # boundary\r\n                    Get-Synthetic0325,`    # boundary\r\n                    Get-Synthetic0326,`    # boundary\r\n                    Get-Synthetic0327,`    # boundary\r\n                    Get-Synthetic0328,`    # boundary\r\n                    Get-Synthetic0329,`    # boundary\r\n                    Get-Synthetic0330,`    # boundary\r\n                    Get-Synthetic0331,`    # boundary\r\n                    Get-Synthetic0332,`    # boundary\r\n                    Get-Synthetic0333,`    # boundary\r\n                    Get-Synthetic0334,`    # boundary\r\n                    Get-Synthetic0335,`    # boundary\r\n                    Get-Synthetic0336,`    # boundary\r\n                    Get-Synthetic0337,`    # boundary\r\n                    Get-Synthetic0338,`    # boundary\r\n                    Get-Synthetic0339,`    # boundary\r\n                    Get-Synthetic0340,`    # boundary\r\n                    Get-Synthetic0341,`    # boundary\r\n                    Get-Synthetic0342,`    # boundary\r\n                    Get-Synthetic0343,`    # boundary\r\n                    Get-Synthetic0344,`    # boundary\r\n                    Get-Synthetic0345,`    # boundary\r\n                    Get-Synthetic0346,`    # boundary\r\n                    Get-Synthetic0347,`    # boundary\r\n                    Get-Synthetic0348,`    # boundary\r\n                    Get-Synthetic0349,`    # boundary\r\n                    Get-Synthetic0350,`    # boundary\r\n                    Get-Synthetic0351,`    # boundary\r\n                    Get-Synthetic0352,`    # boundary\r\n                    Get-Synthetic0353,`    # boundary\r\n                    Get-Synthetic0354,`    # boundary\r\n                    Get-Synthetic0355,`    # boundary\r\n                    Get-Synthetic0356,`    # boundary\r\n                    Get-Synthetic0357,`    # boundary\r\n                    Get-Synthetic0358,`    # boundary\r\n                    Get-Synthetic0359,`    # boundary\r\n                    Get-Synthetic0360,`    # boundary\r\n                    Get-Synthetic0361,`    # boundary\r\n                    Get-Synthetic0362,`    # boundary\r\n                    Get-Synthetic0363,`    # boundary\r\n                    Get-Synthetic0364,`    # boundary\r\n                    Get-Synthetic0365,`    # boundary\r\n                    Get-Synthetic0366,`    # boundary\r\n                    Get-Synthetic0367,`    # boundary\r\n                    Get-Synthetic0368,`    # boundary\r\n                    Get-Synthetic0369,`    # boundary\r\n                    Get-Synthetic0370,`    # boundary\r\n                    Get-Synthetic0371,`    # boundary\r\n                    Get-Synthetic0372,`    # boundary\r\n                    Get-Synthetic0373,`    # boundary\r\n                    Get-Synthetic0374,`    # boundary\r\n                    Get-Synthetic0375,`    # boundary\r\n                    Get-Synthetic0376,`    # boundary\r\n                    Get-Synthetic0377,`    # boundary\r\n                    Get-Synthetic0378,`    # boundary\r\n                    Get-Synthetic0379,`    # boundary\r\n                    Get-Synthetic0380,`    # boundary\r\n                    Get-Synthetic0381,`    # boundary\r\n                    Get-Synthetic0382,`    # boundary\r\n                    Get-Synthetic0383,`    # boundary\r\n                    Get-Synthetic0384,`    # boundary\r\n                    Get-Synthetic0385,`    # boundary\r\n                    Get-Synthetic0386,`    # boundary\r\n                    Get-Synthetic0387,`    # boundary\r\n                    Get-Synthetic0388,`    # boundary\r\n                    Get-Synthetic0389,`    # boundary\r\n                    Get-Synthetic0390,`    # boundary\r\n                    Get-Synthetic0391,`    # boundary\r\n                    Get-Synthetic0392,`    # boundary\r\n                    Get-Synthetic0393,`    # boundary\r\n                    Get-Synthetic0394,`    # boundary\r\n                    Get-Synthetic0395,`    # boundary\r\n                    Get-Synthetic0396,`    # boundary\r\n                    Get-Synthetic0397,`    # boundary\r\n                    Get-Synthetic0398,`    # boundary\r\n                    Get-Synthetic0399\r\nWrite-Host sentinel\r\n"
+ },
+ {
+  "name": "invalid-68",
+  "source": "Get-Item ,\n"
+ },
+ {
+  "name": "invalid-69",
+  "source": "Get-Item First,\n"
+ },
+ {
+  "name": "invalid-70",
+  "source": "Get-Item First,,Second\n"
+ },
+ {
+  "name": "invalid-71",
+  "source": "Get-Item First, ,$second\n"
+ },
+ {
+  "name": "invalid-72",
+  "source": "Get-Item First, # boundary\n"
+ },
+ {
+  "name": "invalid-73",
+  "source": "Get-Item First, -Verbose\n"
+ },
+ {
+  "name": "invalid-74",
+  "source": "Get-Item First, >out.txt\n"
+ },
+ {
+  "name": "invalid-75",
+  "source": "Get-Item First,; Write-Host sentinel\n"
+ },
+ {
+  "name": "invalid-76",
+  "source": "Get-Item First,`   # boundary\n"
+ },
+ {
+  "name": "invalid-77",
+  "source": "$obj.Method(First,,Second)\n"
+ },
+ {
+  "name": "invalid-78",
+  "source": "$obj.Method(1,)\n"
+ },
+ {
+  "name": "invalid-79",
+  "source": "Get-Item First, Second{\n"
+ },
+ {
+  "name": "invalid-80",
+  "source": "Get-Item First, Second{ $x = }\n"
+ },
+ {
+  "name": "unchanged-81",
+  "source": "$obj.Method(1, 2)\n"
+ },
+ {
+  "name": "unchanged-82",
+  "source": "$obj.Method(\"First\", $second)\n"
+ },
+ {
+  "name": "unchanged-83",
+  "source": "[Math]::Max(1, 2)\n"
+ },
+ {
+  "name": "unchanged-84",
+  "source": "$x = 1, 2, 3\n"
+ },
+ {
+  "name": "unchanged-85",
+  "source": "Get-Item First Second Third\n"
+ },
+ {
+  "name": "unchanged-86",
+  "source": "Get-Item -Name First, Second -Verbose\n"
+ },
+ {
+  "name": "unchanged-87",
+  "source": "Get-Item First, Second | Write-Output\n"
+ },
+ {
+  "name": "unchanged-88",
+  "source": "Get-Item First, Second; Write-Host sentinel\n"
+ },
+ {
+  "name": "unchanged-89",
+  "source": "Get-Item First, Second`{tail\n"
+ },
+ {
+  "name": "unchanged-90",
+  "source": "Get-Item ,$first\n"
+ },
+ {
+  "name": "unchanged-91",
+  "source": "Get-Item First, (,$second)\n"
+ },
+ {
+  "name": "unchanged-92",
+  "source": "Get-Item First, -1\n"
+ },
+ {
+  "name": "unchanged-93",
+  "source": "Get-Item --name --name=value -1 -Name=value\n"
+ },
+ {
+  "name": "unchanged-94",
+  "source": "Get-Item [Math]::PI\n"
+ },
+ {
+  "name": "unchanged-95",
+  "source": "Get-Item First 1>out.txt\n"
+ },
+ {
+  "name": "unchanged-96",
+  "source": "Get-Item $ordinary\n"
+ },
+ {
+  "name": "unicode-prefix",
+  "source": "# café 😀\nGet-Item First, $second, \"Third\"{ Write-Host inside }\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "pipeline-tight-boundary",
+  "source": "Get-Item First, Second|Write-Output\n"
+ },
+ {
+  "name": "multi-trivia-99",
+  "source": "Export-ModuleMember First,# first\n`   # second\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "multi-trivia-100",
+  "source": "Export-ModuleMember First,<# first #>`   # second\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "multi-trivia-101",
+  "source": "Export-ModuleMember First,# first\n` \n`   # second\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "multi-trivia-102",
+  "source": "Export-ModuleMember First,`  # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "multi-trivia-103",
+  "source": "Export-ModuleMember First,`\t # boundary\nSecond\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "inherited-trailing-separator",
+  "source": "Export-ModuleMember First, Second # tail\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "invalid-comma-after-comment",
+  "source": "Export-ModuleMember First, # boundary\n, Second\n"
+ },
+ {
+  "name": "requested-describe-tail",
+  "source": "Describe example -Tags First, Second{\n}\nWrite-Host sentinel\n"
+ },
+ {
+  "name": "reduction: named expression then comment, CRLF",
+  "source": "Select-Object -Property Name, @{ Name = 'Size'; Expression = { $_.Length } }, # size\r\n    Owner, Mode -OutVariable rows | Out-Null\r\n"
+ },
+ {
+  "name": "reduction: named expression then comment, LF",
+  "source": "Select-Object -Property Name, @{ Name = 'Size'; Expression = { $_.Length } }, # size\n    Owner, Mode -OutVariable rows | Out-Null\n"
+ }
+]

@@ -1,0 +1,430 @@
+[
+ {
+  "name": "immediate .",
+  "source": "Invoke-Example -Name."
+ },
+ {
+  "name": "immediate .Property",
+  "source": "Invoke-Example -Name.Property"
+ },
+ {
+  "name": "immediate .5",
+  "source": "Invoke-Example -Name.5"
+ },
+ {
+  "name": "immediate ..",
+  "source": "Invoke-Example -Name.."
+ },
+ {
+  "name": "immediate ../example",
+  "source": "Invoke-Example -Name../example"
+ },
+ {
+  "name": "immediate ./example",
+  "source": "Invoke-Example -Name./example"
+ },
+ {
+  "name": "immediate .$value",
+  "source": "Invoke-Example -Name.$value"
+ },
+ {
+  "name": "immediate .Property$value",
+  "source": "Invoke-Example -Name.Property$value"
+ },
+ {
+  "name": "immediate .'sample'",
+  "source": "Invoke-Example -Name.'sample'"
+ },
+ {
+  "name": "immediate .\"$value\"",
+  "source": "Invoke-Example -Name.\"$value\""
+ },
+ {
+  "name": "immediate .$($value)",
+  "source": "Invoke-Example -Name.$($value)"
+ },
+ {
+  "name": "immediate .($value)",
+  "source": "Invoke-Example -Name.($value)"
+ },
+ {
+  "name": "immediate .Property($value)",
+  "source": "Invoke-Example -Name.Property($value)"
+ },
+ {
+  "name": "immediate .,other",
+  "source": "Invoke-Example -Name.,other"
+ },
+ {
+  "name": "immediate .Property,$value",
+  "source": "Invoke-Example -Name.Property,$value"
+ },
+ {
+  "name": "immediate .Property,($value)",
+  "source": "Invoke-Example -Name.Property,($value)"
+ },
+ {
+  "name": "immediate .5,2",
+  "source": "Invoke-Example -Name.5,2"
+ },
+ {
+  "name": "immediate .Property'sample'",
+  "source": "Invoke-Example -Name.Property'sample'"
+ },
+ {
+  "name": "immediate .Property\"$value\"",
+  "source": "Invoke-Example -Name.Property\"$value\""
+ },
+ {
+  "name": "immediate .${value}",
+  "source": "Invoke-Example -Name.${value}"
+ },
+ {
+  "name": "immediate .5$value",
+  "source": "Invoke-Example -Name.5$value"
+ },
+ {
+  "name": "immediate .“sample”",
+  "source": "Invoke-Example -Name.“sample”"
+ },
+ {
+  "name": "immediate .‘sample’",
+  "source": "Invoke-Example -Name.‘sample’"
+ },
+ {
+  "name": "immediate .$value.Property",
+  "source": "Invoke-Example -Name.$value.Property"
+ },
+ {
+  "name": "immediate .5($value)",
+  "source": "Invoke-Example -Name.5($value)"
+ },
+ {
+  "name": "immediate . $value",
+  "source": "Invoke-Example -Name. $value"
+ },
+ {
+  "name": "immediate . 'sample'",
+  "source": "Invoke-Example -Name. 'sample'"
+ },
+ {
+  "name": "immediate . (Get-Example)",
+  "source": "Invoke-Example -Name. (Get-Example)"
+ },
+ {
+  "name": "immediate .Property tail",
+  "source": "Invoke-Example -Name.Property tail"
+ },
+ {
+  "name": "immediate .Property -Other:$value",
+  "source": "Invoke-Example -Name.Property -Other:$value"
+ },
+ {
+  "name": "immediate .Property[0]",
+  "source": "Invoke-Example -Name.Property[0]"
+ },
+ {
+  "name": "immediate .Property.Method()",
+  "source": "Invoke-Example -Name.Property.Method()"
+ },
+ {
+  "name": "separated \" \" .",
+  "source": "Invoke-Example -Name ."
+ },
+ {
+  "name": "separated \" \" .Property",
+  "source": "Invoke-Example -Name .Property"
+ },
+ {
+  "name": "separated \" \" .5",
+  "source": "Invoke-Example -Name .5"
+ },
+ {
+  "name": "separated \" \" .$value",
+  "source": "Invoke-Example -Name .$value"
+ },
+ {
+  "name": "separated \" \" .'sample'",
+  "source": "Invoke-Example -Name .'sample'"
+ },
+ {
+  "name": "separated \" \" .($value)",
+  "source": "Invoke-Example -Name .($value)"
+ },
+ {
+  "name": "separated \"  \" .",
+  "source": "Invoke-Example -Name  ."
+ },
+ {
+  "name": "separated \"  \" .Property",
+  "source": "Invoke-Example -Name  .Property"
+ },
+ {
+  "name": "separated \"  \" .5",
+  "source": "Invoke-Example -Name  .5"
+ },
+ {
+  "name": "separated \"  \" .$value",
+  "source": "Invoke-Example -Name  .$value"
+ },
+ {
+  "name": "separated \"  \" .'sample'",
+  "source": "Invoke-Example -Name  .'sample'"
+ },
+ {
+  "name": "separated \"  \" .($value)",
+  "source": "Invoke-Example -Name  .($value)"
+ },
+ {
+  "name": "separated \"\\t\" .",
+  "source": "Invoke-Example -Name\t."
+ },
+ {
+  "name": "separated \"\\t\" .Property",
+  "source": "Invoke-Example -Name\t.Property"
+ },
+ {
+  "name": "separated \"\\t\" .5",
+  "source": "Invoke-Example -Name\t.5"
+ },
+ {
+  "name": "separated \"\\t\" .$value",
+  "source": "Invoke-Example -Name\t.$value"
+ },
+ {
+  "name": "separated \"\\t\" .'sample'",
+  "source": "Invoke-Example -Name\t.'sample'"
+ },
+ {
+  "name": "separated \"\\t\" .($value)",
+  "source": "Invoke-Example -Name\t.($value)"
+ },
+ {
+  "name": "separated \" \" .",
+  "source": "Invoke-Example -Name ."
+ },
+ {
+  "name": "separated \" \" .Property",
+  "source": "Invoke-Example -Name .Property"
+ },
+ {
+  "name": "separated \" \" .5",
+  "source": "Invoke-Example -Name .5"
+ },
+ {
+  "name": "separated \" \" .$value",
+  "source": "Invoke-Example -Name .$value"
+ },
+ {
+  "name": "separated \" \" .'sample'",
+  "source": "Invoke-Example -Name .'sample'"
+ },
+ {
+  "name": "separated \" \" .($value)",
+  "source": "Invoke-Example -Name .($value)"
+ },
+ {
+  "name": "separated \"`\\n\" .",
+  "source": "Invoke-Example -Name`\n."
+ },
+ {
+  "name": "separated \"`\\n\" .Property",
+  "source": "Invoke-Example -Name`\n.Property"
+ },
+ {
+  "name": "separated \"`\\n\" .5",
+  "source": "Invoke-Example -Name`\n.5"
+ },
+ {
+  "name": "separated \"`\\n\" .$value",
+  "source": "Invoke-Example -Name`\n.$value"
+ },
+ {
+  "name": "separated \"`\\n\" .'sample'",
+  "source": "Invoke-Example -Name`\n.'sample'"
+ },
+ {
+  "name": "separated \"`\\n\" .($value)",
+  "source": "Invoke-Example -Name`\n.($value)"
+ },
+ {
+  "name": "real parameter classifier Long-Name",
+  "source": "Invoke-Example -Long-Name.Property'sample'"
+ },
+ {
+  "name": "real parameter classifier _Name",
+  "source": "Invoke-Example -_Name.Property'sample'"
+ },
+ {
+  "name": "real parameter classifier ?Name",
+  "source": "Invoke-Example -?Name.Property'sample'"
+ },
+ {
+  "name": "real parameter classifier Name$part",
+  "source": "Invoke-Example -Name$part.Property'sample'"
+ },
+ {
+  "name": "real parameter classifier 中文",
+  "source": "Invoke-Example -中文.Property'sample'"
+ },
+ {
+  "name": "assignment reduction",
+  "source": "$answer = Invoke-Example -F. 'sample' /made/up/path"
+ },
+ {
+  "name": "quoted previous argument",
+  "source": "Invoke-Example \"head\" -F. 'sample'"
+ },
+ {
+  "name": "two parameter dot words",
+  "source": "Invoke-Example -One.foo -Two.bar"
+ },
+ {
+  "name": "colon attached variable",
+  "source": "Invoke-Example -Name:$value"
+ },
+ {
+  "name": "colon attached dot",
+  "source": "Invoke-Example -Name:.Property"
+ },
+ {
+  "name": "colon attached decimal",
+  "source": "Invoke-Example -Name:.5"
+ },
+ {
+  "name": "colon then spaced dot",
+  "source": "Invoke-Example -Name: .Property"
+ },
+ {
+  "name": "quoted command",
+  "source": "& \"Invoke-Example\" -Name.Property"
+ },
+ {
+  "name": "scriptblock nested",
+  "source": "if ($true) { Invoke-Example -Name.Property }"
+ },
+ {
+  "name": "quoted parameter",
+  "source": "Invoke-Example '-Name.Property'"
+ },
+ {
+  "name": "quoted interpolation",
+  "source": "Invoke-Example \"-Name.$value\""
+ },
+ {
+  "name": "member expression",
+  "source": "$answer = $value.Property"
+ },
+ {
+  "name": "indexed member expression",
+  "source": "$answer = $value.Property[0]"
+ },
+ {
+  "name": "method expression",
+  "source": "$answer = $value.Method()"
+ },
+ {
+  "name": "member command argument",
+  "source": "Invoke-Example $value.Property"
+ },
+ {
+  "name": "method command argument",
+  "source": "Invoke-Example $value.Method()"
+ },
+ {
+  "name": "parenthesized member argument",
+  "source": "Invoke-Example ($value.Property)"
+ },
+ {
+  "name": "division expression",
+  "source": "$answer = $left / $right"
+ },
+ {
+  "name": "range expression",
+  "source": "$answer = 1..5"
+ },
+ {
+  "name": "numeric expression",
+  "source": "$answer = .5"
+ },
+ {
+  "name": "standalone dot command",
+  "source": ". Invoke-Example sample"
+ },
+ {
+  "name": "relative command",
+  "source": "./Invoke-Example sample"
+ },
+ {
+  "name": "plain dot argument",
+  "source": "Invoke-Example .Property"
+ },
+ {
+  "name": "plain numeric argument",
+  "source": "Invoke-Example .5"
+ },
+ {
+  "name": "negative command words",
+  "source": "Invoke-Example -1 -.5 -4tuln"
+ },
+ {
+  "name": "quoted numeric adjacency control",
+  "source": "Invoke-Example \"head\"-4tuln"
+ },
+ {
+  "name": "single-quoted numeric adjacency control",
+  "source": "Invoke-Example 'head'-.thing"
+ },
+ {
+  "name": "parenthesized numeric adjacency control",
+  "source": "Invoke-Example ($value)-4tuln"
+ },
+ {
+  "name": "negative expression",
+  "source": "$answer = -1"
+ },
+ {
+  "name": "double dash control",
+  "source": "Invoke-Example --name=value"
+ },
+ {
+  "name": "bare dash control",
+  "source": "Invoke-Example - value"
+ },
+ {
+  "name": "double dash dotted quote control",
+  "source": "Invoke-Example --Name.Property'sample'"
+ },
+ {
+  "name": "signed dotted quote control",
+  "source": "Invoke-Example -+Name.Property'sample'"
+ },
+ {
+  "name": "index-looking dotted quote control",
+  "source": "Invoke-Example -Name[0].Property'sample'"
+ },
+ {
+  "name": "escaped dotted parameter control",
+  "source": "Invoke-Example -Name`.Property'sample'"
+ },
+ {
+  "name": "invalid assignment",
+  "source": "$answer = -Name.Property"
+ },
+ {
+  "name": "invalid missing colon value",
+  "source": "Invoke-Example -Name:"
+ },
+ {
+  "name": "invalid missing comma item",
+  "source": "Invoke-Example -Name.,"
+ },
+ {
+  "name": "invalid member expression",
+  "source": "$answer = $value."
+ },
+ {
+  "name": "corpus Parameter dot: literal dot after a real parameter",
+  "source": "Invoke-Example -F. 'sample'"
+ }
+]

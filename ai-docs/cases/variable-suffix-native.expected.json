@@ -1,0 +1,14 @@
+{
+ "suite": "variable-suffix-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":7,"agree":2,"invalid_rejected":0,"known":0,"fail":5,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "variable wildcard suffix": {"status":"fail","differences":["typed missing VariableExpressionAst 13:18"]},
+  "variable single wildcard suffix": {"status":"fail","differences":["typed missing VariableExpressionAst 13:18"]},
+  "variable wildcard prefix control": {"status":"fail","differences":["typed missing VariableExpressionAst 19:24"]},
+  "variable slash suffix control": {"status":"fail","differences":["typed missing VariableExpressionAst 13:18"]},
+  "member wildcard suffix": {"status":"agree","differences":[]},
+  "synthetic conditional certificate-shaped command": {"status":"fail","differences":["typed missing VariableExpressionAst 171:180"]},
+  "conditional without wildcard control": {"status":"agree","differences":[]}
+ }
+}

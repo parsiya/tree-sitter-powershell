@@ -1,0 +1,12 @@
+{
+ "suite": "absolute-command-redirection-baseline",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":5,"agree":5,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "baseline-redirection-0": {"status":"agree","differences":[]},
+  "baseline-redirection-1": {"status":"agree","differences":[]},
+  "baseline-redirection-2": {"status":"agree","differences":[]},
+  "baseline-redirection-3": {"status":"agree","differences":[]},
+  "baseline-redirection-4": {"status":"agree","differences":[]}
+ }
+}

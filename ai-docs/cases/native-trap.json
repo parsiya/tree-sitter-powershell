@@ -1,0 +1,18 @@
+[
+ {
+  "name": "tests/parsing/powershell/trap_data.ps1",
+  "source": "trap {\n    Write-Output $_\n    continue\n}\n\nfunction Get-Message {\n    trap [System.IO.IOException] {\n        Write-Output $_\n        break\n    }\n    Get-Content 'missing.txt'\n}\n\n$Header = Data {\n    '<html>'\n}\n\ndata Messages -SupportedCommand ConvertFrom-StringData, Get-Date {\n    ConvertFrom-StringData 'greeting=hello'\n}\n\nWrite-Host\"\"\nWrite-'Output' 'quoted name'\n"
+ },
+ {
+  "name": "tests/patterns/powershell/trap.ps1",
+  "source": "function Read-First {\n    # ERROR:\n    trap [System.IO.IOException] {\n        Write-Output $_\n        break\n    }\n    Get-Item 'first'\n}\n\nfunction Read-Second {\n    trap {\n        Write-Output $_\n        continue\n    }\n    Get-Item 'second'\n}\n\nfunction Read-Third {\n    trap [System.UnauthorizedAccessException] {\n        break\n    }\n    Get-Item 'third'\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/data_section.ps1",
+  "source": "# ERROR:\ndata Messages -SupportedCommand ConvertFrom-StringData {\n    ConvertFrom-StringData 'greeting=hello'\n}\n\ndata Labels -SupportedCommand ConvertFrom-StringData {\n    ConvertFrom-StringData 'label=value'\n}\ndata Dates -SupportedCommand Get-Date {\n    Get-Date\n}\n$Header = Data {\n    '<html>'\n}\n"
+ },
+ {
+  "name": "tests/patterns/powershell/quoted_command_name.ps1",
+  "source": "# ERROR:\nWrite-Host\"\" 'hello'\n# ERROR:\nWrite-'Host' 'hello'\n# ERROR:\nWRITE-HOST 'hello'\n\nWrite-Output 'hello'\nWrite-'Output' 'hello'\n"
+ }
+]

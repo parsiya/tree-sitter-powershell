@@ -1,0 +1,26 @@
+{
+ "suite": "dash-argument-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":19,"agree":10,"invalid_rejected":1,"known":0,"fail":8,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "digit-leading option word": {"status":"agree","differences":[]},
+  "trailing-dot parameter": {"status":"agree","differences":[]},
+  "internal-dot parameter": {"status":"agree","differences":[]},
+  "trailing-dot parameter before expression": {"status":"agree","differences":[]},
+  "numeric dash word": {"status":"fail","differences":["elements kind 15:17 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "decimal dash word": {"status":"fail","differences":["elements kind 15:19 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "fraction dash word": {"status":"fail","differences":["elements kind 15:18 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "hex dash word": {"status":"fail","differences":["elements kind 15:20 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "size-suffix dash word": {"status":"fail","differences":["elements kind 15:19 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "standalone dash": {"status":"fail","differences":["elements kind 15:16 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "double-dash literal": {"status":"fail","differences":["elements kind 15:27 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "quoted double-dash literal": {"status":"fail","differences":["elements kind 15:33 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "single-dash equals parameter": {"status":"agree","differences":[]},
+  "single-dash ordinary parameter": {"status":"agree","differences":[]},
+  "single-dash compact parameter": {"status":"agree","differences":[]},
+  "numeric array item": {"status":"agree","differences":[]},
+  "negative expression control": {"status":"agree","differences":[]},
+  "subtraction control": {"status":"agree","differences":[]},
+  "incomplete negation invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

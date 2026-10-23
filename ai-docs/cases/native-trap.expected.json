@@ -1,0 +1,11 @@
+{
+ "suite": "native-trap",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":4,"agree":4,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "tests/parsing/powershell/trap_data.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/trap.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/data_section.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/quoted_command_name.ps1": {"status":"agree","differences":[]}
+ }
+}

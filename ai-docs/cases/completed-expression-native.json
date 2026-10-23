@@ -1,0 +1,82 @@
+[
+ {
+  "name": "adjacent subexpressions and quote",
+  "source": "Write-Output $($left)$($right)\"\""
+ },
+ {
+  "name": "leading quote variable quote",
+  "source": "Write-Output \"prefix\"$item.Version\"suffix\""
+ },
+ {
+  "name": "subexpression then word",
+  "source": "Write-Output $($left)tail"
+ },
+ {
+  "name": "parenthesis then word",
+  "source": "Write-Output ($left)tail"
+ },
+ {
+  "name": "array expression then word",
+  "source": "Write-Output @($left)tail"
+ },
+ {
+  "name": "scriptblock then word",
+  "source": "Write-Output {$left}tail"
+ },
+ {
+  "name": "method then quote",
+  "source": "Write-Output $item.Trim()\"suffix\""
+ },
+ {
+  "name": "index then quote",
+  "source": "Write-Output $item[0]\"suffix\""
+ },
+ {
+  "name": "member then quote",
+  "source": "Write-Output $item.Version\"suffix\""
+ },
+ {
+  "name": "word leading subexpression stays joined",
+  "source": "Write-Output pre$($left)tail"
+ },
+ {
+  "name": "variable leading subexpression stays joined",
+  "source": "Write-Output $left$($right)tail"
+ },
+ {
+  "name": "separated subexpressions",
+  "source": "Write-Output $($left) $($right) \"\""
+ },
+ {
+  "name": "quoted interpolation stays joined",
+  "source": "Write-Output \"pre$($left)tail\""
+ },
+ {
+  "name": "escaped parenthesis stays text",
+  "source": "Write-Output pre`(tail`)"
+ },
+ {
+  "name": "subexpression then parameter",
+  "source": "Write-Output $($left)-NoEnumerate"
+ },
+ {
+  "name": "subexpression then comma",
+  "source": "Write-Output $($left),$($right)"
+ },
+ {
+  "name": "adjacent parentheses",
+  "source": "Write-Output ($left)($right)"
+ },
+ {
+  "name": "variable then parenthesis scope control",
+  "source": "Write-Output $left(Get-Item example)"
+ },
+ {
+  "name": "assignment expression invalid control",
+  "source": "$result = $($left)$($right)"
+ },
+ {
+  "name": "unterminated expression invalid control",
+  "source": "Write-Output $($left"
+ }
+]

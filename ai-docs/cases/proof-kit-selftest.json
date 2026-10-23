@@ -1,0 +1,132 @@
+[
+ {
+  "name": "statements-lf",
+  "source": "Write-Output first\nWrite-Output second\n",
+  "expect": "valid"
+ },
+ {
+  "name": "statements-crlf-file",
+  "source": "Write-Output first\r\nWrite-Output \"second\"\r\n",
+  "expect": "valid"
+ },
+ {
+  "name": "bom-original-bytes",
+  "source": "﻿Write-Output \"é\" -Name:x # c\nif ($x) { Get-Item 'ü' }\n",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "commands extent 3:28 ts 3:29",
+    "reason": "inherited trailing command_argument_sep before a same-line comment (as comment-after-command); every other fact agrees at original-file offsets after the 3-byte BOM"
+   }
+  ]
+ },
+ {
+  "name": "unicode-offsets",
+  "source": "Write-Output \"é😀\" ok <# ü #> -Name:€\n# 日本\n",
+  "expect": "valid"
+ },
+ {
+  "name": "colon-parameters",
+  "source": "Get-Item -Path:C:\\x -Force:$false -Path: C:\\y\n",
+  "expect": "valid"
+ },
+ {
+  "name": "arrays",
+  "source": "Write-Output 1,2 a, 'b',\"c\" -X a,b @(5) first `\n,second\n",
+  "expect": "valid"
+ },
+ {
+  "name": "stop-parsing",
+  "source": "& $cmd --% raw stuff here\n. ./x.ps1 -A:$true\n",
+  "expect": "valid"
+ },
+ {
+  "name": "invocation-names",
+  "source": "& 'C:\\a b\\x.exe' arg\n& \"$dir\\x.exe\" arg\n& { Get-Date } 1\n.\\local.ps1\n",
+  "expect": "valid"
+ },
+ {
+  "name": "strings-and-here-strings",
+  "source": "$s = @\"\nhere $x $(Get-Date)\n\"@\n$t = @'\nverbatim\n'@\n\"nested $(\"inner\" + 'q')\"\n$h = @{ 'k' = \"v\" }\n$x.'member'\n",
+  "expect": "valid"
+ },
+ {
+  "name": "composite-bare-word",
+  "source": "dfsrdiag backlog /rgname:\"Domain System Volume\" /rfname:'x y'\n",
+  "expect": "valid"
+ },
+ {
+  "name": "redirections",
+  "source": "Get-Item a > out.txt 2>&1\n",
+  "expect": "valid"
+ },
+ {
+  "name": "labeled-loops",
+  "source": ":l while ($true) { break l }\n:d do { } while ($false)\n:u do { } until ($true)\n:s switch (1) { 1 { } }\n:f foreach ($i in 1,2) { $i.ToString() }\n",
+  "expect": "valid"
+ },
+ {
+  "name": "statements-typed",
+  "source": "function f { param($p) $p[0].Name }\nif ($a) { $b = @{ k = 1 } } elseif ($c) { } else { }\nfor ($i=0; $i -lt 2; $i++) { }\ntry { 1 } catch { $_ } finally { }\ntrap { continue }\n$y = $a ? $(1) : (2)\n",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "typed extent AssignmentStatementAst 46:61 ts 46:62",
+    "reason": "inherited: assignment_expression ends after the blank before the closing brace (Native ends at the value)"
+   }
+  ]
+ },
+ {
+  "name": "comment-after-command",
+  "source": "Write-Output first # note\nWrite-Output second\n",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "commands extent 0:18 ts 0:19",
+    "reason": "inherited: the trailing command_argument_sep before a same-line comment is inside command_elements (CR-statement proof limit comment-lf)"
+   }
+  ]
+ },
+ {
+  "name": "numeric-dash-word",
+  "source": "Invoke-Example -1\n",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "elements kind 15:17 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator",
+    "reason": "inherited numeric public CST for a Native-valid dash word; the converter keeps its string value (SESSION-HANDOFF pitfalls)"
+   }
+  ]
+ },
+ {
+  "name": "pipeline-typed-only",
+  "source": "if ($a) { Get-Item First | Write-Output }\n",
+  "expect": "valid",
+  "facts": [
+   "validity",
+   "typed:IfStatementAst",
+   "comments"
+  ]
+ },
+ {
+  "name": "empty-pipe-element",
+  "source": "Get-Item |\n",
+  "expect": "invalid"
+ },
+ {
+  "name": "missing-closing-brace",
+  "source": "if ($a) {\n  Get-Item\n"
+ },
+ {
+  "name": "unsupported-utf16",
+  "path": "proof-kit-selftest/utf16le-bom.ps1"
+ },
+ {
+  "name": "unsupported-latin1",
+  "path": "proof-kit-selftest/latin1.ps1"
+ },
+ {
+  "name": "unsupported-nul",
+  "source": "Write-Output a\u0000b\n"
+ }
+]

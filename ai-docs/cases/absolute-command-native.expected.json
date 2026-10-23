@@ -1,0 +1,32 @@
+{
+ "suite": "absolute-command-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":25,"agree":21,"invalid_rejected":2,"known":2,"fail":0,"unsupported":0,"skipped":0,"known_differences":2},
+ "cases": {
+  "absolute executable": {"status":"agree","differences":[]},
+  "absolute executable assignment": {"status":"agree","differences":[]},
+  "absolute executable parenthesized": {"status":"agree","differences":[]},
+  "absolute executable in hashtable": {"status":"agree","differences":[]},
+  "absolute executable in cast hashtable": {"status":"agree","differences":[]},
+  "absolute executable with redirection": {"status":"agree","differences":[]},
+  "absolute executable pipeline": {"status":"known","differences":[]},
+  "absolute executable after pipe": {"status":"known","differences":[]},
+  "root command": {"status":"agree","differences":[]},
+  "double slash command is not comment": {"status":"agree","differences":[]},
+  "triple slash command": {"status":"agree","differences":[]},
+  "slash followed by quoted segment": {"status":"agree","differences":[]},
+  "backtick escaped slash path space": {"status":"agree","differences":[]},
+  "dot invocation absolute path": {"status":"agree","differences":[]},
+  "call invocation absolute path": {"status":"agree","differences":[]},
+  "relative executable control": {"status":"agree","differences":[]},
+  "parent executable control": {"status":"agree","differences":[]},
+  "division expression control": {"status":"agree","differences":[]},
+  "division variable control": {"status":"agree","differences":[]},
+  "compound division control": {"status":"agree","differences":[]},
+  "division precedence control": {"status":"agree","differences":[]},
+  "absolute-looking command argument": {"status":"agree","differences":[]},
+  "slash argument control": {"status":"agree","differences":[]},
+  "division missing right operand invalid": {"status":"invalid-rejected","differences":[]},
+  "unterminated quoted slash path invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

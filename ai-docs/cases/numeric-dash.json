@@ -1,0 +1,610 @@
+[
+ {
+  "name": "digit-leading option word",
+  "source": "$result = Invoke-Example -4tuln"
+ },
+ {
+  "name": "trailing-dot parameter",
+  "source": "$result = Invoke-Example -F. 'sample'"
+ },
+ {
+  "name": "internal-dot parameter",
+  "source": "Invoke-Example -Name.Property value"
+ },
+ {
+  "name": "trailing-dot parameter before expression",
+  "source": "Invoke-Example -Name. $value"
+ },
+ {
+  "name": "numeric dash word",
+  "source": "Invoke-Example -1"
+ },
+ {
+  "name": "decimal dash word",
+  "source": "Invoke-Example -1.5"
+ },
+ {
+  "name": "fraction dash word",
+  "source": "Invoke-Example -.5"
+ },
+ {
+  "name": "hex dash word",
+  "source": "Invoke-Example -0x10"
+ },
+ {
+  "name": "size-suffix dash word",
+  "source": "Invoke-Example -1kb"
+ },
+ {
+  "name": "standalone dash",
+  "source": "Invoke-Example - value"
+ },
+ {
+  "name": "double-dash literal",
+  "source": "Invoke-Example --name=value"
+ },
+ {
+  "name": "quoted double-dash literal",
+  "source": "Invoke-Example --name='two words'"
+ },
+ {
+  "name": "single-dash equals parameter",
+  "source": "Invoke-Example -name=value"
+ },
+ {
+  "name": "single-dash ordinary parameter",
+  "source": "Invoke-Example -Name $value"
+ },
+ {
+  "name": "single-dash compact parameter",
+  "source": "Invoke-Example -A5"
+ },
+ {
+  "name": "numeric array item",
+  "source": "Invoke-Example first,-1,last"
+ },
+ {
+  "name": "negative expression control",
+  "source": "$result = -1"
+ },
+ {
+  "name": "subtraction control",
+  "source": "$result = $left - $right"
+ },
+ {
+  "name": "incomplete negation invalid",
+  "source": "$result = -"
+ },
+ {
+  "name": "plain -4tuln",
+  "source": "Invoke-Example -4tuln"
+ },
+ {
+  "name": "plain -123abc",
+  "source": "Invoke-Example -123abc"
+ },
+ {
+  "name": "plain -1foo",
+  "source": "Invoke-Example -1foo"
+ },
+ {
+  "name": "plain -1e",
+  "source": "Invoke-Example -1e"
+ },
+ {
+  "name": "plain -1e+",
+  "source": "Invoke-Example -1e+"
+ },
+ {
+  "name": "plain -1.2.3",
+  "source": "Invoke-Example -1.2.3"
+ },
+ {
+  "name": "plain -0xzz",
+  "source": "Invoke-Example -0xzz"
+ },
+ {
+  "name": "plain -.thing",
+  "source": "Invoke-Example -.thing"
+ },
+ {
+  "name": "plain -.",
+  "source": "Invoke-Example -."
+ },
+ {
+  "name": "plain -..",
+  "source": "Invoke-Example -.."
+ },
+ {
+  "name": "plain -1:tail",
+  "source": "Invoke-Example -1:tail"
+ },
+ {
+  "name": "plain -1=value",
+  "source": "Invoke-Example -1=value"
+ },
+ {
+  "name": "plain -1+2",
+  "source": "Invoke-Example -1+2"
+ },
+ {
+  "name": "plain -1/2",
+  "source": "Invoke-Example -1/2"
+ },
+ {
+  "name": "plain -1%tail",
+  "source": "Invoke-Example -1%tail"
+ },
+ {
+  "name": "plain -1KB",
+  "source": "Invoke-Example -1KB"
+ },
+ {
+  "name": "plain -1.5d",
+  "source": "Invoke-Example -1.5d"
+ },
+ {
+  "name": "plain -1e2l",
+  "source": "Invoke-Example -1e2l"
+ },
+ {
+  "name": "plain -0X10",
+  "source": "Invoke-Example -0X10"
+ },
+ {
+  "name": "plain -1E3",
+  "source": "Invoke-Example -1E3"
+ },
+ {
+  "name": "attached -4tuln \"tail\"",
+  "source": "Invoke-Example -4tuln\"tail\""
+ },
+ {
+  "name": "attached -4tuln 'two words'",
+  "source": "Invoke-Example -4tuln'two words'"
+ },
+ {
+  "name": "attached -4tuln $value",
+  "source": "Invoke-Example -4tuln$value"
+ },
+ {
+  "name": "attached -4tuln $(Get-Nested)",
+  "source": "Invoke-Example -4tuln$(Get-Nested)"
+ },
+ {
+  "name": "attached -4tuln ` space",
+  "source": "Invoke-Example -4tuln` space"
+ },
+ {
+  "name": "attached -4tuln `;tail",
+  "source": "Invoke-Example -4tuln`;tail"
+ },
+ {
+  "name": "attached -4tuln `\"tail",
+  "source": "Invoke-Example -4tuln`\"tail"
+ },
+ {
+  "name": "attached -4tuln { Get-Nested }",
+  "source": "Invoke-Example -4tuln{ Get-Nested }"
+ },
+ {
+  "name": "boundary -4tuln \" \"",
+  "source": "Invoke-Example -4tuln next"
+ },
+ {
+  "name": "boundary -4tuln \"\\t\"",
+  "source": "Invoke-Example -4tuln\tnext"
+ },
+ {
+  "name": "boundary -4tuln \" \"",
+  "source": "Invoke-Example -4tuln next"
+ },
+ {
+  "name": "boundary -4tuln \"`\\n\"",
+  "source": "Invoke-Example -4tuln`\nnext"
+ },
+ {
+  "name": "boundary -4tuln \"`\\r\\n\"",
+  "source": "Invoke-Example -4tuln`\r\nnext"
+ },
+ {
+  "name": "boundary -4tuln \"\\n\"",
+  "source": "Invoke-Example -4tuln\nnext"
+ },
+ {
+  "name": "context Invoke-Example first,-4tuln,last",
+  "source": "Invoke-Example first,-4tuln,last"
+ },
+ {
+  "name": "context Invoke-Example 1,-4tuln,2",
+  "source": "Invoke-Example 1,-4tuln,2"
+ },
+ {
+  "name": "context Invoke-Example -4tuln,last",
+  "source": "Invoke-Example -4tuln,last"
+ },
+ {
+  "name": "context Invoke-Example -Name:-4tuln",
+  "source": "Invoke-Example -Name:-4tuln"
+ },
+ {
+  "name": "context $result = -4tuln",
+  "source": "$result = -4tuln"
+ },
+ {
+  "name": "context Invoke-Example (-4tuln)",
+  "source": "Invoke-Example (-4tuln)"
+ },
+ {
+  "name": "context Invoke-Example @(-4tuln)",
+  "source": "Invoke-Example @(-4tuln)"
+ },
+ {
+  "name": "context Invoke-Example -4tuln>out",
+  "source": "Invoke-Example -4tuln>out"
+ },
+ {
+  "name": "context Invoke-Example -4tuln | Get-Next",
+  "source": "Invoke-Example -4tuln | Get-Next"
+ },
+ {
+  "name": "context Invoke-Example -4tuln; Get-Next",
+  "source": "Invoke-Example -4tuln; Get-Next"
+ },
+ {
+  "name": "context Invoke-Example \"head\"-4tuln",
+  "source": "Invoke-Example \"head\"-4tuln"
+ },
+ {
+  "name": "context Invoke-Example ($value)-4tuln",
+  "source": "Invoke-Example ($value)-4tuln"
+ },
+ {
+  "name": "context Invoke-Example $value-4tuln",
+  "source": "Invoke-Example $value-4tuln"
+ },
+ {
+  "name": "context Invoke-Example -Name -4tuln",
+  "source": "Invoke-Example -Name -4tuln"
+ },
+ {
+  "name": "context Invoke-Example\t-4tuln",
+  "source": "Invoke-Example\t-4tuln"
+ },
+ {
+  "name": "context Invoke-Example first, -4tuln, last",
+  "source": "Invoke-Example first, -4tuln, last"
+ },
+ {
+  "name": "context Invoke-Example first , -4tuln, last",
+  "source": "Invoke-Example first , -4tuln, last"
+ },
+ {
+  "name": "attached -1 \"tail\"",
+  "source": "Invoke-Example -1\"tail\""
+ },
+ {
+  "name": "attached -1 'two words'",
+  "source": "Invoke-Example -1'two words'"
+ },
+ {
+  "name": "attached -1 $value",
+  "source": "Invoke-Example -1$value"
+ },
+ {
+  "name": "attached -1 $(Get-Nested)",
+  "source": "Invoke-Example -1$(Get-Nested)"
+ },
+ {
+  "name": "attached -1 ` space",
+  "source": "Invoke-Example -1` space"
+ },
+ {
+  "name": "attached -1 `;tail",
+  "source": "Invoke-Example -1`;tail"
+ },
+ {
+  "name": "attached -1 `\"tail",
+  "source": "Invoke-Example -1`\"tail"
+ },
+ {
+  "name": "attached -1 { Get-Nested }",
+  "source": "Invoke-Example -1{ Get-Nested }"
+ },
+ {
+  "name": "boundary -1 \" \"",
+  "source": "Invoke-Example -1 next"
+ },
+ {
+  "name": "boundary -1 \"\\t\"",
+  "source": "Invoke-Example -1\tnext"
+ },
+ {
+  "name": "boundary -1 \" \"",
+  "source": "Invoke-Example -1 next"
+ },
+ {
+  "name": "boundary -1 \"`\\n\"",
+  "source": "Invoke-Example -1`\nnext"
+ },
+ {
+  "name": "boundary -1 \"`\\r\\n\"",
+  "source": "Invoke-Example -1`\r\nnext"
+ },
+ {
+  "name": "boundary -1 \"\\n\"",
+  "source": "Invoke-Example -1\nnext"
+ },
+ {
+  "name": "context Invoke-Example 1,-1,2",
+  "source": "Invoke-Example 1,-1,2"
+ },
+ {
+  "name": "context Invoke-Example -1,last",
+  "source": "Invoke-Example -1,last"
+ },
+ {
+  "name": "context Invoke-Example -Name:-1",
+  "source": "Invoke-Example -Name:-1"
+ },
+ {
+  "name": "context Invoke-Example (-1)",
+  "source": "Invoke-Example (-1)"
+ },
+ {
+  "name": "context Invoke-Example @(-1)",
+  "source": "Invoke-Example @(-1)"
+ },
+ {
+  "name": "context Invoke-Example -1>out",
+  "source": "Invoke-Example -1>out"
+ },
+ {
+  "name": "context Invoke-Example -1 | Get-Next",
+  "source": "Invoke-Example -1 | Get-Next"
+ },
+ {
+  "name": "context Invoke-Example -1; Get-Next",
+  "source": "Invoke-Example -1; Get-Next"
+ },
+ {
+  "name": "context Invoke-Example \"head\"-1",
+  "source": "Invoke-Example \"head\"-1"
+ },
+ {
+  "name": "context Invoke-Example ($value)-1",
+  "source": "Invoke-Example ($value)-1"
+ },
+ {
+  "name": "context Invoke-Example $value-1",
+  "source": "Invoke-Example $value-1"
+ },
+ {
+  "name": "context Invoke-Example -Name -1",
+  "source": "Invoke-Example -Name -1"
+ },
+ {
+  "name": "context Invoke-Example\t-1",
+  "source": "Invoke-Example\t-1"
+ },
+ {
+  "name": "context Invoke-Example first, -1, last",
+  "source": "Invoke-Example first, -1, last"
+ },
+ {
+  "name": "context Invoke-Example first , -1, last",
+  "source": "Invoke-Example first , -1, last"
+ },
+ {
+  "name": "attached -.5 \"tail\"",
+  "source": "Invoke-Example -.5\"tail\""
+ },
+ {
+  "name": "attached -.5 'two words'",
+  "source": "Invoke-Example -.5'two words'"
+ },
+ {
+  "name": "attached -.5 $value",
+  "source": "Invoke-Example -.5$value"
+ },
+ {
+  "name": "attached -.5 $(Get-Nested)",
+  "source": "Invoke-Example -.5$(Get-Nested)"
+ },
+ {
+  "name": "attached -.5 ` space",
+  "source": "Invoke-Example -.5` space"
+ },
+ {
+  "name": "attached -.5 `;tail",
+  "source": "Invoke-Example -.5`;tail"
+ },
+ {
+  "name": "attached -.5 `\"tail",
+  "source": "Invoke-Example -.5`\"tail"
+ },
+ {
+  "name": "attached -.5 { Get-Nested }",
+  "source": "Invoke-Example -.5{ Get-Nested }"
+ },
+ {
+  "name": "boundary -.5 \" \"",
+  "source": "Invoke-Example -.5 next"
+ },
+ {
+  "name": "boundary -.5 \"\\t\"",
+  "source": "Invoke-Example -.5\tnext"
+ },
+ {
+  "name": "boundary -.5 \" \"",
+  "source": "Invoke-Example -.5 next"
+ },
+ {
+  "name": "boundary -.5 \"`\\n\"",
+  "source": "Invoke-Example -.5`\nnext"
+ },
+ {
+  "name": "boundary -.5 \"`\\r\\n\"",
+  "source": "Invoke-Example -.5`\r\nnext"
+ },
+ {
+  "name": "boundary -.5 \"\\n\"",
+  "source": "Invoke-Example -.5\nnext"
+ },
+ {
+  "name": "context Invoke-Example first,-.5,last",
+  "source": "Invoke-Example first,-.5,last"
+ },
+ {
+  "name": "context Invoke-Example 1,-.5,2",
+  "source": "Invoke-Example 1,-.5,2"
+ },
+ {
+  "name": "context Invoke-Example -.5,last",
+  "source": "Invoke-Example -.5,last"
+ },
+ {
+  "name": "context Invoke-Example -Name:-.5",
+  "source": "Invoke-Example -Name:-.5"
+ },
+ {
+  "name": "context $result = -.5",
+  "source": "$result = -.5"
+ },
+ {
+  "name": "context Invoke-Example (-.5)",
+  "source": "Invoke-Example (-.5)"
+ },
+ {
+  "name": "context Invoke-Example @(-.5)",
+  "source": "Invoke-Example @(-.5)"
+ },
+ {
+  "name": "context Invoke-Example -.5>out",
+  "source": "Invoke-Example -.5>out"
+ },
+ {
+  "name": "context Invoke-Example -.5 | Get-Next",
+  "source": "Invoke-Example -.5 | Get-Next"
+ },
+ {
+  "name": "context Invoke-Example -.5; Get-Next",
+  "source": "Invoke-Example -.5; Get-Next"
+ },
+ {
+  "name": "context Invoke-Example \"head\"-.5",
+  "source": "Invoke-Example \"head\"-.5"
+ },
+ {
+  "name": "context Invoke-Example ($value)-.5",
+  "source": "Invoke-Example ($value)-.5"
+ },
+ {
+  "name": "context Invoke-Example $value-.5",
+  "source": "Invoke-Example $value-.5"
+ },
+ {
+  "name": "context Invoke-Example -Name -.5",
+  "source": "Invoke-Example -Name -.5"
+ },
+ {
+  "name": "context Invoke-Example\t-.5",
+  "source": "Invoke-Example\t-.5"
+ },
+ {
+  "name": "context Invoke-Example first, -.5, last",
+  "source": "Invoke-Example first, -.5, last"
+ },
+ {
+  "name": "context Invoke-Example first , -.5, last",
+  "source": "Invoke-Example first , -.5, last"
+ },
+ {
+  "name": "preserved number -1l",
+  "source": "Invoke-Example -1l"
+ },
+ {
+  "name": "preserved number -1d",
+  "source": "Invoke-Example -1d"
+ },
+ {
+  "name": "preserved number -1e-2",
+  "source": "Invoke-Example -1e-2"
+ },
+ {
+  "name": "preserved number -0x1fkb",
+  "source": "Invoke-Example -0x1fkb"
+ },
+ {
+  "name": "invalid $result = -1 +",
+  "source": "$result = -1 +"
+ },
+ {
+  "name": "invalid Invoke-Example (-)",
+  "source": "Invoke-Example (-)"
+ },
+ {
+  "name": "invalid Invoke-Example -4tuln\"",
+  "source": "Invoke-Example -4tuln\""
+ },
+ {
+  "name": "invalid Invoke-Example -1'tail",
+  "source": "Invoke-Example -1'tail"
+ },
+ {
+  "name": "invalid Invoke-Example -4tuln$(Get-Nested",
+  "source": "Invoke-Example -4tuln$(Get-Nested"
+ },
+ {
+  "name": "unchanged Invoke-Example -F. sample",
+  "source": "Invoke-Example -F. sample"
+ },
+ {
+  "name": "unchanged Invoke-Example -Name value",
+  "source": "Invoke-Example -Name value"
+ },
+ {
+  "name": "unchanged Invoke-Example -1 -2",
+  "source": "Invoke-Example -1 -2"
+ },
+ {
+  "name": "unchanged Invoke-Example sample | Get-Next",
+  "source": "Invoke-Example sample | Get-Next"
+ },
+ {
+  "name": "root test Numeric dash: malformed decimal-looking words",
+  "source": "Invoke-Example -123abc -1foo -1e -1e+ -1.2.3"
+ },
+ {
+  "name": "root test Numeric dash: dot-leading words",
+  "source": "Invoke-Example -.thing -. -.."
+ },
+ {
+  "name": "root test Numeric dash: punctuation stays in a word",
+  "source": "Invoke-Example -1:tail -1=value -1+2 -1/2 -1%tail"
+ },
+ {
+  "name": "root test Numeric dash: escaped punctuation",
+  "source": "Invoke-Example -4tuln`;tail -4tuln`\"tail"
+ },
+ {
+  "name": "root test Numeric dash: attached redirection-like text is a word",
+  "source": "Invoke-Example -4tuln>out -1>out -.5>out"
+ },
+ {
+  "name": "root test Numeric dash: command boundaries",
+  "source": "Invoke-Example -4tuln | Get-Next\nInvoke-Example -4tuln; Get-Next"
+ },
+ {
+  "name": "root test Numeric dash: preserve inherited pure-negative public CST",
+  "source": "Invoke-Example -1 -1.5 -.5 -0x10 -1kb"
+ },
+ {
+  "name": "root test Numeric dash: preserve expression-mode negation",
+  "source": "$result = -1\nInvoke-Example (-1)"
+ },
+ {
+  "name": "root test Numeric dash: preserve subtraction and ordinary parameters",
+  "source": "$result = $left - $right\nInvoke-Example -Name value -A5"
+ }
+]

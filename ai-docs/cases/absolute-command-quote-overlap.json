@@ -1,0 +1,690 @@
+[
+ {
+  "name": "slash path \"/opt/\" single delimiter 0-0",
+  "source": "/opt/'two words'/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 0-0",
+  "source": "./opt/'two words'/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 0-0",
+  "source": ". /opt/'two words'/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 0-0",
+  "source": "& /opt/'two words'/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 0-1",
+  "source": "/opt/'two words‘/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 0-1",
+  "source": "./opt/'two words‘/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 0-1",
+  "source": ". /opt/'two words‘/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 0-1",
+  "source": "& /opt/'two words‘/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 0-2",
+  "source": "/opt/'two words’/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 0-2",
+  "source": "./opt/'two words’/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 0-2",
+  "source": ". /opt/'two words’/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 0-2",
+  "source": "& /opt/'two words’/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 0-3",
+  "source": "/opt/'two words‚/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 0-3",
+  "source": "./opt/'two words‚/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 0-3",
+  "source": ". /opt/'two words‚/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 0-3",
+  "source": "& /opt/'two words‚/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 0-4",
+  "source": "/opt/'two words‛/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 0-4",
+  "source": "./opt/'two words‛/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 0-4",
+  "source": ". /opt/'two words‛/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 0-4",
+  "source": "& /opt/'two words‛/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 1-0",
+  "source": "/opt/‘two words'/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 1-0",
+  "source": "./opt/‘two words'/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 1-0",
+  "source": ". /opt/‘two words'/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 1-0",
+  "source": "& /opt/‘two words'/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 1-1",
+  "source": "/opt/‘two words‘/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 1-1",
+  "source": "./opt/‘two words‘/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 1-1",
+  "source": ". /opt/‘two words‘/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 1-1",
+  "source": "& /opt/‘two words‘/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 1-2",
+  "source": "/opt/‘two words’/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 1-2",
+  "source": "./opt/‘two words’/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 1-2",
+  "source": ". /opt/‘two words’/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 1-2",
+  "source": "& /opt/‘two words’/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 1-3",
+  "source": "/opt/‘two words‚/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 1-3",
+  "source": "./opt/‘two words‚/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 1-3",
+  "source": ". /opt/‘two words‚/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 1-3",
+  "source": "& /opt/‘two words‚/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 1-4",
+  "source": "/opt/‘two words‛/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 1-4",
+  "source": "./opt/‘two words‛/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 1-4",
+  "source": ". /opt/‘two words‛/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 1-4",
+  "source": "& /opt/‘two words‛/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 2-0",
+  "source": "/opt/’two words'/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 2-0",
+  "source": "./opt/’two words'/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 2-0",
+  "source": ". /opt/’two words'/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 2-0",
+  "source": "& /opt/’two words'/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 2-1",
+  "source": "/opt/’two words‘/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 2-1",
+  "source": "./opt/’two words‘/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 2-1",
+  "source": ". /opt/’two words‘/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 2-1",
+  "source": "& /opt/’two words‘/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 2-2",
+  "source": "/opt/’two words’/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 2-2",
+  "source": "./opt/’two words’/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 2-2",
+  "source": ". /opt/’two words’/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 2-2",
+  "source": "& /opt/’two words’/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 2-3",
+  "source": "/opt/’two words‚/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 2-3",
+  "source": "./opt/’two words‚/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 2-3",
+  "source": ". /opt/’two words‚/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 2-3",
+  "source": "& /opt/’two words‚/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 2-4",
+  "source": "/opt/’two words‛/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 2-4",
+  "source": "./opt/’two words‛/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 2-4",
+  "source": ". /opt/’two words‛/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 2-4",
+  "source": "& /opt/’two words‛/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 3-0",
+  "source": "/opt/‚two words'/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 3-0",
+  "source": "./opt/‚two words'/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 3-0",
+  "source": ". /opt/‚two words'/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 3-0",
+  "source": "& /opt/‚two words'/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 3-1",
+  "source": "/opt/‚two words‘/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 3-1",
+  "source": "./opt/‚two words‘/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 3-1",
+  "source": ". /opt/‚two words‘/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 3-1",
+  "source": "& /opt/‚two words‘/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 3-2",
+  "source": "/opt/‚two words’/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 3-2",
+  "source": "./opt/‚two words’/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 3-2",
+  "source": ". /opt/‚two words’/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 3-2",
+  "source": "& /opt/‚two words’/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 3-3",
+  "source": "/opt/‚two words‚/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 3-3",
+  "source": "./opt/‚two words‚/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 3-3",
+  "source": ". /opt/‚two words‚/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 3-3",
+  "source": "& /opt/‚two words‚/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 3-4",
+  "source": "/opt/‚two words‛/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 3-4",
+  "source": "./opt/‚two words‛/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 3-4",
+  "source": ". /opt/‚two words‛/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 3-4",
+  "source": "& /opt/‚two words‛/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 4-0",
+  "source": "/opt/‛two words'/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 4-0",
+  "source": "./opt/‛two words'/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 4-0",
+  "source": ". /opt/‛two words'/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 4-0",
+  "source": "& /opt/‛two words'/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 4-1",
+  "source": "/opt/‛two words‘/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 4-1",
+  "source": "./opt/‛two words‘/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 4-1",
+  "source": ". /opt/‛two words‘/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 4-1",
+  "source": "& /opt/‛two words‘/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 4-2",
+  "source": "/opt/‛two words’/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 4-2",
+  "source": "./opt/‛two words’/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 4-2",
+  "source": ". /opt/‛two words’/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 4-2",
+  "source": "& /opt/‛two words’/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 4-3",
+  "source": "/opt/‛two words‚/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 4-3",
+  "source": "./opt/‛two words‚/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 4-3",
+  "source": ". /opt/‛two words‚/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 4-3",
+  "source": "& /opt/‛two words‚/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" single delimiter 4-4",
+  "source": "/opt/‛two words‛/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" single delimiter 4-4",
+  "source": "./opt/‛two words‛/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" single delimiter 4-4",
+  "source": ". /opt/‛two words‛/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" single delimiter 4-4",
+  "source": "& /opt/‛two words‛/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 0-0",
+  "source": "/opt/\"two words\"/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 0-0",
+  "source": "./opt/\"two words\"/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 0-0",
+  "source": ". /opt/\"two words\"/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 0-0",
+  "source": "& /opt/\"two words\"/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 0-1",
+  "source": "/opt/\"two words“/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 0-1",
+  "source": "./opt/\"two words“/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 0-1",
+  "source": ". /opt/\"two words“/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 0-1",
+  "source": "& /opt/\"two words“/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 0-2",
+  "source": "/opt/\"two words”/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 0-2",
+  "source": "./opt/\"two words”/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 0-2",
+  "source": ". /opt/\"two words”/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 0-2",
+  "source": "& /opt/\"two words”/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 0-3",
+  "source": "/opt/\"two words„/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 0-3",
+  "source": "./opt/\"two words„/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 0-3",
+  "source": ". /opt/\"two words„/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 0-3",
+  "source": "& /opt/\"two words„/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 1-0",
+  "source": "/opt/“two words\"/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 1-0",
+  "source": "./opt/“two words\"/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 1-0",
+  "source": ". /opt/“two words\"/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 1-0",
+  "source": "& /opt/“two words\"/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 1-1",
+  "source": "/opt/“two words“/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 1-1",
+  "source": "./opt/“two words“/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 1-1",
+  "source": ". /opt/“two words“/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 1-1",
+  "source": "& /opt/“two words“/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 1-2",
+  "source": "/opt/“two words”/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 1-2",
+  "source": "./opt/“two words”/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 1-2",
+  "source": ". /opt/“two words”/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 1-2",
+  "source": "& /opt/“two words”/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 1-3",
+  "source": "/opt/“two words„/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 1-3",
+  "source": "./opt/“two words„/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 1-3",
+  "source": ". /opt/“two words„/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 1-3",
+  "source": "& /opt/“two words„/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 2-0",
+  "source": "/opt/”two words\"/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 2-0",
+  "source": "./opt/”two words\"/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 2-0",
+  "source": ". /opt/”two words\"/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 2-0",
+  "source": "& /opt/”two words\"/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 2-1",
+  "source": "/opt/”two words“/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 2-1",
+  "source": "./opt/”two words“/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 2-1",
+  "source": ". /opt/”two words“/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 2-1",
+  "source": "& /opt/”two words“/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 2-2",
+  "source": "/opt/”two words”/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 2-2",
+  "source": "./opt/”two words”/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 2-2",
+  "source": ". /opt/”two words”/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 2-2",
+  "source": "& /opt/”two words”/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 2-3",
+  "source": "/opt/”two words„/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 2-3",
+  "source": "./opt/”two words„/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 2-3",
+  "source": ". /opt/”two words„/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 2-3",
+  "source": "& /opt/”two words„/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 3-0",
+  "source": "/opt/„two words\"/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 3-0",
+  "source": "./opt/„two words\"/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 3-0",
+  "source": ". /opt/„two words\"/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 3-0",
+  "source": "& /opt/„two words\"/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 3-1",
+  "source": "/opt/„two words“/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 3-1",
+  "source": "./opt/„two words“/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 3-1",
+  "source": ". /opt/„two words“/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 3-1",
+  "source": "& /opt/„two words“/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 3-2",
+  "source": "/opt/„two words”/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 3-2",
+  "source": "./opt/„two words”/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 3-2",
+  "source": ". /opt/„two words”/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 3-2",
+  "source": "& /opt/„two words”/example status"
+ },
+ {
+  "name": "slash path \"/opt/\" double delimiter 3-3",
+  "source": "/opt/„two words„/example status"
+ },
+ {
+  "name": "slash path \"./opt/\" double delimiter 3-3",
+  "source": "./opt/„two words„/example status"
+ },
+ {
+  "name": "slash path \". /opt/\" double delimiter 3-3",
+  "source": ". /opt/„two words„/example status"
+ },
+ {
+  "name": "slash path \"& /opt/\" double delimiter 3-3",
+  "source": "& /opt/„two words„/example status"
+ },
+ {
+  "name": "invoked path existing expansion . /opt/$name/example",
+  "source": ". /opt/$name/example status"
+ },
+ {
+  "name": "invoked path existing expansion . /opt/\"$name words\"/example",
+  "source": ". /opt/\"$name words\"/example status"
+ },
+ {
+  "name": "invoked path existing expansion . /opt/two` words/example",
+  "source": ". /opt/two` words/example status"
+ },
+ {
+  "name": "invoked path existing expansion . /opt/`$name/example",
+  "source": ". /opt/`$name/example status"
+ },
+ {
+  "name": "invoked path existing expansion & /opt/$name/example",
+  "source": "& /opt/$name/example status"
+ },
+ {
+  "name": "invoked path existing expansion & /opt/\"$name words\"/example",
+  "source": "& /opt/\"$name words\"/example status"
+ },
+ {
+  "name": "invoked path existing expansion & /opt/two` words/example",
+  "source": "& /opt/two` words/example status"
+ },
+ {
+  "name": "invoked path existing expansion & /opt/`$name/example",
+  "source": "& /opt/`$name/example status"
+ }
+]

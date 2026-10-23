@@ -1,0 +1,11 @@
+{
+ "suite": "command-parenthesis-lone-cr",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":4,"agree":4,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "lone CR body": {"status":"agree","differences":[]},
+  "LF body control": {"status":"agree","differences":[]},
+  "CRLF body control": {"status":"agree","differences":[]},
+  "lone CR HTML-like body": {"status":"agree","differences":[]}
+ }
+}

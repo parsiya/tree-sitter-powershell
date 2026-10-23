@@ -1,0 +1,550 @@
+[
+ {
+  "name": "escaped leading letter",
+  "source": "`Write-Output example"
+ },
+ {
+  "name": "escaped leading dollar",
+  "source": "`$example.Name = `$example.Name"
+ },
+ {
+  "name": "escaped leading hash",
+  "source": "`#example value"
+ },
+ {
+  "name": "escaped leading opening parenthesis",
+  "source": "`(example value"
+ },
+ {
+  "name": "escaped leading closing parenthesis",
+  "source": "`)example value"
+ },
+ {
+  "name": "escaped leading plus",
+  "source": "`+example value"
+ },
+ {
+  "name": "escaped leading equals",
+  "source": "`=example value"
+ },
+ {
+  "name": "escaped leading colon",
+  "source": "`:example value"
+ },
+ {
+  "name": "escaped leading double quote",
+  "source": "`\"example value"
+ },
+ {
+  "name": "escaped leading single quote",
+  "source": "`'example value"
+ },
+ {
+  "name": "escaped leading space",
+  "source": "` example value"
+ },
+ {
+  "name": "escaped leading unicode",
+  "source": "`éxample value"
+ },
+ {
+  "name": "escaped leading backtick",
+  "source": "``example value"
+ },
+ {
+  "name": "escaped leading command after assignment",
+  "source": "$result = `Write-Output example"
+ },
+ {
+  "name": "escaped leading command after pipe",
+  "source": "Get-Item example | `Write-Output"
+ },
+ {
+  "name": "escaped dollar command argument control",
+  "source": "Write-Output `$example.Name"
+ },
+ {
+  "name": "existing interior escape control",
+  "source": "Wri`te-Output example"
+ },
+ {
+  "name": "quoted command piece control",
+  "source": "Write-'Output' example"
+ },
+ {
+  "name": "ordinary variable expression control",
+  "source": "$example.Name = $other.Name"
+ },
+ {
+  "name": "ordinary comment control",
+  "source": "# example\nWrite-Output example"
+ },
+ {
+  "name": "incomplete assignment escape invalid",
+  "source": "$result = `"
+ },
+ {
+  "name": "leading tab escape",
+  "source": "`texample value"
+ },
+ {
+  "name": "leading newline escape",
+  "source": "`nexample value"
+ },
+ {
+  "name": "leading carriage escape",
+  "source": "`rexample value"
+ },
+ {
+  "name": "leading bell escape",
+  "source": "`aexample value"
+ },
+ {
+  "name": "leading vertical tab escape",
+  "source": "`vexample value"
+ },
+ {
+  "name": "leading escape escape",
+  "source": "`eexample value"
+ },
+ {
+  "name": "leading formfeed escape",
+  "source": "`fexample value"
+ },
+ {
+  "name": "leading backspace escape",
+  "source": "`bexample value"
+ },
+ {
+  "name": "leading uppercase escape",
+  "source": "`Texample value"
+ },
+ {
+  "name": "leading semicolon",
+  "source": "`;example value"
+ },
+ {
+  "name": "leading pipe",
+  "source": "`|example value"
+ },
+ {
+  "name": "leading ampersand",
+  "source": "`&example value"
+ },
+ {
+  "name": "leading brace",
+  "source": "`{example value"
+ },
+ {
+  "name": "leading bracket",
+  "source": "`[example value"
+ },
+ {
+  "name": "leading dash",
+  "source": "`-example value"
+ },
+ {
+  "name": "leading asterisk",
+  "source": "`*example value"
+ },
+ {
+  "name": "leading slash",
+  "source": "`/example value"
+ },
+ {
+  "name": "leading at",
+  "source": "`@example value"
+ },
+ {
+  "name": "leading bang",
+  "source": "`!example value"
+ },
+ {
+  "name": "leading less",
+  "source": "`<example value"
+ },
+ {
+  "name": "leading greater",
+  "source": "`>example value"
+ },
+ {
+  "name": "leading unicode smart quote",
+  "source": "`“example value"
+ },
+ {
+  "name": "leading unicode scalar",
+  "source": "`😀example value"
+ },
+ {
+  "name": "interior trivia space",
+  "source": "exa` mple value"
+ },
+ {
+  "name": "spaced leading trivia space",
+  "source": "  ` example value"
+ },
+ {
+  "name": "leading trivia tab",
+  "source": "`\texample value"
+ },
+ {
+  "name": "interior trivia tab",
+  "source": "exa`\tmple value"
+ },
+ {
+  "name": "spaced leading trivia tab",
+  "source": "  `\texample value"
+ },
+ {
+  "name": "leading trivia LF",
+  "source": "`\nexample value"
+ },
+ {
+  "name": "interior trivia LF",
+  "source": "exa`\nmple value"
+ },
+ {
+  "name": "spaced leading trivia LF",
+  "source": "  `\nexample value"
+ },
+ {
+  "name": "leading trivia CRLF",
+  "source": "`\r\nexample value"
+ },
+ {
+  "name": "interior trivia CRLF",
+  "source": "exa`\r\nmple value"
+ },
+ {
+  "name": "spaced leading trivia CRLF",
+  "source": "  `\r\nexample value"
+ },
+ {
+  "name": "leading trivia CR",
+  "source": "`\rexample value"
+ },
+ {
+  "name": "interior trivia CR",
+  "source": "exa`\rmple value"
+ },
+ {
+  "name": "spaced leading trivia CR",
+  "source": "  `\rexample value"
+ },
+ {
+  "name": "leading trivia NBSP",
+  "source": "` example value"
+ },
+ {
+  "name": "interior trivia NBSP",
+  "source": "exa` mple value"
+ },
+ {
+  "name": "spaced leading trivia NBSP",
+  "source": "  ` example value"
+ },
+ {
+  "name": "leading trivia two spaces",
+  "source": "`  example value"
+ },
+ {
+  "name": "interior trivia two spaces",
+  "source": "exa`  mple value"
+ },
+ {
+  "name": "spaced leading trivia two spaces",
+  "source": "  `  example value"
+ },
+ {
+  "name": "structure \"  `Write-Output example\"",
+  "source": "  `Write-Output example"
+ },
+ {
+  "name": "structure \"\\n`Write-Output example\"",
+  "source": "\n`Write-Output example"
+ },
+ {
+  "name": "structure \";`Write-Output example\"",
+  "source": ";`Write-Output example"
+ },
+ {
+  "name": "structure \"& `Write-Output example\"",
+  "source": "& `Write-Output example"
+ },
+ {
+  "name": "structure \". `Write-Output example\"",
+  "source": ". `Write-Output example"
+ },
+ {
+  "name": "structure \"`Write-\\\"Output\\\" example\"",
+  "source": "`Write-\"Output\" example"
+ },
+ {
+  "name": "structure \"`Write-'Output' example\"",
+  "source": "`Write-'Output' example"
+ },
+ {
+  "name": "structure \"`Write-\\\"\\\"Output example\"",
+  "source": "`Write-\"\"Output example"
+ },
+ {
+  "name": "structure \"`Write`-Output example\"",
+  "source": "`Write`-Output example"
+ },
+ {
+  "name": "structure \"`$example.Name = `$example.Name; Write-Output done\"",
+  "source": "`$example.Name = `$example.Name; Write-Output done"
+ },
+ {
+  "name": "structure \"`Write-Output | Write-Output\"",
+  "source": "`Write-Output | Write-Output"
+ },
+ {
+  "name": "structure \"`Write-Output > result\"",
+  "source": "`Write-Output > result"
+ },
+ {
+  "name": "structure \"`Write-Output`\\nNext-Example value\"",
+  "source": "`Write-Output`\nNext-Example value"
+ },
+ {
+  "name": "structure \"`Write-Output`\\r\\nNext-Example value\"",
+  "source": "`Write-Output`\r\nNext-Example value"
+ },
+ {
+  "name": "structure \"`Write-Output `\\n example\"",
+  "source": "`Write-Output `\n example"
+ },
+ {
+  "name": "structure \"`Write-Output `\\r\\n example\"",
+  "source": "`Write-Output `\r\n example"
+ },
+ {
+  "name": "structure \"`Write-Output` value\"",
+  "source": "`Write-Output` value"
+ },
+ {
+  "name": "structure \"`Write-Output`#tail value\"",
+  "source": "`Write-Output`#tail value"
+ },
+ {
+  "name": "structure \"`Write-Output`(tail value\"",
+  "source": "`Write-Output`(tail value"
+ },
+ {
+  "name": "structure \"`Write-Output`\\\"tail value\"",
+  "source": "`Write-Output`\"tail value"
+ },
+ {
+  "name": "structure \"`Write-Output`$tail value\"",
+  "source": "`Write-Output`$tail value"
+ },
+ {
+  "name": "structure \"`Write-Output``tail value\"",
+  "source": "`Write-Output``tail value"
+ },
+ {
+  "name": "structure \"`Write-Output`+tail value\"",
+  "source": "`Write-Output`+tail value"
+ },
+ {
+  "name": "structure \"`Write-Output`=tail value\"",
+  "source": "`Write-Output`=tail value"
+ },
+ {
+  "name": "structure \"`Write-Output$tail value\"",
+  "source": "`Write-Output$tail value"
+ },
+ {
+  "name": "structure \"`Write-Output@tail value\"",
+  "source": "`Write-Output@tail value"
+ },
+ {
+  "name": "structure \"`Write-Output; Write-Output next\"",
+  "source": "`Write-Output; Write-Output next"
+ },
+ {
+  "name": "structure \"`#example value\\nWrite-Output next\"",
+  "source": "`#example value\nWrite-Output next"
+ },
+ {
+  "name": "structure \":loop while ($true) { break loop }\"",
+  "source": ":loop while ($true) { break loop }"
+ },
+ {
+  "name": "structure \"1 + 2\"",
+  "source": "1 + 2"
+ },
+ {
+  "name": "structure \"$example.Name\"",
+  "source": "$example.Name"
+ },
+ {
+  "name": "structure \"Write-Output (1 + 2)\"",
+  "source": "Write-Output (1 + 2)"
+ },
+ {
+  "name": "structure \"$result = `$example.Name\"",
+  "source": "$result = `$example.Name"
+ },
+ {
+  "name": "malformed \"`\"",
+  "source": "`"
+ },
+ {
+  "name": "malformed \"$x = `\"",
+  "source": "$x = `"
+ },
+ {
+  "name": "malformed \"`example \\\"\"",
+  "source": "`example \""
+ },
+ {
+  "name": "malformed \"`example |\"",
+  "source": "`example |"
+ },
+ {
+  "name": "malformed \"`example (\"",
+  "source": "`example ("
+ },
+ {
+  "name": "malformed \"`example `\"",
+  "source": "`example `"
+ },
+ {
+  "name": "unescaped pipeline extent control",
+  "source": "Write-Output | Write-Output"
+ },
+ {
+  "name": "Unicode escape `u{41}xample value",
+  "source": "`u{41}xample value"
+ },
+ {
+  "name": "Unicode escape `u{1f600}xample value",
+  "source": "`u{1f600}xample value"
+ },
+ {
+  "name": "Unicode escape exa`u{41}mple value",
+  "source": "exa`u{41}mple value"
+ },
+ {
+  "name": "Unicode escape `u{0}xample value",
+  "source": "`u{0}xample value"
+ },
+ {
+  "name": "Unicode escape `u{10ffff}xample value",
+  "source": "`u{10ffff}xample value"
+ },
+ {
+  "name": "Unicode escape `u{d800}xample value",
+  "source": "`u{d800}xample value"
+ },
+ {
+  "name": "malformed Unicode escape `u{}xample value",
+  "source": "`u{}xample value"
+ },
+ {
+  "name": "malformed Unicode escape `u{zz}xample value",
+  "source": "`u{zz}xample value"
+ },
+ {
+  "name": "malformed Unicode escape `u{110000}xample value",
+  "source": "`u{110000}xample value"
+ },
+ {
+  "name": "malformed Unicode escape `u{0000041}xample value",
+  "source": "`u{0000041}xample value"
+ },
+ {
+  "name": "leading escaped whitespace U+85",
+  "source": "`example value"
+ },
+ {
+  "name": "interior escaped whitespace U+85",
+  "source": "`exa`mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+1680",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+1680",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+2000",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+2000",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+2003",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+2003",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+200a",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+200a",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+2028",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+2028",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+2029",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+2029",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+202f",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+202f",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+205f",
+  "source": "` example value"
+ },
+ {
+  "name": "interior escaped whitespace U+205f",
+  "source": "`exa` mple value"
+ },
+ {
+  "name": "leading escaped whitespace U+3000",
+  "source": "`　example value"
+ },
+ {
+  "name": "interior escaped whitespace U+3000",
+  "source": "`exa`　mple value"
+ },
+ {
+  "name": "flow boundary \"throw\\nreturn\"",
+  "source": "throw\nreturn"
+ },
+ {
+  "name": "flow boundary \"throw\\r\\nreturn\"",
+  "source": "throw\r\nreturn"
+ },
+ {
+  "name": "flow boundary \"return\\n`Write-Output value\"",
+  "source": "return\n`Write-Output value"
+ }
+]

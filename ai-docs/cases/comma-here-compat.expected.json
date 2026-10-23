@@ -1,0 +1,19 @@
+{
+ "suite": "comma-here-compat",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":12,"agree":12,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "none-lf": {"status":"agree","differences":[]},
+  "none-crlf": {"status":"agree","differences":[]},
+  "spaces-lf": {"status":"agree","differences":[]},
+  "spaces-crlf": {"status":"agree","differences":[]},
+  "tab-lf": {"status":"agree","differences":[]},
+  "tab-crlf": {"status":"agree","differences":[]},
+  "vertical-tab-lf": {"status":"agree","differences":[]},
+  "vertical-tab-crlf": {"status":"agree","differences":[]},
+  "form-feed-lf": {"status":"agree","differences":[]},
+  "form-feed-crlf": {"status":"agree","differences":[]},
+  "mixed-lf": {"status":"agree","differences":[]},
+  "mixed-crlf": {"status":"agree","differences":[]}
+ }
+}

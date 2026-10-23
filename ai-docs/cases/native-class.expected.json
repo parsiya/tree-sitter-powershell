@@ -1,0 +1,14 @@
+{
+ "suite": "native-class",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":7,"agree":6,"invalid_rejected":0,"known":0,"fail":1,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "tests/parsing/powershell/class_enum.ps1": {"status":"fail","differences":["typed missing VariableExpressionAst 0:0"]},
+  "tests/patterns/powershell/class_property.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/class_property_type.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/class_method.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/class_method_body.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/enum.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/enum_member.ps1": {"status":"agree","differences":[]}
+ }
+}

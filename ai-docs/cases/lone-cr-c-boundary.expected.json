@@ -1,0 +1,31 @@
+{
+ "suite": "lone-cr-c-boundary",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":24,"agree":24,"invalid_rejected":0,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "body-cr": {"status":"agree","differences":[]},
+  "body-lf": {"status":"agree","differences":[]},
+  "body-crlf": {"status":"agree","differences":[]},
+  "body-blank-cr": {"status":"agree","differences":[]},
+  "hash-cr": {"status":"agree","differences":[]},
+  "quote-cr": {"status":"agree","differences":[]},
+  "leading-cr": {"status":"agree","differences":[]},
+  "trailing-crlf": {"status":"agree","differences":[]},
+  "variables-cr": {"status":"agree","differences":[]},
+  "variables-lf": {"status":"agree","differences":[]},
+  "variables-crlf": {"status":"agree","differences":[]},
+  "subexpressions-cr": {"status":"agree","differences":[]},
+  "escaped-dollar-cr": {"status":"agree","differences":[]},
+  "escaped-cr": {"status":"agree","differences":[]},
+  "escaped-lf": {"status":"agree","differences":[]},
+  "escaped-crlf": {"status":"agree","differences":[]},
+  "escaped-crlf-footer": {"status":"agree","differences":[]},
+  "header-cr": {"status":"agree","differences":[]},
+  "footer-cr": {"status":"agree","differences":[]},
+  "both-cr": {"status":"agree","differences":[]},
+  "empty-cr": {"status":"agree","differences":[]},
+  "blank-cr": {"status":"agree","differences":[]},
+  "empty-lf": {"status":"agree","differences":[]},
+  "empty-crlf": {"status":"agree","differences":[]}
+ }
+}

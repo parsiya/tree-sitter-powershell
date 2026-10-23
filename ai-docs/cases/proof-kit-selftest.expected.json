@@ -1,0 +1,28 @@
+{
+ "suite": "proof-kit-selftest",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":21,"agree":12,"invalid_rejected":2,"known":4,"fail":0,"unsupported":3,"skipped":0,"known_differences":4},
+ "cases": {
+  "statements-lf": {"status":"agree","differences":[]},
+  "statements-crlf-file": {"status":"agree","differences":[]},
+  "bom-original-bytes": {"status":"known","differences":[]},
+  "unicode-offsets": {"status":"agree","differences":[]},
+  "colon-parameters": {"status":"agree","differences":[]},
+  "arrays": {"status":"agree","differences":[]},
+  "stop-parsing": {"status":"agree","differences":[]},
+  "invocation-names": {"status":"agree","differences":[]},
+  "strings-and-here-strings": {"status":"agree","differences":[]},
+  "composite-bare-word": {"status":"agree","differences":[]},
+  "redirections": {"status":"agree","differences":[]},
+  "labeled-loops": {"status":"agree","differences":[]},
+  "statements-typed": {"status":"known","differences":[]},
+  "comment-after-command": {"status":"known","differences":[]},
+  "numeric-dash-word": {"status":"known","differences":[]},
+  "pipeline-typed-only": {"status":"agree","differences":[]},
+  "empty-pipe-element": {"status":"invalid-rejected","differences":[]},
+  "missing-closing-brace": {"status":"invalid-rejected","differences":[]},
+  "unsupported-utf16": {"status":"unsupported","differences":[]},
+  "unsupported-latin1": {"status":"unsupported","differences":[]},
+  "unsupported-nul": {"status":"unsupported","differences":[]}
+ }
+}

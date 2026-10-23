@@ -1,0 +1,102 @@
+[
+ {
+  "name": "absolute executable",
+  "source": "/opt/tools/example status"
+ },
+ {
+  "name": "absolute executable assignment",
+  "source": "$result = /opt/tools/example status"
+ },
+ {
+  "name": "absolute executable parenthesized",
+  "source": "$result = (/opt/tools/example status)"
+ },
+ {
+  "name": "absolute executable in hashtable",
+  "source": "$result = @{ Value = /opt/tools/example status }"
+ },
+ {
+  "name": "absolute executable in cast hashtable",
+  "source": "[Example]@{ Value = /opt/tools/example status }"
+ },
+ {
+  "name": "absolute executable with redirection",
+  "source": "/opt/tools/example status 2>/dev/null"
+ },
+ {
+  "name": "absolute executable pipeline",
+  "source": "/opt/tools/example status | Select-Object Name"
+ },
+ {
+  "name": "absolute executable after pipe",
+  "source": "Get-Item example | /opt/tools/example"
+ },
+ {
+  "name": "root command",
+  "source": "/ example"
+ },
+ {
+  "name": "double slash command is not comment",
+  "source": "if ($true) { // example }"
+ },
+ {
+  "name": "triple slash command",
+  "source": "/// example"
+ },
+ {
+  "name": "slash followed by quoted segment",
+  "source": "/opt/\"two words\"/example status"
+ },
+ {
+  "name": "backtick escaped slash path space",
+  "source": "/opt/two` words/example status"
+ },
+ {
+  "name": "dot invocation absolute path",
+  "source": ". /opt/tools/example"
+ },
+ {
+  "name": "call invocation absolute path",
+  "source": "& /opt/tools/example"
+ },
+ {
+  "name": "relative executable control",
+  "source": "./tools/example status"
+ },
+ {
+  "name": "parent executable control",
+  "source": "../tools/example status"
+ },
+ {
+  "name": "division expression control",
+  "source": "$result = 8 / 2"
+ },
+ {
+  "name": "division variable control",
+  "source": "$result = $left / $right"
+ },
+ {
+  "name": "compound division control",
+  "source": "$result /= 2"
+ },
+ {
+  "name": "division precedence control",
+  "source": "$result = 2 + 8 / 2"
+ },
+ {
+  "name": "absolute-looking command argument",
+  "source": "Write-Output /opt/tools/example"
+ },
+ {
+  "name": "slash argument control",
+  "source": "Write-Output /"
+ },
+ {
+  "name": "division missing right operand invalid",
+  "source": "$result = 8 /"
+ },
+ {
+  "name": "unterminated quoted slash path invalid",
+  "source": "/opt/\"two words"
+ }
+]

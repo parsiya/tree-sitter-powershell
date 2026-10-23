@@ -1,0 +1,31 @@
+{
+ "suite": "plus-argument-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":24,"agree":19,"invalid_rejected":1,"known":0,"fail":4,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "plus then member": {"status":"agree","differences":[]},
+  "plus then number": {"status":"agree","differences":[]},
+  "adjacent plus number": {"status":"agree","differences":[]},
+  "plus then variable": {"status":"agree","differences":[]},
+  "adjacent plus variable": {"status":"fail","differences":["typed missing VariableExpressionAst 14:20"]},
+  "plus then parenthesis": {"status":"agree","differences":[]},
+  "plus then subexpression": {"status":"agree","differences":[]},
+  "plus then quote": {"status":"agree","differences":[]},
+  "bare plus at end": {"status":"agree","differences":[]},
+  "bare plus before parameter": {"status":"agree","differences":[]},
+  "plus word": {"status":"agree","differences":[]},
+  "quote then adjacent plus": {"status":"fail","differences":["typed missing VariableExpressionAst 22:28"]},
+  "plus with quote then star suffix": {"status":"agree","differences":[]},
+  "comma plus argument": {"status":"agree","differences":[]},
+  "plus comma array": {"status":"agree","differences":[]},
+  "attached parameter plus": {"status":"agree","differences":[]},
+  "unary plus assignment control": {"status":"agree","differences":[]},
+  "spaced unary plus assignment control": {"status":"agree","differences":[]},
+  "parenthesized unary plus control": {"status":"agree","differences":[]},
+  "method unary plus control": {"status":"agree","differences":[]},
+  "binary plus control": {"status":"agree","differences":[]},
+  "negative number control": {"status":"fail","differences":["elements kind 13:15 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator"]},
+  "standalone minus control": {"status":"fail","differences":["elements kind 13:14 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "incomplete assignment unary invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

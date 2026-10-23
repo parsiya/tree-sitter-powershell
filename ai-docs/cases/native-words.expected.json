@@ -1,0 +1,11 @@
+{
+ "suite": "native-words",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":4,"agree":2,"invalid_rejected":0,"known":0,"fail":2,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "tests/parsing/powershell/bare_words.ps1": {"status":"fail","differences":["typed missing VariableExpressionAst 124:128","typed missing VariableExpressionAst 182:185","typed missing VariableExpressionAst 234:240","typed missing VariableExpressionAst 255:257","typed missing VariableExpressionAst 258:270","typed missing VariableExpressionAst 85:91"]},
+  "tests/patterns/powershell/bare_interpolation.ps1": {"status":"fail","differences":["typed missing VariableExpressionAst 166:172","typed missing VariableExpressionAst 41:47"]},
+  "tests/patterns/powershell/bare_quoted.ps1": {"status":"agree","differences":[]},
+  "tests/patterns/powershell/switch_quoted_case.ps1": {"status":"agree","differences":[]}
+ }
+}

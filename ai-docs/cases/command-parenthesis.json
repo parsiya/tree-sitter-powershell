@@ -1,0 +1,350 @@
+[
+ {
+  "name": "Example.Type: Get-Item example",
+  "source": "Write-Output Example.Type(Get-Item example)"
+ },
+ {
+  "name": "Example.Type: Get-Item example | Select-Object Name",
+  "source": "Write-Output Example.Type(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "Example.Type: New-Object Example.Inner('sample')",
+  "source": "Write-Output Example.Type(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "Example.Type: (Get-Item example)",
+  "source": "Write-Output Example.Type((Get-Item example))"
+ },
+ {
+  "name": "Example.Type: $value | Write-Output",
+  "source": "Write-Output Example.Type($value | Write-Output)"
+ },
+ {
+  "name": "$value: Get-Item example",
+  "source": "Write-Output $value(Get-Item example)"
+ },
+ {
+  "name": "$value: Get-Item example | Select-Object Name",
+  "source": "Write-Output $value(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "$value: New-Object Example.Inner('sample')",
+  "source": "Write-Output $value(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "$value: (Get-Item example)",
+  "source": "Write-Output $value((Get-Item example))"
+ },
+ {
+  "name": "$value: $value | Write-Output",
+  "source": "Write-Output $value($value | Write-Output)"
+ },
+ {
+  "name": "\"prefix\": Get-Item example",
+  "source": "Write-Output \"prefix\"(Get-Item example)"
+ },
+ {
+  "name": "\"prefix\": Get-Item example | Select-Object Name",
+  "source": "Write-Output \"prefix\"(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "\"prefix\": New-Object Example.Inner('sample')",
+  "source": "Write-Output \"prefix\"(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "\"prefix\": (Get-Item example)",
+  "source": "Write-Output \"prefix\"((Get-Item example))"
+ },
+ {
+  "name": "\"prefix\": $value | Write-Output",
+  "source": "Write-Output \"prefix\"($value | Write-Output)"
+ },
+ {
+  "name": "'prefix': Get-Item example",
+  "source": "Write-Output 'prefix'(Get-Item example)"
+ },
+ {
+  "name": "'prefix': Get-Item example | Select-Object Name",
+  "source": "Write-Output 'prefix'(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "'prefix': New-Object Example.Inner('sample')",
+  "source": "Write-Output 'prefix'(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "'prefix': (Get-Item example)",
+  "source": "Write-Output 'prefix'((Get-Item example))"
+ },
+ {
+  "name": "'prefix': $value | Write-Output",
+  "source": "Write-Output 'prefix'($value | Write-Output)"
+ },
+ {
+  "name": "constructor New-Object Example.Inner('sample')",
+  "source": "$result = New-Object Example.Type(New-Object Example.Inner('sample'))"
+ },
+ {
+  "name": "real method wrapper New-Object Example.Inner('sample')",
+  "source": "$items.Add((New-Object Example.Type(New-Object Example.Inner('sample'))))"
+ },
+ {
+  "name": "constructor New-Object Example.Inner(\"alpha\", $value)",
+  "source": "$result = New-Object Example.Type(New-Object Example.Inner(\"alpha\", $value))"
+ },
+ {
+  "name": "real method wrapper New-Object Example.Inner(\"alpha\", $value)",
+  "source": "$items.Add((New-Object Example.Type(New-Object Example.Inner(\"alpha\", $value))))"
+ },
+ {
+  "name": "constructor New-Object Example.Inner((Get-Item example))",
+  "source": "$result = New-Object Example.Type(New-Object Example.Inner((Get-Item example)))"
+ },
+ {
+  "name": "real method wrapper New-Object Example.Inner((Get-Item example))",
+  "source": "$items.Add((New-Object Example.Type(New-Object Example.Inner((Get-Item example)))))"
+ },
+ {
+  "name": "constructor New-Object Example.Inner(New-Object Example.Leaf('sample'))",
+  "source": "$result = New-Object Example.Type(New-Object Example.Inner(New-Object Example.Leaf('sample')))"
+ },
+ {
+  "name": "real method wrapper New-Object Example.Inner(New-Object Example.Leaf('sample'))",
+  "source": "$items.Add((New-Object Example.Type(New-Object Example.Inner(New-Object Example.Leaf('sample')))))"
+ },
+ {
+  "name": "constructor Get-Item example | Select-Object Name",
+  "source": "$result = New-Object Example.Type(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "real method wrapper Get-Item example | Select-Object Name",
+  "source": "$items.Add((New-Object Example.Type(Get-Item example | Select-Object Name)))"
+ },
+ {
+  "name": "constructor Get-Item example -ErrorAction Stop",
+  "source": "$result = New-Object Example.Type(Get-Item example -ErrorAction Stop)"
+ },
+ {
+  "name": "real method wrapper Get-Item example -ErrorAction Stop",
+  "source": "$items.Add((New-Object Example.Type(Get-Item example -ErrorAction Stop)))"
+ },
+ {
+  "name": "constructor Get-Item example 2>$null",
+  "source": "$result = New-Object Example.Type(Get-Item example 2>$null)"
+ },
+ {
+  "name": "real method wrapper Get-Item example 2>$null",
+  "source": "$items.Add((New-Object Example.Type(Get-Item example 2>$null)))"
+ },
+ {
+  "name": "constructor & Get-Item example",
+  "source": "$result = New-Object Example.Type(& Get-Item example)"
+ },
+ {
+  "name": "real method wrapper & Get-Item example",
+  "source": "$items.Add((New-Object Example.Type(& Get-Item example)))"
+ },
+ {
+  "name": "constructor 1..3 | Write-Output",
+  "source": "$result = New-Object Example.Type(1..3 | Write-Output)"
+ },
+ {
+  "name": "real method wrapper 1..3 | Write-Output",
+  "source": "$items.Add((New-Object Example.Type(1..3 | Write-Output)))"
+ },
+ {
+  "name": "New-Object Example.Type($first, $second)",
+  "source": "New-Object Example.Type($first, $second)"
+ },
+ {
+  "name": "New-Object Example.Type(1, (2, 3))",
+  "source": "New-Object Example.Type(1, (2, 3))"
+ },
+ {
+  "name": "New-Object Example.Type(@('alpha', 'beta'), @('gamma'))",
+  "source": "New-Object Example.Type(@('alpha', 'beta'), @('gamma'))"
+ },
+ {
+  "name": "New-Object Example.Type((New-Object Example.Inner('sample')), [Example.Kind]::Value)",
+  "source": "New-Object Example.Type((New-Object Example.Inner('sample')), [Example.Kind]::Value)"
+ },
+ {
+  "name": "Write-Output $value(1)",
+  "source": "Write-Output $value(1)"
+ },
+ {
+  "name": "Write-Output $value($first, $second)",
+  "source": "Write-Output $value($first, $second)"
+ },
+ {
+  "name": "Write-Output $value.Method((Get-Item example))",
+  "source": "Write-Output $value.Method((Get-Item example))"
+ },
+ {
+  "name": "Write-Output $value.Method($first, $second)",
+  "source": "Write-Output $value.Method($first, $second)"
+ },
+ {
+  "name": "Write-Output $value.Method()",
+  "source": "Write-Output $value.Method()"
+ },
+ {
+  "name": "Write-Output $value.Method(1).Next(2)[0]",
+  "source": "Write-Output $value.Method(1).Next(2)[0]"
+ },
+ {
+  "name": "Write-Output $value.($member)((Get-Item example))",
+  "source": "Write-Output $value.($member)((Get-Item example))"
+ },
+ {
+  "name": "Write-Output $values[0].Method((Get-Item example))",
+  "source": "Write-Output $values[0].Method((Get-Item example))"
+ },
+ {
+  "name": "Write-Output ($value.Method((Get-Item example)))",
+  "source": "Write-Output ($value.Method((Get-Item example)))"
+ },
+ {
+  "name": "$result = $value.Method((Get-Item example))",
+  "source": "$result = $value.Method((Get-Item example))"
+ },
+ {
+  "name": "$result = [Example]::Method((Get-Item example))",
+  "source": "$result = [Example]::Method((Get-Item example))"
+ },
+ {
+  "name": "Write-Output (Get-Item example)",
+  "source": "Write-Output (Get-Item example)"
+ },
+ {
+  "name": "Write-Output @(Get-Item example)",
+  "source": "Write-Output @(Get-Item example)"
+ },
+ {
+  "name": "Write-Output $(Get-Item example)",
+  "source": "Write-Output $(Get-Item example)"
+ },
+ {
+  "name": "Write-Output Example.Type(Get-Item first)(Get-Item second)",
+  "source": "Write-Output Example.Type(Get-Item first)(Get-Item second)"
+ },
+ {
+  "name": "Write-Output Example.Type(Get-Item example) tail",
+  "source": "Write-Output Example.Type(Get-Item example) tail"
+ },
+ {
+  "name": "Write-Output Example.Type(Get-Item example), tail",
+  "source": "Write-Output Example.Type(Get-Item example), tail"
+ },
+ {
+  "name": "Write-Output Example.Type(1 + 2)",
+  "source": "Write-Output Example.Type(1 + 2)"
+ },
+ {
+  "name": "Write-Output Example.Type($first -band $second)",
+  "source": "Write-Output Example.Type($first -band $second)"
+ },
+ {
+  "name": "Write-Output Example.Type($first -eq $second)",
+  "source": "Write-Output Example.Type($first -eq $second)"
+ },
+ {
+  "name": "Write-Output Example.Type($first.Length)",
+  "source": "Write-Output Example.Type($first.Length)"
+ },
+ {
+  "name": "New-Object Example.Type()",
+  "source": "New-Object Example.Type()"
+ },
+ {
+  "name": "Write-Output $value()",
+  "source": "Write-Output $value()"
+ },
+ {
+  "name": "$value.Method(Get-Item example)",
+  "source": "$value.Method(Get-Item example)"
+ },
+ {
+  "name": "Write-Output $value.Method(Get-Item example)",
+  "source": "Write-Output $value.Method(Get-Item example)"
+ },
+ {
+  "name": "$result = $value.Method(New-Object Example.Inner(1))",
+  "source": "$result = $value.Method(New-Object Example.Inner(1))"
+ },
+ {
+  "name": "$result = [Example]::Method(Get-Item example)",
+  "source": "$result = [Example]::Method(Get-Item example)"
+ },
+ {
+  "name": "Write-Output Example.Type(Get-Item example",
+  "source": "Write-Output Example.Type(Get-Item example"
+ },
+ {
+  "name": "Write-Output Example.Type(Get-Item example))",
+  "source": "Write-Output Example.Type(Get-Item example))"
+ },
+ {
+  "name": "assignment command is not a function call",
+  "source": "$result = Example.Type(Get-Item example)"
+ },
+ {
+  "name": "Write-Output [Example]::Method(Get-Item example)",
+  "source": "Write-Output [Example]::Method(Get-Item example)"
+ },
+ {
+  "name": "Write-Output [Example]::Method(1)",
+  "source": "Write-Output [Example]::Method(1)"
+ },
+ {
+  "name": "Write-Output $value::",
+  "source": "Write-Output $value::"
+ },
+ {
+  "name": "Write-Output $value=tail",
+  "source": "Write-Output $value=tail"
+ },
+ {
+  "name": "Write-Output (Get-Item example | Select-Object Name)",
+  "source": "Write-Output (Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "Write-Output (1..3 | Write-Output)",
+  "source": "Write-Output (1..3 | Write-Output)"
+ },
+ {
+  "name": "Command parentheses: word followed by a command pipeline",
+  "source": "New-Object Example.Type(Get-Item example)"
+ },
+ {
+  "name": "Command parentheses: command pipeline tail",
+  "source": "New-Object Example.Type(Get-Item example | Select-Object Name)"
+ },
+ {
+  "name": "Command parentheses: invocation operator in pipeline",
+  "source": "New-Object Example.Type(& Get-Item example)"
+ },
+ {
+  "name": "Command parentheses: redirection in pipeline",
+  "source": "New-Object Example.Type(Get-Item example 2>$null)"
+ },
+ {
+  "name": "Command parentheses: command parameter in pipeline",
+  "source": "New-Object Example.Type(Get-Item example -ErrorAction Stop)"
+ },
+ {
+  "name": "Command parentheses: real method with ordinary expression arguments",
+  "source": "$result = $value.Method($first, $second)"
+ },
+ {
+  "name": "Command parentheses: real empty method",
+  "source": "$result = $value.Method()"
+ },
+ {
+  "name": "Command parentheses: computed method in expression context",
+  "source": "$result = $value.($member)((Get-Item example))"
+ },
+ {
+  "name": "Command parentheses: index receiver in expression context",
+  "source": "$result = $values[0].Method((Get-Item example))"
+ }
+]

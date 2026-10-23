@@ -1,0 +1,82 @@
+[
+ {
+  "name": "function-body assignment",
+  "source": "function Get-Widget {\n[CmdletBinding()]\n[OutputType([hashtable])]\n$result = @{ Count = 3 }\n$result\n}"
+ },
+ {
+  "name": "validated assignment",
+  "source": "[ValidateSet('Y','N')]$choice = Read-Host 'Continue?'"
+ },
+ {
+  "name": "attributed variable",
+  "source": "[Include('*.ps1')]$PSScriptRoot"
+ },
+ {
+  "name": "multiple attributes",
+  "source": "[ValidateNotNull()][ValidateSet('Y','N')]$choice = 'Y'"
+ },
+ {
+  "name": "typed assignment",
+  "source": "[string]$choice = 'Y'"
+ },
+ {
+  "name": "typed attribute",
+  "source": "[string][ValidateSet('Y','N')]$choice = 'Y'"
+ },
+ {
+  "name": "attribute then type",
+  "source": "[ValidateSet('Y','N')][string]$choice = 'Y'"
+ },
+ {
+  "name": "attributed literal",
+  "source": "[ValidateRange(1,4)]2"
+ },
+ {
+  "name": "attributed parentheses",
+  "source": "[ValidateNotNull()]($choice)"
+ },
+ {
+  "name": "attributed unary",
+  "source": "[ValidateRange(-4,4)]-2"
+ },
+ {
+  "name": "attribute member",
+  "source": "[ValidateNotNull()]$choice.Length"
+ },
+ {
+  "name": "attribute call",
+  "source": "[ValidateNotNull()]$choice.Trim()"
+ },
+ {
+  "name": "attribute array",
+  "source": "[ValidateCount(1,3)]@(1; 2)"
+ },
+ {
+  "name": "parameter attributes",
+  "source": "function Get-Flag { [CmdletBinding()]param([ValidateSet('Y','N')][string]$choice) $choice }"
+ },
+ {
+  "name": "ordinary cast",
+  "source": "[int]($choice + 1)"
+ },
+ {
+  "name": "function statement",
+  "source": "function Get-Flag { $choice = 'Y'; $choice }"
+ },
+ {
+  "name": "attribute scriptblock",
+  "source": "[ValidateNotNull()]{ param($value) $value }"
+ },
+ {
+  "name": "attribute newline",
+  "source": "[ValidateNotNull()]\n$value"
+ },
+ {
+  "name": "attribute addition",
+  "source": "[ValidateRange(1,4)]2 + 1"
+ },
+ {
+  "name": "attribute nested cast member",
+  "source": "[ValidateNotNull()][string]$value.Length"
+ }
+]

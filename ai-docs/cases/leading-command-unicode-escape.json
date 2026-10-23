@@ -1,0 +1,22 @@
+[
+ {
+  "name": "`u{41}xample value",
+  "source": "`u{41}xample value"
+ },
+ {
+  "name": "`u{1f600}xample value",
+  "source": "`u{1f600}xample value"
+ },
+ {
+  "name": "exa`u{41}mple value",
+  "source": "exa`u{41}mple value"
+ },
+ {
+  "name": "`u{zz}xample value",
+  "source": "`u{zz}xample value"
+ },
+ {
+  "name": "`u{110000}xample value",
+  "source": "`u{110000}xample value"
+ }
+]

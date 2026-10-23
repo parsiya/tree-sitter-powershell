@@ -1,0 +1,86 @@
+[
+ {
+  "name": "escaped leading letter",
+  "source": "`Write-Output example"
+ },
+ {
+  "name": "escaped leading dollar",
+  "source": "`$example.Name = `$example.Name"
+ },
+ {
+  "name": "escaped leading hash",
+  "source": "`#example value"
+ },
+ {
+  "name": "escaped leading opening parenthesis",
+  "source": "`(example value"
+ },
+ {
+  "name": "escaped leading closing parenthesis",
+  "source": "`)example value"
+ },
+ {
+  "name": "escaped leading plus",
+  "source": "`+example value"
+ },
+ {
+  "name": "escaped leading equals",
+  "source": "`=example value"
+ },
+ {
+  "name": "escaped leading colon",
+  "source": "`:example value"
+ },
+ {
+  "name": "escaped leading double quote",
+  "source": "`\"example value"
+ },
+ {
+  "name": "escaped leading single quote",
+  "source": "`'example value"
+ },
+ {
+  "name": "escaped leading space",
+  "source": "` example value"
+ },
+ {
+  "name": "escaped leading unicode",
+  "source": "`éxample value"
+ },
+ {
+  "name": "escaped leading backtick",
+  "source": "``example value"
+ },
+ {
+  "name": "escaped leading command after assignment",
+  "source": "$result = `Write-Output example"
+ },
+ {
+  "name": "escaped leading command after pipe",
+  "source": "Get-Item example | `Write-Output"
+ },
+ {
+  "name": "escaped dollar command argument control",
+  "source": "Write-Output `$example.Name"
+ },
+ {
+  "name": "existing interior escape control",
+  "source": "Wri`te-Output example"
+ },
+ {
+  "name": "quoted command piece control",
+  "source": "Write-'Output' example"
+ },
+ {
+  "name": "ordinary variable expression control",
+  "source": "$example.Name = $other.Name"
+ },
+ {
+  "name": "ordinary comment control",
+  "source": "# example\nWrite-Output example"
+ },
+ {
+  "name": "incomplete assignment escape invalid",
+  "source": "$result = `"
+ }
+]

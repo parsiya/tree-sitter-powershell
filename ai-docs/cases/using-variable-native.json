@@ -1,0 +1,46 @@
+[
+ {
+  "name": "using plain variable",
+  "source": "Write-Output $using:Name"
+ },
+ {
+  "name": "using environment variable",
+  "source": "Write-Output $using:env:Example"
+ },
+ {
+  "name": "using environment expression",
+  "source": "$value = $using:env:Example"
+ },
+ {
+  "name": "using environment subexpression",
+  "source": "Write-Output \"$($using:env:Example)\""
+ },
+ {
+  "name": "using environment joined word",
+  "source": "Write-Output pre$using:env:Example/post"
+ },
+ {
+  "name": "using environment braced variable",
+  "source": "Write-Output ${using:env:Example}"
+ },
+ {
+  "name": "ordinary environment variable control",
+  "source": "Write-Output $env:Example"
+ },
+ {
+  "name": "scope extra colon control",
+  "source": "Write-Output $script:env:Example"
+ },
+ {
+  "name": "using property access",
+  "source": "Write-Output $using:value.Name"
+ },
+ {
+  "name": "using computed subexpression",
+  "source": "Write-Output $using:($value)"
+ },
+ {
+  "name": "using empty variable invalid",
+  "source": "$value = $using:"
+ }
+]

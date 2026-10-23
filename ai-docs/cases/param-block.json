@@ -1,0 +1,130 @@
+[
+ {
+  "name": "function command",
+  "source": "function Example { param([string]$Message) Write-Output $Message }"
+ },
+ {
+  "name": "function assignment",
+  "source": "function Example { param([string]$Message) $value = $Message }"
+ },
+ {
+  "name": "top-level command",
+  "source": "param([string]$Message) Write-Output $Message"
+ },
+ {
+  "name": "top-level assignment",
+  "source": "param([string]$Message) $value = $Message"
+ },
+ {
+  "name": "tight function command",
+  "source": "function Example { param([string]$Message)Write-Output $Message }"
+ },
+ {
+  "name": "tight function assignment",
+  "source": "function Example { param([string]$Message)$value = $Message }"
+ },
+ {
+  "name": "tight top-level command",
+  "source": "param([string]$Message)Write-Output $Message"
+ },
+ {
+  "name": "tight top-level assignment",
+  "source": "param([string]$Message)$value = $Message"
+ },
+ {
+  "name": "empty parameters and literal",
+  "source": "function Example { param() Write-Output 'synthetic value' }"
+ },
+ {
+  "name": "empty parameters and expression",
+  "source": "function Example { param() 'synthetic value' }"
+ },
+ {
+  "name": "default literal",
+  "source": "function Example { param([string]$Message = 'synthetic default') Write-Output $Message }"
+ },
+ {
+  "name": "multiple parameters",
+  "source": "function Example { param([string]$Message, [int]$Count = 2) Write-Output $Message $Count }"
+ },
+ {
+  "name": "attributes",
+  "source": "function Example { [CmdletBinding()] param([Parameter()][string]$Message) Write-Output $Message }"
+ },
+ {
+  "name": "block comment boundary",
+  "source": "function Example { param([string]$Message)<# boundary #>Write-Output $Message }"
+ },
+ {
+  "name": "newline boundary",
+  "source": "function Example { param([string]$Message)\nWrite-Output $Message }"
+ },
+ {
+  "name": "semicolon boundary",
+  "source": "function Example { param([string]$Message); Write-Output $Message }"
+ },
+ {
+  "name": "repeated semicolon boundary",
+  "source": "function Example { param([string]$Message);;; Write-Output $Message }"
+ },
+ {
+  "name": "line comment boundary",
+  "source": "function Example { param([string]$Message) # boundary\nWrite-Output $Message }"
+ },
+ {
+  "name": "param only function",
+  "source": "function Example { param([string]$Message) }"
+ },
+ {
+  "name": "following if statement",
+  "source": "function Example { param([string]$Message) if ($Message) { Write-Output $Message } }"
+ },
+ {
+  "name": "following return",
+  "source": "function Example { param([string]$Message) return $Message }"
+ },
+ {
+  "name": "named blocks",
+  "source": "function Example { param([string]$Message) begin { Write-Output 'synthetic begin' } process { Write-Output $Message } }"
+ },
+ {
+  "name": "filter command",
+  "source": "filter Example { param([string]$Message) Write-Output $Message }"
+ },
+ {
+  "name": "scriptblock command",
+  "source": "& { param([string]$Message) Write-Output $Message }"
+ },
+ {
+  "name": "scriptblock assignment",
+  "source": "& { param([string]$Message) $value = $Message }"
+ },
+ {
+  "name": "unicode default and argument",
+  "source": "function Example { param([string]$Message = 'café') Write-Output 'été' $Message }"
+ },
+ {
+  "name": "invalid missing param close",
+  "source": "function Example { param([string]$Message Write-Output $Message }"
+ },
+ {
+  "name": "invalid missing parameter comma",
+  "source": "function Example { param([string]$Message [int]$Count) Write-Output $Message }"
+ },
+ {
+  "name": "invalid missing parameter",
+  "source": "function Example { param([string]) Write-Output 'synthetic value' }"
+ },
+ {
+  "name": "invalid missing assignment value",
+  "source": "function Example { param([string]$Message) $value = }"
+ },
+ {
+  "name": "invalid missing following statement separator",
+  "source": "function Example { param([string]$Message) $value = $Message $other = 2 }"
+ },
+ {
+  "name": "invalid missing function close",
+  "source": "function Example { param([string]$Message) Write-Output $Message"
+ }
+]

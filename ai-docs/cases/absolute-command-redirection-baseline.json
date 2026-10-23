@@ -1,0 +1,22 @@
+[
+ {
+  "name": "baseline-redirection-0",
+  "source": "Invoke-Example >/dev/null"
+ },
+ {
+  "name": "baseline-redirection-1",
+  "source": "Invoke-Example 2>/dev/null"
+ },
+ {
+  "name": "baseline-redirection-2",
+  "source": "Invoke-Example > /dev/null"
+ },
+ {
+  "name": "baseline-redirection-3",
+  "source": "Invoke-Example >$null"
+ },
+ {
+  "name": "baseline-redirection-4",
+  "source": "Invoke-Example status 2>/dev/null"
+ }
+]

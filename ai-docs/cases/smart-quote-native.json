@@ -1,0 +1,262 @@
+[
+ {
+  "name": "single-27-27",
+  "source": "Write-Output 'sample'"
+ },
+ {
+  "name": "single-27-2018",
+  "source": "Write-Output 'sample‘"
+ },
+ {
+  "name": "single-27-2019",
+  "source": "Write-Output 'sample’"
+ },
+ {
+  "name": "single-27-201a",
+  "source": "Write-Output 'sample‚"
+ },
+ {
+  "name": "single-27-201b",
+  "source": "Write-Output 'sample‛"
+ },
+ {
+  "name": "single-2018-27",
+  "source": "Write-Output ‘sample'"
+ },
+ {
+  "name": "single-2018-2018",
+  "source": "Write-Output ‘sample‘"
+ },
+ {
+  "name": "single-2018-2019",
+  "source": "Write-Output ‘sample’"
+ },
+ {
+  "name": "single-2018-201a",
+  "source": "Write-Output ‘sample‚"
+ },
+ {
+  "name": "single-2018-201b",
+  "source": "Write-Output ‘sample‛"
+ },
+ {
+  "name": "single-2019-27",
+  "source": "Write-Output ’sample'"
+ },
+ {
+  "name": "single-2019-2018",
+  "source": "Write-Output ’sample‘"
+ },
+ {
+  "name": "single-2019-2019",
+  "source": "Write-Output ’sample’"
+ },
+ {
+  "name": "single-2019-201a",
+  "source": "Write-Output ’sample‚"
+ },
+ {
+  "name": "single-2019-201b",
+  "source": "Write-Output ’sample‛"
+ },
+ {
+  "name": "single-201a-27",
+  "source": "Write-Output ‚sample'"
+ },
+ {
+  "name": "single-201a-2018",
+  "source": "Write-Output ‚sample‘"
+ },
+ {
+  "name": "single-201a-2019",
+  "source": "Write-Output ‚sample’"
+ },
+ {
+  "name": "single-201a-201a",
+  "source": "Write-Output ‚sample‚"
+ },
+ {
+  "name": "single-201a-201b",
+  "source": "Write-Output ‚sample‛"
+ },
+ {
+  "name": "single-201b-27",
+  "source": "Write-Output ‛sample'"
+ },
+ {
+  "name": "single-201b-2018",
+  "source": "Write-Output ‛sample‘"
+ },
+ {
+  "name": "single-201b-2019",
+  "source": "Write-Output ‛sample’"
+ },
+ {
+  "name": "single-201b-201a",
+  "source": "Write-Output ‛sample‚"
+ },
+ {
+  "name": "single-201b-201b",
+  "source": "Write-Output ‛sample‛"
+ },
+ {
+  "name": "double-22-22",
+  "source": "Write-Output \"sample\""
+ },
+ {
+  "name": "double-22-201c",
+  "source": "Write-Output \"sample“"
+ },
+ {
+  "name": "double-22-201d",
+  "source": "Write-Output \"sample”"
+ },
+ {
+  "name": "double-22-201e",
+  "source": "Write-Output \"sample„"
+ },
+ {
+  "name": "double-22-201f",
+  "source": "Write-Output \"sample‟"
+ },
+ {
+  "name": "double-201c-22",
+  "source": "Write-Output “sample\""
+ },
+ {
+  "name": "double-201c-201c",
+  "source": "Write-Output “sample“"
+ },
+ {
+  "name": "double-201c-201d",
+  "source": "Write-Output “sample”"
+ },
+ {
+  "name": "double-201c-201e",
+  "source": "Write-Output “sample„"
+ },
+ {
+  "name": "double-201c-201f",
+  "source": "Write-Output “sample‟"
+ },
+ {
+  "name": "double-201d-22",
+  "source": "Write-Output ”sample\""
+ },
+ {
+  "name": "double-201d-201c",
+  "source": "Write-Output ”sample“"
+ },
+ {
+  "name": "double-201d-201d",
+  "source": "Write-Output ”sample”"
+ },
+ {
+  "name": "double-201d-201e",
+  "source": "Write-Output ”sample„"
+ },
+ {
+  "name": "double-201d-201f",
+  "source": "Write-Output ”sample‟"
+ },
+ {
+  "name": "double-201e-22",
+  "source": "Write-Output „sample\""
+ },
+ {
+  "name": "double-201e-201c",
+  "source": "Write-Output „sample“"
+ },
+ {
+  "name": "double-201e-201d",
+  "source": "Write-Output „sample”"
+ },
+ {
+  "name": "double-201e-201e",
+  "source": "Write-Output „sample„"
+ },
+ {
+  "name": "double-201e-201f",
+  "source": "Write-Output „sample‟"
+ },
+ {
+  "name": "double-201f-22",
+  "source": "Write-Output ‟sample\""
+ },
+ {
+  "name": "double-201f-201c",
+  "source": "Write-Output ‟sample“"
+ },
+ {
+  "name": "double-201f-201d",
+  "source": "Write-Output ‟sample”"
+ },
+ {
+  "name": "double-201f-201e",
+  "source": "Write-Output ‟sample„"
+ },
+ {
+  "name": "double-201f-201f",
+  "source": "Write-Output ‟sample‟"
+ },
+ {
+  "name": "smart single escaped by doubling",
+  "source": "Write-Output ‘can’’t’"
+ },
+ {
+  "name": "mixed single doubled quote",
+  "source": "Write-Output 'can’'t'"
+ },
+ {
+  "name": "smart single interpolation is literal",
+  "source": "Write-Output ‘$value’"
+ },
+ {
+  "name": "smart double interpolation",
+  "source": "Write-Output “$value”"
+ },
+ {
+  "name": "smart double escaped quote",
+  "source": "Write-Output “pre`”post”"
+ },
+ {
+  "name": "smart double doubled quote",
+  "source": "Write-Output “pre””post”"
+ },
+ {
+  "name": "smart double quoted command",
+  "source": "Write-Output “prefix”$value"
+ },
+ {
+  "name": "smart double inside command word",
+  "source": "Write-Output pre“two words”post"
+ },
+ {
+  "name": "smart single inside command word",
+  "source": "Write-Output pre‘two words’post"
+ },
+ {
+  "name": "smart double here string",
+  "source": "Write-Output @“\nsample\n”@"
+ },
+ {
+  "name": "smart single here string",
+  "source": "Write-Output @‘\nsample\n’@"
+ },
+ {
+  "name": "smart opening with ASCII here close",
+  "source": "Write-Output @“\nsample\n\"@"
+ },
+ {
+  "name": "ASCII opening with smart here close",
+  "source": "Write-Output @\"\nsample\n”@"
+ },
+ {
+  "name": "mixed quote family invalid",
+  "source": "Write-Output ‘sample”"
+ },
+ {
+  "name": "unterminated smart quote invalid",
+  "source": "Write-Output ‘sample"
+ }
+]

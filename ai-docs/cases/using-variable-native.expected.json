@@ -1,0 +1,18 @@
+{
+ "suite": "using-variable-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":11,"agree":7,"invalid_rejected":1,"known":0,"fail":3,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "using plain variable": {"status":"agree","differences":[]},
+  "using environment variable": {"status":"agree","differences":[]},
+  "using environment expression": {"status":"agree","differences":[]},
+  "using environment subexpression": {"status":"agree","differences":[]},
+  "using environment joined word": {"status":"fail","differences":["typed missing VariableExpressionAst 16:34"]},
+  "using environment braced variable": {"status":"agree","differences":[]},
+  "ordinary environment variable control": {"status":"agree","differences":[]},
+  "scope extra colon control": {"status":"agree","differences":[]},
+  "using property access": {"status":"fail","differences":["elements kind 13:30 UsingExpressionAst ts array_literal_expression>unary_expression>member_access"]},
+  "using computed subexpression": {"status":"fail","differences":["validity native=invalid ts=valid"]},
+  "using empty variable invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

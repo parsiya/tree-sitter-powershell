@@ -1,0 +1,27 @@
+{
+ "suite": "completed-expression-native",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":20,"agree":17,"invalid_rejected":2,"known":0,"fail":1,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "adjacent subexpressions and quote": {"status":"agree","differences":[]},
+  "leading quote variable quote": {"status":"agree","differences":[]},
+  "subexpression then word": {"status":"agree","differences":[]},
+  "parenthesis then word": {"status":"agree","differences":[]},
+  "array expression then word": {"status":"agree","differences":[]},
+  "scriptblock then word": {"status":"agree","differences":[]},
+  "method then quote": {"status":"agree","differences":[]},
+  "index then quote": {"status":"agree","differences":[]},
+  "member then quote": {"status":"agree","differences":[]},
+  "word leading subexpression stays joined": {"status":"agree","differences":[]},
+  "variable leading subexpression stays joined": {"status":"fail","differences":["typed missing VariableExpressionAst 13:18"]},
+  "separated subexpressions": {"status":"agree","differences":[]},
+  "quoted interpolation stays joined": {"status":"agree","differences":[]},
+  "escaped parenthesis stays text": {"status":"agree","differences":[]},
+  "subexpression then parameter": {"status":"agree","differences":[]},
+  "subexpression then comma": {"status":"agree","differences":[]},
+  "adjacent parentheses": {"status":"agree","differences":[]},
+  "variable then parenthesis scope control": {"status":"agree","differences":[]},
+  "assignment expression invalid control": {"status":"invalid-rejected","differences":[]},
+  "unterminated expression invalid control": {"status":"invalid-rejected","differences":[]}
+ }
+}

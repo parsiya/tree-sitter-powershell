@@ -1,0 +1,422 @@
+[
+ {
+  "name": "statements-lf",
+  "source": "Write-Output first\nWrite-Output second\n"
+ },
+ {
+  "name": "comment-lf",
+  "source": "Write-Output first # note\nWrite-Output second\n"
+ },
+ {
+  "name": "commentOnly-lf",
+  "source": "# note\nWrite-Output second\n"
+ },
+ {
+  "name": "commentEscaped-lf",
+  "source": "Write-Output first # note`\nWrite-Output second\n"
+ },
+ {
+  "name": "block-lf",
+  "source": "if ($true) {\nWrite-Output first\nWrite-Output second\n}\nWrite-Output last\n"
+ },
+ {
+  "name": "assignment-lf",
+  "source": "$x = Write-Output first\n$y = Write-Output second\nWrite-Output last\n"
+ },
+ {
+  "name": "subexpression-lf",
+  "source": "Write-Output $(Write-Output first\nWrite-Output second)\nWrite-Output last\n"
+ },
+ {
+  "name": "array-lf",
+  "source": "$x = @(Write-Output first\nWrite-Output second)\nWrite-Output last\n"
+ },
+ {
+  "name": "brace-lf",
+  "source": "& { Write-Output first\nWrite-Output second\n}\nWrite-Output last\n"
+ },
+ {
+  "name": "parameter-lf",
+  "source": "Write-Output -Name value\nWrite-Output -Other second\n"
+ },
+ {
+  "name": "parameterNoValue-lf",
+  "source": "Write-Output -Name\nWrite-Output second\n"
+ },
+ {
+  "name": "colon-lf",
+  "source": "Write-Output -Name:value\nWrite-Output second\n"
+ },
+ {
+  "name": "variable-lf",
+  "source": "Write-Output $first\nWrite-Output $second\n"
+ },
+ {
+  "name": "quoted-lf",
+  "source": "Write-Output \"first\"\nWrite-Output 'second'\n"
+ },
+ {
+  "name": "literalCR-lf",
+  "source": "Write-Output 'first\rsecond'\nWrite-Output \"third\rfourth\"\n"
+ },
+ {
+  "name": "escaped-lf",
+  "source": "Write-Output first`\nWrite-Output second\n"
+ },
+ {
+  "name": "escapedSpace-lf",
+  "source": "Write-Output first` \nWrite-Output second\n"
+ },
+ {
+  "name": "escapedComma-lf",
+  "source": "Write-Output first `\n,second\nWrite-Output last\n"
+ },
+ {
+  "name": "escapeAtStart-lf",
+  "source": "Write-Output `\nsecond\nWrite-Output last\n"
+ },
+ {
+  "name": "leadingPipe-lf",
+  "source": "Write-Output first\n| Write-Output second\n"
+ },
+ {
+  "name": "leadingPipeComment-lf",
+  "source": "Write-Output first\n# note\n| Write-Output second\n"
+ },
+ {
+  "name": "leadingPipeBlockComment-lf",
+  "source": "Write-Output first\n<# note #>\n| Write-Output second\n"
+ },
+ {
+  "name": "leadingPipeBlank-lf",
+  "source": "Write-Output first\n\n| Write-Output second\n"
+ },
+ {
+  "name": "leadingPipeDoubleBlank-lf",
+  "source": "Write-Output first\n# note\n\n| Write-Output second\n"
+ },
+ {
+  "name": "else-lf",
+  "source": "$x = if ($true) { Write-Output first }\n# note\nelse { Write-Output second }\nWrite-Output last\n"
+ },
+ {
+  "name": "elseBlank-lf",
+  "source": "$x = if ($true) { Write-Output first }\n\nelse { Write-Output second }\nWrite-Output last\n"
+ },
+ {
+  "name": "labels-lf",
+  "source": ":outer foreach ($i in 1) {\nWrite-Output first\nbreak outer\n}\nWrite-Output last\n"
+ },
+ {
+  "name": "for-lf",
+  "source": "for ($i = 0\n$i -lt 1\n$i++) { Write-Output first\nWrite-Output second }\nWrite-Output last\n"
+ },
+ {
+  "name": "switch-lf",
+  "source": "switch (1) { 1 { Write-Output first\nWrite-Output second }\ndefault { Write-Output third } }\n"
+ },
+ {
+  "name": "comma-lf",
+  "source": "Write-Output first,\nsecond\nWrite-Output last\n"
+ },
+ {
+  "name": "empty-lf",
+  "source": "\n# comment\n"
+ },
+ {
+  "name": "stop-lf",
+  "source": "Write-Output --% first\nWrite-Output last\n"
+ },
+ {
+  "name": "statements-crlf",
+  "source": "Write-Output first\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "comment-crlf",
+  "source": "Write-Output first # note\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "commentOnly-crlf",
+  "source": "# note\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "commentEscaped-crlf",
+  "source": "Write-Output first # note`\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "block-crlf",
+  "source": "if ($true) {\r\nWrite-Output first\r\nWrite-Output second\r\n}\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "assignment-crlf",
+  "source": "$x = Write-Output first\r\n$y = Write-Output second\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "subexpression-crlf",
+  "source": "Write-Output $(Write-Output first\r\nWrite-Output second)\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "array-crlf",
+  "source": "$x = @(Write-Output first\r\nWrite-Output second)\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "brace-crlf",
+  "source": "& { Write-Output first\r\nWrite-Output second\r\n}\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "parameter-crlf",
+  "source": "Write-Output -Name value\r\nWrite-Output -Other second\r\n"
+ },
+ {
+  "name": "parameterNoValue-crlf",
+  "source": "Write-Output -Name\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "colon-crlf",
+  "source": "Write-Output -Name:value\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "variable-crlf",
+  "source": "Write-Output $first\r\nWrite-Output $second\r\n"
+ },
+ {
+  "name": "quoted-crlf",
+  "source": "Write-Output \"first\"\r\nWrite-Output 'second'\r\n"
+ },
+ {
+  "name": "literalCR-crlf",
+  "source": "Write-Output 'first\rsecond'\r\nWrite-Output \"third\rfourth\"\r\n"
+ },
+ {
+  "name": "escaped-crlf",
+  "source": "Write-Output first`\r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "escapedSpace-crlf",
+  "source": "Write-Output first` \r\nWrite-Output second\r\n"
+ },
+ {
+  "name": "escapedComma-crlf",
+  "source": "Write-Output first `\r\n,second\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "escapeAtStart-crlf",
+  "source": "Write-Output `\r\nsecond\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "leadingPipe-crlf",
+  "source": "Write-Output first\r\n| Write-Output second\r\n"
+ },
+ {
+  "name": "leadingPipeComment-crlf",
+  "source": "Write-Output first\r\n# note\r\n| Write-Output second\r\n"
+ },
+ {
+  "name": "leadingPipeBlockComment-crlf",
+  "source": "Write-Output first\r\n<# note #>\r\n| Write-Output second\r\n"
+ },
+ {
+  "name": "leadingPipeBlank-crlf",
+  "source": "Write-Output first\r\n\r\n| Write-Output second\r\n"
+ },
+ {
+  "name": "leadingPipeDoubleBlank-crlf",
+  "source": "Write-Output first\r\n# note\r\n\r\n| Write-Output second\r\n"
+ },
+ {
+  "name": "else-crlf",
+  "source": "$x = if ($true) { Write-Output first }\r\n# note\r\nelse { Write-Output second }\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "elseBlank-crlf",
+  "source": "$x = if ($true) { Write-Output first }\r\n\r\nelse { Write-Output second }\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "labels-crlf",
+  "source": ":outer foreach ($i in 1) {\r\nWrite-Output first\r\nbreak outer\r\n}\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "for-crlf",
+  "source": "for ($i = 0\r\n$i -lt 1\r\n$i++) { Write-Output first\r\nWrite-Output second }\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "switch-crlf",
+  "source": "switch (1) { 1 { Write-Output first\r\nWrite-Output second }\r\ndefault { Write-Output third } }\r\n"
+ },
+ {
+  "name": "comma-crlf",
+  "source": "Write-Output first,\r\nsecond\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "empty-crlf",
+  "source": "\r\n# comment\r\n"
+ },
+ {
+  "name": "stop-crlf",
+  "source": "Write-Output --% first\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "statements-cr",
+  "source": "Write-Output first\rWrite-Output second\r"
+ },
+ {
+  "name": "comment-cr",
+  "source": "Write-Output first # note\rWrite-Output second\r"
+ },
+ {
+  "name": "commentOnly-cr",
+  "source": "# note\rWrite-Output second\r"
+ },
+ {
+  "name": "commentEscaped-cr",
+  "source": "Write-Output first # note`\rWrite-Output second\r"
+ },
+ {
+  "name": "block-cr",
+  "source": "if ($true) {\rWrite-Output first\rWrite-Output second\r}\rWrite-Output last\r"
+ },
+ {
+  "name": "assignment-cr",
+  "source": "$x = Write-Output first\r$y = Write-Output second\rWrite-Output last\r"
+ },
+ {
+  "name": "subexpression-cr",
+  "source": "Write-Output $(Write-Output first\rWrite-Output second)\rWrite-Output last\r"
+ },
+ {
+  "name": "array-cr",
+  "source": "$x = @(Write-Output first\rWrite-Output second)\rWrite-Output last\r"
+ },
+ {
+  "name": "brace-cr",
+  "source": "& { Write-Output first\rWrite-Output second\r}\rWrite-Output last\r"
+ },
+ {
+  "name": "parameter-cr",
+  "source": "Write-Output -Name value\rWrite-Output -Other second\r"
+ },
+ {
+  "name": "parameterNoValue-cr",
+  "source": "Write-Output -Name\rWrite-Output second\r"
+ },
+ {
+  "name": "colon-cr",
+  "source": "Write-Output -Name:value\rWrite-Output second\r"
+ },
+ {
+  "name": "variable-cr",
+  "source": "Write-Output $first\rWrite-Output $second\r"
+ },
+ {
+  "name": "quoted-cr",
+  "source": "Write-Output \"first\"\rWrite-Output 'second'\r"
+ },
+ {
+  "name": "literalCR-cr",
+  "source": "Write-Output 'first\rsecond'\rWrite-Output \"third\rfourth\"\r"
+ },
+ {
+  "name": "escaped-cr",
+  "source": "Write-Output first`\rWrite-Output second\r"
+ },
+ {
+  "name": "escapedSpace-cr",
+  "source": "Write-Output first` \rWrite-Output second\r"
+ },
+ {
+  "name": "escapedComma-cr",
+  "source": "Write-Output first `\r,second\rWrite-Output last\r"
+ },
+ {
+  "name": "escapeAtStart-cr",
+  "source": "Write-Output `\rsecond\rWrite-Output last\r"
+ },
+ {
+  "name": "leadingPipe-cr",
+  "source": "Write-Output first\r| Write-Output second\r"
+ },
+ {
+  "name": "leadingPipeComment-cr",
+  "source": "Write-Output first\r# note\r| Write-Output second\r"
+ },
+ {
+  "name": "leadingPipeBlockComment-cr",
+  "source": "Write-Output first\r<# note #>\r| Write-Output second\r"
+ },
+ {
+  "name": "leadingPipeBlank-cr",
+  "source": "Write-Output first\r\r| Write-Output second\r"
+ },
+ {
+  "name": "leadingPipeDoubleBlank-cr",
+  "source": "Write-Output first\r# note\r\r| Write-Output second\r"
+ },
+ {
+  "name": "else-cr",
+  "source": "$x = if ($true) { Write-Output first }\r# note\relse { Write-Output second }\rWrite-Output last\r"
+ },
+ {
+  "name": "elseBlank-cr",
+  "source": "$x = if ($true) { Write-Output first }\r\relse { Write-Output second }\rWrite-Output last\r"
+ },
+ {
+  "name": "labels-cr",
+  "source": ":outer foreach ($i in 1) {\rWrite-Output first\rbreak outer\r}\rWrite-Output last\r"
+ },
+ {
+  "name": "for-cr",
+  "source": "for ($i = 0\r$i -lt 1\r$i++) { Write-Output first\rWrite-Output second }\rWrite-Output last\r"
+ },
+ {
+  "name": "switch-cr",
+  "source": "switch (1) { 1 { Write-Output first\rWrite-Output second }\rdefault { Write-Output third } }\r"
+ },
+ {
+  "name": "comma-cr",
+  "source": "Write-Output first,\rsecond\rWrite-Output last\r"
+ },
+ {
+  "name": "empty-cr",
+  "source": "\r# comment\r"
+ },
+ {
+  "name": "stop-cr",
+  "source": "Write-Output --% first\rWrite-Output last\r"
+ },
+ {
+  "name": "escaped-cr-then-lf",
+  "source": "Write-Output first`\r\nWrite-Output second\n"
+ },
+ {
+  "name": "escaped-cr-then-cr",
+  "source": "Write-Output first`\r\rWrite-Output second\r"
+ },
+ {
+  "name": "escaped-cr-word",
+  "source": "Write-Output first`\rsecond\rWrite-Output last\r"
+ },
+ {
+  "name": "quoted-escaped-cr",
+  "source": "Write-Output \"first`\rsecond\"\rWrite-Output last\r"
+ },
+ {
+  "name": "closing-cr-then-command",
+  "source": "@\"\nalpha\n\"@\rWrite-Output last\r"
+ },
+ {
+  "name": "trailing-dot-independent",
+  "source": "Write-Output $Server.\r\n$x = Write-Output last\r\n"
+ },
+ {
+  "name": "reduction: dot after variable argument, CRLF",
+  "source": "Write-Host \"Checking the port on\" $Target.\r\n$isOpen = Test-Example -Target $Target\r\n"
+ },
+ {
+  "name": "reduction: dot after variable argument, LF",
+  "source": "Write-Host \"Checking the port on\" $Target.\n$isOpen = Test-Example -Target $Target\n"
+ },
+ {
+  "name": "reduction: variable argument without dot, CRLF",
+  "source": "Write-Host \"Checking the port on\" $Target\r\n$isOpen = Test-Example -Target $Target\r\n"
+ }
+]

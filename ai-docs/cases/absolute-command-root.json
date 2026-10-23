@@ -1,0 +1,278 @@
+[
+ {
+  "name": "absolute executable",
+  "source": "/opt/tools/example status"
+ },
+ {
+  "name": "absolute executable assignment",
+  "source": "$result = /opt/tools/example status"
+ },
+ {
+  "name": "absolute executable parenthesized",
+  "source": "$result = (/opt/tools/example status)"
+ },
+ {
+  "name": "absolute executable in hashtable",
+  "source": "$result = @{ Value = /opt/tools/example status }"
+ },
+ {
+  "name": "absolute executable in cast hashtable",
+  "source": "[Example]@{ Value = /opt/tools/example status }"
+ },
+ {
+  "name": "absolute executable with redirection",
+  "source": "/opt/tools/example status 2>/dev/null"
+ },
+ {
+  "name": "absolute executable pipeline",
+  "source": "/opt/tools/example status | Select-Object Name"
+ },
+ {
+  "name": "absolute executable after pipe",
+  "source": "Get-Item example | /opt/tools/example"
+ },
+ {
+  "name": "root command",
+  "source": "/ example"
+ },
+ {
+  "name": "double slash command is not comment",
+  "source": "if ($true) { // example }"
+ },
+ {
+  "name": "triple slash command",
+  "source": "/// example"
+ },
+ {
+  "name": "slash followed by quoted segment",
+  "source": "/opt/\"two words\"/example status"
+ },
+ {
+  "name": "backtick escaped slash path space",
+  "source": "/opt/two` words/example status"
+ },
+ {
+  "name": "dot invocation absolute path",
+  "source": ". /opt/tools/example"
+ },
+ {
+  "name": "call invocation absolute path",
+  "source": "& /opt/tools/example"
+ },
+ {
+  "name": "relative executable control",
+  "source": "./tools/example status"
+ },
+ {
+  "name": "parent executable control",
+  "source": "../tools/example status"
+ },
+ {
+  "name": "division expression control",
+  "source": "$result = 8 / 2"
+ },
+ {
+  "name": "division variable control",
+  "source": "$result = $left / $right"
+ },
+ {
+  "name": "compound division control",
+  "source": "$result /= 2"
+ },
+ {
+  "name": "division precedence control",
+  "source": "$result = 2 + 8 / 2"
+ },
+ {
+  "name": "absolute-looking command argument",
+  "source": "Write-Output /opt/tools/example"
+ },
+ {
+  "name": "slash argument control",
+  "source": "Write-Output /"
+ },
+ {
+  "name": "division missing right operand invalid",
+  "source": "$result = 8 /"
+ },
+ {
+  "name": "unterminated quoted slash path invalid",
+  "source": "/opt/\"two words"
+ },
+ {
+  "name": "single quoted segment",
+  "source": "/opt/'two words'/example status"
+ },
+ {
+  "name": "escaped quote",
+  "source": "/opt/two`\"words/example status"
+ },
+ {
+  "name": "escaped single quote",
+  "source": "/opt/two`'words/example status"
+ },
+ {
+  "name": "escaped semicolon",
+  "source": "/opt/two`;words/example status"
+ },
+ {
+  "name": "escaped pipe",
+  "source": "/opt/two`|words/example status"
+ },
+ {
+  "name": "escaped closing brace",
+  "source": "/opt/two`}words/example status"
+ },
+ {
+  "name": "escaped backtick",
+  "source": "/opt/two``words/example status"
+ },
+ {
+  "name": "escaped slash",
+  "source": "/opt/`/example status"
+ },
+ {
+  "name": "utf8 command path",
+  "source": "/opt/'é space'/example status"
+ },
+ {
+  "name": "dot invocation quoted path",
+  "source": ". /opt/\"two words\"/example status"
+ },
+ {
+  "name": "call invocation quoted path",
+  "source": "& /opt/'two words'/example status"
+ },
+ {
+  "name": "dot invocation path arguments",
+  "source": ". /opt/tools/example status"
+ },
+ {
+  "name": "call invocation path arguments",
+  "source": "& /opt/tools/example status"
+ },
+ {
+  "name": "dot invocation escaped path",
+  "source": ". /opt/two` words/example status"
+ },
+ {
+  "name": "call invocation escaped path",
+  "source": "& /opt/two` words/example status"
+ },
+ {
+  "name": "dot invocation variable path",
+  "source": ". /opt/$name/example status"
+ },
+ {
+  "name": "call invocation variable path",
+  "source": "& /opt/$name/example status"
+ },
+ {
+  "name": "dot invocation quoted variable path",
+  "source": ". /opt/\"$name words\"/example status"
+ },
+ {
+  "name": "call invocation quoted variable path",
+  "source": "& /opt/\"$name words\"/example status"
+ },
+ {
+  "name": "escaped line continuation path",
+  "source": "/opt/two`\nwords/example status"
+ },
+ {
+  "name": "escaped crlf continuation path",
+  "source": "/opt/two`\r\nwords/example status"
+ },
+ {
+  "name": "root dot invocation",
+  "source": ". /"
+ },
+ {
+  "name": "root call invocation",
+  "source": "& /"
+ },
+ {
+  "name": "adjacent greater-than command text",
+  "source": "/opt/tools/example>/dev/null"
+ },
+ {
+  "name": "attached error redirection",
+  "source": "/opt/tools/example 2>/dev/null"
+ },
+ {
+  "name": "adjacent root greater-than command text",
+  "source": "/>/dev/null"
+ },
+ {
+  "name": "adjacent relative greater-than command text",
+  "source": "./tools/example>/dev/null"
+ },
+ {
+  "name": "variable redirection target",
+  "source": "/opt/tools/example > $null"
+ },
+ {
+  "name": "spaced path redirection target",
+  "source": "/opt/tools/example > /dev/null"
+ },
+ {
+  "name": "quoted redirection target",
+  "source": "/opt/tools/example > \"/dev/null\""
+ },
+ {
+  "name": "double slash pipeline",
+  "source": "// | ///"
+ },
+ {
+  "name": "slash in subexpression",
+  "source": "$value = $(/opt/tools/example status)"
+ },
+ {
+  "name": "slash in array expression",
+  "source": "$value = @(/opt/tools/example status)"
+ },
+ {
+  "name": "slash in condition",
+  "source": "if (/opt/tools/example status) { Write-Output yes }"
+ },
+ {
+  "name": "simple cast hashtable control",
+  "source": "[Example]@{ Value = 1 }"
+ },
+ {
+  "name": "adjacent numeric division",
+  "source": "$value = 8/2"
+ },
+ {
+  "name": "adjacent variable division",
+  "source": "$value = $left/$right"
+ },
+ {
+  "name": "nested division",
+  "source": "Write-Output (8 / 2)"
+ },
+ {
+  "name": "array division",
+  "source": "$value = @(8 / 2)"
+ },
+ {
+  "name": "cast division",
+  "source": "$value = [double](8/2)"
+ },
+ {
+  "name": "indexed division",
+  "source": "$value = $items[8/2]"
+ },
+ {
+  "name": "double slash expression invalid",
+  "source": "$value = 8 // 2"
+ },
+ {
+  "name": "slash after infix invalid",
+  "source": "$value = 8 + /opt/tools/example"
+ },
+ {
+  "name": "slash in method argument invalid",
+  "source": "$obj.Method(/opt/tools/example)"
+ }
+]

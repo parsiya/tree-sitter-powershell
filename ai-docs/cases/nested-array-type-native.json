@@ -1,0 +1,94 @@
+[
+ {
+  "name": "jagged parameter",
+  "source": "param([byte[][]]$Bytes)"
+ },
+ {
+  "name": "triple jagged parameter",
+  "source": "param([byte[][][]]$Bytes)"
+ },
+ {
+  "name": "jagged function parameter",
+  "source": "function Example { param([byte[][]]$Bytes) $Bytes }"
+ },
+ {
+  "name": "jagged class method parameter",
+  "source": "class Example { [void] Use([byte[][]]$Bytes) {} }"
+ },
+ {
+  "name": "jagged class property",
+  "source": "class Example { [byte[][]]$Bytes }"
+ },
+ {
+  "name": "jagged return type",
+  "source": "class Example { [byte[][]] Use() { return $null } }"
+ },
+ {
+  "name": "jagged type value",
+  "source": "$Type = [byte[][]]"
+ },
+ {
+  "name": "jagged cast",
+  "source": "$Bytes = [byte[][]]$value"
+ },
+ {
+  "name": "matrix inside vector",
+  "source": "$Type = [int[,][]]"
+ },
+ {
+  "name": "vector inside matrix",
+  "source": "$Type = [int[][,]]"
+ },
+ {
+  "name": "nested matrix ranks",
+  "source": "$Type = [int[,][,,]]"
+ },
+ {
+  "name": "array generic argument",
+  "source": "$Type = [System.Collections.Generic.List[byte[]]]"
+ },
+ {
+  "name": "jagged generic argument",
+  "source": "$Type = [System.Collections.Generic.List[byte[][]]]"
+ },
+ {
+  "name": "generic vector",
+  "source": "$Type = [System.Collections.Generic.List[int][]]"
+ },
+ {
+  "name": "generic jagged vector",
+  "source": "$Type = [System.Collections.Generic.List[int][][]]"
+ },
+ {
+  "name": "bracketed jagged generic argument",
+  "source": "$Type = [System.Collections.Generic.List[[byte[][]]]]"
+ },
+ {
+  "name": "nested CLR type vector",
+  "source": "$Type = [System.Environment+SpecialFolder[]]"
+ },
+ {
+  "name": "plain vector control",
+  "source": "param([byte[]]$Bytes)"
+ },
+ {
+  "name": "plain matrix control",
+  "source": "param([byte[,]]$Bytes)"
+ },
+ {
+  "name": "trailing dotted type",
+  "source": "param([System.Security.]$Headers)"
+ },
+ {
+  "name": "spaced array suffix",
+  "source": "param([byte[] []]$Bytes)"
+ },
+ {
+  "name": "invalid incomplete rank",
+  "source": "param([byte[][,]$Bytes)"
+ },
+ {
+  "name": "invalid incomplete outer type",
+  "source": "param([byte[][]$Bytes)"
+ }
+]

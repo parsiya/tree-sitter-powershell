@@ -1,0 +1,1142 @@
+[
+ {
+  "name": "expression $using:env:SystemRoot",
+  "source": "$using:env:SystemRoot\n"
+ },
+ {
+  "name": "command $using:env:SystemRoot",
+  "source": "Write-Output $using:env:SystemRoot\n"
+ },
+ {
+  "name": "quoted $using:env:SystemRoot",
+  "source": "Write-Output \"$using:env:SystemRoot\"\n"
+ },
+ {
+  "name": "expression $using:env:Example",
+  "source": "$using:env:Example\n"
+ },
+ {
+  "name": "command $using:env:Example",
+  "source": "Write-Output $using:env:Example\n"
+ },
+ {
+  "name": "quoted $using:env:Example",
+  "source": "Write-Output \"$using:env:Example\"\n"
+ },
+ {
+  "name": "expression $script:env:Example",
+  "source": "$script:env:Example\n"
+ },
+ {
+  "name": "command $script:env:Example",
+  "source": "Write-Output $script:env:Example\n"
+ },
+ {
+  "name": "quoted $script:env:Example",
+  "source": "Write-Output \"$script:env:Example\"\n"
+ },
+ {
+  "name": "expression $env:One:Two:Three",
+  "source": "$env:One:Two:Three\n"
+ },
+ {
+  "name": "command $env:One:Two:Three",
+  "source": "Write-Output $env:One:Two:Three\n"
+ },
+ {
+  "name": "quoted $env:One:Two:Three",
+  "source": "Write-Output \"$env:One:Two:Three\"\n"
+ },
+ {
+  "name": "expression $foo:bar:baz",
+  "source": "$foo:bar:baz\n"
+ },
+ {
+  "name": "command $foo:bar:baz",
+  "source": "Write-Output $foo:bar:baz\n"
+ },
+ {
+  "name": "quoted $foo:bar:baz",
+  "source": "Write-Output \"$foo:bar:baz\"\n"
+ },
+ {
+  "name": "expression $using:script:env:Name",
+  "source": "$using:script:env:Name\n"
+ },
+ {
+  "name": "command $using:script:env:Name",
+  "source": "Write-Output $using:script:env:Name\n"
+ },
+ {
+  "name": "quoted $using:script:env:Name",
+  "source": "Write-Output \"$using:script:env:Name\"\n"
+ },
+ {
+  "name": "expression $using:USING:env:Name",
+  "source": "$using:USING:env:Name\n"
+ },
+ {
+  "name": "command $using:USING:env:Name",
+  "source": "Write-Output $using:USING:env:Name\n"
+ },
+ {
+  "name": "quoted $using:USING:env:Name",
+  "source": "Write-Output \"$using:USING:env:Name\"\n"
+ },
+ {
+  "name": "expression $UsInG:EnV:PaTh",
+  "source": "$UsInG:EnV:PaTh\n"
+ },
+ {
+  "name": "command $UsInG:EnV:PaTh",
+  "source": "Write-Output $UsInG:EnV:PaTh\n"
+ },
+ {
+  "name": "quoted $UsInG:EnV:PaTh",
+  "source": "Write-Output \"$UsInG:EnV:PaTh\"\n"
+ },
+ {
+  "name": "expression $ScRiPt:EnV:PaTh",
+  "source": "$ScRiPt:EnV:PaTh\n"
+ },
+ {
+  "name": "command $ScRiPt:EnV:PaTh",
+  "source": "Write-Output $ScRiPt:EnV:PaTh\n"
+ },
+ {
+  "name": "quoted $ScRiPt:EnV:PaTh",
+  "source": "Write-Output \"$ScRiPt:EnV:PaTh\"\n"
+ },
+ {
+  "name": "expression $EnV:PaTh",
+  "source": "$EnV:PaTh\n"
+ },
+ {
+  "name": "command $EnV:PaTh",
+  "source": "Write-Output $EnV:PaTh\n"
+ },
+ {
+  "name": "quoted $EnV:PaTh",
+  "source": "Write-Output \"$EnV:PaTh\"\n"
+ },
+ {
+  "name": "expression $ENV:PATH",
+  "source": "$ENV:PATH\n"
+ },
+ {
+  "name": "command $ENV:PATH",
+  "source": "Write-Output $ENV:PATH\n"
+ },
+ {
+  "name": "quoted $ENV:PATH",
+  "source": "Write-Output \"$ENV:PATH\"\n"
+ },
+ {
+  "name": "expression $global:script:env:Name",
+  "source": "$global:script:env:Name\n"
+ },
+ {
+  "name": "command $global:script:env:Name",
+  "source": "Write-Output $global:script:env:Name\n"
+ },
+ {
+  "name": "quoted $global:script:env:Name",
+  "source": "Write-Output \"$global:script:env:Name\"\n"
+ },
+ {
+  "name": "expression $local:foo:bar",
+  "source": "$local:foo:bar\n"
+ },
+ {
+  "name": "command $local:foo:bar",
+  "source": "Write-Output $local:foo:bar\n"
+ },
+ {
+  "name": "quoted $local:foo:bar",
+  "source": "Write-Output \"$local:foo:bar\"\n"
+ },
+ {
+  "name": "expression $private:foo:bar",
+  "source": "$private:foo:bar\n"
+ },
+ {
+  "name": "command $private:foo:bar",
+  "source": "Write-Output $private:foo:bar\n"
+ },
+ {
+  "name": "quoted $private:foo:bar",
+  "source": "Write-Output \"$private:foo:bar\"\n"
+ },
+ {
+  "name": "expression $workflow:foo:bar",
+  "source": "$workflow:foo:bar\n"
+ },
+ {
+  "name": "command $workflow:foo:bar",
+  "source": "Write-Output $workflow:foo:bar\n"
+ },
+ {
+  "name": "quoted $workflow:foo:bar",
+  "source": "Write-Output \"$workflow:foo:bar\"\n"
+ },
+ {
+  "name": "expression $using:foo:bar:baz",
+  "source": "$using:foo:bar:baz\n"
+ },
+ {
+  "name": "command $using:foo:bar:baz",
+  "source": "Write-Output $using:foo:bar:baz\n"
+ },
+ {
+  "name": "quoted $using:foo:bar:baz",
+  "source": "Write-Output \"$using:foo:bar:baz\"\n"
+ },
+ {
+  "name": "expression $1:2:3",
+  "source": "$1:2:3\n"
+ },
+ {
+  "name": "command $1:2:3",
+  "source": "Write-Output $1:2:3\n"
+ },
+ {
+  "name": "quoted $1:2:3",
+  "source": "Write-Output \"$1:2:3\"\n"
+ },
+ {
+  "name": "expression $_:_:_",
+  "source": "$_:_:_\n"
+ },
+ {
+  "name": "command $_:_:_",
+  "source": "Write-Output $_:_:_\n"
+ },
+ {
+  "name": "quoted $_:_:_",
+  "source": "Write-Output \"$_:_:_\"\n"
+ },
+ {
+  "name": "expression $a?:b?:c?",
+  "source": "$a?:b?:c?\n"
+ },
+ {
+  "name": "command $a?:b?:c?",
+  "source": "Write-Output $a?:b?:c?\n"
+ },
+ {
+  "name": "quoted $a?:b?:c?",
+  "source": "Write-Output \"$a?:b?:c?\"\n"
+ },
+ {
+  "name": "expression $?:a:b",
+  "source": "$?:a:b\n"
+ },
+ {
+  "name": "command $?:a:b",
+  "source": "Write-Output $?:a:b\n"
+ },
+ {
+  "name": "quoted $?:a:b",
+  "source": "Write-Output \"$?:a:b\"\n"
+ },
+ {
+  "name": "expression $a:?",
+  "source": "$a:?\n"
+ },
+ {
+  "name": "command $a:?",
+  "source": "Write-Output $a:?\n"
+ },
+ {
+  "name": "quoted $a:?",
+  "source": "Write-Output \"$a:?\"\n"
+ },
+ {
+  "name": "expression $a:?:b",
+  "source": "$a:?:b\n"
+ },
+ {
+  "name": "command $a:?:b",
+  "source": "Write-Output $a:?:b\n"
+ },
+ {
+  "name": "quoted $a:?:b",
+  "source": "Write-Output \"$a:?:b\"\n"
+ },
+ {
+  "name": "expression $?:?",
+  "source": "$?:?\n"
+ },
+ {
+  "name": "command $?:?",
+  "source": "Write-Output $?:?\n"
+ },
+ {
+  "name": "quoted $?:?",
+  "source": "Write-Output \"$?:?\"\n"
+ },
+ {
+  "name": "expression $?:",
+  "source": "$?:\n"
+ },
+ {
+  "name": "command $?:",
+  "source": "Write-Output $?:\n"
+ },
+ {
+  "name": "quoted $?:",
+  "source": "Write-Output \"$?:\"\n"
+ },
+ {
+  "name": "expression $using:",
+  "source": "$using:\n"
+ },
+ {
+  "name": "command $using:",
+  "source": "Write-Output $using:\n"
+ },
+ {
+  "name": "quoted $using:",
+  "source": "Write-Output \"$using:\"\n"
+ },
+ {
+  "name": "expression $using:($value)",
+  "source": "$using:($value)\n"
+ },
+ {
+  "name": "command $using:($value)",
+  "source": "Write-Output $using:($value)\n"
+ },
+ {
+  "name": "quoted $using:($value)",
+  "source": "Write-Output \"$using:($value)\"\n"
+ },
+ {
+  "name": "expression $a:b:",
+  "source": "$a:b:\n"
+ },
+ {
+  "name": "command $a:b:",
+  "source": "Write-Output $a:b:\n"
+ },
+ {
+  "name": "quoted $a:b:",
+  "source": "Write-Output \"$a:b:\"\n"
+ },
+ {
+  "name": "expression $a:b:c:",
+  "source": "$a:b:c:\n"
+ },
+ {
+  "name": "command $a:b:c:",
+  "source": "Write-Output $a:b:c:\n"
+ },
+ {
+  "name": "quoted $a:b:c:",
+  "source": "Write-Output \"$a:b:c:\"\n"
+ },
+ {
+  "name": "expression $a::b",
+  "source": "$a::b\n"
+ },
+ {
+  "name": "command $a::b",
+  "source": "Write-Output $a::b\n"
+ },
+ {
+  "name": "quoted $a::b",
+  "source": "Write-Output \"$a::b\"\n"
+ },
+ {
+  "name": "expression $a:::b",
+  "source": "$a:::b\n"
+ },
+ {
+  "name": "command $a:::b",
+  "source": "Write-Output $a:::b\n"
+ },
+ {
+  "name": "quoted $a:::b",
+  "source": "Write-Output \"$a:::b\"\n"
+ },
+ {
+  "name": "expression $a:b::c",
+  "source": "$a:b::c\n"
+ },
+ {
+  "name": "command $a:b::c",
+  "source": "Write-Output $a:b::c\n"
+ },
+ {
+  "name": "quoted $a:b::c",
+  "source": "Write-Output \"$a:b::c\"\n"
+ },
+ {
+  "name": "expression $a:b:::c",
+  "source": "$a:b:::c\n"
+ },
+ {
+  "name": "command $a:b:::c",
+  "source": "Write-Output $a:b:::c\n"
+ },
+ {
+  "name": "quoted $a:b:::c",
+  "source": "Write-Output \"$a:b:::c\"\n"
+ },
+ {
+  "name": "expression $a:b::::c",
+  "source": "$a:b::::c\n"
+ },
+ {
+  "name": "command $a:b::::c",
+  "source": "Write-Output $a:b::::c\n"
+ },
+ {
+  "name": "quoted $a:b::::c",
+  "source": "Write-Output \"$a:b::::c\"\n"
+ },
+ {
+  "name": "expression $a:b:.Name",
+  "source": "$a:b:.Name\n"
+ },
+ {
+  "name": "command $a:b:.Name",
+  "source": "Write-Output $a:b:.Name\n"
+ },
+ {
+  "name": "quoted $a:b:.Name",
+  "source": "Write-Output \"$a:b:.Name\"\n"
+ },
+ {
+  "name": "expression $a:b:Name.Property",
+  "source": "$a:b:Name.Property\n"
+ },
+ {
+  "name": "command $a:b:Name.Property",
+  "source": "Write-Output $a:b:Name.Property\n"
+ },
+ {
+  "name": "quoted $a:b:Name.Property",
+  "source": "Write-Output \"$a:b:Name.Property\"\n"
+ },
+ {
+  "name": "expression $using:env:Name.Length",
+  "source": "$using:env:Name.Length\n"
+ },
+ {
+  "name": "command $using:env:Name.Length",
+  "source": "Write-Output $using:env:Name.Length\n"
+ },
+ {
+  "name": "quoted $using:env:Name.Length",
+  "source": "Write-Output \"$using:env:Name.Length\"\n"
+ },
+ {
+  "name": "expression $using:env:Name[0]",
+  "source": "$using:env:Name[0]\n"
+ },
+ {
+  "name": "command $using:env:Name[0]",
+  "source": "Write-Output $using:env:Name[0]\n"
+ },
+ {
+  "name": "quoted $using:env:Name[0]",
+  "source": "Write-Output \"$using:env:Name[0]\"\n"
+ },
+ {
+  "name": "expression $using:env:Name::Member",
+  "source": "$using:env:Name::Member\n"
+ },
+ {
+  "name": "command $using:env:Name::Member",
+  "source": "Write-Output $using:env:Name::Member\n"
+ },
+ {
+  "name": "quoted $using:env:Name::Member",
+  "source": "Write-Output \"$using:env:Name::Member\"\n"
+ },
+ {
+  "name": "expression $a:b:$value",
+  "source": "$a:b:$value\n"
+ },
+ {
+  "name": "command $a:b:$value",
+  "source": "Write-Output $a:b:$value\n"
+ },
+ {
+  "name": "quoted $a:b:$value",
+  "source": "Write-Output \"$a:b:$value\"\n"
+ },
+ {
+  "name": "expression $a:b:${value}",
+  "source": "$a:b:${value}\n"
+ },
+ {
+  "name": "command $a:b:${value}",
+  "source": "Write-Output $a:b:${value}\n"
+ },
+ {
+  "name": "quoted $a:b:${value}",
+  "source": "Write-Output \"$a:b:${value}\"\n"
+ },
+ {
+  "name": "expression $a:b:$(Get-Example)",
+  "source": "$a:b:$(Get-Example)\n"
+ },
+ {
+  "name": "command $a:b:$(Get-Example)",
+  "source": "Write-Output $a:b:$(Get-Example)\n"
+ },
+ {
+  "name": "quoted $a:b:$(Get-Example)",
+  "source": "Write-Output \"$a:b:$(Get-Example)\"\n"
+ },
+ {
+  "name": "expression $a:b:\"text\"",
+  "source": "$a:b:\"text\"\n"
+ },
+ {
+  "name": "command $a:b:\"text\"",
+  "source": "Write-Output $a:b:\"text\"\n"
+ },
+ {
+  "name": "quoted $a:b:\"text\"",
+  "source": "Write-Output \"$a:b:\"text\"\"\n"
+ },
+ {
+  "name": "expression $a:b:'text'",
+  "source": "$a:b:'text'\n"
+ },
+ {
+  "name": "command $a:b:'text'",
+  "source": "Write-Output $a:b:'text'\n"
+ },
+ {
+  "name": "quoted $a:b:'text'",
+  "source": "Write-Output \"$a:b:'text'\"\n"
+ },
+ {
+  "name": "expression $a:b:`x",
+  "source": "$a:b:`x\n"
+ },
+ {
+  "name": "command $a:b:`x",
+  "source": "Write-Output $a:b:`x\n"
+ },
+ {
+  "name": "quoted $a:b:`x",
+  "source": "Write-Output \"$a:b:`x\"\n"
+ },
+ {
+  "name": "expression $a:b:/path",
+  "source": "$a:b:/path\n"
+ },
+ {
+  "name": "command $a:b:/path",
+  "source": "Write-Output $a:b:/path\n"
+ },
+ {
+  "name": "quoted $a:b:/path",
+  "source": "Write-Output \"$a:b:/path\"\n"
+ },
+ {
+  "name": "expression $a:b:-tail",
+  "source": "$a:b:-tail\n"
+ },
+ {
+  "name": "command $a:b:-tail",
+  "source": "Write-Output $a:b:-tail\n"
+ },
+ {
+  "name": "quoted $a:b:-tail",
+  "source": "Write-Output \"$a:b:-tail\"\n"
+ },
+ {
+  "name": "expression $a:b:+tail",
+  "source": "$a:b:+tail\n"
+ },
+ {
+  "name": "command $a:b:+tail",
+  "source": "Write-Output $a:b:+tail\n"
+ },
+ {
+  "name": "quoted $a:b:+tail",
+  "source": "Write-Output \"$a:b:+tail\"\n"
+ },
+ {
+  "name": "expression $a:b:?",
+  "source": "$a:b:?\n"
+ },
+ {
+  "name": "command $a:b:?",
+  "source": "Write-Output $a:b:?\n"
+ },
+ {
+  "name": "quoted $a:b:?",
+  "source": "Write-Output \"$a:b:?\"\n"
+ },
+ {
+  "name": "expression $a:b:?tail",
+  "source": "$a:b:?tail\n"
+ },
+ {
+  "name": "command $a:b:?tail",
+  "source": "Write-Output $a:b:?tail\n"
+ },
+ {
+  "name": "quoted $a:b:?tail",
+  "source": "Write-Output \"$a:b:?tail\"\n"
+ },
+ {
+  "name": "expression $a:b:变量",
+  "source": "$a:b:变量\n"
+ },
+ {
+  "name": "command $a:b:变量",
+  "source": "Write-Output $a:b:变量\n"
+ },
+ {
+  "name": "quoted $a:b:变量",
+  "source": "Write-Output \"$a:b:变量\"\n"
+ },
+ {
+  "name": "expression $变量:环境:名字",
+  "source": "$变量:环境:名字\n"
+ },
+ {
+  "name": "command $变量:环境:名字",
+  "source": "Write-Output $变量:环境:名字\n"
+ },
+ {
+  "name": "quoted $变量:环境:名字",
+  "source": "Write-Output \"$变量:环境:名字\"\n"
+ },
+ {
+  "name": "expression $a:é:١",
+  "source": "$a:é:١\n"
+ },
+ {
+  "name": "command $a:é:١",
+  "source": "Write-Output $a:é:١\n"
+ },
+ {
+  "name": "quoted $a:é:١",
+  "source": "Write-Output \"$a:é:١\"\n"
+ },
+ {
+  "name": "expression $a:b:𐐀",
+  "source": "$a:b:𐐀\n"
+ },
+ {
+  "name": "command $a:b:𐐀",
+  "source": "Write-Output $a:b:𐐀\n"
+ },
+ {
+  "name": "quoted $a:b:𐐀",
+  "source": "Write-Output \"$a:b:𐐀\"\n"
+ },
+ {
+  "name": "expression $a:b:é",
+  "source": "$a:b:é\n"
+ },
+ {
+  "name": "command $a:b:é",
+  "source": "Write-Output $a:b:é\n"
+ },
+ {
+  "name": "quoted $a:b:é",
+  "source": "Write-Output \"$a:b:é\"\n"
+ },
+ {
+  "name": "expression ${using:env:Name}",
+  "source": "${using:env:Name}\n"
+ },
+ {
+  "name": "command ${using:env:Name}",
+  "source": "Write-Output ${using:env:Name}\n"
+ },
+ {
+  "name": "quoted ${using:env:Name}",
+  "source": "Write-Output \"${using:env:Name}\"\n"
+ },
+ {
+  "name": "expression ${a:b:}",
+  "source": "${a:b:}\n"
+ },
+ {
+  "name": "command ${a:b:}",
+  "source": "Write-Output ${a:b:}\n"
+ },
+ {
+  "name": "quoted ${a:b:}",
+  "source": "Write-Output \"${a:b:}\"\n"
+ },
+ {
+  "name": "expression ${a::b}",
+  "source": "${a::b}\n"
+ },
+ {
+  "name": "command ${a::b}",
+  "source": "Write-Output ${a::b}\n"
+ },
+ {
+  "name": "quoted ${a::b}",
+  "source": "Write-Output \"${a::b}\"\n"
+ },
+ {
+  "name": "expression ${a:b::c}",
+  "source": "${a:b::c}\n"
+ },
+ {
+  "name": "command ${a:b::c}",
+  "source": "Write-Output ${a:b::c}\n"
+ },
+ {
+  "name": "quoted ${a:b::c}",
+  "source": "Write-Output \"${a:b::c}\"\n"
+ },
+ {
+  "name": "expression ${a:b:.Name}",
+  "source": "${a:b:.Name}\n"
+ },
+ {
+  "name": "command ${a:b:.Name}",
+  "source": "Write-Output ${a:b:.Name}\n"
+ },
+ {
+  "name": "quoted ${a:b:.Name}",
+  "source": "Write-Output \"${a:b:.Name}\"\n"
+ },
+ {
+  "name": "expression $$foo:bar:baz",
+  "source": "$$foo:bar:baz\n"
+ },
+ {
+  "name": "command $$foo:bar:baz",
+  "source": "Write-Output $$foo:bar:baz\n"
+ },
+ {
+  "name": "quoted $$foo:bar:baz",
+  "source": "Write-Output \"$$foo:bar:baz\"\n"
+ },
+ {
+  "name": "expression $^:foo:bar",
+  "source": "$^:foo:bar\n"
+ },
+ {
+  "name": "command $^:foo:bar",
+  "source": "Write-Output $^:foo:bar\n"
+ },
+ {
+  "name": "quoted $^:foo:bar",
+  "source": "Write-Output \"$^:foo:bar\"\n"
+ },
+ {
+  "name": "expression @using:env:Name",
+  "source": "@using:env:Name\n"
+ },
+ {
+  "name": "command @using:env:Name",
+  "source": "Write-Output @using:env:Name\n"
+ },
+ {
+  "name": "quoted @using:env:Name",
+  "source": "Write-Output \"@using:env:Name\"\n"
+ },
+ {
+  "name": "expression @script:env:Name",
+  "source": "@script:env:Name\n"
+ },
+ {
+  "name": "command @script:env:Name",
+  "source": "Write-Output @script:env:Name\n"
+ },
+ {
+  "name": "quoted @script:env:Name",
+  "source": "Write-Output \"@script:env:Name\"\n"
+ },
+ {
+  "name": "expression $using:env:",
+  "source": "$using:env:\n"
+ },
+ {
+  "name": "command $using:env:",
+  "source": "Write-Output $using:env:\n"
+ },
+ {
+  "name": "quoted $using:env:",
+  "source": "Write-Output \"$using:env:\"\n"
+ },
+ {
+  "name": "expression $script:env:",
+  "source": "$script:env:\n"
+ },
+ {
+  "name": "command $script:env:",
+  "source": "Write-Output $script:env:\n"
+ },
+ {
+  "name": "quoted $script:env:",
+  "source": "Write-Output \"$script:env:\"\n"
+ },
+ {
+  "name": "expression $script:",
+  "source": "$script:\n"
+ },
+ {
+  "name": "command $script:",
+  "source": "Write-Output $script:\n"
+ },
+ {
+  "name": "quoted $script:",
+  "source": "Write-Output \"$script:\"\n"
+ },
+ {
+  "name": "expression $using::Name",
+  "source": "$using::Name\n"
+ },
+ {
+  "name": "command $using::Name",
+  "source": "Write-Output $using::Name\n"
+ },
+ {
+  "name": "quoted $using::Name",
+  "source": "Write-Output \"$using::Name\"\n"
+ },
+ {
+  "name": "expression $global::Name",
+  "source": "$global::Name\n"
+ },
+ {
+  "name": "command $global::Name",
+  "source": "Write-Output $global::Name\n"
+ },
+ {
+  "name": "quoted $global::Name",
+  "source": "Write-Output \"$global::Name\"\n"
+ },
+ {
+  "name": "expression $local::Name",
+  "source": "$local::Name\n"
+ },
+ {
+  "name": "command $local::Name",
+  "source": "Write-Output $local::Name\n"
+ },
+ {
+  "name": "quoted $local::Name",
+  "source": "Write-Output \"$local::Name\"\n"
+ },
+ {
+  "name": "expression $private::Name",
+  "source": "$private::Name\n"
+ },
+ {
+  "name": "command $private::Name",
+  "source": "Write-Output $private::Name\n"
+ },
+ {
+  "name": "quoted $private::Name",
+  "source": "Write-Output \"$private::Name\"\n"
+ },
+ {
+  "name": "expression $script::Name",
+  "source": "$script::Name\n"
+ },
+ {
+  "name": "command $script::Name",
+  "source": "Write-Output $script::Name\n"
+ },
+ {
+  "name": "quoted $script::Name",
+  "source": "Write-Output \"$script::Name\"\n"
+ },
+ {
+  "name": "expression $using:env:Name::",
+  "source": "$using:env:Name::\n"
+ },
+ {
+  "name": "command $using:env:Name::",
+  "source": "Write-Output $using:env:Name::\n"
+ },
+ {
+  "name": "quoted $using:env:Name::",
+  "source": "Write-Output \"$using:env:Name::\"\n"
+ },
+ {
+  "name": "expression $using:env:::Name",
+  "source": "$using:env:::Name\n"
+ },
+ {
+  "name": "command $using:env:::Name",
+  "source": "Write-Output $using:env:::Name\n"
+ },
+ {
+  "name": "quoted $using:env:::Name",
+  "source": "Write-Output \"$using:env:::Name\"\n"
+ },
+ {
+  "name": "expression $a:b:c::Name",
+  "source": "$a:b:c::Name\n"
+ },
+ {
+  "name": "command $a:b:c::Name",
+  "source": "Write-Output $a:b:c::Name\n"
+ },
+ {
+  "name": "quoted $a:b:c::Name",
+  "source": "Write-Output \"$a:b:c::Name\"\n"
+ },
+ {
+  "name": "expression $using:环境:名字",
+  "source": "$using:环境:名字\n"
+ },
+ {
+  "name": "command $using:环境:名字",
+  "source": "Write-Output $using:环境:名字\n"
+ },
+ {
+  "name": "quoted $using:环境:名字",
+  "source": "Write-Output \"$using:环境:名字\"\n"
+ },
+ {
+  "name": "expression $env:Ᲊ:Ɤ",
+  "source": "$env:Ᲊ:Ɤ\n"
+ },
+ {
+  "name": "command $env:Ᲊ:Ɤ",
+  "source": "Write-Output $env:Ᲊ:Ɤ\n"
+ },
+ {
+  "name": "quoted $env:Ᲊ:Ɤ",
+  "source": "Write-Output \"$env:Ᲊ:Ɤ\"\n"
+ },
+ {
+  "name": "expression $env:١:２",
+  "source": "$env:١:２\n"
+ },
+ {
+  "name": "command $env:١:２",
+  "source": "Write-Output $env:١:２\n"
+ },
+ {
+  "name": "quoted $env:١:２",
+  "source": "Write-Output \"$env:١:２\"\n"
+ },
+ {
+  "name": "subexpression $using:env:Name",
+  "source": "Write-Output \"$($using:env:Name)/tail\"\n"
+ },
+ {
+  "name": "nested $using:env:Name",
+  "source": "Write-Output \"head$(Write-Output \"$($using:env:Name)/inner\")tail\"\n"
+ },
+ {
+  "name": "joined $using:env:Name",
+  "source": "Write-Output pre$using:env:Name/post\n"
+ },
+ {
+  "name": "parameter $using:env:Name",
+  "source": "Write-Output -Name:$using:env:Name\n"
+ },
+ {
+  "name": "assignment $using:env:Name",
+  "source": "$result = $using:env:Name\n"
+ },
+ {
+  "name": "here $using:env:Name",
+  "source": "Write-Output @\"\n$($using:env:Name)/tail\n\"@\n"
+ },
+ {
+  "name": "subexpression $script:env:Name",
+  "source": "Write-Output \"$($script:env:Name)/tail\"\n"
+ },
+ {
+  "name": "nested $script:env:Name",
+  "source": "Write-Output \"head$(Write-Output \"$($script:env:Name)/inner\")tail\"\n"
+ },
+ {
+  "name": "joined $script:env:Name",
+  "source": "Write-Output pre$script:env:Name/post\n"
+ },
+ {
+  "name": "parameter $script:env:Name",
+  "source": "Write-Output -Name:$script:env:Name\n"
+ },
+ {
+  "name": "assignment $script:env:Name",
+  "source": "$result = $script:env:Name\n"
+ },
+ {
+  "name": "member $script:env:Name",
+  "source": "$script:env:Name.Length\n"
+ },
+ {
+  "name": "index $script:env:Name",
+  "source": "$script:env:Name[0]\n"
+ },
+ {
+  "name": "static $script:env:Name",
+  "source": "$script:env:Name::Member\n"
+ },
+ {
+  "name": "here $script:env:Name",
+  "source": "Write-Output @\"\n$($script:env:Name)/tail\n\"@\n"
+ },
+ {
+  "name": "subexpression $foo:bar:baz",
+  "source": "Write-Output \"$($foo:bar:baz)/tail\"\n"
+ },
+ {
+  "name": "nested $foo:bar:baz",
+  "source": "Write-Output \"head$(Write-Output \"$($foo:bar:baz)/inner\")tail\"\n"
+ },
+ {
+  "name": "joined $foo:bar:baz",
+  "source": "Write-Output pre$foo:bar:baz/post\n"
+ },
+ {
+  "name": "parameter $foo:bar:baz",
+  "source": "Write-Output -Name:$foo:bar:baz\n"
+ },
+ {
+  "name": "assignment $foo:bar:baz",
+  "source": "$result = $foo:bar:baz\n"
+ },
+ {
+  "name": "member $foo:bar:baz",
+  "source": "$foo:bar:baz.Length\n"
+ },
+ {
+  "name": "index $foo:bar:baz",
+  "source": "$foo:bar:baz[0]\n"
+ },
+ {
+  "name": "static $foo:bar:baz",
+  "source": "$foo:bar:baz::Member\n"
+ },
+ {
+  "name": "here $foo:bar:baz",
+  "source": "Write-Output @\"\n$($foo:bar:baz)/tail\n\"@\n"
+ },
+ {
+  "name": "subexpression $变量:环境:名字",
+  "source": "Write-Output \"$($变量:环境:名字)/tail\"\n"
+ },
+ {
+  "name": "nested $变量:环境:名字",
+  "source": "Write-Output \"head$(Write-Output \"$($变量:环境:名字)/inner\")tail\"\n"
+ },
+ {
+  "name": "joined $变量:环境:名字",
+  "source": "Write-Output pre$变量:环境:名字/post\n"
+ },
+ {
+  "name": "parameter $变量:环境:名字",
+  "source": "Write-Output -Name:$变量:环境:名字\n"
+ },
+ {
+  "name": "assignment $变量:环境:名字",
+  "source": "$result = $变量:环境:名字\n"
+ },
+ {
+  "name": "member $变量:环境:名字",
+  "source": "$变量:环境:名字.Length\n"
+ },
+ {
+  "name": "index $变量:环境:名字",
+  "source": "$变量:环境:名字[0]\n"
+ },
+ {
+  "name": "static $变量:环境:名字",
+  "source": "$变量:环境:名字::Member\n"
+ },
+ {
+  "name": "here $变量:环境:名字",
+  "source": "Write-Output @\"\n$($变量:环境:名字)/tail\n\"@\n"
+ },
+ {
+  "name": "boundary 267",
+  "source": "Write-Output a:b:c\n"
+ },
+ {
+  "name": "boundary 268",
+  "source": "Write-Output :a:b\n"
+ },
+ {
+  "name": "boundary 269",
+  "source": "Write-Output -Name:value:tail\n"
+ },
+ {
+  "name": "boundary 271",
+  "source": "Write-Output \"$using:env:Name:tail\"\n"
+ },
+ {
+  "name": "boundary 272",
+  "source": "Write-Output '$using:env:Name'\n"
+ },
+ {
+  "name": "boundary 273",
+  "source": "Write-Output `$using:env:Name\n"
+ },
+ {
+  "name": "boundary 274",
+  "source": "$a:b::Method()\n"
+ },
+ {
+  "name": "boundary 275",
+  "source": "$using:env:Name.Method()\n"
+ },
+ {
+  "name": "boundary 276",
+  "source": "Write-Output \"$($using:env:SystemRoot)\\System32\"\n"
+ },
+ {
+  "name": "boundary 277",
+  "source": "Write-Output \"$($using:env:Example):text\"\n"
+ },
+ {
+  "name": "boundary 278",
+  "source": "$result=$using:env:Name\n"
+ },
+ {
+  "name": "boundary 279",
+  "source": "$using:env:Name=1\n"
+ },
+ {
+  "name": "boundary 280",
+  "source": "$using:env:Name+1\n"
+ },
+ {
+  "name": "boundary 281",
+  "source": "$using:env:Name-1\n"
+ },
+ {
+  "name": "boundary 282",
+  "source": "Write-Output \"$($using:env:Name+1)/tail\"\n"
+ },
+ {
+  "name": "boundary 283",
+  "source": "Write-Output $using:env:Name+tail\n"
+ },
+ {
+  "name": "boundary 284",
+  "source": "Write-Output $using:env:Name=tail\n"
+ },
+ {
+  "name": "boundary 285",
+  "source": "Write-Output $using:env:Name/path\n"
+ },
+ {
+  "name": "boundary 286",
+  "source": "Write-Output $using:env:Name>out.txt\n"
+ },
+ {
+  "name": "boundary 287",
+  "source": "Write-Output $env:Name::\n"
+ },
+ {
+  "name": "boundary 288",
+  "source": "Write-Output $env:Name=tail\n"
+ }
+]

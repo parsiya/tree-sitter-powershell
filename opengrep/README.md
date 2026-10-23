@@ -8,12 +8,8 @@ Development happens on `opengrep-dev`.
 There are two kinds of changes, and they live in different places.
 
 **PowerShell grammar fixes go in the root `grammar.js`.** These are fixes for
-valid PowerShell that the grammar rejects or reads wrongly. Opengrep is the
-priority, while each fix also needs to be independently contributable to Airbus.
-Create one `fix/...` branch from Airbus's `upstream/main` for each fix, commit
-its grammar and tests there, preserve the branch, and merge it with `--no-ff`
-into `opengrep-dev`. Offering fixes to Airbus is a later, separate step.
-If Airbus does not want a fix, it stays in our combined grammar. See
+valid PowerShell that the grammar rejects or reads wrongly. Each fix is made on
+an `og/TOPIC` branch from `opengrep-dev` and merged with `--no-ff`. See
 [Fixing the grammar](#fixing-the-grammar).
 
 **Opengrep-only additions go under this `opengrep/` directory.** These are
@@ -108,12 +104,11 @@ Opengrep OCaml build dependencies.
 ## Build and test
 
 Set `OPENGREP_ROOT` to the absolute path of an initialized Opengrep checkout.
-Activate that checkout's OCaml/native-library environment first. On the original
-Debian development machine:
+Activate that checkout's OCaml/native-library environment first, for example:
 
 ```sh
-source /home/parsia/.local/share/opengrep-build/env.sh
-export OPENGREP_ROOT=/home/parsia/dev/opengrep
+source /path/to/your/opengrep-build-env.sh   # puts opam, dune and tree-sitter 0.22.6 on PATH
+export OPENGREP_ROOT=/path/to/opengrep
 ```
 
 From this fork's root:
@@ -151,74 +146,14 @@ Review and explain any intentional expected-output changes first.
 
 ## Fixing the grammar
 
-Make each fix small and about one problem, so Airbus can review it on its own.
-
-1. Create a separate `fix/...` branch from Airbus's `upstream/main`. Use an
-   isolated worktree and keep this branch for later upstream contribution.
-
-2. Reduce a real example to a small made-up one. Check it with PowerShell's own
-   parser (`[System.Management.Automation.Language.Parser]::ParseInput`) and
-   confirm that the current grammar gets it wrong. Do not copy third-party
-   scripts into tests.
-3. Add the example to the matching `test/corpus/*.txt` file. If you use
-   `tree-sitter test --update` to produce the expected tree of a new test, note
-   that it rewrites the formatting of every test in the file. Keep the
-   existing tests byte for byte: `git diff` of the test file must show only
-   added lines.
-4. Edit the root `grammar.js`. Regenerate the root `src/` with the same
-   Tree-sitter CLI version Airbus used for its committed `src/parser.c`
-   (the version is in the file's first line; 0.25.10 as of 2026-10-20):
-
-   ```sh
-   npx tree-sitter-cli@0.25.10 generate
-   npx tree-sitter-cli@0.25.10 test
-   npm ci --ignore-scripts && npx eslint grammar.js
-   ```
-
-   Keep Airbus's `src/tree_sitter/*.h` headers if the CLI rewrites them; they
-   are not part of the fix. Before editing, regenerating `upstream/main` with
-   this CLI should leave `src/parser.c` unchanged. If it does not, the version
-   is wrong.
-
-   The CLI caches the compiled parser by language name, in one directory for
-   all checkouts, and rebuilds it only when `src/parser.c` is newer. When
-   several checkouts of this repository are in use (for example `git
-   worktree`), set `TREE_SITTER_LIBDIR` to a separate directory per checkout,
-   or the tests can silently run another checkout's parser.
-5. Commit the grammar, regenerated `src/`, and tests as one commit for this
-   fix. Say in the message what PowerShell accepts, what the grammar did, and
-   how many real-world files it affects, if known.
-   Check the standalone fix against Airbus's baseline, then merge with
-   `--no-ff` into `opengrep-dev`. Recheck the combined grammar against its
-   previous baseline before starting the next fix.
-6. Regenerate and test Opengrep's parser as described in
-   [Build and test](#build-and-test). A grammar change can change the generated
-   OCaml types; update Opengrep's PowerShell converter in the same Opengrep
-   change if needed.
-7. Add the fix to the table in [Where changes go](#where-changes-go).
-8. Offering a fix to Airbus is a later, separate step and optional. Use the
-   preserved standalone branch; if needed, cherry-pick the fix onto Airbus's
-   newer `main` and regenerate `src/`. If Airbus merges a different fix for the
-   same problem, prefer theirs on the next update.
-
-### How to commit grammar fixes
-
-- **One commit per fix on its Airbus-based branch:** the root grammar,
-  regenerated root `src/`, and tests. Keep that branch, then merge it into
-  `opengrep-dev` with `--no-ff`.
-- **Several fixes can then share one regeneration commit.** After a group of
-  fixes, regenerate `opengrep/ocaml/` once and commit it together with the
-  README table in a single commit. Do not regenerate and commit each fix.
-- **In Opengrep, one commit for the group:** the converter changes, tests,
-  docs, and the submodule pin together, so that the commit builds and passes
-  on its own. List each fix and its effect in the commit message.
-- **Exception: a fix that needs real converter work** (a new representation,
-  not just adapting to renamed or extended CST types) gets its own cycle and
-  its own Opengrep commit with the pin.
-- When fix branches are merged, the generated `src/` files conflict: regenerate
-  them, do not merge them. Test files where both sides only added tests can be
-  combined by appending whole tests. Lists of external tokens in `grammar.js`
-  and `src/scanner.c` must stay in the same order.
+Fixes are made for Opengrep only, on `og/TOPIC` branches from `opengrep-dev`.
+The validation tools, the fix lifecycle and the commit conventions are in
+[ai-docs/](../ai-docs/README.md), especially
+[WORKFLOW.md](../ai-docs/WORKFLOW.md). Fix branches change `grammar.js`,
+`src/scanner.c`, `src/parameter_letters.h` and tests; they do not regenerate
+the root `src/`, which Opengrep does not use. After a group of fixes,
+regenerate `opengrep/ocaml/` once as described in [Build and test](#build-and-test)
+and add each fix to the table in [Where changes go](#where-changes-go).
 
 ## Updating from Airbus
 
@@ -255,8 +190,8 @@ Make each fix small and about one problem, so Airbus can review it on its own.
    PowerShell fixes in the root grammar and Opengrep-only syntax in
    `opengrep/`, so fixes can still be offered to Airbus independently.
 6. Regenerate. Never resolve generated-parser conflicts by editing C/OCaml
-   output manually. Regenerate the root `src/` with Airbus's CLI version and
-   `opengrep/ocaml/` with our generator.
+   output manually. Regenerate `opengrep/ocaml/` with our generator. Opengrep
+   does not use the root `src/`, and the `ai-docs/` tools do not test it.
 7. Run the grammar tests and focused Opengrep tests above. Run the same
    real-world PowerShell corpus before and after the update when available.
    Compare failures, untranslated syntax, matches, and captures. Do not improve

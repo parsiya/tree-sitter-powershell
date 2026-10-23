@@ -1,0 +1,98 @@
+[
+ {
+  "name": "plus then member",
+  "source": "Write-Output \"error\" + $err.Exception.Message"
+ },
+ {
+  "name": "plus then number",
+  "source": "Write-Output + 1"
+ },
+ {
+  "name": "adjacent plus number",
+  "source": "Write-Output +1"
+ },
+ {
+  "name": "plus then variable",
+  "source": "Write-Output + $value"
+ },
+ {
+  "name": "adjacent plus variable",
+  "source": "Write-Output +$value"
+ },
+ {
+  "name": "plus then parenthesis",
+  "source": "Write-Output +($value)"
+ },
+ {
+  "name": "plus then subexpression",
+  "source": "Write-Output +$(Get-Item example)"
+ },
+ {
+  "name": "plus then quote",
+  "source": "Write-Output +\"two words\""
+ },
+ {
+  "name": "bare plus at end",
+  "source": "Write-Output +"
+ },
+ {
+  "name": "bare plus before parameter",
+  "source": "Write-Output + -Verbose"
+ },
+ {
+  "name": "plus word",
+  "source": "Write-Output +word"
+ },
+ {
+  "name": "quote then adjacent plus",
+  "source": "Write-Output \"prefix\"+$value"
+ },
+ {
+  "name": "plus with quote then star suffix",
+  "source": "Write-Host \"prefix\" + \"=\"*12 -ForegroundColor Cyan"
+ },
+ {
+  "name": "comma plus argument",
+  "source": "Write-Output first,+,$value"
+ },
+ {
+  "name": "plus comma array",
+  "source": "Write-Output +,1,$value"
+ },
+ {
+  "name": "attached parameter plus",
+  "source": "Write-Output -Name:+"
+ },
+ {
+  "name": "unary plus assignment control",
+  "source": "$result = +1"
+ },
+ {
+  "name": "spaced unary plus assignment control",
+  "source": "$result = + $value"
+ },
+ {
+  "name": "parenthesized unary plus control",
+  "source": "Write-Output (+ $value)"
+ },
+ {
+  "name": "method unary plus control",
+  "source": "$value.Method(+ $other)"
+ },
+ {
+  "name": "binary plus control",
+  "source": "$result = $left + $right"
+ },
+ {
+  "name": "negative number control",
+  "source": "Write-Output -1"
+ },
+ {
+  "name": "standalone minus control",
+  "source": "Write-Output - 1"
+ },
+ {
+  "name": "incomplete assignment unary invalid",
+  "source": "$result = +"
+ }
+]

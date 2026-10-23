@@ -1,0 +1,20 @@
+{
+ "suite": "native-option",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":13,"agree":3,"invalid_rejected":0,"known":0,"fail":10,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "double dash option": {"status":"fail","differences":["elements kind 13:19 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "double dash option equals": {"status":"fail","differences":["elements kind 13:25 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "single dash equals": {"status":"agree","differences":[]},
+  "double dash colon": {"status":"fail","differences":["elements extent 13:25 StringConstantExpressionAst/BareWord ts 13:19","elements extra 20:25 generic_token","elements kind 13:25 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "triple dash option": {"status":"fail","differences":["elements kind 13:20 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "double dash quoted option": {"status":"fail","differences":["elements kind 13:31 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "double dash smart option": {"status":"fail","differences":["elements kind 13:35 StringConstantExpressionAst/BareWord ts command_parameter"]},
+  "double dash interpolation": {"status":"fail","differences":["elements kind 13:26 ExpandableStringExpressionAst/BareWord ts command_parameter","typed missing VariableExpressionAst 20:26"]},
+  "double dash quoted interpolation": {"status":"fail","differences":["elements kind 13:28 ExpandableStringExpressionAst/BareWord ts command_parameter","typed missing VariableExpressionAst 21:27"]},
+  "double dash subexpression": {"status":"fail","differences":["elements extent 13:39 ExpandableStringExpressionAst/BareWord ts 13:21","elements extra 21:39 parenthesized_expression","elements kind 13:39 ExpandableStringExpressionAst/BareWord ts command_parameter","typed extra parenthesized_expression 21:39","typed missing SubExpressionAst 20:39"]},
+  "single dash proper parameter": {"status":"agree","differences":[]},
+  "double dash attached parameter": {"status":"fail","differences":["elements extent 13:26 ExpandableStringExpressionAst/BareWord ts 13:19","elements extra 20:26 array_literal_expression>unary_expression>variable","elements kind 13:26 ExpandableStringExpressionAst/BareWord ts command_parameter"]},
+  "native-looking short argument": {"status":"agree","differences":[]}
+ }
+}

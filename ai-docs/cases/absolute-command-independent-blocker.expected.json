@@ -1,0 +1,9 @@
+{
+ "suite": "absolute-command-independent-blocker",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":2,"agree":1,"invalid_rejected":0,"known":0,"fail":1,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "independent bare plus argument": {"status":"agree","differences":[]},
+  "independent explicit stdout redirection": {"status":"fail","differences":["elements extra 22:23 array_literal_expression>unary_expression>integer_literal>decimal_integer_literal","typed extra redirection 23:33","typed missing FileRedirectionAst 22:33"]}
+ }
+}

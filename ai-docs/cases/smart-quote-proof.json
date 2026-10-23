@@ -1,0 +1,6614 @@
+[
+ {
+  "name": "single-27-27",
+  "source": "Write-Output 'sample'"
+ },
+ {
+  "name": "single-27-2018",
+  "source": "Write-Output 'sample‘"
+ },
+ {
+  "name": "single-27-2019",
+  "source": "Write-Output 'sample’"
+ },
+ {
+  "name": "single-27-201a",
+  "source": "Write-Output 'sample‚"
+ },
+ {
+  "name": "single-27-201b",
+  "source": "Write-Output 'sample‛"
+ },
+ {
+  "name": "single-2018-27",
+  "source": "Write-Output ‘sample'"
+ },
+ {
+  "name": "single-2018-2018",
+  "source": "Write-Output ‘sample‘"
+ },
+ {
+  "name": "single-2018-2019",
+  "source": "Write-Output ‘sample’"
+ },
+ {
+  "name": "single-2018-201a",
+  "source": "Write-Output ‘sample‚"
+ },
+ {
+  "name": "single-2018-201b",
+  "source": "Write-Output ‘sample‛"
+ },
+ {
+  "name": "single-2019-27",
+  "source": "Write-Output ’sample'"
+ },
+ {
+  "name": "single-2019-2018",
+  "source": "Write-Output ’sample‘"
+ },
+ {
+  "name": "single-2019-2019",
+  "source": "Write-Output ’sample’"
+ },
+ {
+  "name": "single-2019-201a",
+  "source": "Write-Output ’sample‚"
+ },
+ {
+  "name": "single-2019-201b",
+  "source": "Write-Output ’sample‛"
+ },
+ {
+  "name": "single-201a-27",
+  "source": "Write-Output ‚sample'"
+ },
+ {
+  "name": "single-201a-2018",
+  "source": "Write-Output ‚sample‘"
+ },
+ {
+  "name": "single-201a-2019",
+  "source": "Write-Output ‚sample’"
+ },
+ {
+  "name": "single-201a-201a",
+  "source": "Write-Output ‚sample‚"
+ },
+ {
+  "name": "single-201a-201b",
+  "source": "Write-Output ‚sample‛"
+ },
+ {
+  "name": "single-201b-27",
+  "source": "Write-Output ‛sample'"
+ },
+ {
+  "name": "single-201b-2018",
+  "source": "Write-Output ‛sample‘"
+ },
+ {
+  "name": "single-201b-2019",
+  "source": "Write-Output ‛sample’"
+ },
+ {
+  "name": "single-201b-201a",
+  "source": "Write-Output ‛sample‚"
+ },
+ {
+  "name": "single-201b-201b",
+  "source": "Write-Output ‛sample‛"
+ },
+ {
+  "name": "double-22-22",
+  "source": "Write-Output \"sample\""
+ },
+ {
+  "name": "double-22-201c",
+  "source": "Write-Output \"sample“"
+ },
+ {
+  "name": "double-22-201d",
+  "source": "Write-Output \"sample”"
+ },
+ {
+  "name": "double-22-201e",
+  "source": "Write-Output \"sample„"
+ },
+ {
+  "name": "double-22-201f",
+  "source": "Write-Output \"sample‟"
+ },
+ {
+  "name": "double-201c-22",
+  "source": "Write-Output “sample\""
+ },
+ {
+  "name": "double-201c-201c",
+  "source": "Write-Output “sample“"
+ },
+ {
+  "name": "double-201c-201d",
+  "source": "Write-Output “sample”"
+ },
+ {
+  "name": "double-201c-201e",
+  "source": "Write-Output “sample„"
+ },
+ {
+  "name": "double-201c-201f",
+  "source": "Write-Output “sample‟"
+ },
+ {
+  "name": "double-201d-22",
+  "source": "Write-Output ”sample\""
+ },
+ {
+  "name": "double-201d-201c",
+  "source": "Write-Output ”sample“"
+ },
+ {
+  "name": "double-201d-201d",
+  "source": "Write-Output ”sample”"
+ },
+ {
+  "name": "double-201d-201e",
+  "source": "Write-Output ”sample„"
+ },
+ {
+  "name": "double-201d-201f",
+  "source": "Write-Output ”sample‟"
+ },
+ {
+  "name": "double-201e-22",
+  "source": "Write-Output „sample\""
+ },
+ {
+  "name": "double-201e-201c",
+  "source": "Write-Output „sample“"
+ },
+ {
+  "name": "double-201e-201d",
+  "source": "Write-Output „sample”"
+ },
+ {
+  "name": "double-201e-201e",
+  "source": "Write-Output „sample„"
+ },
+ {
+  "name": "double-201e-201f",
+  "source": "Write-Output „sample‟"
+ },
+ {
+  "name": "double-201f-22",
+  "source": "Write-Output ‟sample\""
+ },
+ {
+  "name": "double-201f-201c",
+  "source": "Write-Output ‟sample“"
+ },
+ {
+  "name": "double-201f-201d",
+  "source": "Write-Output ‟sample”"
+ },
+ {
+  "name": "double-201f-201e",
+  "source": "Write-Output ‟sample„"
+ },
+ {
+  "name": "double-201f-201f",
+  "source": "Write-Output ‟sample‟"
+ },
+ {
+  "name": "smart single escaped by doubling",
+  "source": "Write-Output ‘can’’t’"
+ },
+ {
+  "name": "mixed single doubled quote",
+  "source": "Write-Output 'can’'t'"
+ },
+ {
+  "name": "smart single interpolation is literal",
+  "source": "Write-Output ‘$value’"
+ },
+ {
+  "name": "smart double interpolation",
+  "source": "Write-Output “$value”"
+ },
+ {
+  "name": "smart double escaped quote",
+  "source": "Write-Output “pre`”post”"
+ },
+ {
+  "name": "smart double doubled quote",
+  "source": "Write-Output “pre””post”"
+ },
+ {
+  "name": "smart double quoted command",
+  "source": "Write-Output “prefix”$value"
+ },
+ {
+  "name": "smart double inside command word",
+  "source": "Write-Output pre“two words”post"
+ },
+ {
+  "name": "smart single inside command word",
+  "source": "Write-Output pre‘two words’post"
+ },
+ {
+  "name": "smart double here string",
+  "source": "Write-Output @“\nsample\n”@"
+ },
+ {
+  "name": "smart single here string",
+  "source": "Write-Output @‘\nsample\n’@"
+ },
+ {
+  "name": "smart opening with ASCII here close",
+  "source": "Write-Output @“\nsample\n\"@"
+ },
+ {
+  "name": "ASCII opening with smart here close",
+  "source": "Write-Output @\"\nsample\n”@"
+ },
+ {
+  "name": "mixed quote family invalid",
+  "source": "Write-Output ‘sample”"
+ },
+ {
+  "name": "unterminated smart quote invalid",
+  "source": "Write-Output ‘sample"
+ },
+ {
+  "name": "single-doubled-''''",
+  "source": "Write-Output 'pre''post'"
+ },
+ {
+  "name": "single-doubled-'''‘",
+  "source": "Write-Output 'pre''post‘"
+ },
+ {
+  "name": "single-doubled-'''’",
+  "source": "Write-Output 'pre''post’"
+ },
+ {
+  "name": "single-doubled-'''‚",
+  "source": "Write-Output 'pre''post‚"
+ },
+ {
+  "name": "single-doubled-'''‛",
+  "source": "Write-Output 'pre''post‛"
+ },
+ {
+  "name": "single-doubled-''‘'",
+  "source": "Write-Output 'pre'‘post'"
+ },
+ {
+  "name": "single-doubled-''‘‘",
+  "source": "Write-Output 'pre'‘post‘"
+ },
+ {
+  "name": "single-doubled-''‘’",
+  "source": "Write-Output 'pre'‘post’"
+ },
+ {
+  "name": "single-doubled-''‘‚",
+  "source": "Write-Output 'pre'‘post‚"
+ },
+ {
+  "name": "single-doubled-''‘‛",
+  "source": "Write-Output 'pre'‘post‛"
+ },
+ {
+  "name": "single-doubled-''’'",
+  "source": "Write-Output 'pre'’post'"
+ },
+ {
+  "name": "single-doubled-''’‘",
+  "source": "Write-Output 'pre'’post‘"
+ },
+ {
+  "name": "single-doubled-''’’",
+  "source": "Write-Output 'pre'’post’"
+ },
+ {
+  "name": "single-doubled-''’‚",
+  "source": "Write-Output 'pre'’post‚"
+ },
+ {
+  "name": "single-doubled-''’‛",
+  "source": "Write-Output 'pre'’post‛"
+ },
+ {
+  "name": "single-doubled-''‚'",
+  "source": "Write-Output 'pre'‚post'"
+ },
+ {
+  "name": "single-doubled-''‚‘",
+  "source": "Write-Output 'pre'‚post‘"
+ },
+ {
+  "name": "single-doubled-''‚’",
+  "source": "Write-Output 'pre'‚post’"
+ },
+ {
+  "name": "single-doubled-''‚‚",
+  "source": "Write-Output 'pre'‚post‚"
+ },
+ {
+  "name": "single-doubled-''‚‛",
+  "source": "Write-Output 'pre'‚post‛"
+ },
+ {
+  "name": "single-doubled-''‛'",
+  "source": "Write-Output 'pre'‛post'"
+ },
+ {
+  "name": "single-doubled-''‛‘",
+  "source": "Write-Output 'pre'‛post‘"
+ },
+ {
+  "name": "single-doubled-''‛’",
+  "source": "Write-Output 'pre'‛post’"
+ },
+ {
+  "name": "single-doubled-''‛‚",
+  "source": "Write-Output 'pre'‛post‚"
+ },
+ {
+  "name": "single-doubled-''‛‛",
+  "source": "Write-Output 'pre'‛post‛"
+ },
+ {
+  "name": "single-here-''-\"\\n\"-\"\"",
+  "source": "Write-Output @'\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\n\"-\"sample\"",
+  "source": "Write-Output @'\nsample\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @'\n\n\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\n\n# text\n\n\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @'\r\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @'\r\nsample\r\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @'\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\r\n\r\n# text\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-''-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n'@"
+ },
+ {
+  "name": "single-joined-''",
+  "source": "Write-Output pre'two words'post"
+ },
+ {
+  "name": "single-adjacent-variable-''",
+  "source": "Write-Output 'one'$value"
+ },
+ {
+  "name": "single-adjacent-word-''",
+  "source": "Write-Output 'one'tail"
+ },
+ {
+  "name": "single-adjacent-quoted-''",
+  "source": "Write-Output 'one''two'"
+ },
+ {
+  "name": "single-command-name-''",
+  "source": "Get-'Two Words'"
+ },
+ {
+  "name": "single-parameter-''",
+  "source": "Write-Output --name='two words'"
+ },
+ {
+  "name": "single-hash-value-''",
+  "source": "Write-Output ' # text # '"
+ },
+ {
+  "name": "single-doubled-'‘''",
+  "source": "Write-Output 'pre‘'post'"
+ },
+ {
+  "name": "single-doubled-'‘'‘",
+  "source": "Write-Output 'pre‘'post‘"
+ },
+ {
+  "name": "single-doubled-'‘'’",
+  "source": "Write-Output 'pre‘'post’"
+ },
+ {
+  "name": "single-doubled-'‘'‚",
+  "source": "Write-Output 'pre‘'post‚"
+ },
+ {
+  "name": "single-doubled-'‘'‛",
+  "source": "Write-Output 'pre‘'post‛"
+ },
+ {
+  "name": "single-doubled-'‘‘'",
+  "source": "Write-Output 'pre‘‘post'"
+ },
+ {
+  "name": "single-doubled-'‘‘‘",
+  "source": "Write-Output 'pre‘‘post‘"
+ },
+ {
+  "name": "single-doubled-'‘‘’",
+  "source": "Write-Output 'pre‘‘post’"
+ },
+ {
+  "name": "single-doubled-'‘‘‚",
+  "source": "Write-Output 'pre‘‘post‚"
+ },
+ {
+  "name": "single-doubled-'‘‘‛",
+  "source": "Write-Output 'pre‘‘post‛"
+ },
+ {
+  "name": "single-doubled-'‘’'",
+  "source": "Write-Output 'pre‘’post'"
+ },
+ {
+  "name": "single-doubled-'‘’‘",
+  "source": "Write-Output 'pre‘’post‘"
+ },
+ {
+  "name": "single-doubled-'‘’’",
+  "source": "Write-Output 'pre‘’post’"
+ },
+ {
+  "name": "single-doubled-'‘’‚",
+  "source": "Write-Output 'pre‘’post‚"
+ },
+ {
+  "name": "single-doubled-'‘’‛",
+  "source": "Write-Output 'pre‘’post‛"
+ },
+ {
+  "name": "single-doubled-'‘‚'",
+  "source": "Write-Output 'pre‘‚post'"
+ },
+ {
+  "name": "single-doubled-'‘‚‘",
+  "source": "Write-Output 'pre‘‚post‘"
+ },
+ {
+  "name": "single-doubled-'‘‚’",
+  "source": "Write-Output 'pre‘‚post’"
+ },
+ {
+  "name": "single-doubled-'‘‚‚",
+  "source": "Write-Output 'pre‘‚post‚"
+ },
+ {
+  "name": "single-doubled-'‘‚‛",
+  "source": "Write-Output 'pre‘‚post‛"
+ },
+ {
+  "name": "single-doubled-'‘‛'",
+  "source": "Write-Output 'pre‘‛post'"
+ },
+ {
+  "name": "single-doubled-'‘‛‘",
+  "source": "Write-Output 'pre‘‛post‘"
+ },
+ {
+  "name": "single-doubled-'‘‛’",
+  "source": "Write-Output 'pre‘‛post’"
+ },
+ {
+  "name": "single-doubled-'‘‛‚",
+  "source": "Write-Output 'pre‘‛post‚"
+ },
+ {
+  "name": "single-doubled-'‘‛‛",
+  "source": "Write-Output 'pre‘‛post‛"
+ },
+ {
+  "name": "single-here-'‘-\"\\n\"-\"\"",
+  "source": "Write-Output @'\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\n\"-\"sample\"",
+  "source": "Write-Output @'\nsample\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @'\n\n\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\n\n# text\n\n\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @'\r\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @'\r\nsample\r\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @'\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\r\n\r\n# text\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-'‘-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‘@"
+ },
+ {
+  "name": "single-joined-'‘",
+  "source": "Write-Output pre'two words‘post"
+ },
+ {
+  "name": "single-adjacent-variable-'‘",
+  "source": "Write-Output 'one‘$value"
+ },
+ {
+  "name": "single-adjacent-word-'‘",
+  "source": "Write-Output 'one‘tail"
+ },
+ {
+  "name": "single-adjacent-quoted-'‘",
+  "source": "Write-Output 'one‘'two‘"
+ },
+ {
+  "name": "single-command-name-'‘",
+  "source": "Get-'Two Words‘"
+ },
+ {
+  "name": "single-parameter-'‘",
+  "source": "Write-Output --name='two words‘"
+ },
+ {
+  "name": "single-hash-value-'‘",
+  "source": "Write-Output ' # text # ‘"
+ },
+ {
+  "name": "single-doubled-'’''",
+  "source": "Write-Output 'pre’'post'"
+ },
+ {
+  "name": "single-doubled-'’'‘",
+  "source": "Write-Output 'pre’'post‘"
+ },
+ {
+  "name": "single-doubled-'’'’",
+  "source": "Write-Output 'pre’'post’"
+ },
+ {
+  "name": "single-doubled-'’'‚",
+  "source": "Write-Output 'pre’'post‚"
+ },
+ {
+  "name": "single-doubled-'’'‛",
+  "source": "Write-Output 'pre’'post‛"
+ },
+ {
+  "name": "single-doubled-'’‘'",
+  "source": "Write-Output 'pre’‘post'"
+ },
+ {
+  "name": "single-doubled-'’‘‘",
+  "source": "Write-Output 'pre’‘post‘"
+ },
+ {
+  "name": "single-doubled-'’‘’",
+  "source": "Write-Output 'pre’‘post’"
+ },
+ {
+  "name": "single-doubled-'’‘‚",
+  "source": "Write-Output 'pre’‘post‚"
+ },
+ {
+  "name": "single-doubled-'’‘‛",
+  "source": "Write-Output 'pre’‘post‛"
+ },
+ {
+  "name": "single-doubled-'’’'",
+  "source": "Write-Output 'pre’’post'"
+ },
+ {
+  "name": "single-doubled-'’’‘",
+  "source": "Write-Output 'pre’’post‘"
+ },
+ {
+  "name": "single-doubled-'’’’",
+  "source": "Write-Output 'pre’’post’"
+ },
+ {
+  "name": "single-doubled-'’’‚",
+  "source": "Write-Output 'pre’’post‚"
+ },
+ {
+  "name": "single-doubled-'’’‛",
+  "source": "Write-Output 'pre’’post‛"
+ },
+ {
+  "name": "single-doubled-'’‚'",
+  "source": "Write-Output 'pre’‚post'"
+ },
+ {
+  "name": "single-doubled-'’‚‘",
+  "source": "Write-Output 'pre’‚post‘"
+ },
+ {
+  "name": "single-doubled-'’‚’",
+  "source": "Write-Output 'pre’‚post’"
+ },
+ {
+  "name": "single-doubled-'’‚‚",
+  "source": "Write-Output 'pre’‚post‚"
+ },
+ {
+  "name": "single-doubled-'’‚‛",
+  "source": "Write-Output 'pre’‚post‛"
+ },
+ {
+  "name": "single-doubled-'’‛'",
+  "source": "Write-Output 'pre’‛post'"
+ },
+ {
+  "name": "single-doubled-'’‛‘",
+  "source": "Write-Output 'pre’‛post‘"
+ },
+ {
+  "name": "single-doubled-'’‛’",
+  "source": "Write-Output 'pre’‛post’"
+ },
+ {
+  "name": "single-doubled-'’‛‚",
+  "source": "Write-Output 'pre’‛post‚"
+ },
+ {
+  "name": "single-doubled-'’‛‛",
+  "source": "Write-Output 'pre’‛post‛"
+ },
+ {
+  "name": "single-here-'’-\"\\n\"-\"\"",
+  "source": "Write-Output @'\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\n\"-\"sample\"",
+  "source": "Write-Output @'\nsample\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @'\n\n\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\n\n# text\n\n\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @'\r\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @'\r\nsample\r\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @'\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\r\n\r\n# text\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-'’-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n’@"
+ },
+ {
+  "name": "single-joined-'’",
+  "source": "Write-Output pre'two words’post"
+ },
+ {
+  "name": "single-adjacent-variable-'’",
+  "source": "Write-Output 'one’$value"
+ },
+ {
+  "name": "single-adjacent-word-'’",
+  "source": "Write-Output 'one’tail"
+ },
+ {
+  "name": "single-adjacent-quoted-'’",
+  "source": "Write-Output 'one’'two’"
+ },
+ {
+  "name": "single-command-name-'’",
+  "source": "Get-'Two Words’"
+ },
+ {
+  "name": "single-parameter-'’",
+  "source": "Write-Output --name='two words’"
+ },
+ {
+  "name": "single-hash-value-'’",
+  "source": "Write-Output ' # text # ’"
+ },
+ {
+  "name": "single-doubled-'‚''",
+  "source": "Write-Output 'pre‚'post'"
+ },
+ {
+  "name": "single-doubled-'‚'‘",
+  "source": "Write-Output 'pre‚'post‘"
+ },
+ {
+  "name": "single-doubled-'‚'’",
+  "source": "Write-Output 'pre‚'post’"
+ },
+ {
+  "name": "single-doubled-'‚'‚",
+  "source": "Write-Output 'pre‚'post‚"
+ },
+ {
+  "name": "single-doubled-'‚'‛",
+  "source": "Write-Output 'pre‚'post‛"
+ },
+ {
+  "name": "single-doubled-'‚‘'",
+  "source": "Write-Output 'pre‚‘post'"
+ },
+ {
+  "name": "single-doubled-'‚‘‘",
+  "source": "Write-Output 'pre‚‘post‘"
+ },
+ {
+  "name": "single-doubled-'‚‘’",
+  "source": "Write-Output 'pre‚‘post’"
+ },
+ {
+  "name": "single-doubled-'‚‘‚",
+  "source": "Write-Output 'pre‚‘post‚"
+ },
+ {
+  "name": "single-doubled-'‚‘‛",
+  "source": "Write-Output 'pre‚‘post‛"
+ },
+ {
+  "name": "single-doubled-'‚’'",
+  "source": "Write-Output 'pre‚’post'"
+ },
+ {
+  "name": "single-doubled-'‚’‘",
+  "source": "Write-Output 'pre‚’post‘"
+ },
+ {
+  "name": "single-doubled-'‚’’",
+  "source": "Write-Output 'pre‚’post’"
+ },
+ {
+  "name": "single-doubled-'‚’‚",
+  "source": "Write-Output 'pre‚’post‚"
+ },
+ {
+  "name": "single-doubled-'‚’‛",
+  "source": "Write-Output 'pre‚’post‛"
+ },
+ {
+  "name": "single-doubled-'‚‚'",
+  "source": "Write-Output 'pre‚‚post'"
+ },
+ {
+  "name": "single-doubled-'‚‚‘",
+  "source": "Write-Output 'pre‚‚post‘"
+ },
+ {
+  "name": "single-doubled-'‚‚’",
+  "source": "Write-Output 'pre‚‚post’"
+ },
+ {
+  "name": "single-doubled-'‚‚‚",
+  "source": "Write-Output 'pre‚‚post‚"
+ },
+ {
+  "name": "single-doubled-'‚‚‛",
+  "source": "Write-Output 'pre‚‚post‛"
+ },
+ {
+  "name": "single-doubled-'‚‛'",
+  "source": "Write-Output 'pre‚‛post'"
+ },
+ {
+  "name": "single-doubled-'‚‛‘",
+  "source": "Write-Output 'pre‚‛post‘"
+ },
+ {
+  "name": "single-doubled-'‚‛’",
+  "source": "Write-Output 'pre‚‛post’"
+ },
+ {
+  "name": "single-doubled-'‚‛‚",
+  "source": "Write-Output 'pre‚‛post‚"
+ },
+ {
+  "name": "single-doubled-'‚‛‛",
+  "source": "Write-Output 'pre‚‛post‛"
+ },
+ {
+  "name": "single-here-'‚-\"\\n\"-\"\"",
+  "source": "Write-Output @'\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\n\"-\"sample\"",
+  "source": "Write-Output @'\nsample\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @'\n\n\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\n\n# text\n\n\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @'\r\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @'\r\nsample\r\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @'\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\r\n\r\n# text\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-'‚-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‚@"
+ },
+ {
+  "name": "single-joined-'‚",
+  "source": "Write-Output pre'two words‚post"
+ },
+ {
+  "name": "single-adjacent-variable-'‚",
+  "source": "Write-Output 'one‚$value"
+ },
+ {
+  "name": "single-adjacent-word-'‚",
+  "source": "Write-Output 'one‚tail"
+ },
+ {
+  "name": "single-adjacent-quoted-'‚",
+  "source": "Write-Output 'one‚'two‚"
+ },
+ {
+  "name": "single-command-name-'‚",
+  "source": "Get-'Two Words‚"
+ },
+ {
+  "name": "single-parameter-'‚",
+  "source": "Write-Output --name='two words‚"
+ },
+ {
+  "name": "single-hash-value-'‚",
+  "source": "Write-Output ' # text # ‚"
+ },
+ {
+  "name": "single-doubled-'‛''",
+  "source": "Write-Output 'pre‛'post'"
+ },
+ {
+  "name": "single-doubled-'‛'‘",
+  "source": "Write-Output 'pre‛'post‘"
+ },
+ {
+  "name": "single-doubled-'‛'’",
+  "source": "Write-Output 'pre‛'post’"
+ },
+ {
+  "name": "single-doubled-'‛'‚",
+  "source": "Write-Output 'pre‛'post‚"
+ },
+ {
+  "name": "single-doubled-'‛'‛",
+  "source": "Write-Output 'pre‛'post‛"
+ },
+ {
+  "name": "single-doubled-'‛‘'",
+  "source": "Write-Output 'pre‛‘post'"
+ },
+ {
+  "name": "single-doubled-'‛‘‘",
+  "source": "Write-Output 'pre‛‘post‘"
+ },
+ {
+  "name": "single-doubled-'‛‘’",
+  "source": "Write-Output 'pre‛‘post’"
+ },
+ {
+  "name": "single-doubled-'‛‘‚",
+  "source": "Write-Output 'pre‛‘post‚"
+ },
+ {
+  "name": "single-doubled-'‛‘‛",
+  "source": "Write-Output 'pre‛‘post‛"
+ },
+ {
+  "name": "single-doubled-'‛’'",
+  "source": "Write-Output 'pre‛’post'"
+ },
+ {
+  "name": "single-doubled-'‛’‘",
+  "source": "Write-Output 'pre‛’post‘"
+ },
+ {
+  "name": "single-doubled-'‛’’",
+  "source": "Write-Output 'pre‛’post’"
+ },
+ {
+  "name": "single-doubled-'‛’‚",
+  "source": "Write-Output 'pre‛’post‚"
+ },
+ {
+  "name": "single-doubled-'‛’‛",
+  "source": "Write-Output 'pre‛’post‛"
+ },
+ {
+  "name": "single-doubled-'‛‚'",
+  "source": "Write-Output 'pre‛‚post'"
+ },
+ {
+  "name": "single-doubled-'‛‚‘",
+  "source": "Write-Output 'pre‛‚post‘"
+ },
+ {
+  "name": "single-doubled-'‛‚’",
+  "source": "Write-Output 'pre‛‚post’"
+ },
+ {
+  "name": "single-doubled-'‛‚‚",
+  "source": "Write-Output 'pre‛‚post‚"
+ },
+ {
+  "name": "single-doubled-'‛‚‛",
+  "source": "Write-Output 'pre‛‚post‛"
+ },
+ {
+  "name": "single-doubled-'‛‛'",
+  "source": "Write-Output 'pre‛‛post'"
+ },
+ {
+  "name": "single-doubled-'‛‛‘",
+  "source": "Write-Output 'pre‛‛post‘"
+ },
+ {
+  "name": "single-doubled-'‛‛’",
+  "source": "Write-Output 'pre‛‛post’"
+ },
+ {
+  "name": "single-doubled-'‛‛‚",
+  "source": "Write-Output 'pre‛‛post‚"
+ },
+ {
+  "name": "single-doubled-'‛‛‛",
+  "source": "Write-Output 'pre‛‛post‛"
+ },
+ {
+  "name": "single-here-'‛-\"\\n\"-\"\"",
+  "source": "Write-Output @'\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\n\"-\"sample\"",
+  "source": "Write-Output @'\nsample\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @'\n\n\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\n\n# text\n\n\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @'\r\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @'\r\nsample\r\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @'\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @'\r\n\r\n# text\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-'‛-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @'\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‛@"
+ },
+ {
+  "name": "single-joined-'‛",
+  "source": "Write-Output pre'two words‛post"
+ },
+ {
+  "name": "single-adjacent-variable-'‛",
+  "source": "Write-Output 'one‛$value"
+ },
+ {
+  "name": "single-adjacent-word-'‛",
+  "source": "Write-Output 'one‛tail"
+ },
+ {
+  "name": "single-adjacent-quoted-'‛",
+  "source": "Write-Output 'one‛'two‛"
+ },
+ {
+  "name": "single-command-name-'‛",
+  "source": "Get-'Two Words‛"
+ },
+ {
+  "name": "single-parameter-'‛",
+  "source": "Write-Output --name='two words‛"
+ },
+ {
+  "name": "single-hash-value-'‛",
+  "source": "Write-Output ' # text # ‛"
+ },
+ {
+  "name": "single-doubled-‘'''",
+  "source": "Write-Output ‘pre''post'"
+ },
+ {
+  "name": "single-doubled-‘''‘",
+  "source": "Write-Output ‘pre''post‘"
+ },
+ {
+  "name": "single-doubled-‘''’",
+  "source": "Write-Output ‘pre''post’"
+ },
+ {
+  "name": "single-doubled-‘''‚",
+  "source": "Write-Output ‘pre''post‚"
+ },
+ {
+  "name": "single-doubled-‘''‛",
+  "source": "Write-Output ‘pre''post‛"
+ },
+ {
+  "name": "single-doubled-‘'‘'",
+  "source": "Write-Output ‘pre'‘post'"
+ },
+ {
+  "name": "single-doubled-‘'‘‘",
+  "source": "Write-Output ‘pre'‘post‘"
+ },
+ {
+  "name": "single-doubled-‘'‘’",
+  "source": "Write-Output ‘pre'‘post’"
+ },
+ {
+  "name": "single-doubled-‘'‘‚",
+  "source": "Write-Output ‘pre'‘post‚"
+ },
+ {
+  "name": "single-doubled-‘'‘‛",
+  "source": "Write-Output ‘pre'‘post‛"
+ },
+ {
+  "name": "single-doubled-‘'’'",
+  "source": "Write-Output ‘pre'’post'"
+ },
+ {
+  "name": "single-doubled-‘'’‘",
+  "source": "Write-Output ‘pre'’post‘"
+ },
+ {
+  "name": "single-doubled-‘'’’",
+  "source": "Write-Output ‘pre'’post’"
+ },
+ {
+  "name": "single-doubled-‘'’‚",
+  "source": "Write-Output ‘pre'’post‚"
+ },
+ {
+  "name": "single-doubled-‘'’‛",
+  "source": "Write-Output ‘pre'’post‛"
+ },
+ {
+  "name": "single-doubled-‘'‚'",
+  "source": "Write-Output ‘pre'‚post'"
+ },
+ {
+  "name": "single-doubled-‘'‚‘",
+  "source": "Write-Output ‘pre'‚post‘"
+ },
+ {
+  "name": "single-doubled-‘'‚’",
+  "source": "Write-Output ‘pre'‚post’"
+ },
+ {
+  "name": "single-doubled-‘'‚‚",
+  "source": "Write-Output ‘pre'‚post‚"
+ },
+ {
+  "name": "single-doubled-‘'‚‛",
+  "source": "Write-Output ‘pre'‚post‛"
+ },
+ {
+  "name": "single-doubled-‘'‛'",
+  "source": "Write-Output ‘pre'‛post'"
+ },
+ {
+  "name": "single-doubled-‘'‛‘",
+  "source": "Write-Output ‘pre'‛post‘"
+ },
+ {
+  "name": "single-doubled-‘'‛’",
+  "source": "Write-Output ‘pre'‛post’"
+ },
+ {
+  "name": "single-doubled-‘'‛‚",
+  "source": "Write-Output ‘pre'‛post‚"
+ },
+ {
+  "name": "single-doubled-‘'‛‛",
+  "source": "Write-Output ‘pre'‛post‛"
+ },
+ {
+  "name": "single-here-‘'-\"\\n\"-\"\"",
+  "source": "Write-Output @‘\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‘\nsample\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\n\n\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\n\n# text\n\n\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‘\r\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‘\r\nsample\r\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\r\n\r\n# text\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‘'-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n'@"
+ },
+ {
+  "name": "single-joined-‘'",
+  "source": "Write-Output pre‘two words'post"
+ },
+ {
+  "name": "single-adjacent-variable-‘'",
+  "source": "Write-Output ‘one'$value"
+ },
+ {
+  "name": "single-adjacent-word-‘'",
+  "source": "Write-Output ‘one'tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‘'",
+  "source": "Write-Output ‘one'‘two'"
+ },
+ {
+  "name": "single-command-name-‘'",
+  "source": "Get-‘Two Words'"
+ },
+ {
+  "name": "single-parameter-‘'",
+  "source": "Write-Output --name=‘two words'"
+ },
+ {
+  "name": "single-hash-value-‘'",
+  "source": "Write-Output ‘ # text # '"
+ },
+ {
+  "name": "single-doubled-‘‘''",
+  "source": "Write-Output ‘pre‘'post'"
+ },
+ {
+  "name": "single-doubled-‘‘'‘",
+  "source": "Write-Output ‘pre‘'post‘"
+ },
+ {
+  "name": "single-doubled-‘‘'’",
+  "source": "Write-Output ‘pre‘'post’"
+ },
+ {
+  "name": "single-doubled-‘‘'‚",
+  "source": "Write-Output ‘pre‘'post‚"
+ },
+ {
+  "name": "single-doubled-‘‘'‛",
+  "source": "Write-Output ‘pre‘'post‛"
+ },
+ {
+  "name": "single-doubled-‘‘‘'",
+  "source": "Write-Output ‘pre‘‘post'"
+ },
+ {
+  "name": "single-doubled-‘‘‘‘",
+  "source": "Write-Output ‘pre‘‘post‘"
+ },
+ {
+  "name": "single-doubled-‘‘‘’",
+  "source": "Write-Output ‘pre‘‘post’"
+ },
+ {
+  "name": "single-doubled-‘‘‘‚",
+  "source": "Write-Output ‘pre‘‘post‚"
+ },
+ {
+  "name": "single-doubled-‘‘‘‛",
+  "source": "Write-Output ‘pre‘‘post‛"
+ },
+ {
+  "name": "single-doubled-‘‘’'",
+  "source": "Write-Output ‘pre‘’post'"
+ },
+ {
+  "name": "single-doubled-‘‘’‘",
+  "source": "Write-Output ‘pre‘’post‘"
+ },
+ {
+  "name": "single-doubled-‘‘’’",
+  "source": "Write-Output ‘pre‘’post’"
+ },
+ {
+  "name": "single-doubled-‘‘’‚",
+  "source": "Write-Output ‘pre‘’post‚"
+ },
+ {
+  "name": "single-doubled-‘‘’‛",
+  "source": "Write-Output ‘pre‘’post‛"
+ },
+ {
+  "name": "single-doubled-‘‘‚'",
+  "source": "Write-Output ‘pre‘‚post'"
+ },
+ {
+  "name": "single-doubled-‘‘‚‘",
+  "source": "Write-Output ‘pre‘‚post‘"
+ },
+ {
+  "name": "single-doubled-‘‘‚’",
+  "source": "Write-Output ‘pre‘‚post’"
+ },
+ {
+  "name": "single-doubled-‘‘‚‚",
+  "source": "Write-Output ‘pre‘‚post‚"
+ },
+ {
+  "name": "single-doubled-‘‘‚‛",
+  "source": "Write-Output ‘pre‘‚post‛"
+ },
+ {
+  "name": "single-doubled-‘‘‛'",
+  "source": "Write-Output ‘pre‘‛post'"
+ },
+ {
+  "name": "single-doubled-‘‘‛‘",
+  "source": "Write-Output ‘pre‘‛post‘"
+ },
+ {
+  "name": "single-doubled-‘‘‛’",
+  "source": "Write-Output ‘pre‘‛post’"
+ },
+ {
+  "name": "single-doubled-‘‘‛‚",
+  "source": "Write-Output ‘pre‘‛post‚"
+ },
+ {
+  "name": "single-doubled-‘‘‛‛",
+  "source": "Write-Output ‘pre‘‛post‛"
+ },
+ {
+  "name": "single-here-‘‘-\"\\n\"-\"\"",
+  "source": "Write-Output @‘\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‘\nsample\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\n\n# text\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‘\r\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‘\r\nsample\r\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\r\n\r\n# text\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‘‘-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‘@"
+ },
+ {
+  "name": "single-joined-‘‘",
+  "source": "Write-Output pre‘two words‘post"
+ },
+ {
+  "name": "single-adjacent-variable-‘‘",
+  "source": "Write-Output ‘one‘$value"
+ },
+ {
+  "name": "single-adjacent-word-‘‘",
+  "source": "Write-Output ‘one‘tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‘‘",
+  "source": "Write-Output ‘one‘‘two‘"
+ },
+ {
+  "name": "single-command-name-‘‘",
+  "source": "Get-‘Two Words‘"
+ },
+ {
+  "name": "single-parameter-‘‘",
+  "source": "Write-Output --name=‘two words‘"
+ },
+ {
+  "name": "single-hash-value-‘‘",
+  "source": "Write-Output ‘ # text # ‘"
+ },
+ {
+  "name": "single-doubled-‘’''",
+  "source": "Write-Output ‘pre’'post'"
+ },
+ {
+  "name": "single-doubled-‘’'‘",
+  "source": "Write-Output ‘pre’'post‘"
+ },
+ {
+  "name": "single-doubled-‘’'’",
+  "source": "Write-Output ‘pre’'post’"
+ },
+ {
+  "name": "single-doubled-‘’'‚",
+  "source": "Write-Output ‘pre’'post‚"
+ },
+ {
+  "name": "single-doubled-‘’'‛",
+  "source": "Write-Output ‘pre’'post‛"
+ },
+ {
+  "name": "single-doubled-‘’‘'",
+  "source": "Write-Output ‘pre’‘post'"
+ },
+ {
+  "name": "single-doubled-‘’‘‘",
+  "source": "Write-Output ‘pre’‘post‘"
+ },
+ {
+  "name": "single-doubled-‘’‘’",
+  "source": "Write-Output ‘pre’‘post’"
+ },
+ {
+  "name": "single-doubled-‘’‘‚",
+  "source": "Write-Output ‘pre’‘post‚"
+ },
+ {
+  "name": "single-doubled-‘’‘‛",
+  "source": "Write-Output ‘pre’‘post‛"
+ },
+ {
+  "name": "single-doubled-‘’’'",
+  "source": "Write-Output ‘pre’’post'"
+ },
+ {
+  "name": "single-doubled-‘’’‘",
+  "source": "Write-Output ‘pre’’post‘"
+ },
+ {
+  "name": "single-doubled-‘’’’",
+  "source": "Write-Output ‘pre’’post’"
+ },
+ {
+  "name": "single-doubled-‘’’‚",
+  "source": "Write-Output ‘pre’’post‚"
+ },
+ {
+  "name": "single-doubled-‘’’‛",
+  "source": "Write-Output ‘pre’’post‛"
+ },
+ {
+  "name": "single-doubled-‘’‚'",
+  "source": "Write-Output ‘pre’‚post'"
+ },
+ {
+  "name": "single-doubled-‘’‚‘",
+  "source": "Write-Output ‘pre’‚post‘"
+ },
+ {
+  "name": "single-doubled-‘’‚’",
+  "source": "Write-Output ‘pre’‚post’"
+ },
+ {
+  "name": "single-doubled-‘’‚‚",
+  "source": "Write-Output ‘pre’‚post‚"
+ },
+ {
+  "name": "single-doubled-‘’‚‛",
+  "source": "Write-Output ‘pre’‚post‛"
+ },
+ {
+  "name": "single-doubled-‘’‛'",
+  "source": "Write-Output ‘pre’‛post'"
+ },
+ {
+  "name": "single-doubled-‘’‛‘",
+  "source": "Write-Output ‘pre’‛post‘"
+ },
+ {
+  "name": "single-doubled-‘’‛’",
+  "source": "Write-Output ‘pre’‛post’"
+ },
+ {
+  "name": "single-doubled-‘’‛‚",
+  "source": "Write-Output ‘pre’‛post‚"
+ },
+ {
+  "name": "single-doubled-‘’‛‛",
+  "source": "Write-Output ‘pre’‛post‛"
+ },
+ {
+  "name": "single-here-‘’-\"\\n\"-\"\"",
+  "source": "Write-Output @‘\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\n\n\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\n\n# text\n\n\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‘\r\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‘\r\nsample\r\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\r\n\r\n# text\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‘’-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n’@"
+ },
+ {
+  "name": "single-adjacent-variable-‘’",
+  "source": "Write-Output ‘one’$value"
+ },
+ {
+  "name": "single-adjacent-word-‘’",
+  "source": "Write-Output ‘one’tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‘’",
+  "source": "Write-Output ‘one’‘two’"
+ },
+ {
+  "name": "single-command-name-‘’",
+  "source": "Get-‘Two Words’"
+ },
+ {
+  "name": "single-parameter-‘’",
+  "source": "Write-Output --name=‘two words’"
+ },
+ {
+  "name": "single-hash-value-‘’",
+  "source": "Write-Output ‘ # text # ’"
+ },
+ {
+  "name": "single-doubled-‘‚''",
+  "source": "Write-Output ‘pre‚'post'"
+ },
+ {
+  "name": "single-doubled-‘‚'‘",
+  "source": "Write-Output ‘pre‚'post‘"
+ },
+ {
+  "name": "single-doubled-‘‚'’",
+  "source": "Write-Output ‘pre‚'post’"
+ },
+ {
+  "name": "single-doubled-‘‚'‚",
+  "source": "Write-Output ‘pre‚'post‚"
+ },
+ {
+  "name": "single-doubled-‘‚'‛",
+  "source": "Write-Output ‘pre‚'post‛"
+ },
+ {
+  "name": "single-doubled-‘‚‘'",
+  "source": "Write-Output ‘pre‚‘post'"
+ },
+ {
+  "name": "single-doubled-‘‚‘‘",
+  "source": "Write-Output ‘pre‚‘post‘"
+ },
+ {
+  "name": "single-doubled-‘‚‘’",
+  "source": "Write-Output ‘pre‚‘post’"
+ },
+ {
+  "name": "single-doubled-‘‚‘‚",
+  "source": "Write-Output ‘pre‚‘post‚"
+ },
+ {
+  "name": "single-doubled-‘‚‘‛",
+  "source": "Write-Output ‘pre‚‘post‛"
+ },
+ {
+  "name": "single-doubled-‘‚’'",
+  "source": "Write-Output ‘pre‚’post'"
+ },
+ {
+  "name": "single-doubled-‘‚’‘",
+  "source": "Write-Output ‘pre‚’post‘"
+ },
+ {
+  "name": "single-doubled-‘‚’’",
+  "source": "Write-Output ‘pre‚’post’"
+ },
+ {
+  "name": "single-doubled-‘‚’‚",
+  "source": "Write-Output ‘pre‚’post‚"
+ },
+ {
+  "name": "single-doubled-‘‚’‛",
+  "source": "Write-Output ‘pre‚’post‛"
+ },
+ {
+  "name": "single-doubled-‘‚‚'",
+  "source": "Write-Output ‘pre‚‚post'"
+ },
+ {
+  "name": "single-doubled-‘‚‚‘",
+  "source": "Write-Output ‘pre‚‚post‘"
+ },
+ {
+  "name": "single-doubled-‘‚‚’",
+  "source": "Write-Output ‘pre‚‚post’"
+ },
+ {
+  "name": "single-doubled-‘‚‚‚",
+  "source": "Write-Output ‘pre‚‚post‚"
+ },
+ {
+  "name": "single-doubled-‘‚‚‛",
+  "source": "Write-Output ‘pre‚‚post‛"
+ },
+ {
+  "name": "single-doubled-‘‚‛'",
+  "source": "Write-Output ‘pre‚‛post'"
+ },
+ {
+  "name": "single-doubled-‘‚‛‘",
+  "source": "Write-Output ‘pre‚‛post‘"
+ },
+ {
+  "name": "single-doubled-‘‚‛’",
+  "source": "Write-Output ‘pre‚‛post’"
+ },
+ {
+  "name": "single-doubled-‘‚‛‚",
+  "source": "Write-Output ‘pre‚‛post‚"
+ },
+ {
+  "name": "single-doubled-‘‚‛‛",
+  "source": "Write-Output ‘pre‚‛post‛"
+ },
+ {
+  "name": "single-here-‘‚-\"\\n\"-\"\"",
+  "source": "Write-Output @‘\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‘\nsample\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\n\n# text\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‘\r\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‘\r\nsample\r\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\r\n\r\n# text\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‘‚-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‚@"
+ },
+ {
+  "name": "single-joined-‘‚",
+  "source": "Write-Output pre‘two words‚post"
+ },
+ {
+  "name": "single-adjacent-variable-‘‚",
+  "source": "Write-Output ‘one‚$value"
+ },
+ {
+  "name": "single-adjacent-word-‘‚",
+  "source": "Write-Output ‘one‚tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‘‚",
+  "source": "Write-Output ‘one‚‘two‚"
+ },
+ {
+  "name": "single-command-name-‘‚",
+  "source": "Get-‘Two Words‚"
+ },
+ {
+  "name": "single-parameter-‘‚",
+  "source": "Write-Output --name=‘two words‚"
+ },
+ {
+  "name": "single-hash-value-‘‚",
+  "source": "Write-Output ‘ # text # ‚"
+ },
+ {
+  "name": "single-doubled-‘‛''",
+  "source": "Write-Output ‘pre‛'post'"
+ },
+ {
+  "name": "single-doubled-‘‛'‘",
+  "source": "Write-Output ‘pre‛'post‘"
+ },
+ {
+  "name": "single-doubled-‘‛'’",
+  "source": "Write-Output ‘pre‛'post’"
+ },
+ {
+  "name": "single-doubled-‘‛'‚",
+  "source": "Write-Output ‘pre‛'post‚"
+ },
+ {
+  "name": "single-doubled-‘‛'‛",
+  "source": "Write-Output ‘pre‛'post‛"
+ },
+ {
+  "name": "single-doubled-‘‛‘'",
+  "source": "Write-Output ‘pre‛‘post'"
+ },
+ {
+  "name": "single-doubled-‘‛‘‘",
+  "source": "Write-Output ‘pre‛‘post‘"
+ },
+ {
+  "name": "single-doubled-‘‛‘’",
+  "source": "Write-Output ‘pre‛‘post’"
+ },
+ {
+  "name": "single-doubled-‘‛‘‚",
+  "source": "Write-Output ‘pre‛‘post‚"
+ },
+ {
+  "name": "single-doubled-‘‛‘‛",
+  "source": "Write-Output ‘pre‛‘post‛"
+ },
+ {
+  "name": "single-doubled-‘‛’'",
+  "source": "Write-Output ‘pre‛’post'"
+ },
+ {
+  "name": "single-doubled-‘‛’‘",
+  "source": "Write-Output ‘pre‛’post‘"
+ },
+ {
+  "name": "single-doubled-‘‛’’",
+  "source": "Write-Output ‘pre‛’post’"
+ },
+ {
+  "name": "single-doubled-‘‛’‚",
+  "source": "Write-Output ‘pre‛’post‚"
+ },
+ {
+  "name": "single-doubled-‘‛’‛",
+  "source": "Write-Output ‘pre‛’post‛"
+ },
+ {
+  "name": "single-doubled-‘‛‚'",
+  "source": "Write-Output ‘pre‛‚post'"
+ },
+ {
+  "name": "single-doubled-‘‛‚‘",
+  "source": "Write-Output ‘pre‛‚post‘"
+ },
+ {
+  "name": "single-doubled-‘‛‚’",
+  "source": "Write-Output ‘pre‛‚post’"
+ },
+ {
+  "name": "single-doubled-‘‛‚‚",
+  "source": "Write-Output ‘pre‛‚post‚"
+ },
+ {
+  "name": "single-doubled-‘‛‚‛",
+  "source": "Write-Output ‘pre‛‚post‛"
+ },
+ {
+  "name": "single-doubled-‘‛‛'",
+  "source": "Write-Output ‘pre‛‛post'"
+ },
+ {
+  "name": "single-doubled-‘‛‛‘",
+  "source": "Write-Output ‘pre‛‛post‘"
+ },
+ {
+  "name": "single-doubled-‘‛‛’",
+  "source": "Write-Output ‘pre‛‛post’"
+ },
+ {
+  "name": "single-doubled-‘‛‛‚",
+  "source": "Write-Output ‘pre‛‛post‚"
+ },
+ {
+  "name": "single-doubled-‘‛‛‛",
+  "source": "Write-Output ‘pre‛‛post‛"
+ },
+ {
+  "name": "single-here-‘‛-\"\\n\"-\"\"",
+  "source": "Write-Output @‘\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‘\nsample\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\n\n# text\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‘\r\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‘\r\nsample\r\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‘\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‘\r\n\r\n# text\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‘‛-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‘\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‛@"
+ },
+ {
+  "name": "single-joined-‘‛",
+  "source": "Write-Output pre‘two words‛post"
+ },
+ {
+  "name": "single-adjacent-variable-‘‛",
+  "source": "Write-Output ‘one‛$value"
+ },
+ {
+  "name": "single-adjacent-word-‘‛",
+  "source": "Write-Output ‘one‛tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‘‛",
+  "source": "Write-Output ‘one‛‘two‛"
+ },
+ {
+  "name": "single-command-name-‘‛",
+  "source": "Get-‘Two Words‛"
+ },
+ {
+  "name": "single-parameter-‘‛",
+  "source": "Write-Output --name=‘two words‛"
+ },
+ {
+  "name": "single-hash-value-‘‛",
+  "source": "Write-Output ‘ # text # ‛"
+ },
+ {
+  "name": "single-doubled-’'''",
+  "source": "Write-Output ’pre''post'"
+ },
+ {
+  "name": "single-doubled-’''‘",
+  "source": "Write-Output ’pre''post‘"
+ },
+ {
+  "name": "single-doubled-’''’",
+  "source": "Write-Output ’pre''post’"
+ },
+ {
+  "name": "single-doubled-’''‚",
+  "source": "Write-Output ’pre''post‚"
+ },
+ {
+  "name": "single-doubled-’''‛",
+  "source": "Write-Output ’pre''post‛"
+ },
+ {
+  "name": "single-doubled-’'‘'",
+  "source": "Write-Output ’pre'‘post'"
+ },
+ {
+  "name": "single-doubled-’'‘‘",
+  "source": "Write-Output ’pre'‘post‘"
+ },
+ {
+  "name": "single-doubled-’'‘’",
+  "source": "Write-Output ’pre'‘post’"
+ },
+ {
+  "name": "single-doubled-’'‘‚",
+  "source": "Write-Output ’pre'‘post‚"
+ },
+ {
+  "name": "single-doubled-’'‘‛",
+  "source": "Write-Output ’pre'‘post‛"
+ },
+ {
+  "name": "single-doubled-’'’'",
+  "source": "Write-Output ’pre'’post'"
+ },
+ {
+  "name": "single-doubled-’'’‘",
+  "source": "Write-Output ’pre'’post‘"
+ },
+ {
+  "name": "single-doubled-’'’’",
+  "source": "Write-Output ’pre'’post’"
+ },
+ {
+  "name": "single-doubled-’'’‚",
+  "source": "Write-Output ’pre'’post‚"
+ },
+ {
+  "name": "single-doubled-’'’‛",
+  "source": "Write-Output ’pre'’post‛"
+ },
+ {
+  "name": "single-doubled-’'‚'",
+  "source": "Write-Output ’pre'‚post'"
+ },
+ {
+  "name": "single-doubled-’'‚‘",
+  "source": "Write-Output ’pre'‚post‘"
+ },
+ {
+  "name": "single-doubled-’'‚’",
+  "source": "Write-Output ’pre'‚post’"
+ },
+ {
+  "name": "single-doubled-’'‚‚",
+  "source": "Write-Output ’pre'‚post‚"
+ },
+ {
+  "name": "single-doubled-’'‚‛",
+  "source": "Write-Output ’pre'‚post‛"
+ },
+ {
+  "name": "single-doubled-’'‛'",
+  "source": "Write-Output ’pre'‛post'"
+ },
+ {
+  "name": "single-doubled-’'‛‘",
+  "source": "Write-Output ’pre'‛post‘"
+ },
+ {
+  "name": "single-doubled-’'‛’",
+  "source": "Write-Output ’pre'‛post’"
+ },
+ {
+  "name": "single-doubled-’'‛‚",
+  "source": "Write-Output ’pre'‛post‚"
+ },
+ {
+  "name": "single-doubled-’'‛‛",
+  "source": "Write-Output ’pre'‛post‛"
+ },
+ {
+  "name": "single-here-’'-\"\\n\"-\"\"",
+  "source": "Write-Output @’\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\n\"-\"sample\"",
+  "source": "Write-Output @’\nsample\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @’\n\n\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\n\n# text\n\n\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @’\r\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @’\r\nsample\r\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @’\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\r\n\r\n# text\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-’'-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n'@"
+ },
+ {
+  "name": "single-joined-’'",
+  "source": "Write-Output pre’two words'post"
+ },
+ {
+  "name": "single-adjacent-variable-’'",
+  "source": "Write-Output ’one'$value"
+ },
+ {
+  "name": "single-adjacent-word-’'",
+  "source": "Write-Output ’one'tail"
+ },
+ {
+  "name": "single-adjacent-quoted-’'",
+  "source": "Write-Output ’one'’two'"
+ },
+ {
+  "name": "single-command-name-’'",
+  "source": "Get-’Two Words'"
+ },
+ {
+  "name": "single-parameter-’'",
+  "source": "Write-Output --name=’two words'"
+ },
+ {
+  "name": "single-hash-value-’'",
+  "source": "Write-Output ’ # text # '"
+ },
+ {
+  "name": "single-doubled-’‘''",
+  "source": "Write-Output ’pre‘'post'"
+ },
+ {
+  "name": "single-doubled-’‘'‘",
+  "source": "Write-Output ’pre‘'post‘"
+ },
+ {
+  "name": "single-doubled-’‘'’",
+  "source": "Write-Output ’pre‘'post’"
+ },
+ {
+  "name": "single-doubled-’‘'‚",
+  "source": "Write-Output ’pre‘'post‚"
+ },
+ {
+  "name": "single-doubled-’‘'‛",
+  "source": "Write-Output ’pre‘'post‛"
+ },
+ {
+  "name": "single-doubled-’‘‘'",
+  "source": "Write-Output ’pre‘‘post'"
+ },
+ {
+  "name": "single-doubled-’‘‘‘",
+  "source": "Write-Output ’pre‘‘post‘"
+ },
+ {
+  "name": "single-doubled-’‘‘’",
+  "source": "Write-Output ’pre‘‘post’"
+ },
+ {
+  "name": "single-doubled-’‘‘‚",
+  "source": "Write-Output ’pre‘‘post‚"
+ },
+ {
+  "name": "single-doubled-’‘‘‛",
+  "source": "Write-Output ’pre‘‘post‛"
+ },
+ {
+  "name": "single-doubled-’‘’'",
+  "source": "Write-Output ’pre‘’post'"
+ },
+ {
+  "name": "single-doubled-’‘’‘",
+  "source": "Write-Output ’pre‘’post‘"
+ },
+ {
+  "name": "single-doubled-’‘’’",
+  "source": "Write-Output ’pre‘’post’"
+ },
+ {
+  "name": "single-doubled-’‘’‚",
+  "source": "Write-Output ’pre‘’post‚"
+ },
+ {
+  "name": "single-doubled-’‘’‛",
+  "source": "Write-Output ’pre‘’post‛"
+ },
+ {
+  "name": "single-doubled-’‘‚'",
+  "source": "Write-Output ’pre‘‚post'"
+ },
+ {
+  "name": "single-doubled-’‘‚‘",
+  "source": "Write-Output ’pre‘‚post‘"
+ },
+ {
+  "name": "single-doubled-’‘‚’",
+  "source": "Write-Output ’pre‘‚post’"
+ },
+ {
+  "name": "single-doubled-’‘‚‚",
+  "source": "Write-Output ’pre‘‚post‚"
+ },
+ {
+  "name": "single-doubled-’‘‚‛",
+  "source": "Write-Output ’pre‘‚post‛"
+ },
+ {
+  "name": "single-doubled-’‘‛'",
+  "source": "Write-Output ’pre‘‛post'"
+ },
+ {
+  "name": "single-doubled-’‘‛‘",
+  "source": "Write-Output ’pre‘‛post‘"
+ },
+ {
+  "name": "single-doubled-’‘‛’",
+  "source": "Write-Output ’pre‘‛post’"
+ },
+ {
+  "name": "single-doubled-’‘‛‚",
+  "source": "Write-Output ’pre‘‛post‚"
+ },
+ {
+  "name": "single-doubled-’‘‛‛",
+  "source": "Write-Output ’pre‘‛post‛"
+ },
+ {
+  "name": "single-here-’‘-\"\\n\"-\"\"",
+  "source": "Write-Output @’\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\n\"-\"sample\"",
+  "source": "Write-Output @’\nsample\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @’\n\n\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\n\n# text\n\n\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @’\r\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @’\r\nsample\r\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @’\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\r\n\r\n# text\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-’‘-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‘@"
+ },
+ {
+  "name": "single-joined-’‘",
+  "source": "Write-Output pre’two words‘post"
+ },
+ {
+  "name": "single-adjacent-variable-’‘",
+  "source": "Write-Output ’one‘$value"
+ },
+ {
+  "name": "single-adjacent-word-’‘",
+  "source": "Write-Output ’one‘tail"
+ },
+ {
+  "name": "single-adjacent-quoted-’‘",
+  "source": "Write-Output ’one‘’two‘"
+ },
+ {
+  "name": "single-command-name-’‘",
+  "source": "Get-’Two Words‘"
+ },
+ {
+  "name": "single-parameter-’‘",
+  "source": "Write-Output --name=’two words‘"
+ },
+ {
+  "name": "single-hash-value-’‘",
+  "source": "Write-Output ’ # text # ‘"
+ },
+ {
+  "name": "single-doubled-’’''",
+  "source": "Write-Output ’pre’'post'"
+ },
+ {
+  "name": "single-doubled-’’'‘",
+  "source": "Write-Output ’pre’'post‘"
+ },
+ {
+  "name": "single-doubled-’’'’",
+  "source": "Write-Output ’pre’'post’"
+ },
+ {
+  "name": "single-doubled-’’'‚",
+  "source": "Write-Output ’pre’'post‚"
+ },
+ {
+  "name": "single-doubled-’’'‛",
+  "source": "Write-Output ’pre’'post‛"
+ },
+ {
+  "name": "single-doubled-’’‘'",
+  "source": "Write-Output ’pre’‘post'"
+ },
+ {
+  "name": "single-doubled-’’‘‘",
+  "source": "Write-Output ’pre’‘post‘"
+ },
+ {
+  "name": "single-doubled-’’‘’",
+  "source": "Write-Output ’pre’‘post’"
+ },
+ {
+  "name": "single-doubled-’’‘‚",
+  "source": "Write-Output ’pre’‘post‚"
+ },
+ {
+  "name": "single-doubled-’’‘‛",
+  "source": "Write-Output ’pre’‘post‛"
+ },
+ {
+  "name": "single-doubled-’’’'",
+  "source": "Write-Output ’pre’’post'"
+ },
+ {
+  "name": "single-doubled-’’’‘",
+  "source": "Write-Output ’pre’’post‘"
+ },
+ {
+  "name": "single-doubled-’’’’",
+  "source": "Write-Output ’pre’’post’"
+ },
+ {
+  "name": "single-doubled-’’’‚",
+  "source": "Write-Output ’pre’’post‚"
+ },
+ {
+  "name": "single-doubled-’’’‛",
+  "source": "Write-Output ’pre’’post‛"
+ },
+ {
+  "name": "single-doubled-’’‚'",
+  "source": "Write-Output ’pre’‚post'"
+ },
+ {
+  "name": "single-doubled-’’‚‘",
+  "source": "Write-Output ’pre’‚post‘"
+ },
+ {
+  "name": "single-doubled-’’‚’",
+  "source": "Write-Output ’pre’‚post’"
+ },
+ {
+  "name": "single-doubled-’’‚‚",
+  "source": "Write-Output ’pre’‚post‚"
+ },
+ {
+  "name": "single-doubled-’’‚‛",
+  "source": "Write-Output ’pre’‚post‛"
+ },
+ {
+  "name": "single-doubled-’’‛'",
+  "source": "Write-Output ’pre’‛post'"
+ },
+ {
+  "name": "single-doubled-’’‛‘",
+  "source": "Write-Output ’pre’‛post‘"
+ },
+ {
+  "name": "single-doubled-’’‛’",
+  "source": "Write-Output ’pre’‛post’"
+ },
+ {
+  "name": "single-doubled-’’‛‚",
+  "source": "Write-Output ’pre’‛post‚"
+ },
+ {
+  "name": "single-doubled-’’‛‛",
+  "source": "Write-Output ’pre’‛post‛"
+ },
+ {
+  "name": "single-here-’’-\"\\n\"-\"\"",
+  "source": "Write-Output @’\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\n\"-\"sample\"",
+  "source": "Write-Output @’\nsample\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @’\n\n\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\n\n# text\n\n\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @’\r\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @’\r\nsample\r\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @’\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\r\n\r\n# text\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-’’-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n’@"
+ },
+ {
+  "name": "single-joined-’’",
+  "source": "Write-Output pre’two words’post"
+ },
+ {
+  "name": "single-adjacent-variable-’’",
+  "source": "Write-Output ’one’$value"
+ },
+ {
+  "name": "single-adjacent-word-’’",
+  "source": "Write-Output ’one’tail"
+ },
+ {
+  "name": "single-adjacent-quoted-’’",
+  "source": "Write-Output ’one’’two’"
+ },
+ {
+  "name": "single-command-name-’’",
+  "source": "Get-’Two Words’"
+ },
+ {
+  "name": "single-parameter-’’",
+  "source": "Write-Output --name=’two words’"
+ },
+ {
+  "name": "single-hash-value-’’",
+  "source": "Write-Output ’ # text # ’"
+ },
+ {
+  "name": "single-doubled-’‚''",
+  "source": "Write-Output ’pre‚'post'"
+ },
+ {
+  "name": "single-doubled-’‚'‘",
+  "source": "Write-Output ’pre‚'post‘"
+ },
+ {
+  "name": "single-doubled-’‚'’",
+  "source": "Write-Output ’pre‚'post’"
+ },
+ {
+  "name": "single-doubled-’‚'‚",
+  "source": "Write-Output ’pre‚'post‚"
+ },
+ {
+  "name": "single-doubled-’‚'‛",
+  "source": "Write-Output ’pre‚'post‛"
+ },
+ {
+  "name": "single-doubled-’‚‘'",
+  "source": "Write-Output ’pre‚‘post'"
+ },
+ {
+  "name": "single-doubled-’‚‘‘",
+  "source": "Write-Output ’pre‚‘post‘"
+ },
+ {
+  "name": "single-doubled-’‚‘’",
+  "source": "Write-Output ’pre‚‘post’"
+ },
+ {
+  "name": "single-doubled-’‚‘‚",
+  "source": "Write-Output ’pre‚‘post‚"
+ },
+ {
+  "name": "single-doubled-’‚‘‛",
+  "source": "Write-Output ’pre‚‘post‛"
+ },
+ {
+  "name": "single-doubled-’‚’'",
+  "source": "Write-Output ’pre‚’post'"
+ },
+ {
+  "name": "single-doubled-’‚’‘",
+  "source": "Write-Output ’pre‚’post‘"
+ },
+ {
+  "name": "single-doubled-’‚’’",
+  "source": "Write-Output ’pre‚’post’"
+ },
+ {
+  "name": "single-doubled-’‚’‚",
+  "source": "Write-Output ’pre‚’post‚"
+ },
+ {
+  "name": "single-doubled-’‚’‛",
+  "source": "Write-Output ’pre‚’post‛"
+ },
+ {
+  "name": "single-doubled-’‚‚'",
+  "source": "Write-Output ’pre‚‚post'"
+ },
+ {
+  "name": "single-doubled-’‚‚‘",
+  "source": "Write-Output ’pre‚‚post‘"
+ },
+ {
+  "name": "single-doubled-’‚‚’",
+  "source": "Write-Output ’pre‚‚post’"
+ },
+ {
+  "name": "single-doubled-’‚‚‚",
+  "source": "Write-Output ’pre‚‚post‚"
+ },
+ {
+  "name": "single-doubled-’‚‚‛",
+  "source": "Write-Output ’pre‚‚post‛"
+ },
+ {
+  "name": "single-doubled-’‚‛'",
+  "source": "Write-Output ’pre‚‛post'"
+ },
+ {
+  "name": "single-doubled-’‚‛‘",
+  "source": "Write-Output ’pre‚‛post‘"
+ },
+ {
+  "name": "single-doubled-’‚‛’",
+  "source": "Write-Output ’pre‚‛post’"
+ },
+ {
+  "name": "single-doubled-’‚‛‚",
+  "source": "Write-Output ’pre‚‛post‚"
+ },
+ {
+  "name": "single-doubled-’‚‛‛",
+  "source": "Write-Output ’pre‚‛post‛"
+ },
+ {
+  "name": "single-here-’‚-\"\\n\"-\"\"",
+  "source": "Write-Output @’\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\n\"-\"sample\"",
+  "source": "Write-Output @’\nsample\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @’\n\n\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\n\n# text\n\n\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @’\r\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @’\r\nsample\r\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @’\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\r\n\r\n# text\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-’‚-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‚@"
+ },
+ {
+  "name": "single-joined-’‚",
+  "source": "Write-Output pre’two words‚post"
+ },
+ {
+  "name": "single-adjacent-variable-’‚",
+  "source": "Write-Output ’one‚$value"
+ },
+ {
+  "name": "single-adjacent-word-’‚",
+  "source": "Write-Output ’one‚tail"
+ },
+ {
+  "name": "single-adjacent-quoted-’‚",
+  "source": "Write-Output ’one‚’two‚"
+ },
+ {
+  "name": "single-command-name-’‚",
+  "source": "Get-’Two Words‚"
+ },
+ {
+  "name": "single-parameter-’‚",
+  "source": "Write-Output --name=’two words‚"
+ },
+ {
+  "name": "single-hash-value-’‚",
+  "source": "Write-Output ’ # text # ‚"
+ },
+ {
+  "name": "single-doubled-’‛''",
+  "source": "Write-Output ’pre‛'post'"
+ },
+ {
+  "name": "single-doubled-’‛'‘",
+  "source": "Write-Output ’pre‛'post‘"
+ },
+ {
+  "name": "single-doubled-’‛'’",
+  "source": "Write-Output ’pre‛'post’"
+ },
+ {
+  "name": "single-doubled-’‛'‚",
+  "source": "Write-Output ’pre‛'post‚"
+ },
+ {
+  "name": "single-doubled-’‛'‛",
+  "source": "Write-Output ’pre‛'post‛"
+ },
+ {
+  "name": "single-doubled-’‛‘'",
+  "source": "Write-Output ’pre‛‘post'"
+ },
+ {
+  "name": "single-doubled-’‛‘‘",
+  "source": "Write-Output ’pre‛‘post‘"
+ },
+ {
+  "name": "single-doubled-’‛‘’",
+  "source": "Write-Output ’pre‛‘post’"
+ },
+ {
+  "name": "single-doubled-’‛‘‚",
+  "source": "Write-Output ’pre‛‘post‚"
+ },
+ {
+  "name": "single-doubled-’‛‘‛",
+  "source": "Write-Output ’pre‛‘post‛"
+ },
+ {
+  "name": "single-doubled-’‛’'",
+  "source": "Write-Output ’pre‛’post'"
+ },
+ {
+  "name": "single-doubled-’‛’‘",
+  "source": "Write-Output ’pre‛’post‘"
+ },
+ {
+  "name": "single-doubled-’‛’’",
+  "source": "Write-Output ’pre‛’post’"
+ },
+ {
+  "name": "single-doubled-’‛’‚",
+  "source": "Write-Output ’pre‛’post‚"
+ },
+ {
+  "name": "single-doubled-’‛’‛",
+  "source": "Write-Output ’pre‛’post‛"
+ },
+ {
+  "name": "single-doubled-’‛‚'",
+  "source": "Write-Output ’pre‛‚post'"
+ },
+ {
+  "name": "single-doubled-’‛‚‘",
+  "source": "Write-Output ’pre‛‚post‘"
+ },
+ {
+  "name": "single-doubled-’‛‚’",
+  "source": "Write-Output ’pre‛‚post’"
+ },
+ {
+  "name": "single-doubled-’‛‚‚",
+  "source": "Write-Output ’pre‛‚post‚"
+ },
+ {
+  "name": "single-doubled-’‛‚‛",
+  "source": "Write-Output ’pre‛‚post‛"
+ },
+ {
+  "name": "single-doubled-’‛‛'",
+  "source": "Write-Output ’pre‛‛post'"
+ },
+ {
+  "name": "single-doubled-’‛‛‘",
+  "source": "Write-Output ’pre‛‛post‘"
+ },
+ {
+  "name": "single-doubled-’‛‛’",
+  "source": "Write-Output ’pre‛‛post’"
+ },
+ {
+  "name": "single-doubled-’‛‛‚",
+  "source": "Write-Output ’pre‛‛post‚"
+ },
+ {
+  "name": "single-doubled-’‛‛‛",
+  "source": "Write-Output ’pre‛‛post‛"
+ },
+ {
+  "name": "single-here-’‛-\"\\n\"-\"\"",
+  "source": "Write-Output @’\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\n\"-\"sample\"",
+  "source": "Write-Output @’\nsample\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @’\n\n\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\n\n# text\n\n\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @’\r\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @’\r\nsample\r\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @’\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @’\r\n\r\n# text\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-’‛-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @’\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‛@"
+ },
+ {
+  "name": "single-joined-’‛",
+  "source": "Write-Output pre’two words‛post"
+ },
+ {
+  "name": "single-adjacent-variable-’‛",
+  "source": "Write-Output ’one‛$value"
+ },
+ {
+  "name": "single-adjacent-word-’‛",
+  "source": "Write-Output ’one‛tail"
+ },
+ {
+  "name": "single-adjacent-quoted-’‛",
+  "source": "Write-Output ’one‛’two‛"
+ },
+ {
+  "name": "single-command-name-’‛",
+  "source": "Get-’Two Words‛"
+ },
+ {
+  "name": "single-parameter-’‛",
+  "source": "Write-Output --name=’two words‛"
+ },
+ {
+  "name": "single-hash-value-’‛",
+  "source": "Write-Output ’ # text # ‛"
+ },
+ {
+  "name": "single-doubled-‚'''",
+  "source": "Write-Output ‚pre''post'"
+ },
+ {
+  "name": "single-doubled-‚''‘",
+  "source": "Write-Output ‚pre''post‘"
+ },
+ {
+  "name": "single-doubled-‚''’",
+  "source": "Write-Output ‚pre''post’"
+ },
+ {
+  "name": "single-doubled-‚''‚",
+  "source": "Write-Output ‚pre''post‚"
+ },
+ {
+  "name": "single-doubled-‚''‛",
+  "source": "Write-Output ‚pre''post‛"
+ },
+ {
+  "name": "single-doubled-‚'‘'",
+  "source": "Write-Output ‚pre'‘post'"
+ },
+ {
+  "name": "single-doubled-‚'‘‘",
+  "source": "Write-Output ‚pre'‘post‘"
+ },
+ {
+  "name": "single-doubled-‚'‘’",
+  "source": "Write-Output ‚pre'‘post’"
+ },
+ {
+  "name": "single-doubled-‚'‘‚",
+  "source": "Write-Output ‚pre'‘post‚"
+ },
+ {
+  "name": "single-doubled-‚'‘‛",
+  "source": "Write-Output ‚pre'‘post‛"
+ },
+ {
+  "name": "single-doubled-‚'’'",
+  "source": "Write-Output ‚pre'’post'"
+ },
+ {
+  "name": "single-doubled-‚'’‘",
+  "source": "Write-Output ‚pre'’post‘"
+ },
+ {
+  "name": "single-doubled-‚'’’",
+  "source": "Write-Output ‚pre'’post’"
+ },
+ {
+  "name": "single-doubled-‚'’‚",
+  "source": "Write-Output ‚pre'’post‚"
+ },
+ {
+  "name": "single-doubled-‚'’‛",
+  "source": "Write-Output ‚pre'’post‛"
+ },
+ {
+  "name": "single-doubled-‚'‚'",
+  "source": "Write-Output ‚pre'‚post'"
+ },
+ {
+  "name": "single-doubled-‚'‚‘",
+  "source": "Write-Output ‚pre'‚post‘"
+ },
+ {
+  "name": "single-doubled-‚'‚’",
+  "source": "Write-Output ‚pre'‚post’"
+ },
+ {
+  "name": "single-doubled-‚'‚‚",
+  "source": "Write-Output ‚pre'‚post‚"
+ },
+ {
+  "name": "single-doubled-‚'‚‛",
+  "source": "Write-Output ‚pre'‚post‛"
+ },
+ {
+  "name": "single-doubled-‚'‛'",
+  "source": "Write-Output ‚pre'‛post'"
+ },
+ {
+  "name": "single-doubled-‚'‛‘",
+  "source": "Write-Output ‚pre'‛post‘"
+ },
+ {
+  "name": "single-doubled-‚'‛’",
+  "source": "Write-Output ‚pre'‛post’"
+ },
+ {
+  "name": "single-doubled-‚'‛‚",
+  "source": "Write-Output ‚pre'‛post‚"
+ },
+ {
+  "name": "single-doubled-‚'‛‛",
+  "source": "Write-Output ‚pre'‛post‛"
+ },
+ {
+  "name": "single-here-‚'-\"\\n\"-\"\"",
+  "source": "Write-Output @‚\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‚\nsample\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\n\n\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\n\n# text\n\n\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‚\r\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‚\r\nsample\r\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\r\n\r\n# text\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‚'-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n'@"
+ },
+ {
+  "name": "single-joined-‚'",
+  "source": "Write-Output pre‚two words'post"
+ },
+ {
+  "name": "single-adjacent-variable-‚'",
+  "source": "Write-Output ‚one'$value"
+ },
+ {
+  "name": "single-adjacent-word-‚'",
+  "source": "Write-Output ‚one'tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‚'",
+  "source": "Write-Output ‚one'‚two'"
+ },
+ {
+  "name": "single-command-name-‚'",
+  "source": "Get-‚Two Words'"
+ },
+ {
+  "name": "single-parameter-‚'",
+  "source": "Write-Output --name=‚two words'"
+ },
+ {
+  "name": "single-hash-value-‚'",
+  "source": "Write-Output ‚ # text # '"
+ },
+ {
+  "name": "single-doubled-‚‘''",
+  "source": "Write-Output ‚pre‘'post'"
+ },
+ {
+  "name": "single-doubled-‚‘'‘",
+  "source": "Write-Output ‚pre‘'post‘"
+ },
+ {
+  "name": "single-doubled-‚‘'’",
+  "source": "Write-Output ‚pre‘'post’"
+ },
+ {
+  "name": "single-doubled-‚‘'‚",
+  "source": "Write-Output ‚pre‘'post‚"
+ },
+ {
+  "name": "single-doubled-‚‘'‛",
+  "source": "Write-Output ‚pre‘'post‛"
+ },
+ {
+  "name": "single-doubled-‚‘‘'",
+  "source": "Write-Output ‚pre‘‘post'"
+ },
+ {
+  "name": "single-doubled-‚‘‘‘",
+  "source": "Write-Output ‚pre‘‘post‘"
+ },
+ {
+  "name": "single-doubled-‚‘‘’",
+  "source": "Write-Output ‚pre‘‘post’"
+ },
+ {
+  "name": "single-doubled-‚‘‘‚",
+  "source": "Write-Output ‚pre‘‘post‚"
+ },
+ {
+  "name": "single-doubled-‚‘‘‛",
+  "source": "Write-Output ‚pre‘‘post‛"
+ },
+ {
+  "name": "single-doubled-‚‘’'",
+  "source": "Write-Output ‚pre‘’post'"
+ },
+ {
+  "name": "single-doubled-‚‘’‘",
+  "source": "Write-Output ‚pre‘’post‘"
+ },
+ {
+  "name": "single-doubled-‚‘’’",
+  "source": "Write-Output ‚pre‘’post’"
+ },
+ {
+  "name": "single-doubled-‚‘’‚",
+  "source": "Write-Output ‚pre‘’post‚"
+ },
+ {
+  "name": "single-doubled-‚‘’‛",
+  "source": "Write-Output ‚pre‘’post‛"
+ },
+ {
+  "name": "single-doubled-‚‘‚'",
+  "source": "Write-Output ‚pre‘‚post'"
+ },
+ {
+  "name": "single-doubled-‚‘‚‘",
+  "source": "Write-Output ‚pre‘‚post‘"
+ },
+ {
+  "name": "single-doubled-‚‘‚’",
+  "source": "Write-Output ‚pre‘‚post’"
+ },
+ {
+  "name": "single-doubled-‚‘‚‚",
+  "source": "Write-Output ‚pre‘‚post‚"
+ },
+ {
+  "name": "single-doubled-‚‘‚‛",
+  "source": "Write-Output ‚pre‘‚post‛"
+ },
+ {
+  "name": "single-doubled-‚‘‛'",
+  "source": "Write-Output ‚pre‘‛post'"
+ },
+ {
+  "name": "single-doubled-‚‘‛‘",
+  "source": "Write-Output ‚pre‘‛post‘"
+ },
+ {
+  "name": "single-doubled-‚‘‛’",
+  "source": "Write-Output ‚pre‘‛post’"
+ },
+ {
+  "name": "single-doubled-‚‘‛‚",
+  "source": "Write-Output ‚pre‘‛post‚"
+ },
+ {
+  "name": "single-doubled-‚‘‛‛",
+  "source": "Write-Output ‚pre‘‛post‛"
+ },
+ {
+  "name": "single-here-‚‘-\"\\n\"-\"\"",
+  "source": "Write-Output @‚\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‚\nsample\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\n\n# text\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‚\r\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‚\r\nsample\r\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\r\n\r\n# text\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‚‘-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‘@"
+ },
+ {
+  "name": "single-joined-‚‘",
+  "source": "Write-Output pre‚two words‘post"
+ },
+ {
+  "name": "single-adjacent-variable-‚‘",
+  "source": "Write-Output ‚one‘$value"
+ },
+ {
+  "name": "single-adjacent-word-‚‘",
+  "source": "Write-Output ‚one‘tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‚‘",
+  "source": "Write-Output ‚one‘‚two‘"
+ },
+ {
+  "name": "single-command-name-‚‘",
+  "source": "Get-‚Two Words‘"
+ },
+ {
+  "name": "single-parameter-‚‘",
+  "source": "Write-Output --name=‚two words‘"
+ },
+ {
+  "name": "single-hash-value-‚‘",
+  "source": "Write-Output ‚ # text # ‘"
+ },
+ {
+  "name": "single-doubled-‚’''",
+  "source": "Write-Output ‚pre’'post'"
+ },
+ {
+  "name": "single-doubled-‚’'‘",
+  "source": "Write-Output ‚pre’'post‘"
+ },
+ {
+  "name": "single-doubled-‚’'’",
+  "source": "Write-Output ‚pre’'post’"
+ },
+ {
+  "name": "single-doubled-‚’'‚",
+  "source": "Write-Output ‚pre’'post‚"
+ },
+ {
+  "name": "single-doubled-‚’'‛",
+  "source": "Write-Output ‚pre’'post‛"
+ },
+ {
+  "name": "single-doubled-‚’‘'",
+  "source": "Write-Output ‚pre’‘post'"
+ },
+ {
+  "name": "single-doubled-‚’‘‘",
+  "source": "Write-Output ‚pre’‘post‘"
+ },
+ {
+  "name": "single-doubled-‚’‘’",
+  "source": "Write-Output ‚pre’‘post’"
+ },
+ {
+  "name": "single-doubled-‚’‘‚",
+  "source": "Write-Output ‚pre’‘post‚"
+ },
+ {
+  "name": "single-doubled-‚’‘‛",
+  "source": "Write-Output ‚pre’‘post‛"
+ },
+ {
+  "name": "single-doubled-‚’’'",
+  "source": "Write-Output ‚pre’’post'"
+ },
+ {
+  "name": "single-doubled-‚’’‘",
+  "source": "Write-Output ‚pre’’post‘"
+ },
+ {
+  "name": "single-doubled-‚’’’",
+  "source": "Write-Output ‚pre’’post’"
+ },
+ {
+  "name": "single-doubled-‚’’‚",
+  "source": "Write-Output ‚pre’’post‚"
+ },
+ {
+  "name": "single-doubled-‚’’‛",
+  "source": "Write-Output ‚pre’’post‛"
+ },
+ {
+  "name": "single-doubled-‚’‚'",
+  "source": "Write-Output ‚pre’‚post'"
+ },
+ {
+  "name": "single-doubled-‚’‚‘",
+  "source": "Write-Output ‚pre’‚post‘"
+ },
+ {
+  "name": "single-doubled-‚’‚’",
+  "source": "Write-Output ‚pre’‚post’"
+ },
+ {
+  "name": "single-doubled-‚’‚‚",
+  "source": "Write-Output ‚pre’‚post‚"
+ },
+ {
+  "name": "single-doubled-‚’‚‛",
+  "source": "Write-Output ‚pre’‚post‛"
+ },
+ {
+  "name": "single-doubled-‚’‛'",
+  "source": "Write-Output ‚pre’‛post'"
+ },
+ {
+  "name": "single-doubled-‚’‛‘",
+  "source": "Write-Output ‚pre’‛post‘"
+ },
+ {
+  "name": "single-doubled-‚’‛’",
+  "source": "Write-Output ‚pre’‛post’"
+ },
+ {
+  "name": "single-doubled-‚’‛‚",
+  "source": "Write-Output ‚pre’‛post‚"
+ },
+ {
+  "name": "single-doubled-‚’‛‛",
+  "source": "Write-Output ‚pre’‛post‛"
+ },
+ {
+  "name": "single-here-‚’-\"\\n\"-\"\"",
+  "source": "Write-Output @‚\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‚\nsample\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\n\n\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\n\n# text\n\n\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‚\r\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‚\r\nsample\r\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\r\n\r\n# text\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‚’-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n’@"
+ },
+ {
+  "name": "single-joined-‚’",
+  "source": "Write-Output pre‚two words’post"
+ },
+ {
+  "name": "single-adjacent-variable-‚’",
+  "source": "Write-Output ‚one’$value"
+ },
+ {
+  "name": "single-adjacent-word-‚’",
+  "source": "Write-Output ‚one’tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‚’",
+  "source": "Write-Output ‚one’‚two’"
+ },
+ {
+  "name": "single-command-name-‚’",
+  "source": "Get-‚Two Words’"
+ },
+ {
+  "name": "single-parameter-‚’",
+  "source": "Write-Output --name=‚two words’"
+ },
+ {
+  "name": "single-hash-value-‚’",
+  "source": "Write-Output ‚ # text # ’"
+ },
+ {
+  "name": "single-doubled-‚‚''",
+  "source": "Write-Output ‚pre‚'post'"
+ },
+ {
+  "name": "single-doubled-‚‚'‘",
+  "source": "Write-Output ‚pre‚'post‘"
+ },
+ {
+  "name": "single-doubled-‚‚'’",
+  "source": "Write-Output ‚pre‚'post’"
+ },
+ {
+  "name": "single-doubled-‚‚'‚",
+  "source": "Write-Output ‚pre‚'post‚"
+ },
+ {
+  "name": "single-doubled-‚‚'‛",
+  "source": "Write-Output ‚pre‚'post‛"
+ },
+ {
+  "name": "single-doubled-‚‚‘'",
+  "source": "Write-Output ‚pre‚‘post'"
+ },
+ {
+  "name": "single-doubled-‚‚‘‘",
+  "source": "Write-Output ‚pre‚‘post‘"
+ },
+ {
+  "name": "single-doubled-‚‚‘’",
+  "source": "Write-Output ‚pre‚‘post’"
+ },
+ {
+  "name": "single-doubled-‚‚‘‚",
+  "source": "Write-Output ‚pre‚‘post‚"
+ },
+ {
+  "name": "single-doubled-‚‚‘‛",
+  "source": "Write-Output ‚pre‚‘post‛"
+ },
+ {
+  "name": "single-doubled-‚‚’'",
+  "source": "Write-Output ‚pre‚’post'"
+ },
+ {
+  "name": "single-doubled-‚‚’‘",
+  "source": "Write-Output ‚pre‚’post‘"
+ },
+ {
+  "name": "single-doubled-‚‚’’",
+  "source": "Write-Output ‚pre‚’post’"
+ },
+ {
+  "name": "single-doubled-‚‚’‚",
+  "source": "Write-Output ‚pre‚’post‚"
+ },
+ {
+  "name": "single-doubled-‚‚’‛",
+  "source": "Write-Output ‚pre‚’post‛"
+ },
+ {
+  "name": "single-doubled-‚‚‚'",
+  "source": "Write-Output ‚pre‚‚post'"
+ },
+ {
+  "name": "single-doubled-‚‚‚‘",
+  "source": "Write-Output ‚pre‚‚post‘"
+ },
+ {
+  "name": "single-doubled-‚‚‚’",
+  "source": "Write-Output ‚pre‚‚post’"
+ },
+ {
+  "name": "single-doubled-‚‚‚‚",
+  "source": "Write-Output ‚pre‚‚post‚"
+ },
+ {
+  "name": "single-doubled-‚‚‚‛",
+  "source": "Write-Output ‚pre‚‚post‛"
+ },
+ {
+  "name": "single-doubled-‚‚‛'",
+  "source": "Write-Output ‚pre‚‛post'"
+ },
+ {
+  "name": "single-doubled-‚‚‛‘",
+  "source": "Write-Output ‚pre‚‛post‘"
+ },
+ {
+  "name": "single-doubled-‚‚‛’",
+  "source": "Write-Output ‚pre‚‛post’"
+ },
+ {
+  "name": "single-doubled-‚‚‛‚",
+  "source": "Write-Output ‚pre‚‛post‚"
+ },
+ {
+  "name": "single-doubled-‚‚‛‛",
+  "source": "Write-Output ‚pre‚‛post‛"
+ },
+ {
+  "name": "single-here-‚‚-\"\\n\"-\"\"",
+  "source": "Write-Output @‚\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‚\nsample\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\n\n# text\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‚\r\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‚\r\nsample\r\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\r\n\r\n# text\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‚‚-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‚@"
+ },
+ {
+  "name": "single-joined-‚‚",
+  "source": "Write-Output pre‚two words‚post"
+ },
+ {
+  "name": "single-adjacent-variable-‚‚",
+  "source": "Write-Output ‚one‚$value"
+ },
+ {
+  "name": "single-adjacent-word-‚‚",
+  "source": "Write-Output ‚one‚tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‚‚",
+  "source": "Write-Output ‚one‚‚two‚"
+ },
+ {
+  "name": "single-command-name-‚‚",
+  "source": "Get-‚Two Words‚"
+ },
+ {
+  "name": "single-parameter-‚‚",
+  "source": "Write-Output --name=‚two words‚"
+ },
+ {
+  "name": "single-hash-value-‚‚",
+  "source": "Write-Output ‚ # text # ‚"
+ },
+ {
+  "name": "single-doubled-‚‛''",
+  "source": "Write-Output ‚pre‛'post'"
+ },
+ {
+  "name": "single-doubled-‚‛'‘",
+  "source": "Write-Output ‚pre‛'post‘"
+ },
+ {
+  "name": "single-doubled-‚‛'’",
+  "source": "Write-Output ‚pre‛'post’"
+ },
+ {
+  "name": "single-doubled-‚‛'‚",
+  "source": "Write-Output ‚pre‛'post‚"
+ },
+ {
+  "name": "single-doubled-‚‛'‛",
+  "source": "Write-Output ‚pre‛'post‛"
+ },
+ {
+  "name": "single-doubled-‚‛‘'",
+  "source": "Write-Output ‚pre‛‘post'"
+ },
+ {
+  "name": "single-doubled-‚‛‘‘",
+  "source": "Write-Output ‚pre‛‘post‘"
+ },
+ {
+  "name": "single-doubled-‚‛‘’",
+  "source": "Write-Output ‚pre‛‘post’"
+ },
+ {
+  "name": "single-doubled-‚‛‘‚",
+  "source": "Write-Output ‚pre‛‘post‚"
+ },
+ {
+  "name": "single-doubled-‚‛‘‛",
+  "source": "Write-Output ‚pre‛‘post‛"
+ },
+ {
+  "name": "single-doubled-‚‛’'",
+  "source": "Write-Output ‚pre‛’post'"
+ },
+ {
+  "name": "single-doubled-‚‛’‘",
+  "source": "Write-Output ‚pre‛’post‘"
+ },
+ {
+  "name": "single-doubled-‚‛’’",
+  "source": "Write-Output ‚pre‛’post’"
+ },
+ {
+  "name": "single-doubled-‚‛’‚",
+  "source": "Write-Output ‚pre‛’post‚"
+ },
+ {
+  "name": "single-doubled-‚‛’‛",
+  "source": "Write-Output ‚pre‛’post‛"
+ },
+ {
+  "name": "single-doubled-‚‛‚'",
+  "source": "Write-Output ‚pre‛‚post'"
+ },
+ {
+  "name": "single-doubled-‚‛‚‘",
+  "source": "Write-Output ‚pre‛‚post‘"
+ },
+ {
+  "name": "single-doubled-‚‛‚’",
+  "source": "Write-Output ‚pre‛‚post’"
+ },
+ {
+  "name": "single-doubled-‚‛‚‚",
+  "source": "Write-Output ‚pre‛‚post‚"
+ },
+ {
+  "name": "single-doubled-‚‛‚‛",
+  "source": "Write-Output ‚pre‛‚post‛"
+ },
+ {
+  "name": "single-doubled-‚‛‛'",
+  "source": "Write-Output ‚pre‛‛post'"
+ },
+ {
+  "name": "single-doubled-‚‛‛‘",
+  "source": "Write-Output ‚pre‛‛post‘"
+ },
+ {
+  "name": "single-doubled-‚‛‛’",
+  "source": "Write-Output ‚pre‛‛post’"
+ },
+ {
+  "name": "single-doubled-‚‛‛‚",
+  "source": "Write-Output ‚pre‛‛post‚"
+ },
+ {
+  "name": "single-doubled-‚‛‛‛",
+  "source": "Write-Output ‚pre‛‛post‛"
+ },
+ {
+  "name": "single-here-‚‛-\"\\n\"-\"\"",
+  "source": "Write-Output @‚\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‚\nsample\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\n\n# text\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‚\r\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‚\r\nsample\r\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‚\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‚\r\n\r\n# text\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‚‛-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‚\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‛@"
+ },
+ {
+  "name": "single-joined-‚‛",
+  "source": "Write-Output pre‚two words‛post"
+ },
+ {
+  "name": "single-adjacent-variable-‚‛",
+  "source": "Write-Output ‚one‛$value"
+ },
+ {
+  "name": "single-adjacent-word-‚‛",
+  "source": "Write-Output ‚one‛tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‚‛",
+  "source": "Write-Output ‚one‛‚two‛"
+ },
+ {
+  "name": "single-command-name-‚‛",
+  "source": "Get-‚Two Words‛"
+ },
+ {
+  "name": "single-parameter-‚‛",
+  "source": "Write-Output --name=‚two words‛"
+ },
+ {
+  "name": "single-hash-value-‚‛",
+  "source": "Write-Output ‚ # text # ‛"
+ },
+ {
+  "name": "single-doubled-‛'''",
+  "source": "Write-Output ‛pre''post'"
+ },
+ {
+  "name": "single-doubled-‛''‘",
+  "source": "Write-Output ‛pre''post‘"
+ },
+ {
+  "name": "single-doubled-‛''’",
+  "source": "Write-Output ‛pre''post’"
+ },
+ {
+  "name": "single-doubled-‛''‚",
+  "source": "Write-Output ‛pre''post‚"
+ },
+ {
+  "name": "single-doubled-‛''‛",
+  "source": "Write-Output ‛pre''post‛"
+ },
+ {
+  "name": "single-doubled-‛'‘'",
+  "source": "Write-Output ‛pre'‘post'"
+ },
+ {
+  "name": "single-doubled-‛'‘‘",
+  "source": "Write-Output ‛pre'‘post‘"
+ },
+ {
+  "name": "single-doubled-‛'‘’",
+  "source": "Write-Output ‛pre'‘post’"
+ },
+ {
+  "name": "single-doubled-‛'‘‚",
+  "source": "Write-Output ‛pre'‘post‚"
+ },
+ {
+  "name": "single-doubled-‛'‘‛",
+  "source": "Write-Output ‛pre'‘post‛"
+ },
+ {
+  "name": "single-doubled-‛'’'",
+  "source": "Write-Output ‛pre'’post'"
+ },
+ {
+  "name": "single-doubled-‛'’‘",
+  "source": "Write-Output ‛pre'’post‘"
+ },
+ {
+  "name": "single-doubled-‛'’’",
+  "source": "Write-Output ‛pre'’post’"
+ },
+ {
+  "name": "single-doubled-‛'’‚",
+  "source": "Write-Output ‛pre'’post‚"
+ },
+ {
+  "name": "single-doubled-‛'’‛",
+  "source": "Write-Output ‛pre'’post‛"
+ },
+ {
+  "name": "single-doubled-‛'‚'",
+  "source": "Write-Output ‛pre'‚post'"
+ },
+ {
+  "name": "single-doubled-‛'‚‘",
+  "source": "Write-Output ‛pre'‚post‘"
+ },
+ {
+  "name": "single-doubled-‛'‚’",
+  "source": "Write-Output ‛pre'‚post’"
+ },
+ {
+  "name": "single-doubled-‛'‚‚",
+  "source": "Write-Output ‛pre'‚post‚"
+ },
+ {
+  "name": "single-doubled-‛'‚‛",
+  "source": "Write-Output ‛pre'‚post‛"
+ },
+ {
+  "name": "single-doubled-‛'‛'",
+  "source": "Write-Output ‛pre'‛post'"
+ },
+ {
+  "name": "single-doubled-‛'‛‘",
+  "source": "Write-Output ‛pre'‛post‘"
+ },
+ {
+  "name": "single-doubled-‛'‛’",
+  "source": "Write-Output ‛pre'‛post’"
+ },
+ {
+  "name": "single-doubled-‛'‛‚",
+  "source": "Write-Output ‛pre'‛post‚"
+ },
+ {
+  "name": "single-doubled-‛'‛‛",
+  "source": "Write-Output ‛pre'‛post‛"
+ },
+ {
+  "name": "single-here-‛'-\"\\n\"-\"\"",
+  "source": "Write-Output @‛\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‛\nsample\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\n\n\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\n\n# text\n\n\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‛\r\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‛\r\nsample\r\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\r\n\r\n# text\r\n\r\n\r\n'@"
+ },
+ {
+  "name": "single-here-‛'-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n'@"
+ },
+ {
+  "name": "single-joined-‛'",
+  "source": "Write-Output pre‛two words'post"
+ },
+ {
+  "name": "single-adjacent-variable-‛'",
+  "source": "Write-Output ‛one'$value"
+ },
+ {
+  "name": "single-adjacent-word-‛'",
+  "source": "Write-Output ‛one'tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‛'",
+  "source": "Write-Output ‛one'‛two'"
+ },
+ {
+  "name": "single-command-name-‛'",
+  "source": "Get-‛Two Words'"
+ },
+ {
+  "name": "single-parameter-‛'",
+  "source": "Write-Output --name=‛two words'"
+ },
+ {
+  "name": "single-hash-value-‛'",
+  "source": "Write-Output ‛ # text # '"
+ },
+ {
+  "name": "single-doubled-‛‘''",
+  "source": "Write-Output ‛pre‘'post'"
+ },
+ {
+  "name": "single-doubled-‛‘'‘",
+  "source": "Write-Output ‛pre‘'post‘"
+ },
+ {
+  "name": "single-doubled-‛‘'’",
+  "source": "Write-Output ‛pre‘'post’"
+ },
+ {
+  "name": "single-doubled-‛‘'‚",
+  "source": "Write-Output ‛pre‘'post‚"
+ },
+ {
+  "name": "single-doubled-‛‘'‛",
+  "source": "Write-Output ‛pre‘'post‛"
+ },
+ {
+  "name": "single-doubled-‛‘‘'",
+  "source": "Write-Output ‛pre‘‘post'"
+ },
+ {
+  "name": "single-doubled-‛‘‘‘",
+  "source": "Write-Output ‛pre‘‘post‘"
+ },
+ {
+  "name": "single-doubled-‛‘‘’",
+  "source": "Write-Output ‛pre‘‘post’"
+ },
+ {
+  "name": "single-doubled-‛‘‘‚",
+  "source": "Write-Output ‛pre‘‘post‚"
+ },
+ {
+  "name": "single-doubled-‛‘‘‛",
+  "source": "Write-Output ‛pre‘‘post‛"
+ },
+ {
+  "name": "single-doubled-‛‘’'",
+  "source": "Write-Output ‛pre‘’post'"
+ },
+ {
+  "name": "single-doubled-‛‘’‘",
+  "source": "Write-Output ‛pre‘’post‘"
+ },
+ {
+  "name": "single-doubled-‛‘’’",
+  "source": "Write-Output ‛pre‘’post’"
+ },
+ {
+  "name": "single-doubled-‛‘’‚",
+  "source": "Write-Output ‛pre‘’post‚"
+ },
+ {
+  "name": "single-doubled-‛‘’‛",
+  "source": "Write-Output ‛pre‘’post‛"
+ },
+ {
+  "name": "single-doubled-‛‘‚'",
+  "source": "Write-Output ‛pre‘‚post'"
+ },
+ {
+  "name": "single-doubled-‛‘‚‘",
+  "source": "Write-Output ‛pre‘‚post‘"
+ },
+ {
+  "name": "single-doubled-‛‘‚’",
+  "source": "Write-Output ‛pre‘‚post’"
+ },
+ {
+  "name": "single-doubled-‛‘‚‚",
+  "source": "Write-Output ‛pre‘‚post‚"
+ },
+ {
+  "name": "single-doubled-‛‘‚‛",
+  "source": "Write-Output ‛pre‘‚post‛"
+ },
+ {
+  "name": "single-doubled-‛‘‛'",
+  "source": "Write-Output ‛pre‘‛post'"
+ },
+ {
+  "name": "single-doubled-‛‘‛‘",
+  "source": "Write-Output ‛pre‘‛post‘"
+ },
+ {
+  "name": "single-doubled-‛‘‛’",
+  "source": "Write-Output ‛pre‘‛post’"
+ },
+ {
+  "name": "single-doubled-‛‘‛‚",
+  "source": "Write-Output ‛pre‘‛post‚"
+ },
+ {
+  "name": "single-doubled-‛‘‛‛",
+  "source": "Write-Output ‛pre‘‛post‛"
+ },
+ {
+  "name": "single-here-‛‘-\"\\n\"-\"\"",
+  "source": "Write-Output @‛\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‛\nsample\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\n\n# text\n\n\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‛\r\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‛\r\nsample\r\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\r\n\r\n# text\r\n\r\n\r\n‘@"
+ },
+ {
+  "name": "single-here-‛‘-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‘@"
+ },
+ {
+  "name": "single-joined-‛‘",
+  "source": "Write-Output pre‛two words‘post"
+ },
+ {
+  "name": "single-adjacent-variable-‛‘",
+  "source": "Write-Output ‛one‘$value"
+ },
+ {
+  "name": "single-adjacent-word-‛‘",
+  "source": "Write-Output ‛one‘tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‛‘",
+  "source": "Write-Output ‛one‘‛two‘"
+ },
+ {
+  "name": "single-command-name-‛‘",
+  "source": "Get-‛Two Words‘"
+ },
+ {
+  "name": "single-parameter-‛‘",
+  "source": "Write-Output --name=‛two words‘"
+ },
+ {
+  "name": "single-hash-value-‛‘",
+  "source": "Write-Output ‛ # text # ‘"
+ },
+ {
+  "name": "single-doubled-‛’''",
+  "source": "Write-Output ‛pre’'post'"
+ },
+ {
+  "name": "single-doubled-‛’'‘",
+  "source": "Write-Output ‛pre’'post‘"
+ },
+ {
+  "name": "single-doubled-‛’'’",
+  "source": "Write-Output ‛pre’'post’"
+ },
+ {
+  "name": "single-doubled-‛’'‚",
+  "source": "Write-Output ‛pre’'post‚"
+ },
+ {
+  "name": "single-doubled-‛’'‛",
+  "source": "Write-Output ‛pre’'post‛"
+ },
+ {
+  "name": "single-doubled-‛’‘'",
+  "source": "Write-Output ‛pre’‘post'"
+ },
+ {
+  "name": "single-doubled-‛’‘‘",
+  "source": "Write-Output ‛pre’‘post‘"
+ },
+ {
+  "name": "single-doubled-‛’‘’",
+  "source": "Write-Output ‛pre’‘post’"
+ },
+ {
+  "name": "single-doubled-‛’‘‚",
+  "source": "Write-Output ‛pre’‘post‚"
+ },
+ {
+  "name": "single-doubled-‛’‘‛",
+  "source": "Write-Output ‛pre’‘post‛"
+ },
+ {
+  "name": "single-doubled-‛’’'",
+  "source": "Write-Output ‛pre’’post'"
+ },
+ {
+  "name": "single-doubled-‛’’‘",
+  "source": "Write-Output ‛pre’’post‘"
+ },
+ {
+  "name": "single-doubled-‛’’’",
+  "source": "Write-Output ‛pre’’post’"
+ },
+ {
+  "name": "single-doubled-‛’’‚",
+  "source": "Write-Output ‛pre’’post‚"
+ },
+ {
+  "name": "single-doubled-‛’’‛",
+  "source": "Write-Output ‛pre’’post‛"
+ },
+ {
+  "name": "single-doubled-‛’‚'",
+  "source": "Write-Output ‛pre’‚post'"
+ },
+ {
+  "name": "single-doubled-‛’‚‘",
+  "source": "Write-Output ‛pre’‚post‘"
+ },
+ {
+  "name": "single-doubled-‛’‚’",
+  "source": "Write-Output ‛pre’‚post’"
+ },
+ {
+  "name": "single-doubled-‛’‚‚",
+  "source": "Write-Output ‛pre’‚post‚"
+ },
+ {
+  "name": "single-doubled-‛’‚‛",
+  "source": "Write-Output ‛pre’‚post‛"
+ },
+ {
+  "name": "single-doubled-‛’‛'",
+  "source": "Write-Output ‛pre’‛post'"
+ },
+ {
+  "name": "single-doubled-‛’‛‘",
+  "source": "Write-Output ‛pre’‛post‘"
+ },
+ {
+  "name": "single-doubled-‛’‛’",
+  "source": "Write-Output ‛pre’‛post’"
+ },
+ {
+  "name": "single-doubled-‛’‛‚",
+  "source": "Write-Output ‛pre’‛post‚"
+ },
+ {
+  "name": "single-doubled-‛’‛‛",
+  "source": "Write-Output ‛pre’‛post‛"
+ },
+ {
+  "name": "single-here-‛’-\"\\n\"-\"\"",
+  "source": "Write-Output @‛\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‛\nsample\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\n\n\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\n\n# text\n\n\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‛\r\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‛\r\nsample\r\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\r\n\r\n# text\r\n\r\n\r\n’@"
+ },
+ {
+  "name": "single-here-‛’-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n’@"
+ },
+ {
+  "name": "single-joined-‛’",
+  "source": "Write-Output pre‛two words’post"
+ },
+ {
+  "name": "single-adjacent-variable-‛’",
+  "source": "Write-Output ‛one’$value"
+ },
+ {
+  "name": "single-adjacent-word-‛’",
+  "source": "Write-Output ‛one’tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‛’",
+  "source": "Write-Output ‛one’‛two’"
+ },
+ {
+  "name": "single-command-name-‛’",
+  "source": "Get-‛Two Words’"
+ },
+ {
+  "name": "single-parameter-‛’",
+  "source": "Write-Output --name=‛two words’"
+ },
+ {
+  "name": "single-hash-value-‛’",
+  "source": "Write-Output ‛ # text # ’"
+ },
+ {
+  "name": "single-doubled-‛‚''",
+  "source": "Write-Output ‛pre‚'post'"
+ },
+ {
+  "name": "single-doubled-‛‚'‘",
+  "source": "Write-Output ‛pre‚'post‘"
+ },
+ {
+  "name": "single-doubled-‛‚'’",
+  "source": "Write-Output ‛pre‚'post’"
+ },
+ {
+  "name": "single-doubled-‛‚'‚",
+  "source": "Write-Output ‛pre‚'post‚"
+ },
+ {
+  "name": "single-doubled-‛‚'‛",
+  "source": "Write-Output ‛pre‚'post‛"
+ },
+ {
+  "name": "single-doubled-‛‚‘'",
+  "source": "Write-Output ‛pre‚‘post'"
+ },
+ {
+  "name": "single-doubled-‛‚‘‘",
+  "source": "Write-Output ‛pre‚‘post‘"
+ },
+ {
+  "name": "single-doubled-‛‚‘’",
+  "source": "Write-Output ‛pre‚‘post’"
+ },
+ {
+  "name": "single-doubled-‛‚‘‚",
+  "source": "Write-Output ‛pre‚‘post‚"
+ },
+ {
+  "name": "single-doubled-‛‚‘‛",
+  "source": "Write-Output ‛pre‚‘post‛"
+ },
+ {
+  "name": "single-doubled-‛‚’'",
+  "source": "Write-Output ‛pre‚’post'"
+ },
+ {
+  "name": "single-doubled-‛‚’‘",
+  "source": "Write-Output ‛pre‚’post‘"
+ },
+ {
+  "name": "single-doubled-‛‚’’",
+  "source": "Write-Output ‛pre‚’post’"
+ },
+ {
+  "name": "single-doubled-‛‚’‚",
+  "source": "Write-Output ‛pre‚’post‚"
+ },
+ {
+  "name": "single-doubled-‛‚’‛",
+  "source": "Write-Output ‛pre‚’post‛"
+ },
+ {
+  "name": "single-doubled-‛‚‚'",
+  "source": "Write-Output ‛pre‚‚post'"
+ },
+ {
+  "name": "single-doubled-‛‚‚‘",
+  "source": "Write-Output ‛pre‚‚post‘"
+ },
+ {
+  "name": "single-doubled-‛‚‚’",
+  "source": "Write-Output ‛pre‚‚post’"
+ },
+ {
+  "name": "single-doubled-‛‚‚‚",
+  "source": "Write-Output ‛pre‚‚post‚"
+ },
+ {
+  "name": "single-doubled-‛‚‚‛",
+  "source": "Write-Output ‛pre‚‚post‛"
+ },
+ {
+  "name": "single-doubled-‛‚‛'",
+  "source": "Write-Output ‛pre‚‛post'"
+ },
+ {
+  "name": "single-doubled-‛‚‛‘",
+  "source": "Write-Output ‛pre‚‛post‘"
+ },
+ {
+  "name": "single-doubled-‛‚‛’",
+  "source": "Write-Output ‛pre‚‛post’"
+ },
+ {
+  "name": "single-doubled-‛‚‛‚",
+  "source": "Write-Output ‛pre‚‛post‚"
+ },
+ {
+  "name": "single-doubled-‛‚‛‛",
+  "source": "Write-Output ‛pre‚‛post‛"
+ },
+ {
+  "name": "single-here-‛‚-\"\\n\"-\"\"",
+  "source": "Write-Output @‛\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‛\nsample\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\n\n# text\n\n\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‛\r\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‛\r\nsample\r\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\r\n\r\n# text\r\n\r\n\r\n‚@"
+ },
+ {
+  "name": "single-here-‛‚-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‚@"
+ },
+ {
+  "name": "single-joined-‛‚",
+  "source": "Write-Output pre‛two words‚post"
+ },
+ {
+  "name": "single-adjacent-variable-‛‚",
+  "source": "Write-Output ‛one‚$value"
+ },
+ {
+  "name": "single-adjacent-word-‛‚",
+  "source": "Write-Output ‛one‚tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‛‚",
+  "source": "Write-Output ‛one‚‛two‚"
+ },
+ {
+  "name": "single-command-name-‛‚",
+  "source": "Get-‛Two Words‚"
+ },
+ {
+  "name": "single-parameter-‛‚",
+  "source": "Write-Output --name=‛two words‚"
+ },
+ {
+  "name": "single-hash-value-‛‚",
+  "source": "Write-Output ‛ # text # ‚"
+ },
+ {
+  "name": "single-doubled-‛‛''",
+  "source": "Write-Output ‛pre‛'post'"
+ },
+ {
+  "name": "single-doubled-‛‛'‘",
+  "source": "Write-Output ‛pre‛'post‘"
+ },
+ {
+  "name": "single-doubled-‛‛'’",
+  "source": "Write-Output ‛pre‛'post’"
+ },
+ {
+  "name": "single-doubled-‛‛'‚",
+  "source": "Write-Output ‛pre‛'post‚"
+ },
+ {
+  "name": "single-doubled-‛‛'‛",
+  "source": "Write-Output ‛pre‛'post‛"
+ },
+ {
+  "name": "single-doubled-‛‛‘'",
+  "source": "Write-Output ‛pre‛‘post'"
+ },
+ {
+  "name": "single-doubled-‛‛‘‘",
+  "source": "Write-Output ‛pre‛‘post‘"
+ },
+ {
+  "name": "single-doubled-‛‛‘’",
+  "source": "Write-Output ‛pre‛‘post’"
+ },
+ {
+  "name": "single-doubled-‛‛‘‚",
+  "source": "Write-Output ‛pre‛‘post‚"
+ },
+ {
+  "name": "single-doubled-‛‛‘‛",
+  "source": "Write-Output ‛pre‛‘post‛"
+ },
+ {
+  "name": "single-doubled-‛‛’'",
+  "source": "Write-Output ‛pre‛’post'"
+ },
+ {
+  "name": "single-doubled-‛‛’‘",
+  "source": "Write-Output ‛pre‛’post‘"
+ },
+ {
+  "name": "single-doubled-‛‛’’",
+  "source": "Write-Output ‛pre‛’post’"
+ },
+ {
+  "name": "single-doubled-‛‛’‚",
+  "source": "Write-Output ‛pre‛’post‚"
+ },
+ {
+  "name": "single-doubled-‛‛’‛",
+  "source": "Write-Output ‛pre‛’post‛"
+ },
+ {
+  "name": "single-doubled-‛‛‚'",
+  "source": "Write-Output ‛pre‛‚post'"
+ },
+ {
+  "name": "single-doubled-‛‛‚‘",
+  "source": "Write-Output ‛pre‛‚post‘"
+ },
+ {
+  "name": "single-doubled-‛‛‚’",
+  "source": "Write-Output ‛pre‛‚post’"
+ },
+ {
+  "name": "single-doubled-‛‛‚‚",
+  "source": "Write-Output ‛pre‛‚post‚"
+ },
+ {
+  "name": "single-doubled-‛‛‚‛",
+  "source": "Write-Output ‛pre‛‚post‛"
+ },
+ {
+  "name": "single-doubled-‛‛‛'",
+  "source": "Write-Output ‛pre‛‛post'"
+ },
+ {
+  "name": "single-doubled-‛‛‛‘",
+  "source": "Write-Output ‛pre‛‛post‘"
+ },
+ {
+  "name": "single-doubled-‛‛‛’",
+  "source": "Write-Output ‛pre‛‛post’"
+ },
+ {
+  "name": "single-doubled-‛‛‛‚",
+  "source": "Write-Output ‛pre‛‛post‚"
+ },
+ {
+  "name": "single-doubled-‛‛‛‛",
+  "source": "Write-Output ‛pre‛‛post‛"
+ },
+ {
+  "name": "single-here-‛‛-\"\\n\"-\"\"",
+  "source": "Write-Output @‛\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\n\"-\"sample\"",
+  "source": "Write-Output @‛\nsample\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\n\n# text\n\n\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @‛\r\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @‛\r\nsample\r\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @‛\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @‛\r\n\r\n# text\r\n\r\n\r\n‛@"
+ },
+ {
+  "name": "single-here-‛‛-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @‛\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n‛@"
+ },
+ {
+  "name": "single-joined-‛‛",
+  "source": "Write-Output pre‛two words‛post"
+ },
+ {
+  "name": "single-adjacent-variable-‛‛",
+  "source": "Write-Output ‛one‛$value"
+ },
+ {
+  "name": "single-adjacent-word-‛‛",
+  "source": "Write-Output ‛one‛tail"
+ },
+ {
+  "name": "single-adjacent-quoted-‛‛",
+  "source": "Write-Output ‛one‛‛two‛"
+ },
+ {
+  "name": "single-command-name-‛‛",
+  "source": "Get-‛Two Words‛"
+ },
+ {
+  "name": "single-parameter-‛‛",
+  "source": "Write-Output --name=‛two words‛"
+ },
+ {
+  "name": "single-hash-value-‛‛",
+  "source": "Write-Output ‛ # text # ‛"
+ },
+ {
+  "name": "double-doubled-\"\"\"\"",
+  "source": "Write-Output \"pre\"\"post\""
+ },
+ {
+  "name": "double-doubled-\"\"\"“",
+  "source": "Write-Output \"pre\"\"post“"
+ },
+ {
+  "name": "double-doubled-\"\"\"”",
+  "source": "Write-Output \"pre\"\"post”"
+ },
+ {
+  "name": "double-doubled-\"\"\"„",
+  "source": "Write-Output \"pre\"\"post„"
+ },
+ {
+  "name": "double-doubled-\"\"“\"",
+  "source": "Write-Output \"pre\"“post\""
+ },
+ {
+  "name": "double-doubled-\"\"““",
+  "source": "Write-Output \"pre\"“post“"
+ },
+ {
+  "name": "double-doubled-\"\"“”",
+  "source": "Write-Output \"pre\"“post”"
+ },
+ {
+  "name": "double-doubled-\"\"“„",
+  "source": "Write-Output \"pre\"“post„"
+ },
+ {
+  "name": "double-doubled-\"\"”\"",
+  "source": "Write-Output \"pre\"”post\""
+ },
+ {
+  "name": "double-doubled-\"\"”“",
+  "source": "Write-Output \"pre\"”post“"
+ },
+ {
+  "name": "double-doubled-\"\"””",
+  "source": "Write-Output \"pre\"”post”"
+ },
+ {
+  "name": "double-doubled-\"\"”„",
+  "source": "Write-Output \"pre\"”post„"
+ },
+ {
+  "name": "double-doubled-\"\"„\"",
+  "source": "Write-Output \"pre\"„post\""
+ },
+ {
+  "name": "double-doubled-\"\"„“",
+  "source": "Write-Output \"pre\"„post“"
+ },
+ {
+  "name": "double-doubled-\"\"„”",
+  "source": "Write-Output \"pre\"„post”"
+ },
+ {
+  "name": "double-doubled-\"\"„„",
+  "source": "Write-Output \"pre\"„post„"
+ },
+ {
+  "name": "double-here-\"\"-\"\\n\"-\"\"",
+  "source": "Write-Output @\"\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\n\"-\"sample\"",
+  "source": "Write-Output @\"\nsample\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\n\n\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\n\n# text\n\n\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @\"\r\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @\"\r\nsample\r\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\r\n\r\n# text\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-\"\"-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n\"@"
+ },
+ {
+  "name": "double-joined-\"\"",
+  "source": "Write-Output pre\"two words\"post"
+ },
+ {
+  "name": "double-adjacent-variable-\"\"",
+  "source": "Write-Output \"one\"$value"
+ },
+ {
+  "name": "double-adjacent-word-\"\"",
+  "source": "Write-Output \"one\"tail"
+ },
+ {
+  "name": "double-adjacent-quoted-\"\"",
+  "source": "Write-Output \"one\"\"two\""
+ },
+ {
+  "name": "double-command-name-\"\"",
+  "source": "Get-\"Two Words\""
+ },
+ {
+  "name": "double-parameter-\"\"",
+  "source": "Write-Output --name=\"two words\""
+ },
+ {
+  "name": "double-hash-value-\"\"",
+  "source": "Write-Output \" # text # \""
+ },
+ {
+  "name": "double-doubled-\"“\"\"",
+  "source": "Write-Output \"pre“\"post\""
+ },
+ {
+  "name": "double-doubled-\"“\"“",
+  "source": "Write-Output \"pre“\"post“"
+ },
+ {
+  "name": "double-doubled-\"“\"”",
+  "source": "Write-Output \"pre“\"post”"
+ },
+ {
+  "name": "double-doubled-\"“\"„",
+  "source": "Write-Output \"pre“\"post„"
+ },
+ {
+  "name": "double-doubled-\"““\"",
+  "source": "Write-Output \"pre““post\""
+ },
+ {
+  "name": "double-doubled-\"“““",
+  "source": "Write-Output \"pre““post“"
+ },
+ {
+  "name": "double-doubled-\"““”",
+  "source": "Write-Output \"pre““post”"
+ },
+ {
+  "name": "double-doubled-\"““„",
+  "source": "Write-Output \"pre““post„"
+ },
+ {
+  "name": "double-doubled-\"“”\"",
+  "source": "Write-Output \"pre“”post\""
+ },
+ {
+  "name": "double-doubled-\"“”“",
+  "source": "Write-Output \"pre“”post“"
+ },
+ {
+  "name": "double-doubled-\"“””",
+  "source": "Write-Output \"pre“”post”"
+ },
+ {
+  "name": "double-doubled-\"“”„",
+  "source": "Write-Output \"pre“”post„"
+ },
+ {
+  "name": "double-doubled-\"“„\"",
+  "source": "Write-Output \"pre“„post\""
+ },
+ {
+  "name": "double-doubled-\"“„“",
+  "source": "Write-Output \"pre“„post“"
+ },
+ {
+  "name": "double-doubled-\"“„”",
+  "source": "Write-Output \"pre“„post”"
+ },
+ {
+  "name": "double-doubled-\"“„„",
+  "source": "Write-Output \"pre“„post„"
+ },
+ {
+  "name": "double-here-\"“-\"\\n\"-\"\"",
+  "source": "Write-Output @\"\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\n\"-\"sample\"",
+  "source": "Write-Output @\"\nsample\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\n\n\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\n\n# text\n\n\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @\"\r\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @\"\r\nsample\r\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\r\n\r\n# text\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-\"“-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n“@"
+ },
+ {
+  "name": "double-joined-\"“",
+  "source": "Write-Output pre\"two words“post"
+ },
+ {
+  "name": "double-adjacent-variable-\"“",
+  "source": "Write-Output \"one“$value"
+ },
+ {
+  "name": "double-adjacent-word-\"“",
+  "source": "Write-Output \"one“tail"
+ },
+ {
+  "name": "double-adjacent-quoted-\"“",
+  "source": "Write-Output \"one“\"two“"
+ },
+ {
+  "name": "double-command-name-\"“",
+  "source": "Get-\"Two Words“"
+ },
+ {
+  "name": "double-parameter-\"“",
+  "source": "Write-Output --name=\"two words“"
+ },
+ {
+  "name": "double-hash-value-\"“",
+  "source": "Write-Output \" # text # “"
+ },
+ {
+  "name": "double-doubled-\"”\"\"",
+  "source": "Write-Output \"pre”\"post\""
+ },
+ {
+  "name": "double-doubled-\"”\"“",
+  "source": "Write-Output \"pre”\"post“"
+ },
+ {
+  "name": "double-doubled-\"”\"”",
+  "source": "Write-Output \"pre”\"post”"
+ },
+ {
+  "name": "double-doubled-\"”\"„",
+  "source": "Write-Output \"pre”\"post„"
+ },
+ {
+  "name": "double-doubled-\"”“\"",
+  "source": "Write-Output \"pre”“post\""
+ },
+ {
+  "name": "double-doubled-\"”““",
+  "source": "Write-Output \"pre”“post“"
+ },
+ {
+  "name": "double-doubled-\"”“”",
+  "source": "Write-Output \"pre”“post”"
+ },
+ {
+  "name": "double-doubled-\"”“„",
+  "source": "Write-Output \"pre”“post„"
+ },
+ {
+  "name": "double-doubled-\"””\"",
+  "source": "Write-Output \"pre””post\""
+ },
+ {
+  "name": "double-doubled-\"””“",
+  "source": "Write-Output \"pre””post“"
+ },
+ {
+  "name": "double-doubled-\"”””",
+  "source": "Write-Output \"pre””post”"
+ },
+ {
+  "name": "double-doubled-\"””„",
+  "source": "Write-Output \"pre””post„"
+ },
+ {
+  "name": "double-doubled-\"”„\"",
+  "source": "Write-Output \"pre”„post\""
+ },
+ {
+  "name": "double-doubled-\"”„“",
+  "source": "Write-Output \"pre”„post“"
+ },
+ {
+  "name": "double-doubled-\"”„”",
+  "source": "Write-Output \"pre”„post”"
+ },
+ {
+  "name": "double-doubled-\"”„„",
+  "source": "Write-Output \"pre”„post„"
+ },
+ {
+  "name": "double-here-\"”-\"\\n\"-\"\"",
+  "source": "Write-Output @\"\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\n\n\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\n\n# text\n\n\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @\"\r\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @\"\r\nsample\r\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\r\n\r\n# text\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-\"”-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n”@"
+ },
+ {
+  "name": "double-joined-\"”",
+  "source": "Write-Output pre\"two words”post"
+ },
+ {
+  "name": "double-adjacent-variable-\"”",
+  "source": "Write-Output \"one”$value"
+ },
+ {
+  "name": "double-adjacent-word-\"”",
+  "source": "Write-Output \"one”tail"
+ },
+ {
+  "name": "double-adjacent-quoted-\"”",
+  "source": "Write-Output \"one”\"two”"
+ },
+ {
+  "name": "double-command-name-\"”",
+  "source": "Get-\"Two Words”"
+ },
+ {
+  "name": "double-parameter-\"”",
+  "source": "Write-Output --name=\"two words”"
+ },
+ {
+  "name": "double-hash-value-\"”",
+  "source": "Write-Output \" # text # ”"
+ },
+ {
+  "name": "double-doubled-\"„\"\"",
+  "source": "Write-Output \"pre„\"post\""
+ },
+ {
+  "name": "double-doubled-\"„\"“",
+  "source": "Write-Output \"pre„\"post“"
+ },
+ {
+  "name": "double-doubled-\"„\"”",
+  "source": "Write-Output \"pre„\"post”"
+ },
+ {
+  "name": "double-doubled-\"„\"„",
+  "source": "Write-Output \"pre„\"post„"
+ },
+ {
+  "name": "double-doubled-\"„“\"",
+  "source": "Write-Output \"pre„“post\""
+ },
+ {
+  "name": "double-doubled-\"„““",
+  "source": "Write-Output \"pre„“post“"
+ },
+ {
+  "name": "double-doubled-\"„“”",
+  "source": "Write-Output \"pre„“post”"
+ },
+ {
+  "name": "double-doubled-\"„“„",
+  "source": "Write-Output \"pre„“post„"
+ },
+ {
+  "name": "double-doubled-\"„”\"",
+  "source": "Write-Output \"pre„”post\""
+ },
+ {
+  "name": "double-doubled-\"„”“",
+  "source": "Write-Output \"pre„”post“"
+ },
+ {
+  "name": "double-doubled-\"„””",
+  "source": "Write-Output \"pre„”post”"
+ },
+ {
+  "name": "double-doubled-\"„”„",
+  "source": "Write-Output \"pre„”post„"
+ },
+ {
+  "name": "double-doubled-\"„„\"",
+  "source": "Write-Output \"pre„„post\""
+ },
+ {
+  "name": "double-doubled-\"„„“",
+  "source": "Write-Output \"pre„„post“"
+ },
+ {
+  "name": "double-doubled-\"„„”",
+  "source": "Write-Output \"pre„„post”"
+ },
+ {
+  "name": "double-doubled-\"„„„",
+  "source": "Write-Output \"pre„„post„"
+ },
+ {
+  "name": "double-here-\"„-\"\\n\"-\"\"",
+  "source": "Write-Output @\"\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\n\"-\"sample\"",
+  "source": "Write-Output @\"\nsample\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\n\n\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\n\n# text\n\n\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @\"\r\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @\"\r\nsample\r\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @\"\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @\"\r\n\r\n# text\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-\"„-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @\"\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n„@"
+ },
+ {
+  "name": "double-joined-\"„",
+  "source": "Write-Output pre\"two words„post"
+ },
+ {
+  "name": "double-adjacent-variable-\"„",
+  "source": "Write-Output \"one„$value"
+ },
+ {
+  "name": "double-adjacent-word-\"„",
+  "source": "Write-Output \"one„tail"
+ },
+ {
+  "name": "double-adjacent-quoted-\"„",
+  "source": "Write-Output \"one„\"two„"
+ },
+ {
+  "name": "double-command-name-\"„",
+  "source": "Get-\"Two Words„"
+ },
+ {
+  "name": "double-parameter-\"„",
+  "source": "Write-Output --name=\"two words„"
+ },
+ {
+  "name": "double-hash-value-\"„",
+  "source": "Write-Output \" # text # „"
+ },
+ {
+  "name": "double-doubled-“\"\"\"",
+  "source": "Write-Output “pre\"\"post\""
+ },
+ {
+  "name": "double-doubled-“\"\"“",
+  "source": "Write-Output “pre\"\"post“"
+ },
+ {
+  "name": "double-doubled-“\"\"”",
+  "source": "Write-Output “pre\"\"post”"
+ },
+ {
+  "name": "double-doubled-“\"\"„",
+  "source": "Write-Output “pre\"\"post„"
+ },
+ {
+  "name": "double-doubled-“\"“\"",
+  "source": "Write-Output “pre\"“post\""
+ },
+ {
+  "name": "double-doubled-“\"““",
+  "source": "Write-Output “pre\"“post“"
+ },
+ {
+  "name": "double-doubled-“\"“”",
+  "source": "Write-Output “pre\"“post”"
+ },
+ {
+  "name": "double-doubled-“\"“„",
+  "source": "Write-Output “pre\"“post„"
+ },
+ {
+  "name": "double-doubled-“\"”\"",
+  "source": "Write-Output “pre\"”post\""
+ },
+ {
+  "name": "double-doubled-“\"”“",
+  "source": "Write-Output “pre\"”post“"
+ },
+ {
+  "name": "double-doubled-“\"””",
+  "source": "Write-Output “pre\"”post”"
+ },
+ {
+  "name": "double-doubled-“\"”„",
+  "source": "Write-Output “pre\"”post„"
+ },
+ {
+  "name": "double-doubled-“\"„\"",
+  "source": "Write-Output “pre\"„post\""
+ },
+ {
+  "name": "double-doubled-“\"„“",
+  "source": "Write-Output “pre\"„post“"
+ },
+ {
+  "name": "double-doubled-“\"„”",
+  "source": "Write-Output “pre\"„post”"
+ },
+ {
+  "name": "double-doubled-“\"„„",
+  "source": "Write-Output “pre\"„post„"
+ },
+ {
+  "name": "double-here-“\"-\"\\n\"-\"\"",
+  "source": "Write-Output @“\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @“\n\n\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\n\n# text\n\n\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @“\r\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @“\r\nsample\r\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @“\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\r\n\r\n# text\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-“\"-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n\"@"
+ },
+ {
+  "name": "double-joined-“\"",
+  "source": "Write-Output pre“two words\"post"
+ },
+ {
+  "name": "double-adjacent-variable-“\"",
+  "source": "Write-Output “one\"$value"
+ },
+ {
+  "name": "double-adjacent-word-“\"",
+  "source": "Write-Output “one\"tail"
+ },
+ {
+  "name": "double-adjacent-quoted-“\"",
+  "source": "Write-Output “one\"“two\""
+ },
+ {
+  "name": "double-command-name-“\"",
+  "source": "Get-“Two Words\""
+ },
+ {
+  "name": "double-parameter-“\"",
+  "source": "Write-Output --name=“two words\""
+ },
+ {
+  "name": "double-hash-value-“\"",
+  "source": "Write-Output “ # text # \""
+ },
+ {
+  "name": "double-doubled-““\"\"",
+  "source": "Write-Output “pre“\"post\""
+ },
+ {
+  "name": "double-doubled-““\"“",
+  "source": "Write-Output “pre“\"post“"
+ },
+ {
+  "name": "double-doubled-““\"”",
+  "source": "Write-Output “pre“\"post”"
+ },
+ {
+  "name": "double-doubled-““\"„",
+  "source": "Write-Output “pre“\"post„"
+ },
+ {
+  "name": "double-doubled-“““\"",
+  "source": "Write-Output “pre““post\""
+ },
+ {
+  "name": "double-doubled-““““",
+  "source": "Write-Output “pre““post“"
+ },
+ {
+  "name": "double-doubled-“““”",
+  "source": "Write-Output “pre““post”"
+ },
+ {
+  "name": "double-doubled-“““„",
+  "source": "Write-Output “pre““post„"
+ },
+ {
+  "name": "double-doubled-““”\"",
+  "source": "Write-Output “pre“”post\""
+ },
+ {
+  "name": "double-doubled-““”“",
+  "source": "Write-Output “pre“”post“"
+ },
+ {
+  "name": "double-doubled-““””",
+  "source": "Write-Output “pre“”post”"
+ },
+ {
+  "name": "double-doubled-““”„",
+  "source": "Write-Output “pre“”post„"
+ },
+ {
+  "name": "double-doubled-““„\"",
+  "source": "Write-Output “pre“„post\""
+ },
+ {
+  "name": "double-doubled-““„“",
+  "source": "Write-Output “pre“„post“"
+ },
+ {
+  "name": "double-doubled-““„”",
+  "source": "Write-Output “pre“„post”"
+ },
+ {
+  "name": "double-doubled-““„„",
+  "source": "Write-Output “pre“„post„"
+ },
+ {
+  "name": "double-here-““-\"\\n\"-\"\"",
+  "source": "Write-Output @“\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\n\"-\"sample\"",
+  "source": "Write-Output @“\nsample\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @“\n\n\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\n\n# text\n\n\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @“\r\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @“\r\nsample\r\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @“\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\r\n\r\n# text\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-““-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n“@"
+ },
+ {
+  "name": "double-joined-““",
+  "source": "Write-Output pre“two words“post"
+ },
+ {
+  "name": "double-adjacent-variable-““",
+  "source": "Write-Output “one“$value"
+ },
+ {
+  "name": "double-adjacent-word-““",
+  "source": "Write-Output “one“tail"
+ },
+ {
+  "name": "double-adjacent-quoted-““",
+  "source": "Write-Output “one““two“"
+ },
+ {
+  "name": "double-command-name-““",
+  "source": "Get-“Two Words“"
+ },
+ {
+  "name": "double-parameter-““",
+  "source": "Write-Output --name=“two words“"
+ },
+ {
+  "name": "double-hash-value-““",
+  "source": "Write-Output “ # text # “"
+ },
+ {
+  "name": "double-doubled-“”\"\"",
+  "source": "Write-Output “pre”\"post\""
+ },
+ {
+  "name": "double-doubled-“”\"“",
+  "source": "Write-Output “pre”\"post“"
+ },
+ {
+  "name": "double-doubled-“”\"”",
+  "source": "Write-Output “pre”\"post”"
+ },
+ {
+  "name": "double-doubled-“”\"„",
+  "source": "Write-Output “pre”\"post„"
+ },
+ {
+  "name": "double-doubled-“”“\"",
+  "source": "Write-Output “pre”“post\""
+ },
+ {
+  "name": "double-doubled-“”““",
+  "source": "Write-Output “pre”“post“"
+ },
+ {
+  "name": "double-doubled-“”“”",
+  "source": "Write-Output “pre”“post”"
+ },
+ {
+  "name": "double-doubled-“”“„",
+  "source": "Write-Output “pre”“post„"
+ },
+ {
+  "name": "double-doubled-“””\"",
+  "source": "Write-Output “pre””post\""
+ },
+ {
+  "name": "double-doubled-“””“",
+  "source": "Write-Output “pre””post“"
+ },
+ {
+  "name": "double-doubled-“””„",
+  "source": "Write-Output “pre””post„"
+ },
+ {
+  "name": "double-doubled-“”„\"",
+  "source": "Write-Output “pre”„post\""
+ },
+ {
+  "name": "double-doubled-“”„“",
+  "source": "Write-Output “pre”„post“"
+ },
+ {
+  "name": "double-doubled-“”„”",
+  "source": "Write-Output “pre”„post”"
+ },
+ {
+  "name": "double-doubled-“”„„",
+  "source": "Write-Output “pre”„post„"
+ },
+ {
+  "name": "double-here-“”-\"\\n\"-\"\"",
+  "source": "Write-Output @“\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @“\n\n\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\n\n# text\n\n\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @“\r\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @“\r\nsample\r\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @“\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\r\n\r\n# text\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-“”-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n”@"
+ },
+ {
+  "name": "double-adjacent-variable-“”",
+  "source": "Write-Output “one”$value"
+ },
+ {
+  "name": "double-adjacent-word-“”",
+  "source": "Write-Output “one”tail"
+ },
+ {
+  "name": "double-adjacent-quoted-“”",
+  "source": "Write-Output “one”“two”"
+ },
+ {
+  "name": "double-command-name-“”",
+  "source": "Get-“Two Words”"
+ },
+ {
+  "name": "double-parameter-“”",
+  "source": "Write-Output --name=“two words”"
+ },
+ {
+  "name": "double-hash-value-“”",
+  "source": "Write-Output “ # text # ”"
+ },
+ {
+  "name": "double-doubled-“„\"\"",
+  "source": "Write-Output “pre„\"post\""
+ },
+ {
+  "name": "double-doubled-“„\"“",
+  "source": "Write-Output “pre„\"post“"
+ },
+ {
+  "name": "double-doubled-“„\"”",
+  "source": "Write-Output “pre„\"post”"
+ },
+ {
+  "name": "double-doubled-“„\"„",
+  "source": "Write-Output “pre„\"post„"
+ },
+ {
+  "name": "double-doubled-“„“\"",
+  "source": "Write-Output “pre„“post\""
+ },
+ {
+  "name": "double-doubled-“„““",
+  "source": "Write-Output “pre„“post“"
+ },
+ {
+  "name": "double-doubled-“„“”",
+  "source": "Write-Output “pre„“post”"
+ },
+ {
+  "name": "double-doubled-“„“„",
+  "source": "Write-Output “pre„“post„"
+ },
+ {
+  "name": "double-doubled-“„”\"",
+  "source": "Write-Output “pre„”post\""
+ },
+ {
+  "name": "double-doubled-“„”“",
+  "source": "Write-Output “pre„”post“"
+ },
+ {
+  "name": "double-doubled-“„””",
+  "source": "Write-Output “pre„”post”"
+ },
+ {
+  "name": "double-doubled-“„”„",
+  "source": "Write-Output “pre„”post„"
+ },
+ {
+  "name": "double-doubled-“„„\"",
+  "source": "Write-Output “pre„„post\""
+ },
+ {
+  "name": "double-doubled-“„„“",
+  "source": "Write-Output “pre„„post“"
+ },
+ {
+  "name": "double-doubled-“„„”",
+  "source": "Write-Output “pre„„post”"
+ },
+ {
+  "name": "double-doubled-“„„„",
+  "source": "Write-Output “pre„„post„"
+ },
+ {
+  "name": "double-here-“„-\"\\n\"-\"\"",
+  "source": "Write-Output @“\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\n\"-\"sample\"",
+  "source": "Write-Output @“\nsample\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @“\n\n\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\n\n# text\n\n\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @“\r\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @“\r\nsample\r\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @“\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @“\r\n\r\n# text\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-“„-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @“\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n„@"
+ },
+ {
+  "name": "double-joined-“„",
+  "source": "Write-Output pre“two words„post"
+ },
+ {
+  "name": "double-adjacent-variable-“„",
+  "source": "Write-Output “one„$value"
+ },
+ {
+  "name": "double-adjacent-word-“„",
+  "source": "Write-Output “one„tail"
+ },
+ {
+  "name": "double-adjacent-quoted-“„",
+  "source": "Write-Output “one„“two„"
+ },
+ {
+  "name": "double-command-name-“„",
+  "source": "Get-“Two Words„"
+ },
+ {
+  "name": "double-parameter-“„",
+  "source": "Write-Output --name=“two words„"
+ },
+ {
+  "name": "double-hash-value-“„",
+  "source": "Write-Output “ # text # „"
+ },
+ {
+  "name": "double-doubled-”\"\"\"",
+  "source": "Write-Output ”pre\"\"post\""
+ },
+ {
+  "name": "double-doubled-”\"\"“",
+  "source": "Write-Output ”pre\"\"post“"
+ },
+ {
+  "name": "double-doubled-”\"\"”",
+  "source": "Write-Output ”pre\"\"post”"
+ },
+ {
+  "name": "double-doubled-”\"\"„",
+  "source": "Write-Output ”pre\"\"post„"
+ },
+ {
+  "name": "double-doubled-”\"“\"",
+  "source": "Write-Output ”pre\"“post\""
+ },
+ {
+  "name": "double-doubled-”\"““",
+  "source": "Write-Output ”pre\"“post“"
+ },
+ {
+  "name": "double-doubled-”\"“”",
+  "source": "Write-Output ”pre\"“post”"
+ },
+ {
+  "name": "double-doubled-”\"“„",
+  "source": "Write-Output ”pre\"“post„"
+ },
+ {
+  "name": "double-doubled-”\"”\"",
+  "source": "Write-Output ”pre\"”post\""
+ },
+ {
+  "name": "double-doubled-”\"”“",
+  "source": "Write-Output ”pre\"”post“"
+ },
+ {
+  "name": "double-doubled-”\"””",
+  "source": "Write-Output ”pre\"”post”"
+ },
+ {
+  "name": "double-doubled-”\"”„",
+  "source": "Write-Output ”pre\"”post„"
+ },
+ {
+  "name": "double-doubled-”\"„\"",
+  "source": "Write-Output ”pre\"„post\""
+ },
+ {
+  "name": "double-doubled-”\"„“",
+  "source": "Write-Output ”pre\"„post“"
+ },
+ {
+  "name": "double-doubled-”\"„”",
+  "source": "Write-Output ”pre\"„post”"
+ },
+ {
+  "name": "double-doubled-”\"„„",
+  "source": "Write-Output ”pre\"„post„"
+ },
+ {
+  "name": "double-here-”\"-\"\\n\"-\"\"",
+  "source": "Write-Output @”\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\n\"-\"sample\"",
+  "source": "Write-Output @”\nsample\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @”\n\n\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\n\n# text\n\n\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @”\r\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @”\r\nsample\r\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @”\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\r\n\r\n# text\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-”\"-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n\"@"
+ },
+ {
+  "name": "double-joined-”\"",
+  "source": "Write-Output pre”two words\"post"
+ },
+ {
+  "name": "double-adjacent-variable-”\"",
+  "source": "Write-Output ”one\"$value"
+ },
+ {
+  "name": "double-adjacent-word-”\"",
+  "source": "Write-Output ”one\"tail"
+ },
+ {
+  "name": "double-adjacent-quoted-”\"",
+  "source": "Write-Output ”one\"”two\""
+ },
+ {
+  "name": "double-command-name-”\"",
+  "source": "Get-”Two Words\""
+ },
+ {
+  "name": "double-parameter-”\"",
+  "source": "Write-Output --name=”two words\""
+ },
+ {
+  "name": "double-hash-value-”\"",
+  "source": "Write-Output ” # text # \""
+ },
+ {
+  "name": "double-doubled-”“\"\"",
+  "source": "Write-Output ”pre“\"post\""
+ },
+ {
+  "name": "double-doubled-”“\"“",
+  "source": "Write-Output ”pre“\"post“"
+ },
+ {
+  "name": "double-doubled-”“\"”",
+  "source": "Write-Output ”pre“\"post”"
+ },
+ {
+  "name": "double-doubled-”“\"„",
+  "source": "Write-Output ”pre“\"post„"
+ },
+ {
+  "name": "double-doubled-”““\"",
+  "source": "Write-Output ”pre““post\""
+ },
+ {
+  "name": "double-doubled-”“““",
+  "source": "Write-Output ”pre““post“"
+ },
+ {
+  "name": "double-doubled-”““”",
+  "source": "Write-Output ”pre““post”"
+ },
+ {
+  "name": "double-doubled-”““„",
+  "source": "Write-Output ”pre““post„"
+ },
+ {
+  "name": "double-doubled-”“”\"",
+  "source": "Write-Output ”pre“”post\""
+ },
+ {
+  "name": "double-doubled-”“”“",
+  "source": "Write-Output ”pre“”post“"
+ },
+ {
+  "name": "double-doubled-”“””",
+  "source": "Write-Output ”pre“”post”"
+ },
+ {
+  "name": "double-doubled-”“”„",
+  "source": "Write-Output ”pre“”post„"
+ },
+ {
+  "name": "double-doubled-”“„\"",
+  "source": "Write-Output ”pre“„post\""
+ },
+ {
+  "name": "double-doubled-”“„“",
+  "source": "Write-Output ”pre“„post“"
+ },
+ {
+  "name": "double-doubled-”“„”",
+  "source": "Write-Output ”pre“„post”"
+ },
+ {
+  "name": "double-doubled-”“„„",
+  "source": "Write-Output ”pre“„post„"
+ },
+ {
+  "name": "double-here-”“-\"\\n\"-\"\"",
+  "source": "Write-Output @”\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\n\"-\"sample\"",
+  "source": "Write-Output @”\nsample\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @”\n\n\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\n\n# text\n\n\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @”\r\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @”\r\nsample\r\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @”\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\r\n\r\n# text\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-”“-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n“@"
+ },
+ {
+  "name": "double-joined-”“",
+  "source": "Write-Output pre”two words“post"
+ },
+ {
+  "name": "double-adjacent-variable-”“",
+  "source": "Write-Output ”one“$value"
+ },
+ {
+  "name": "double-adjacent-word-”“",
+  "source": "Write-Output ”one“tail"
+ },
+ {
+  "name": "double-adjacent-quoted-”“",
+  "source": "Write-Output ”one“”two“"
+ },
+ {
+  "name": "double-command-name-”“",
+  "source": "Get-”Two Words“"
+ },
+ {
+  "name": "double-parameter-”“",
+  "source": "Write-Output --name=”two words“"
+ },
+ {
+  "name": "double-hash-value-”“",
+  "source": "Write-Output ” # text # “"
+ },
+ {
+  "name": "double-doubled-””\"\"",
+  "source": "Write-Output ”pre”\"post\""
+ },
+ {
+  "name": "double-doubled-””\"“",
+  "source": "Write-Output ”pre”\"post“"
+ },
+ {
+  "name": "double-doubled-””\"”",
+  "source": "Write-Output ”pre”\"post”"
+ },
+ {
+  "name": "double-doubled-””\"„",
+  "source": "Write-Output ”pre”\"post„"
+ },
+ {
+  "name": "double-doubled-””“\"",
+  "source": "Write-Output ”pre”“post\""
+ },
+ {
+  "name": "double-doubled-””““",
+  "source": "Write-Output ”pre”“post“"
+ },
+ {
+  "name": "double-doubled-””“”",
+  "source": "Write-Output ”pre”“post”"
+ },
+ {
+  "name": "double-doubled-””“„",
+  "source": "Write-Output ”pre”“post„"
+ },
+ {
+  "name": "double-doubled-”””\"",
+  "source": "Write-Output ”pre””post\""
+ },
+ {
+  "name": "double-doubled-”””“",
+  "source": "Write-Output ”pre””post“"
+ },
+ {
+  "name": "double-doubled-””””",
+  "source": "Write-Output ”pre””post”"
+ },
+ {
+  "name": "double-doubled-”””„",
+  "source": "Write-Output ”pre””post„"
+ },
+ {
+  "name": "double-doubled-””„\"",
+  "source": "Write-Output ”pre”„post\""
+ },
+ {
+  "name": "double-doubled-””„“",
+  "source": "Write-Output ”pre”„post“"
+ },
+ {
+  "name": "double-doubled-””„”",
+  "source": "Write-Output ”pre”„post”"
+ },
+ {
+  "name": "double-doubled-””„„",
+  "source": "Write-Output ”pre”„post„"
+ },
+ {
+  "name": "double-here-””-\"\\n\"-\"\"",
+  "source": "Write-Output @”\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\n\"-\"sample\"",
+  "source": "Write-Output @”\nsample\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @”\n\n\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\n\n# text\n\n\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @”\r\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @”\r\nsample\r\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @”\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\r\n\r\n# text\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-””-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n”@"
+ },
+ {
+  "name": "double-joined-””",
+  "source": "Write-Output pre”two words”post"
+ },
+ {
+  "name": "double-adjacent-variable-””",
+  "source": "Write-Output ”one”$value"
+ },
+ {
+  "name": "double-adjacent-word-””",
+  "source": "Write-Output ”one”tail"
+ },
+ {
+  "name": "double-adjacent-quoted-””",
+  "source": "Write-Output ”one””two”"
+ },
+ {
+  "name": "double-command-name-””",
+  "source": "Get-”Two Words”"
+ },
+ {
+  "name": "double-parameter-””",
+  "source": "Write-Output --name=”two words”"
+ },
+ {
+  "name": "double-hash-value-””",
+  "source": "Write-Output ” # text # ”"
+ },
+ {
+  "name": "double-doubled-”„\"\"",
+  "source": "Write-Output ”pre„\"post\""
+ },
+ {
+  "name": "double-doubled-”„\"“",
+  "source": "Write-Output ”pre„\"post“"
+ },
+ {
+  "name": "double-doubled-”„\"”",
+  "source": "Write-Output ”pre„\"post”"
+ },
+ {
+  "name": "double-doubled-”„\"„",
+  "source": "Write-Output ”pre„\"post„"
+ },
+ {
+  "name": "double-doubled-”„“\"",
+  "source": "Write-Output ”pre„“post\""
+ },
+ {
+  "name": "double-doubled-”„““",
+  "source": "Write-Output ”pre„“post“"
+ },
+ {
+  "name": "double-doubled-”„“”",
+  "source": "Write-Output ”pre„“post”"
+ },
+ {
+  "name": "double-doubled-”„“„",
+  "source": "Write-Output ”pre„“post„"
+ },
+ {
+  "name": "double-doubled-”„”\"",
+  "source": "Write-Output ”pre„”post\""
+ },
+ {
+  "name": "double-doubled-”„”“",
+  "source": "Write-Output ”pre„”post“"
+ },
+ {
+  "name": "double-doubled-”„””",
+  "source": "Write-Output ”pre„”post”"
+ },
+ {
+  "name": "double-doubled-”„”„",
+  "source": "Write-Output ”pre„”post„"
+ },
+ {
+  "name": "double-doubled-”„„\"",
+  "source": "Write-Output ”pre„„post\""
+ },
+ {
+  "name": "double-doubled-”„„“",
+  "source": "Write-Output ”pre„„post“"
+ },
+ {
+  "name": "double-doubled-”„„”",
+  "source": "Write-Output ”pre„„post”"
+ },
+ {
+  "name": "double-doubled-”„„„",
+  "source": "Write-Output ”pre„„post„"
+ },
+ {
+  "name": "double-here-”„-\"\\n\"-\"\"",
+  "source": "Write-Output @”\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\n\"-\"sample\"",
+  "source": "Write-Output @”\nsample\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @”\n\n\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\n\n# text\n\n\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @”\r\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @”\r\nsample\r\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @”\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @”\r\n\r\n# text\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-”„-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @”\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n„@"
+ },
+ {
+  "name": "double-joined-”„",
+  "source": "Write-Output pre”two words„post"
+ },
+ {
+  "name": "double-adjacent-variable-”„",
+  "source": "Write-Output ”one„$value"
+ },
+ {
+  "name": "double-adjacent-word-”„",
+  "source": "Write-Output ”one„tail"
+ },
+ {
+  "name": "double-adjacent-quoted-”„",
+  "source": "Write-Output ”one„”two„"
+ },
+ {
+  "name": "double-command-name-”„",
+  "source": "Get-”Two Words„"
+ },
+ {
+  "name": "double-parameter-”„",
+  "source": "Write-Output --name=”two words„"
+ },
+ {
+  "name": "double-hash-value-”„",
+  "source": "Write-Output ” # text # „"
+ },
+ {
+  "name": "double-doubled-„\"\"\"",
+  "source": "Write-Output „pre\"\"post\""
+ },
+ {
+  "name": "double-doubled-„\"\"“",
+  "source": "Write-Output „pre\"\"post“"
+ },
+ {
+  "name": "double-doubled-„\"\"”",
+  "source": "Write-Output „pre\"\"post”"
+ },
+ {
+  "name": "double-doubled-„\"\"„",
+  "source": "Write-Output „pre\"\"post„"
+ },
+ {
+  "name": "double-doubled-„\"“\"",
+  "source": "Write-Output „pre\"“post\""
+ },
+ {
+  "name": "double-doubled-„\"““",
+  "source": "Write-Output „pre\"“post“"
+ },
+ {
+  "name": "double-doubled-„\"“”",
+  "source": "Write-Output „pre\"“post”"
+ },
+ {
+  "name": "double-doubled-„\"“„",
+  "source": "Write-Output „pre\"“post„"
+ },
+ {
+  "name": "double-doubled-„\"”\"",
+  "source": "Write-Output „pre\"”post\""
+ },
+ {
+  "name": "double-doubled-„\"”“",
+  "source": "Write-Output „pre\"”post“"
+ },
+ {
+  "name": "double-doubled-„\"””",
+  "source": "Write-Output „pre\"”post”"
+ },
+ {
+  "name": "double-doubled-„\"”„",
+  "source": "Write-Output „pre\"”post„"
+ },
+ {
+  "name": "double-doubled-„\"„\"",
+  "source": "Write-Output „pre\"„post\""
+ },
+ {
+  "name": "double-doubled-„\"„“",
+  "source": "Write-Output „pre\"„post“"
+ },
+ {
+  "name": "double-doubled-„\"„”",
+  "source": "Write-Output „pre\"„post”"
+ },
+ {
+  "name": "double-doubled-„\"„„",
+  "source": "Write-Output „pre\"„post„"
+ },
+ {
+  "name": "double-here-„\"-\"\\n\"-\"\"",
+  "source": "Write-Output @„\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\n\"-\"sample\"",
+  "source": "Write-Output @„\nsample\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @„\n\n\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\n\n# text\n\n\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @„\r\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @„\r\nsample\r\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @„\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\r\n\r\n# text\r\n\r\n\r\n\"@"
+ },
+ {
+  "name": "double-here-„\"-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n\"@"
+ },
+ {
+  "name": "double-joined-„\"",
+  "source": "Write-Output pre„two words\"post"
+ },
+ {
+  "name": "double-adjacent-variable-„\"",
+  "source": "Write-Output „one\"$value"
+ },
+ {
+  "name": "double-adjacent-word-„\"",
+  "source": "Write-Output „one\"tail"
+ },
+ {
+  "name": "double-adjacent-quoted-„\"",
+  "source": "Write-Output „one\"„two\""
+ },
+ {
+  "name": "double-command-name-„\"",
+  "source": "Get-„Two Words\""
+ },
+ {
+  "name": "double-parameter-„\"",
+  "source": "Write-Output --name=„two words\""
+ },
+ {
+  "name": "double-hash-value-„\"",
+  "source": "Write-Output „ # text # \""
+ },
+ {
+  "name": "double-doubled-„“\"\"",
+  "source": "Write-Output „pre“\"post\""
+ },
+ {
+  "name": "double-doubled-„“\"“",
+  "source": "Write-Output „pre“\"post“"
+ },
+ {
+  "name": "double-doubled-„“\"”",
+  "source": "Write-Output „pre“\"post”"
+ },
+ {
+  "name": "double-doubled-„“\"„",
+  "source": "Write-Output „pre“\"post„"
+ },
+ {
+  "name": "double-doubled-„““\"",
+  "source": "Write-Output „pre““post\""
+ },
+ {
+  "name": "double-doubled-„“““",
+  "source": "Write-Output „pre““post“"
+ },
+ {
+  "name": "double-doubled-„““”",
+  "source": "Write-Output „pre““post”"
+ },
+ {
+  "name": "double-doubled-„““„",
+  "source": "Write-Output „pre““post„"
+ },
+ {
+  "name": "double-doubled-„“”\"",
+  "source": "Write-Output „pre“”post\""
+ },
+ {
+  "name": "double-doubled-„“”“",
+  "source": "Write-Output „pre“”post“"
+ },
+ {
+  "name": "double-doubled-„“””",
+  "source": "Write-Output „pre“”post”"
+ },
+ {
+  "name": "double-doubled-„“”„",
+  "source": "Write-Output „pre“”post„"
+ },
+ {
+  "name": "double-doubled-„“„\"",
+  "source": "Write-Output „pre“„post\""
+ },
+ {
+  "name": "double-doubled-„“„“",
+  "source": "Write-Output „pre“„post“"
+ },
+ {
+  "name": "double-doubled-„“„”",
+  "source": "Write-Output „pre“„post”"
+ },
+ {
+  "name": "double-doubled-„“„„",
+  "source": "Write-Output „pre“„post„"
+ },
+ {
+  "name": "double-here-„“-\"\\n\"-\"\"",
+  "source": "Write-Output @„\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\n\"-\"sample\"",
+  "source": "Write-Output @„\nsample\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @„\n\n\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\n\n# text\n\n\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @„\r\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @„\r\nsample\r\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @„\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\r\n\r\n# text\r\n\r\n\r\n“@"
+ },
+ {
+  "name": "double-here-„“-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n“@"
+ },
+ {
+  "name": "double-joined-„“",
+  "source": "Write-Output pre„two words“post"
+ },
+ {
+  "name": "double-adjacent-variable-„“",
+  "source": "Write-Output „one“$value"
+ },
+ {
+  "name": "double-adjacent-word-„“",
+  "source": "Write-Output „one“tail"
+ },
+ {
+  "name": "double-adjacent-quoted-„“",
+  "source": "Write-Output „one“„two“"
+ },
+ {
+  "name": "double-command-name-„“",
+  "source": "Get-„Two Words“"
+ },
+ {
+  "name": "double-parameter-„“",
+  "source": "Write-Output --name=„two words“"
+ },
+ {
+  "name": "double-hash-value-„“",
+  "source": "Write-Output „ # text # “"
+ },
+ {
+  "name": "double-doubled-„”\"\"",
+  "source": "Write-Output „pre”\"post\""
+ },
+ {
+  "name": "double-doubled-„”\"“",
+  "source": "Write-Output „pre”\"post“"
+ },
+ {
+  "name": "double-doubled-„”\"”",
+  "source": "Write-Output „pre”\"post”"
+ },
+ {
+  "name": "double-doubled-„”\"„",
+  "source": "Write-Output „pre”\"post„"
+ },
+ {
+  "name": "double-doubled-„”“\"",
+  "source": "Write-Output „pre”“post\""
+ },
+ {
+  "name": "double-doubled-„”““",
+  "source": "Write-Output „pre”“post“"
+ },
+ {
+  "name": "double-doubled-„”“”",
+  "source": "Write-Output „pre”“post”"
+ },
+ {
+  "name": "double-doubled-„”“„",
+  "source": "Write-Output „pre”“post„"
+ },
+ {
+  "name": "double-doubled-„””\"",
+  "source": "Write-Output „pre””post\""
+ },
+ {
+  "name": "double-doubled-„””“",
+  "source": "Write-Output „pre””post“"
+ },
+ {
+  "name": "double-doubled-„”””",
+  "source": "Write-Output „pre””post”"
+ },
+ {
+  "name": "double-doubled-„””„",
+  "source": "Write-Output „pre””post„"
+ },
+ {
+  "name": "double-doubled-„”„\"",
+  "source": "Write-Output „pre”„post\""
+ },
+ {
+  "name": "double-doubled-„”„“",
+  "source": "Write-Output „pre”„post“"
+ },
+ {
+  "name": "double-doubled-„”„”",
+  "source": "Write-Output „pre”„post”"
+ },
+ {
+  "name": "double-doubled-„”„„",
+  "source": "Write-Output „pre”„post„"
+ },
+ {
+  "name": "double-here-„”-\"\\n\"-\"\"",
+  "source": "Write-Output @„\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\n\"-\"sample\"",
+  "source": "Write-Output @„\nsample\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @„\n\n\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\n\n# text\n\n\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @„\r\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @„\r\nsample\r\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @„\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\r\n\r\n# text\r\n\r\n\r\n”@"
+ },
+ {
+  "name": "double-here-„”-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n”@"
+ },
+ {
+  "name": "double-joined-„”",
+  "source": "Write-Output pre„two words”post"
+ },
+ {
+  "name": "double-adjacent-variable-„”",
+  "source": "Write-Output „one”$value"
+ },
+ {
+  "name": "double-adjacent-word-„”",
+  "source": "Write-Output „one”tail"
+ },
+ {
+  "name": "double-adjacent-quoted-„”",
+  "source": "Write-Output „one”„two”"
+ },
+ {
+  "name": "double-command-name-„”",
+  "source": "Get-„Two Words”"
+ },
+ {
+  "name": "double-parameter-„”",
+  "source": "Write-Output --name=„two words”"
+ },
+ {
+  "name": "double-hash-value-„”",
+  "source": "Write-Output „ # text # ”"
+ },
+ {
+  "name": "double-doubled-„„\"\"",
+  "source": "Write-Output „pre„\"post\""
+ },
+ {
+  "name": "double-doubled-„„\"“",
+  "source": "Write-Output „pre„\"post“"
+ },
+ {
+  "name": "double-doubled-„„\"”",
+  "source": "Write-Output „pre„\"post”"
+ },
+ {
+  "name": "double-doubled-„„\"„",
+  "source": "Write-Output „pre„\"post„"
+ },
+ {
+  "name": "double-doubled-„„“\"",
+  "source": "Write-Output „pre„“post\""
+ },
+ {
+  "name": "double-doubled-„„““",
+  "source": "Write-Output „pre„“post“"
+ },
+ {
+  "name": "double-doubled-„„“”",
+  "source": "Write-Output „pre„“post”"
+ },
+ {
+  "name": "double-doubled-„„“„",
+  "source": "Write-Output „pre„“post„"
+ },
+ {
+  "name": "double-doubled-„„”\"",
+  "source": "Write-Output „pre„”post\""
+ },
+ {
+  "name": "double-doubled-„„”“",
+  "source": "Write-Output „pre„”post“"
+ },
+ {
+  "name": "double-doubled-„„””",
+  "source": "Write-Output „pre„”post”"
+ },
+ {
+  "name": "double-doubled-„„”„",
+  "source": "Write-Output „pre„”post„"
+ },
+ {
+  "name": "double-doubled-„„„\"",
+  "source": "Write-Output „pre„„post\""
+ },
+ {
+  "name": "double-doubled-„„„“",
+  "source": "Write-Output „pre„„post“"
+ },
+ {
+  "name": "double-doubled-„„„”",
+  "source": "Write-Output „pre„„post”"
+ },
+ {
+  "name": "double-doubled-„„„„",
+  "source": "Write-Output „pre„„post„"
+ },
+ {
+  "name": "double-here-„„-\"\\n\"-\"\"",
+  "source": "Write-Output @„\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\n\"-\"sample\"",
+  "source": "Write-Output @„\nsample\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\n\"-\"\\n\"",
+  "source": "Write-Output @„\n\n\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\n\n# text\n\n\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\n‘’‚‛“”„‟ $x `” $(Get-Item x)\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\r\\n\"-\"\"",
+  "source": "Write-Output @„\r\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\r\\n\"-\"sample\"",
+  "source": "Write-Output @„\r\nsample\r\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\r\\n\"-\"\\n\"",
+  "source": "Write-Output @„\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\r\\n\"-\"\\n# text\\n\\n\"",
+  "source": "Write-Output @„\r\n\r\n# text\r\n\r\n\r\n„@"
+ },
+ {
+  "name": "double-here-„„-\"\\r\\n\"-\"‘’‚‛“”„‟ $x `” $(Get-Item x)\"",
+  "source": "Write-Output @„\r\n‘’‚‛“”„‟ $x `” $(Get-Item x)\r\n„@"
+ },
+ {
+  "name": "double-joined-„„",
+  "source": "Write-Output pre„two words„post"
+ },
+ {
+  "name": "double-adjacent-variable-„„",
+  "source": "Write-Output „one„$value"
+ },
+ {
+  "name": "double-adjacent-word-„„",
+  "source": "Write-Output „one„tail"
+ },
+ {
+  "name": "double-adjacent-quoted-„„",
+  "source": "Write-Output „one„„two„"
+ },
+ {
+  "name": "double-command-name-„„",
+  "source": "Get-„Two Words„"
+ },
+ {
+  "name": "double-parameter-„„",
+  "source": "Write-Output --name=„two words„"
+ },
+ {
+  "name": "double-hash-value-„„",
+  "source": "Write-Output „ # text # „"
+ },
+ {
+  "name": "extra-1643",
+  "source": "Write-Output “pre$(Get-Item x)post”"
+ },
+ {
+  "name": "extra-1644",
+  "source": "Write-Output pre“$(Get-Item x)”post"
+ },
+ {
+  "name": "extra-1645",
+  "source": "Write-Output pre“can”\"t”post"
+ },
+ {
+  "name": "extra-1646",
+  "source": "Write-Output pre‘can’'t’post"
+ },
+ {
+  "name": "extra-1647",
+  "source": "Write-Output pre`“two`”post"
+ },
+ {
+  "name": "extra-1648",
+  "source": "Write-Output pre`‘two`’post"
+ },
+ {
+  "name": "extra-1650",
+  "source": "Write-Output “`$value”"
+ },
+ {
+  "name": "extra-1651",
+  "source": "Write-Output @“\n$x\n`$(Get-Item x)\n${other}\n”@"
+ },
+ {
+  "name": "extra-1652",
+  "source": "Write-Output @‘\n$x\n`$(Get-Item x)\n${other}\n’@"
+ },
+ {
+  "name": "extra-1653",
+  "source": "Write-Output @“\ntext\n”not a terminator\nmore\n„@"
+ },
+ {
+  "name": "extra-1654",
+  "source": "Write-Output @‘\ntext\n’not a terminator\nmore\n‚@"
+ },
+ {
+  "name": "extra-1659",
+  "source": "Write-Output “sample’"
+ },
+ {
+  "name": "extra-1660",
+  "source": "Write-Output @“\nsample\n’@"
+ },
+ {
+  "name": "extra-1661",
+  "source": "Write-Output @‘\nsample\n”@"
+ },
+ {
+  "name": "extra-1662",
+  "source": "Write-Output @‟\nsample\n‟@"
+ },
+ {
+  "name": "extra-1663",
+  "source": "Write-Output “unterminated"
+ },
+ {
+  "name": "extra-1664",
+  "source": "Write-Output ‘unterminated"
+ }
+]

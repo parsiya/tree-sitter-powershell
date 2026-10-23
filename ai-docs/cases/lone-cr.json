@@ -1,0 +1,458 @@
+[
+ {
+  "name": "body-lf-text",
+  "source": "$value = @\"\nalpha\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-blank",
+  "source": "$value = @\"\nalpha\n\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-hash",
+  "source": "$value = @\"\nalpha\n#still content\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-quotes",
+  "source": "$value = @\"\nalpha\n\"quoted\" 'single'\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-interpolate",
+  "source": "$value = @\"\n$before\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-subexpression",
+  "source": "$value = @\"\n$(Get-Item before)\n$(Get-Item after)\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-escape-dollar",
+  "source": "$value = @\"\n`$before\n`$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-backtick",
+  "source": "$value = @\"\nalpha`\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-backtick-dollar",
+  "source": "$value = @\"\nalpha`\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-quote-at",
+  "source": "$value = @\"\nalpha\n\"@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-smart-at",
+  "source": "$value = @\"\nalpha\n“@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-ascii-quote",
+  "source": "$value = @\"\nalpha\n\"\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-smart-quote",
+  "source": "$value = @\"\nalpha\n”\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-spaces",
+  "source": "$value = @\"\nalpha\n \t#body\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-leading",
+  "source": "$value = @\"\n\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-lf-trailing",
+  "source": "$value = @\"\nalpha\n\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-lf-text",
+  "source": "$value = @\"\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-lf-empty",
+  "source": "$value = @\"\n\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-lf-interpolate",
+  "source": "$value = @\"\n$value\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-lf-hash",
+  "source": "$value = @\"\n# hash\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "sequential-lf",
+  "source": "$first = @\"\nalpha\nbeta\n\"@\nWrite-Output first\n$second = @\"\ngamma\ndelta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "statement-lf",
+  "source": "Write-Output first\nWrite-Output last\n"
+ },
+ {
+  "name": "verbatim-lf",
+  "source": "$value = @'\nalpha\nbeta\n'@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-text",
+  "source": "$value = @\"\nalpha\r\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-blank",
+  "source": "$value = @\"\nalpha\r\n\r\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-hash",
+  "source": "$value = @\"\nalpha\r\n#still content\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-quotes",
+  "source": "$value = @\"\nalpha\r\n\"quoted\" 'single'\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-interpolate",
+  "source": "$value = @\"\n$before\r\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-subexpression",
+  "source": "$value = @\"\n$(Get-Item before)\r\n$(Get-Item after)\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-escape-dollar",
+  "source": "$value = @\"\n`$before\r\n`$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-backtick",
+  "source": "$value = @\"\nalpha`\r\nbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-backtick-dollar",
+  "source": "$value = @\"\nalpha`\r\n$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-quote-at",
+  "source": "$value = @\"\nalpha\r\n\"@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-smart-at",
+  "source": "$value = @\"\nalpha\r\n“@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-ascii-quote",
+  "source": "$value = @\"\nalpha\r\n\"\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-smart-quote",
+  "source": "$value = @\"\nalpha\r\n”\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-spaces",
+  "source": "$value = @\"\nalpha\r\n \t#body\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-leading",
+  "source": "$value = @\"\n\r\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-crlf-trailing",
+  "source": "$value = @\"\nalpha\r\n\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-crlf-text",
+  "source": "$value = @\"\r\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-crlf-text",
+  "source": "$value = @\"\nalpha\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-crlf-empty",
+  "source": "$value = @\"\r\n\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-crlf-empty",
+  "source": "$value = @\"\n\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-crlf-interpolate",
+  "source": "$value = @\"\r\n$value\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-crlf-interpolate",
+  "source": "$value = @\"\n$value\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-crlf-hash",
+  "source": "$value = @\"\r\n# hash\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-crlf-hash",
+  "source": "$value = @\"\n# hash\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "sequential-crlf",
+  "source": "$first = @\"\nalpha\r\nbeta\n\"@\nWrite-Output first\n$second = @\"\ngamma\r\ndelta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "statement-crlf",
+  "source": "Write-Output first\r\nWrite-Output last\r\n"
+ },
+ {
+  "name": "verbatim-crlf",
+  "source": "$value = @'\nalpha\r\nbeta\n'@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-text",
+  "source": "$value = @\"\nalpha\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-blank",
+  "source": "$value = @\"\nalpha\r\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-hash",
+  "source": "$value = @\"\nalpha\r#still content\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-quotes",
+  "source": "$value = @\"\nalpha\r\"quoted\" 'single'\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-interpolate",
+  "source": "$value = @\"\n$before\r$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-subexpression",
+  "source": "$value = @\"\n$(Get-Item before)\r$(Get-Item after)\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-escape-dollar",
+  "source": "$value = @\"\n`$before\r`$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-backtick",
+  "source": "$value = @\"\nalpha`\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-backtick-dollar",
+  "source": "$value = @\"\nalpha`\r$after\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-quote-at",
+  "source": "$value = @\"\nalpha\r\"@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-smart-at",
+  "source": "$value = @\"\nalpha\r“@not-the-end\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-ascii-quote",
+  "source": "$value = @\"\nalpha\r\"\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-smart-quote",
+  "source": "$value = @\"\nalpha\r”\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-spaces",
+  "source": "$value = @\"\nalpha\r \t#body\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "body-cr-leading",
+  "source": "$value = @\"\n\ralpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-cr-text",
+  "source": "$value = @\"\ralpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-cr-text",
+  "source": "$value = @\"\nalpha\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-cr-empty",
+  "source": "$value = @\"\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-cr-empty",
+  "source": "$value = @\"\n\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-cr-interpolate",
+  "source": "$value = @\"\r$value\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-cr-interpolate",
+  "source": "$value = @\"\n$value\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-cr-hash",
+  "source": "$value = @\"\r# hash\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-cr-hash",
+  "source": "$value = @\"\n# hash\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "sequential-cr",
+  "source": "$first = @\"\nalpha\rbeta\n\"@\nWrite-Output first\n$second = @\"\ngamma\rdelta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "statement-cr",
+  "source": "Write-Output first\rWrite-Output last\r"
+ },
+ {
+  "name": "verbatim-cr",
+  "source": "$value = @'\nalpha\rbeta\n'@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-34-8220",
+  "source": "$value = @\"\nalpha\rbeta\n“@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-34-8221",
+  "source": "$value = @\"\nalpha\rbeta\n”@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-34-8222",
+  "source": "$value = @\"\nalpha\rbeta\n„@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8220-34",
+  "source": "$value = @“\nalpha\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8220-8220",
+  "source": "$value = @“\nalpha\rbeta\n“@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8220-8221",
+  "source": "$value = @“\nalpha\rbeta\n”@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8220-8222",
+  "source": "$value = @“\nalpha\rbeta\n„@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8221-34",
+  "source": "$value = @”\nalpha\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8221-8220",
+  "source": "$value = @”\nalpha\rbeta\n“@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8221-8221",
+  "source": "$value = @”\nalpha\rbeta\n”@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8221-8222",
+  "source": "$value = @”\nalpha\rbeta\n„@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8222-34",
+  "source": "$value = @„\nalpha\rbeta\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8222-8220",
+  "source": "$value = @„\nalpha\rbeta\n“@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8222-8221",
+  "source": "$value = @„\nalpha\rbeta\n”@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "overlap-8222-8222",
+  "source": "$value = @„\nalpha\rbeta\n„@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "cr-after-header-space",
+  "source": "$value = @\" \ralpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-content",
+  "source": "$value = @\"alpha\nbeta\n\"@\n"
+ },
+ {
+  "name": "header-hash",
+  "source": "$value = @\"#comment\nalpha\n\"@\n"
+ },
+ {
+  "name": "closing-indent",
+  "source": "$value = @\"\nalpha\r \"@\n"
+ },
+ {
+  "name": "closing-crlf-then-command",
+  "source": "$value = @\"\nalpha\r\n\"@\r\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "closing-cr-then-command",
+  "source": "$value = @\"\nalpha\r\"@\rWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-cr-delimiter",
+  "source": "$value = @\"\nalpha`\r\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-lf-delimiter",
+  "source": "$value = @\"\nalpha`\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-crlf-delimiter",
+  "source": "$value = @\"\nalpha`\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-cr-content-footer",
+  "source": "$value = @\"\nalpha`\r\"@ still content\nomega\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-lf-content-footer",
+  "source": "$value = @\"\nalpha`\n\"@ still content\nomega\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "cr-before-crlf-footer",
+  "source": "$value = @\"\nalpha\r\r\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "header-tab-control",
+  "source": "$value = @\"\t\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "ascii-before-smart",
+  "source": "$value = @\"\nalpha\r“@tail\nomega\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "empty-sequence",
+  "source": "$first = @\"\n\"@\nWrite-Output first\n$second = @\"\nalpha\rbeta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "blank-sequence",
+  "source": "$first = @\"\n\n\"@\nWrite-Output first\n$second = @\"\nalpha\rbeta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "smart-empty-sequence",
+  "source": "$first = @“\n\"@\nWrite-Output first\n$second = @\"\nalpha\rbeta\r”@\nWrite-Output last\n"
+ },
+ {
+  "name": "smart-blank-sequence",
+  "source": "$first = @\"\n\n„@\nWrite-Output first\n$second = @”\nalpha\rbeta\n\"@\nWrite-Output last\n"
+ },
+ {
+  "name": "excluded-smart-body",
+  "source": "$value = @\"\nalpha\r‟@\nomega\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "excluded-smart-header",
+  "source": "$value = @‟\nalpha\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "escaped-cr-smart-content",
+  "source": "$value = @\"\nalpha`\r“@ still content\nomega\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "committed-corpus-0",
+  "source": "$value = @\"\n$before\n$after\n`$escaped\n$(Get-Item example)\n\"@\nWrite-Output sentinel\n"
+ },
+ {
+  "name": "committed-corpus-1",
+  "source": "$first = @\"\n\"@\nWrite-Output first\n$second = @\"\nalpha\n\n# content\n\"quoted\"\n\"@\nWrite-Output last\n"
+ }
+]

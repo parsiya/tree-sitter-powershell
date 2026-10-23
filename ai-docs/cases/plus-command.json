@@ -1,0 +1,202 @@
+[
+ {
+  "name": "plus then member",
+  "source": "Write-Output \"error\" + $err.Exception.Message"
+ },
+ {
+  "name": "plus then number",
+  "source": "Write-Output + 1"
+ },
+ {
+  "name": "adjacent plus number",
+  "source": "Write-Output +1"
+ },
+ {
+  "name": "plus then variable",
+  "source": "Write-Output + $value"
+ },
+ {
+  "name": "adjacent plus variable",
+  "source": "Write-Output +$value"
+ },
+ {
+  "name": "plus then parenthesis",
+  "source": "Write-Output +($value)"
+ },
+ {
+  "name": "plus then subexpression",
+  "source": "Write-Output +$(Get-Item example)"
+ },
+ {
+  "name": "plus then quote",
+  "source": "Write-Output +\"two words\""
+ },
+ {
+  "name": "bare plus at end",
+  "source": "Write-Output +"
+ },
+ {
+  "name": "bare plus before parameter",
+  "source": "Write-Output + -Verbose"
+ },
+ {
+  "name": "plus word",
+  "source": "Write-Output +word"
+ },
+ {
+  "name": "quote then adjacent plus",
+  "source": "Write-Output \"prefix\"+$value"
+ },
+ {
+  "name": "plus with quote then star suffix",
+  "source": "Write-Host \"prefix\" + \"=\"*12 -ForegroundColor Cyan"
+ },
+ {
+  "name": "comma plus argument",
+  "source": "Write-Output first,+,$value"
+ },
+ {
+  "name": "plus comma array",
+  "source": "Write-Output +,1,$value"
+ },
+ {
+  "name": "attached parameter plus",
+  "source": "Write-Output -Name:+"
+ },
+ {
+  "name": "unary plus assignment control",
+  "source": "$result = +1"
+ },
+ {
+  "name": "spaced unary plus assignment control",
+  "source": "$result = + $value"
+ },
+ {
+  "name": "parenthesized unary plus control",
+  "source": "Write-Output (+ $value)"
+ },
+ {
+  "name": "method unary plus control",
+  "source": "$value.Method(+ $other)"
+ },
+ {
+  "name": "binary plus control",
+  "source": "$result = $left + $right"
+ },
+ {
+  "name": "negative number control",
+  "source": "Write-Output -1"
+ },
+ {
+  "name": "standalone minus control",
+  "source": "Write-Output - 1"
+ },
+ {
+  "name": "incomplete assignment unary invalid",
+  "source": "$result = +"
+ },
+ {
+  "name": "plus subexpression tail",
+  "source": "Write-Output +$(Get-Item example)tail"
+ },
+ {
+  "name": "plus quoted variable",
+  "source": "Write-Output +\"prefix $value\""
+ },
+ {
+  "name": "plus single quote",
+  "source": "Write-Output +'two words'"
+ },
+ {
+  "name": "plus quoted tail",
+  "source": "Write-Output +\"two words\"tail"
+ },
+ {
+  "name": "plus escaped space",
+  "source": "Write-Output +two` words"
+ },
+ {
+  "name": "plus braced variable",
+  "source": "Write-Output +${some value}"
+ },
+ {
+  "name": "plus scoped variable",
+  "source": "Write-Output +$global:value"
+ },
+ {
+  "name": "plus escaped dollar",
+  "source": "Write-Output +`$value"
+ },
+ {
+  "name": "plus doubled",
+  "source": "Write-Output ++1"
+ },
+ {
+  "name": "plus tab separator",
+  "source": "Write-Output +\t1"
+ },
+ {
+  "name": "plus line continuation",
+  "source": "Write-Output +`\nword"
+ },
+ {
+  "name": "plus CRLF continuation",
+  "source": "Write-Output +`\r\nword"
+ },
+ {
+  "name": "plus unicode",
+  "source": "Write-Output +é$value"
+ },
+ {
+  "name": "plus before pipeline",
+  "source": "Write-Output + | Get-Item example"
+ },
+ {
+  "name": "plus before semicolon",
+  "source": "Write-Output +; Get-Item example"
+ },
+ {
+  "name": "bare plus method following",
+  "source": "Write-Output + $value.Method(1)"
+ },
+ {
+  "name": "bare plus colon following",
+  "source": "Write-Output + :word"
+ },
+ {
+  "name": "parenthesized binary control",
+  "source": "Write-Output ($left + $right)"
+ },
+ {
+  "name": "method binary control",
+  "source": "$value.Method($left + $right)"
+ },
+ {
+  "name": "nested unary control",
+  "source": "$result = +(+1)"
+ },
+ {
+  "name": "compound plus control",
+  "source": "$result += 1"
+ },
+ {
+  "name": "mixed comma baseline",
+  "source": "Write-Output \"first\", $value, word"
+ },
+ {
+  "name": "spaced mixed comma baseline",
+  "source": "Write-Output first , $value, word"
+ },
+ {
+  "name": "quote tail baseline",
+  "source": "Write-Output \"=\"*12"
+ },
+ {
+  "name": "spaced comma plus words",
+  "source": "Write-Output first, +1, +$value, +$(Get-Item example)"
+ },
+ {
+  "name": "spaced plus percentage words",
+  "source": "Show-Size 25%, 50%, +75%"
+ }
+]
