@@ -2519,12 +2519,11 @@ Get-Item First, # boundary
 
 ---
 
-(program
-  (ERROR
-    (command_name)
-    (command_argument_sep)
-    (generic_token)
-    (comment)))
+(ERROR
+  (command_name)
+  (command_argument_sep)
+  (generic_token)
+  (comment))
 
 ====================
 Command comma array: invalid-73
@@ -2562,7 +2561,9 @@ Get-Item First, >out.txt
           (command_elements
             (command_argument_sep)
             (generic_token)
-            (ERROR)
+            (unary_expression
+              (integer_literal
+                (MISSING decimal_integer_literal)))
             (redirection
               (file_redirection_operator)
               (redirected_file_name
@@ -2599,12 +2600,11 @@ Get-Item First,`   # boundary
 
 ---
 
-(program
-  (ERROR
-    (command_name)
-    (command_argument_sep)
-    (generic_token)
-    (comment)))
+(ERROR
+  (command_name)
+  (command_argument_sep)
+  (generic_token)
+  (comment))
 
 ====================
 Command comma array: invalid-77

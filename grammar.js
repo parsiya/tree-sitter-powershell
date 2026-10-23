@@ -106,6 +106,9 @@ export default grammar({
     [$.expandable_string_literal],
     [$.path_command_name, $._value],
     [$._command_argument, $.array_literal_expression],
+    [$._command_array_tail, $._completed_argument_array],
+    [$._command_expression_array, $._command_mixed_array, $._completed_argument_array],
+    [$._command_mixed_array, $._completed_argument_array],
     [$._command_pipeline_prefix_expression, $._primary_expression],
     [$.array_literal_expression, $.range_argument_expression],
   ],
@@ -1322,6 +1325,19 @@ export default grammar({
 
     _completed_argument_array: ($) =>
       choice(
+        // A quote completes the whole comma argument, not just its final item.
+        seq(
+          repeat1(seq(
+            choice(
+              alias($._command_unary_expression, $.unary_expression),
+              $._command_word,
+            ),
+            ',',
+            $._command_array_item_start,
+          )),
+          alias($._quoted_array_value, $.unary_expression),
+          $._quoted_argument_boundary,
+        ),
         seq(
           alias($._completed_argument_value, $.unary_expression),
           $._completed_expression_boundary,
@@ -1331,6 +1347,8 @@ export default grammar({
           $._completed_member_boundary,
         ),
       ),
+
+    _quoted_array_value: ($) => $.string_literal,
 
     _completed_argument_value: ($) =>
       choice(

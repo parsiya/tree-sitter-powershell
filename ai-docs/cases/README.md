@@ -148,3 +148,14 @@ committed (they became empty).
 Excluded: one Opengrep test file whose line also occurs in the corpus (kept
 locally as is), and the 7 cases of `proof-kit-selftest-wrong`, a kit
 negative control in which every case is meant to fail.
+
+## Quoted command-array completion
+
+`batch003-expandable-string` checks that a final quoted array item completes
+the entire argument: `Show-Thing "a", "one"$($x)` has an array argument followed
+by a separate subexpression argument. An apostrophe or comma inside the double
+quotes remains literal text; no quote repair or source rewriting is involved.
+The suite preserves Native-invalid missing-item controls, including three
+inherited corpus tests whose error-recovery trees changed. The C regression
+`test/quoted_array_boundaries.c` additionally checks literal payload bytes,
+delimiter extents and interpolation ancestry on the ABI14 parser.
