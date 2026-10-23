@@ -86,6 +86,8 @@ export default grammar({
     $._variable_command_name_continuation,
     $._invocation_argument_boundary,
     $._variable_before_literal_dot,
+    // A UTF-8 BOM at the very start of the input (see scanner.c).
+    $._leading_bom,
   ],
 
   extras: ($) => [
@@ -94,7 +96,10 @@ export default grammar({
     /`\n/,
     /`\r\n/,
     /`[ \t\v\f\r\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/,
-    /[\uFEFF\u2060\u200B\u00A0]/,
+    // No-break spaces. U+FEFF, U+2060 and U+200B are not whitespace in Native
+    // PowerShell; a file's leading BOM is _leading_bom. (A single-character
+    // class here changes the error-recovery tree of invalid-77.)
+    /[\u00A0\u202F]/,
     // Spaces before a comma (see scanner.c)
     $._spaces_before_comma,
   ],
@@ -118,6 +123,7 @@ export default grammar({
   rules: {
     program: ($) =>
       seq(
+        optional($._leading_bom),
         repeat(
           seq(
             $.using_statement,

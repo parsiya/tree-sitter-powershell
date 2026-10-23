@@ -35,7 +35,8 @@ enum TOKEN_TYPE {
     TRAILING_DOT_REAL_LITERAL,
     VARIABLE_COMMAND_NAME_CONTINUATION,
     INVOCATION_ARGUMENT_BOUNDARY,
-    VARIABLE_BEFORE_LITERAL_DOT
+    VARIABLE_BEFORE_LITERAL_DOT,
+    LEADING_BOM
 };
 
 /* --- API --- */
@@ -547,7 +548,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             if (lexer->lookahead == ';') return true;
             if (lexer->lookahead == ')') return true;
             if (line_end(lexer->lookahead)) return !statement_continuation_follows(lexer, valid_symbols);
-            if (!iswspace(lexer->lookahead)) return false;
+            if (!iswspace(lexer->lookahead) && lexer->lookahead != 0xa0) return false;
             skip(lexer);
         }
     }
@@ -671,8 +672,7 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '#' || c == 0xfeff ||
-        c == 0x2060 || c == 0x200b || c == 0xa0) return false;
+        c == '#' || c == 0xa0) return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
     if (c == '-') {
@@ -870,6 +870,17 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
 
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    // Native PowerShell drops one UTF-8 BOM that starts a file; any other U+FEFF
+    // (and U+2060, U+200B) is an ordinary character. The grammar only accepts
+    // this token before the first statement, so a BOM at column 0 there is the
+    // file's BOM.
+    if (valid_symbols[LEADING_BOM] && !valid_symbols[ERROR_SENTINEL] &&
+        lexer->lookahead == 0xfeff && lexer->get_column(lexer) == 0) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = LEADING_BOM;
+        return true;
+    }
     // A dot ends a parameter name and starts a command word, not a member.
     if (!valid_symbols[ERROR_SENTINEL] &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
