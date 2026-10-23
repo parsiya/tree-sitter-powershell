@@ -220,6 +220,12 @@ static bool command_word_end(int32_t c)
            c == '{' || c == '}' || c == ';' || c == ',' || c == '|' || c == '&';
 }
 
+// Operator characters that cannot start a parameter name after a dash.
+static bool dash_word_symbol(int32_t c)
+{
+    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%';
+}
+
 static bool literal_dot_follows(TSLexer *lexer)
 {
     if (lexer->lookahead != '.') return false;
@@ -556,6 +562,11 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             joined = true;
             only_dashes = false;
             if (scan_number_prefix(lexer) && command_word_end(lexer->lookahead)) return false;
+        } else if (!unicode_dash && dash_word_symbol(lexer->lookahead)) {
+            // `-=x`: no parameter name follows the dash, so this is a plain word.
+            parameter = false;
+            joined = true;
+            only_dashes = false;
         }
         lexer->mark_end(lexer);
     }
