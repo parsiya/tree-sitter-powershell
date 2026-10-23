@@ -1,0 +1,127 @@
+==================
+Lone dollar assignment value before a closing brace
+==================
+
+if ($a) {
+  $x=$
+}
+
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (assignment_expression
+              (left_assignment_expression
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable)))))))))))
+              (assignement_operator)
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)))))))))))
+
+==================
+Lone dollar command argument
+==================
+
+f $
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Lone dollar as a command name
+==================
+
+$-a.b
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Parenthesised dollar word as a parameter argument
+==================
+
+f -a:($-a.b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Variable control
+==================
+
+$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (variable))))))))))))))
