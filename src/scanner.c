@@ -79,11 +79,14 @@ static void skip_line_end(TSLexer *lexer)
     if (lexer->lookahead == '\n') skip(lexer);
 }
 
+// Whitespace as Native PowerShell sees it (Char.IsWhiteSpace); iswspace depends
+// on the locale and misses the Unicode spaces. U+FEFF, U+2060 and U+200B are not
+// whitespace.
 static bool command_array_space(int32_t c)
 {
-    return iswspace(c) || c == 0x85 || c == 0xa0 || c == 0x1680 ||
-           (c >= 0x2000 && c <= 0x200a) || c == 0x2028 || c == 0x2029 ||
-           c == 0x202f || c == 0x205f || c == 0x3000;
+    return (c >= '\t' && c <= '\r') || c == ' ' || c == 0x85 || c == 0xa0 ||
+           c == 0x1680 || (c >= 0x2000 && c <= 0x200a) || c == 0x2028 ||
+           c == 0x2029 || c == 0x202f || c == 0x205f || c == 0x3000;
 }
 
 // After a command comma, escaped whitespace is trivia, not an array value.
@@ -172,7 +175,7 @@ static bool is_word_char(int32_t c)
 static bool clause_follows(TSLexer *lexer, bool allow_else, bool allow_try)
 {
     for (;;) {
-        while (iswspace(lexer->lookahead)) skip(lexer);
+        while (command_array_space(lexer->lookahead)) skip(lexer);
         if (lexer->lookahead != '#') break;
         while (lexer->lookahead != 0 && !line_end(lexer->lookahead)) skip(lexer);
     }
@@ -196,7 +199,7 @@ static bool clause_follows(TSLexer *lexer, bool allow_else, bool allow_try)
 
 static bool command_word_end(int32_t c)
 {
-    return c == 0 || iswspace(c) || c == 0xa0 || c == '(' || c == ')' ||
+    return c == 0 || command_array_space(c) || c == '(' || c == ')' ||
            c == '{' || c == '}' || c == ';' || c == ',' || c == '|' || c == '&';
 }
 
@@ -644,7 +647,7 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
     bool allow_try = valid_symbols[TRY_CLAUSE_AHEAD];
     skip_line_end(lexer); // The newline after the left-hand side.
     for (;;) {
-        while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
+        while (!line_end(lexer->lookahead) && command_array_space(lexer->lookahead)) skip(lexer);
         if (lexer->lookahead == '#') {
             while (lexer->lookahead && !line_end(lexer->lookahead)) skip(lexer);
         } else if (lexer->lookahead == '<') {
@@ -671,7 +674,7 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
                 }
             }
             if (depth) return false;
-            while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
+            while (!line_end(lexer->lookahead) && command_array_space(lexer->lookahead)) skip(lexer);
             if (!line_end(lexer->lookahead)) continue;
         } else if (line_end(lexer->lookahead)) {
             allow_pipe = false;
@@ -706,7 +709,7 @@ static bool statement_terminator_follows(TSLexer *lexer, const bool *valid_symbo
             continue;
         }
         if (line_end(c)) return !statement_continuation_follows(lexer, valid_symbols);
-        if (!iswspace(c) && c != 0xa0) return false;
+        if (!command_array_space(c)) return false;
         skip(lexer);
     }
 }
@@ -748,7 +751,7 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
 {
     if (!valid_symbols[BARE_DASHES]) return false;
 
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') skip(lexer);
+    while (!line_end(lexer->lookahead) && command_array_space(lexer->lookahead)) skip(lexer);
     if (lexer->lookahead != '-') return false;
     lexer->advance(lexer, false);
     if (lexer->lookahead == '-') lexer->advance(lexer, false);
@@ -768,7 +771,9 @@ static bool scan_bare_dashes(void *payload, TSLexer *lexer, const bool *valid_sy
             lexer->result_symbol = BARE_DASHES;
             return true;
         default:
-            return false;
+            if (!command_array_space(lexer->lookahead)) return false;
+            lexer->result_symbol = BARE_DASHES;
+            return true;
     }
 }
 
@@ -862,10 +867,10 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     }
     // Keep expression suffixes, punctuation and elements that already work
     // without spaces on their existing grammar paths.
-    if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
+    if (c == 0 || command_array_space(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '#' || c == 0xa0) return false;
+        c == '#') return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
     if (c == '-') {
@@ -1055,7 +1060,7 @@ static bool scan_angle_argument_boundary(TSLexer *lexer)
 
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
 {
-    while (iswspace(lexer->lookahead)) skip(lexer);
+    while (command_array_space(lexer->lookahead)) skip(lexer);
     if (!type_name_letter(lexer->lookahead)) return false;
 
     unsigned dots = 0;
