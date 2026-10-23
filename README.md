@@ -2,6 +2,10 @@
 
 Powershell grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter)
 
+> **This fork is the grammar used by [Opengrep](https://github.com/opengrep/opengrep).**
+> Before changing it (people and AI agents), read [AGENTS.md](AGENTS.md) and
+> [ai-docs/](ai-docs/README.md).
+
 ## String delimiters
 
 String delimiters follow PowerShell's native quote families: ASCII `'` and
