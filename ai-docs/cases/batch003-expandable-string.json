@@ -1,0 +1,138 @@
+[
+  {
+    "name": "minimal quoted array before adjacent subexpression",
+    "source": "Show-Thing \"a\", \"one\"$($x)",
+    "expect": "valid"
+  },
+  {
+    "name": "expandable array item closes before adjacent subexpression",
+    "source": "Show-Thing -Text 'prefix', \"Status $($entry.Name): ', \"$($failure.Message) -Tone Blue, Gray",
+    "expect": "valid"
+  },
+  {
+    "name": "single quote array item before adjacent variable",
+    "source": "Show-Thing 1, 'last'$value -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array before adjacent word",
+    "source": "Show-Thing $first, \"last\"tail -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array before adjacent quote",
+    "source": "Show-Thing 'first', \"last\"'next'",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array before adjacent parenthesis",
+    "source": "Show-Thing 'first', \"last\"($value)",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array before adjacent member",
+    "source": "Show-Thing 'first', \"last\"$item.Name",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array before adjacent comma list",
+    "source": "Show-Thing 'first', \"last\"$value, 'next' -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "attached parameter quoted array",
+    "source": "Show-Thing -Text:'first', \"last\"$($value) -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "bareword array before adjacent subexpression",
+    "source": "Show-Thing first, \"last\"$($value)",
+    "expect": "valid"
+  },
+  {
+    "name": "mixed array before adjacent subexpression",
+    "source": "Show-Thing 'first', middle, \"last\"$($value)",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array across CRLF",
+    "source": "Show-Thing \"first\",\r\n \"last\"$($value) -Quiet\r\nShow-Thing done",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted array smart delimiters",
+    "source": "Show-Thing ‘first’, “last”$($value)",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote remains inside string",
+    "source": "Show-Thing 'first', \"a`\"$($value)z\" -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote remains inside string",
+    "source": "Show-Thing 'first', \"a\"\"$($value)z\" -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "apostrophe and comma remain inside expandable string",
+    "source": "Show-Thing 'first', \"a '$($value), z\" -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "whitespace after quote separates arguments",
+    "source": "Show-Thing 'first', \"last\" $($value) -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "comma after quote continues array",
+    "source": "Show-Thing 'first', \"last\", $($value) -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "single quoted argument adjacency control",
+    "source": "Show-Thing \"last\"$($value) -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "bare variable before subexpression remains one word",
+    "source": "Show-Thing $first, $last$($value)tail -Quiet",
+    "expect": "valid",
+    "known": [
+      {
+        "difference": "typed missing VariableExpressionAst 19:24",
+        "reason": "Present before this fix: the joined command word absorbs its leading $last variable. Command element kind/extent and subexpression still agree with Native; variable-leading word tokenization is outside quoted-array completion."
+      }
+    ]
+  },
+  {
+    "name": "expression mode does not allow quoted array adjacency",
+    "source": "$items = 'first', \"last\"$($value)",
+    "expect": "invalid"
+  },
+  {
+    "name": "missing final comma item",
+    "source": "Show-Thing 'first', \"last\",",
+    "expect": "invalid"
+  },
+  {
+    "name": "unterminated quoted array item",
+    "source": "Show-Thing 'first', \"last$($value)",
+    "expect": "invalid"
+  },
+  {
+    "name": "missing word array item before comment",
+    "source": "Get-Item First, # boundary",
+    "expect": "invalid"
+  },
+  {
+    "name": "missing word array item before redirection",
+    "source": "Get-Item First, >out.txt",
+    "expect": "invalid"
+  },
+  {
+    "name": "missing word array item before escaped space comment",
+    "source": "Get-Item First,`   # boundary",
+    "expect": "invalid"
+  }
+]

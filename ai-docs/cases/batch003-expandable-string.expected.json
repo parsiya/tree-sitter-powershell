@@ -1,0 +1,33 @@
+{
+ "suite": "batch003-expandable-string",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":26,"agree":19,"invalid_rejected":6,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "minimal quoted array before adjacent subexpression": {"status":"agree","differences":[]},
+  "expandable array item closes before adjacent subexpression": {"status":"agree","differences":[]},
+  "single quote array item before adjacent variable": {"status":"agree","differences":[]},
+  "quoted array before adjacent word": {"status":"agree","differences":[]},
+  "quoted array before adjacent quote": {"status":"agree","differences":[]},
+  "quoted array before adjacent parenthesis": {"status":"agree","differences":[]},
+  "quoted array before adjacent member": {"status":"agree","differences":[]},
+  "quoted array before adjacent comma list": {"status":"agree","differences":[]},
+  "attached parameter quoted array": {"status":"agree","differences":[]},
+  "bareword array before adjacent subexpression": {"status":"agree","differences":[]},
+  "mixed array before adjacent subexpression": {"status":"agree","differences":[]},
+  "quoted array across CRLF": {"status":"agree","differences":[]},
+  "quoted array smart delimiters": {"status":"agree","differences":[]},
+  "escaped quote remains inside string": {"status":"agree","differences":[]},
+  "doubled quote remains inside string": {"status":"agree","differences":[]},
+  "apostrophe and comma remain inside expandable string": {"status":"agree","differences":[]},
+  "whitespace after quote separates arguments": {"status":"agree","differences":[]},
+  "comma after quote continues array": {"status":"agree","differences":[]},
+  "single quoted argument adjacency control": {"status":"agree","differences":[]},
+  "bare variable before subexpression remains one word": {"status":"known","differences":[]},
+  "expression mode does not allow quoted array adjacency": {"status":"invalid-rejected","differences":[]},
+  "missing final comma item": {"status":"invalid-rejected","differences":[]},
+  "unterminated quoted array item": {"status":"invalid-rejected","differences":[]},
+  "missing word array item before comment": {"status":"invalid-rejected","differences":[]},
+  "missing word array item before redirection": {"status":"invalid-rejected","differences":[]},
+  "missing word array item before escaped space comment": {"status":"invalid-rejected","differences":[]}
+ }
+}
