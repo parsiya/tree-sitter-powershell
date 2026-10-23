@@ -44,7 +44,13 @@ The tools source the build environment themselves when `local/config.json` sets
 
 ## Loop
 
-1. **Classify with Native first.** Write `$W/ai-docs/cases/TOPIC.json`.
+1. **Classify with Native first.** Check single snippets quickly, then write
+   `$W/ai-docs/cases/TOPIC.json`:
+
+   ```sh
+   node ai-docs/tools/proof-kit.mjs --source 'Write-Output [Example]::Method(1)'   # every difference
+   ```
+
    - Include made-up reductions, negative controls (forms that must stay
      invalid or unchanged) and neighbouring forms that already work.
    - Cases are `{name, source, expect?, facts?, known?, known_patterns?}`; the
@@ -90,7 +96,7 @@ The tools source the build environment themselves when `local/config.json` sets
 7. **Record expectations.** Once step 5 passes:
 
    ```sh
-   node ai-docs/tools/proof-kit.mjs --suites "$W/ai-docs/cases" --fork "$W" --write-expectations
+   node ai-docs/tools/proof-kit.mjs --suites "$W/ai-docs/cases" --suite TOPIC --fork "$W" --write-expectations
    git -C "$W" status --short ai-docs/cases
    git -C "$W" diff -- ai-docs/cases
    ```

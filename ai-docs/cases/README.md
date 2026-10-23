@@ -39,7 +39,7 @@ Expectations are never updated automatically. After a reviewed grammar change
 (or when adding a suite or case):
 
 ```sh
-node ai-docs/tools/proof-kit.mjs --suites --write-expectations
+node ai-docs/tools/proof-kit.mjs --suites --suite NAME --write-expectations   # only NAME
 git diff ai-docs/cases/*.expected.json   # one line per case: review every change
 ```
 

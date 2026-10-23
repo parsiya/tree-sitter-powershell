@@ -39,7 +39,8 @@ export function sh(fd, script, { cwd = ROOT ?? TOOLS, env = {}, capture = false,
   if (capture) child.stdout.on('data', data => { stdout += data; fs.writeSync(fd, data); });
   return once(child, 'close').then(([code, signal]) => {
     if (code !== 0 && !allowFail) {
-      throw new StageFailure(`command failed (${signal ?? `exit ${code}`}): ${script.split('\n')[0].slice(0, 160)}`);
+      throw new StageFailure(`command failed (${signal ?? `exit ${code}`}): ` +
+        `${(script.split('\n').find(line => line.trim() && !/^export /.test(line)) ?? script).trim().slice(0, 160)}`);
     }
     return { code, stdout };
   });

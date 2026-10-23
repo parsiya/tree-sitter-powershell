@@ -90,6 +90,26 @@ function gitIdentity(dir) {
   };
 }
 
+// The likely cause of a failed stage, from the output of its last command in the
+// stage log: failing test names, compiler/eslint/Node errors, or the last lines.
+function explainFailure(log) {
+  const text = log.slice(log.lastIndexOf('\n$ ') + 1).replace(/\x1b\[[0-9;]*m/g, '');
+  const lines = text.split('\n').map(line => line.trimEnd()).filter(line => line.trim());
+  const clip = line => line.trim().slice(0, 220);
+  const failures = text.search(/^\s*\d+ failures?:\s*$/m);
+  if (failures >= 0) {
+    const names = [...text.slice(failures).matchAll(/^\s+\d+\.\s+(.+?):?\s*$/gm)].map(m => m[1]);
+    return [`tree-sitter test failed: ${names.slice(0, 5).join('; ')}${names.length > 5 ? ` (+${names.length - 5} more)` : ''}`];
+  }
+  const testo = lines.filter(line => /^\[FAIL\]/.test(line));
+  if (testo.length) return testo.slice(0, 3).map(clip);
+  for (const pattern of [/: (?:fatal )?error: /, /^\s+\d+:\d+\s+error\s/, /^\w*Error\b|^Error[: ]/, /Unresolved conflict|conflict/i]) {
+    const hits = lines.filter(line => pattern.test(line) && !line.startsWith('$ ') && !line.startsWith('VALIDATION FAILURE'));
+    if (hits.length) return hits.slice(0, 3).map(clip);
+  }
+  return lines.filter(line => !line.startsWith('VALIDATION FAILURE')).slice(-2).map(clip);
+}
+
 class Run {
   constructor(opts) {
     this.opts = opts;
@@ -156,6 +176,7 @@ class Run {
       record.error = error instanceof StageFailure || error instanceof assert.AssertionError
         ? error.message : String(error.stack ?? error);
       fs.writeSync(fd, `\nVALIDATION FAILURE: ${record.error}\n`);
+      record.why = explainFailure(fs.readFileSync(log, 'utf8'));
     } finally {
       record.wall_s = +((performance.now() - start) / 1000).toFixed(3);
       record.child_cpu_s = +(childCpuSeconds() - cpu).toFixed(2);
@@ -597,7 +618,8 @@ function writeSummary(run, started) {
       : `fork ${run.identity.fork.path} ${tree(run.identity.fork)} [${run.identity.fork.branch}]`,
     ...run.stages.map(stage => `${stage.status.toUpperCase().padEnd(4)} ${stage.name.padEnd(8)} ` +
       `${duration(stage.wall_s).padStart(6)} wall ${duration(stage.child_cpu_s).padStart(6)} cpu  ` +
-      `${stage.status === 'pass' ? stage.details.line : stage.error}`),
+      `${stage.status === 'pass' ? stage.details.line : stage.error}` +
+      `${stage.why?.length ? stage.why.map(why => `\n     why: ${why}`).join('') : ''}`),
     ...summary.skipped.map(name => `SKIP ${name}${run.noCorpus && CORPUS_STAGES.includes(name) ? ` (${run.noCorpus})` : ''}`),
   ];
   if (run.noCorpus) lines.push(`NOTICE ${run.noCorpus}: corpus layers skipped; this run is not a certification`);

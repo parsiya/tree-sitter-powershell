@@ -154,8 +154,9 @@ than starting a duplicate.
   `IMPROVED`), or
 - when adding a suite or a case.
 
-Run `node ai-docs/tools/proof-kit.mjs --suites --write-expectations` (add
-`--fork "$W"` and the worktree's `ai-docs/cases` folder for a fix branch),
+Run `node ai-docs/tools/proof-kit.mjs --suites --suite NAME --write-expectations`
+for the suites that should change (add `--fork "$W"` and the worktree's
+`ai-docs/cases` folder for a fix branch; without `--suite` every suite is rewritten),
 review every changed line with `git diff`, and commit the expectations with the
 change that caused them. Never write expectations to make a failing suite pass:
 a new difference or a worse status is a regression to fix.

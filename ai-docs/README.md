@@ -1,5 +1,8 @@
 # ai-docs: tools and docs for the Opengrep PowerShell grammar
 
+AI agents: start with [../AGENTS.md](../AGENTS.md) (the instructions for working
+in this repository), even if your tool does not load AGENTS.md automatically.
+
 This folder holds everything needed to change the PowerShell grammar that
 [Opengrep](https://github.com/opengrep/opengrep) uses and to prove the change is
 right:
@@ -103,7 +106,8 @@ Run the commands from this repository's root.
 
    ```sh
    node ai-docs/tools/proof-kit.mjs CASES.json [--fork WORKTREE] --known-pattern trailing-trivia
-   node ai-docs/tools/proof-kit.mjs --suites [--fork WORKTREE]
+   node ai-docs/tools/proof-kit.mjs --suites [--suite NAME] [--fork WORKTREE]
+   node ai-docs/tools/proof-kit.mjs --source 'one snippet'   # quick check, every difference
    ```
 
    The first form checks one case file; the case schema is in the header of

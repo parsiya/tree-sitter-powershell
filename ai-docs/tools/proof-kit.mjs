@@ -2,9 +2,18 @@
 // on a list of cases, fact by fact, at exact byte offsets.
 //
 //   node ai-docs/tools/proof-kit.mjs CASES.json [--fork WORKTREE | --parser-dir DIR [--names TSV]]
-//                                    [--out REPORT.json] [--known-pattern NAME]
-//   node ai-docs/tools/proof-kit.mjs --suites [DIR...] [--write-expectations] [--fork ... | --parser-dir ...]
-//                                    [--out DIR]
+//                                    [--out REPORT.json] [--known-pattern NAME] [--all]
+//   node ai-docs/tools/proof-kit.mjs --source TEXT [--fork WORKTREE | --parser-dir DIR]
+//   node ai-docs/tools/proof-kit.mjs --suites [DIR...] [--suite NAME[,NAME]] [--write-expectations]
+//                                    [--fork ... | --parser-dir ...] [--out DIR]
+//
+// --source TEXT  one-off check of a snippet (quick classification while writing cases):
+//                trailing-trivia on by default, every difference printed; the generated
+//                cases file goes to local/results/proof-kit/adhoc/, never into a suite.
+// --all          print every difference of a failing case, not just the first.
+// --suite NAMES  restrict --suites to these suites, e.g. to record a new suite's
+//                expectations without rewriting the others:
+//                --suites --suite my-topic --write-expectations
 //
 // Suites (--suites): runs every SUITE.json in each DIR (default: ai-docs/cases and, when
 // present, ai-docs/local/cases, reported separately) with --known-pattern trailing-trivia,
@@ -268,7 +277,7 @@ const span = x => `${x.s}:${x.e}`;
 
 class InputError extends Error {}
 
-const FLAGS = ['suites', 'writeExpectations'];
+const FLAGS = ['suites', 'writeExpectations', 'all'];
 
 function parseArgs(argv) {
   const opts = { positional: [] };
@@ -282,20 +291,27 @@ function parseArgs(argv) {
     } else opts.positional.push(arg);
   }
   for (const key of Object.keys(opts)) {
-    if (!['positional', 'fork', 'parserDir', 'names', 'out', 'knownPattern', ...FLAGS].includes(key)) throw new InputError(`unknown option --${key}`);
+    if (!['positional', 'fork', 'parserDir', 'names', 'out', 'knownPattern', 'source', 'suite', ...FLAGS].includes(key)) throw new InputError(`unknown option --${key}`);
   }
   if (opts.knownPattern !== undefined && !KNOWN_PATTERNS[opts.knownPattern]) {
     throw new InputError(`unknown known pattern ${opts.knownPattern}; known: ${Object.keys(KNOWN_PATTERNS).join(', ')}`);
   }
   if (opts.writeExpectations && !opts.suites) throw new InputError('--write-expectations goes with --suites');
+  if (opts.suite !== undefined && !opts.suites) throw new InputError('--suite goes with --suites');
+  if (opts.source !== undefined) {
+    if (opts.suites || opts.positional.length) throw new InputError('--source replaces CASES.json and --suites');
+    opts.all = true;
+    opts.knownPattern ??= SUITE_PATTERN;
+  }
   if (opts.suites) {
     if (opts.knownPattern !== undefined && opts.knownPattern !== SUITE_PATTERN) {
       throw new InputError(`--suites always uses --known-pattern ${SUITE_PATTERN}`);
     }
     opts.knownPattern = SUITE_PATTERN;
-  } else if (opts.positional.length !== 1) {
-    throw new InputError('usage: node ai-docs/tools/proof-kit.mjs CASES.json [--fork WORKTREE | --parser-dir DIR [--names TSV]] [--out REPORT.json] [--known-pattern NAME]\n' +
-      '       node ai-docs/tools/proof-kit.mjs --suites [DIR...] [--write-expectations] [--fork WORKTREE | --parser-dir DIR [--names TSV]] [--out DIR]');
+  } else if (opts.source === undefined && opts.positional.length !== 1) {
+    throw new InputError('usage: node ai-docs/tools/proof-kit.mjs CASES.json [--fork WORKTREE | --parser-dir DIR [--names TSV]] [--out REPORT.json] [--known-pattern NAME] [--all]\n' +
+      '       node ai-docs/tools/proof-kit.mjs --source TEXT [--fork WORKTREE | --parser-dir DIR] [--known-pattern NAME]\n' +
+      '       node ai-docs/tools/proof-kit.mjs --suites [DIR...] [--suite NAME[,NAME]] [--write-expectations] [--fork WORKTREE | --parser-dir DIR [--names TSV]] [--out DIR]');
   }
   if (opts.fork && opts.parserDir) throw new InputError('--fork and --parser-dir are exclusive');
   if (opts.names && !opts.parserDir) throw new InputError('--names goes with --parser-dir');
@@ -393,34 +409,34 @@ async function setupParser(opts) {
     return { ...entry, dump: inEntry(entry, 'ts-dump'), names: inEntry(entry, 'names.tsv'),
       parser_c_sha256: sha256(fs.readFileSync(path.join(src, 'parser.c'))) };
   }
-  const submodule = !opts.fork;
+  const checkedIn = !opts.fork;
   const fork = path.resolve(opts.fork ?? PARSER);
   if (!fs.existsSync(path.join(fork, 'grammar.js'))) throw new InputError(`not a parser worktree: ${fork}`);
   if (!GENERATOR) throw new InputError(`no Opengrep checkout (this repo is not a submodule); set opengrepRoot in ${CONFIG_FILE}`);
   if (!fs.existsSync(GENERATOR)) throw new InputError(`no ocaml-tree-sitter generator at ${GENERATOR}; build Opengrep once`);
-  const key = `${submodule ? 'submodule' : 'fork'}-${hashInputs([...common, ['fork', Buffer.from(fork)],
+  const key = `${checkedIn ? 'checked-in' : 'fork'}-${hashInputs([...common, ['fork', Buffer.from(fork)],
     ['grammar.js', fs.readFileSync(path.join(fork, 'grammar.js'))],
     ...['scanner.c', 'parameter_letters.h'].map(f => [f, fileOrEmpty(path.join(fork, 'src', f))]),
     ...['grammar.cjs', 'prepare-grammar.cjs'].map(f => [f, fs.readFileSync(path.join(opengrepDir(fork), f))]),
     ['generator', fs.readFileSync(GENERATOR)],
-    ...(submodule ? ['parser.c', 'scanner.c'].map(f => [`checked-in ${f}`, fs.readFileSync(path.join(ABI14_LIB, f))]) : [])])}`;
-  const entry = await cached(key, { mode: submodule ? 'submodule' : 'fork', fork, tools }, async (dir, run) => {
+    ...(checkedIn ? ['parser.c', 'scanner.c'].map(f => [`checked-in ${f}`, fs.readFileSync(path.join(ABI14_LIB, f))]) : [])])}`;
+  const entry = await cached(key, { mode: checkedIn ? 'checked-in' : 'fork', fork, tools }, async (dir, run) => {
     const built = await buildAbi14(run, fork, dir);
     await abi14NamesMap(run, built.unsimplified, built.simplified, path.join(dir, 'names.tsv'));
     let src = built.src;
     const matches = ['parser.c', 'scanner.c'].every(f => fs.readFileSync(path.join(src, f)).equals(fs.readFileSync(path.join(ABI14_LIB, f))));
-    if (submodule) {
+    if (checkedIn) {
       if (!matches) {
-        throw new Error('checked-in opengrep/ocaml/lib parser.c/scanner.c differ from a fresh generation of the submodule\'s ' +
+        throw new Error('checked-in opengrep/ocaml/lib parser.c/scanner.c differ from a fresh generation of this repo\'s ' +
           `grammar sources; regenerate, or test the working tree with --fork ${fork}`);
       }
       src = ABI14_LIB;
     }
     await run(tsDumpCommand(src, path.join(dir, 'ts-dump')));
     // Keep the ABI14 sources (fork mode) and both grammar.json files (the names' evidence); drop rebuildable bulk.
-    const bulk = ['compat-repo', 'ocaml-tree-sitter-gen.exe', 'compat-022/src/parser.c', ...(submodule ? ['compat-abi14/src/parser.c'] : [])];
+    const bulk = ['compat-repo', 'ocaml-tree-sitter-gen.exe', 'compat-022/src/parser.c', ...(checkedIn ? ['compat-abi14/src/parser.c'] : [])];
     for (const name of bulk) fs.rmSync(path.join(dir, name), { recursive: true, force: true });
-    return { sources: submodule ? src : path.relative(dir, src), matches_checked_in: matches };
+    return { sources: checkedIn ? src : path.relative(dir, src), matches_checked_in: matches };
   });
   const sources = path.isAbsolute(entry.sources) ? entry.sources : inEntry(entry, entry.sources);
   return { ...entry, sources, dump: inEntry(entry, 'ts-dump'), names: inEntry(entry, 'names.tsv'), fork_git: gitIdentity(fork),
@@ -912,7 +928,7 @@ function compareCase(c, native, ts) {
 
 // ---------------------------------------------------------------- driver
 
-function summarize(report, elapsed) {
+function summarize(report, elapsed, all = false) {
   const s = report.summary;
   const lines = [
     `proof-kit ${report.cases_file}: ${s.result.toUpperCase()} in ${elapsed.toFixed(1)}s`,
@@ -933,19 +949,32 @@ function summarize(report, elapsed) {
     const first = c.unexpected[0];
     const more = c.unexpected.length - 1 + c.stale_known.length;
     lines.push(`MISMATCH ${c.name}: ${first ? `${first.key}${first.detail ? ` [${first.detail}]` : ''}` : `stale known: ${c.stale_known[0]}`}` +
-      `${more > 0 ? ` (+${more} more)` : ''}`);
+      `${more > 0 && !all ? ` (+${more} more)` : ''}`);
+    if (all) {
+      for (const d of c.unexpected.slice(1)) lines.push(`  ${d.key}${d.detail ? ` [${d.detail}]` : ''}`);
+      for (const key of first ? c.stale_known : c.stale_known.slice(1)) lines.push(`  stale known: ${key}`);
+    }
   }
   for (const limit of s.kit_limits) lines.push(`kit limit: ${limit}`);
   lines.push(`report: ${rel(report.path)}`);
   return lines.join('\n');
 }
 
-const stampNow = () => new Date().toISOString().replace(/[-:]/g, '').replace(/\..*/, '');
+// Default report names: timestamp plus process id, so back-to-back runs never collide.
+const stampNow = () => `${new Date().toISOString().replace(/[-:]/g, '').replace(/\..*/, '')}-${process.pid}`;
 
 async function main() {
   const started = performance.now();
   const opts = parseArgs(process.argv.slice(2));
   if (opts.suites) return runSuites(opts);
+  if (opts.source !== undefined) {
+    // A one-off case: written to local/, never into the committed suites.
+    prepareLocal();
+    const adhoc = path.join(RESULTS, 'proof-kit', 'adhoc');
+    fs.mkdirSync(adhoc, { recursive: true });
+    opts.positional = [path.join(adhoc, `source-${stampNow()}.json`)];
+    fs.writeFileSync(opts.positional[0], JSON.stringify([{ name: 'source', source: opts.source }]));
+  }
   const casesFile = path.resolve(opts.positional[0]);
   const cases = loadCases(casesFile);
   const out = path.resolve(opts.out ?? path.join(RESULTS, 'proof-kit', `${path.basename(casesFile, '.json')}-${stampNow()}.json`));
@@ -953,7 +982,7 @@ async function main() {
   prepareLocal();
   const parser = await setupParser(opts);
   const report = await runCases(casesFile, cases, parser, opts, out, started);
-  console.log(summarize(report, (performance.now() - started) / 1000));
+  console.log(summarize(report, (performance.now() - started) / 1000, opts.all));
   return report.summary.result === 'pass' ? 0 : 1;
 }
 
@@ -1049,10 +1078,10 @@ async function runCases(casesFile, cases, parser, opts, out, started) {
       fork: parser.fork_git, matches_checked_in: parser.matches_checked_in, tools: parser.tools, cache: parser.cache, build_dir: rel(parser.dir),
       runtime: `tree-sitter ${parser.tools.runtime} (pkg-config, static libtree-sitter.a)`,
       description: parser.mode === 'parser-dir' ? `ABI14 sources ${parser.sources} on tree-sitter ${parser.tools.runtime}`
-        : `${parser.mode === 'submodule' ? 'submodule opengrep/ocaml/lib' : `fork ${parser.fork}`} ` +
+        : `${parser.mode === 'checked-in' ? `checked-in opengrep/ocaml/lib of ${parser.fork}` : `fork ${parser.fork}`} ` +
           `(${parser.fork_git.git === false ? 'not a git worktree' : parser.fork_git.head ?? '?'}` +
           `${parser.fork_git.branch ? ` ${parser.fork_git.branch}` : ''}${parser.fork_git.dirty ? ', dirty' : ''}` +
-          `${parser.mode === 'submodule' ? ', = fresh ABI14 generation' : ''}) on tree-sitter ${parser.tools.runtime}`,
+          `${parser.mode === 'checked-in' ? ', = fresh ABI14 generation' : ''}) on tree-sitter ${parser.tools.runtime}`,
     },
     native: { version: native.version, api: 'System.Management.Automation.Language.Parser.ParseInput', helper: 'proof-kit-native.ps1' },
     encoding_policy: 'UTF-8 byte offsets of the original file bytes, as Opengrep passes them to tree-sitter (BOM included); ' +
@@ -1139,6 +1168,12 @@ async function runSuites(opts) {
       const casesFile = path.join(dir, file);
       suites.push({ dir, name: path.basename(file, '.json'), casesFile, cases: loadCases(casesFile) });
     }
+  }
+  if (opts.suite !== undefined) {
+    const wanted = opts.suite.split(',');
+    const missing = wanted.filter(name => !suites.some(s => s.name === name));
+    if (missing.length) throw new InputError(`no such suite: ${missing.join(', ')}`);
+    suites.splice(0, suites.length, ...suites.filter(s => wanted.includes(s.name)));
   }
   if (!suites.length) throw new InputError(`no suites in ${dirs.join(', ') || 'ai-docs/cases'}`);
   const outDir = path.resolve(opts.out ?? path.join(RESULTS, 'proof-kit', `suites-${stampNow()}`));
