@@ -1,0 +1,32 @@
+{
+ "suite": "b6-policy",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":25,"agree":22,"invalid_rejected":2,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "arrow word argument": {"status":"agree","differences":[]},
+  "arrow word argument at end": {"status":"agree","differences":[]},
+  "arrow word attached suffix": {"status":"agree","differences":[]},
+  "arrow word before pipe": {"status":"known","differences":[]},
+  "arrow word before semicolon": {"status":"agree","differences":[]},
+  "arrow word then parameter": {"status":"agree","differences":[]},
+  "arrow word after parameter": {"status":"agree","differences":[]},
+  "arrow word after word": {"status":"agree","differences":[]},
+  "arrow word doubled": {"status":"agree","differences":[]},
+  "arrow word tripled": {"status":"agree","differences":[]},
+  "arrow word with digit redirection text": {"status":"agree","differences":[]},
+  "arrow word with comma": {"status":"agree","differences":[]},
+  "arrow word then variable": {"status":"agree","differences":[]},
+  "arrow word then indexed variable and quoted word": {"status":"agree","differences":[]},
+  "arrow word then indexed variable and double quoted word": {"status":"agree","differences":[]},
+  "arrow word in if block": {"status":"agree","differences":[]},
+  "arrow word in assignment command": {"status":"agree","differences":[]},
+  "indexed variable then quoted word control": {"status":"agree","differences":[]},
+  "parameter with redirection text control": {"status":"agree","differences":[]},
+  "parameter with dash arrow control": {"status":"agree","differences":[]},
+  "word with arrow control": {"status":"agree","differences":[]},
+  "parameter then value control": {"status":"agree","differences":[]},
+  "bare double dash argument control": {"status":"agree","differences":[]},
+  "arrow as expression is invalid": {"status":"invalid-rejected","differences":[]},
+  "arrow as binary operand is invalid": {"status":"invalid-rejected","differences":[]}
+ }
+}

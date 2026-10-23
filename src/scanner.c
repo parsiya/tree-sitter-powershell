@@ -528,7 +528,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
                          lexer->lookahead == '`');
         consumed = true;
         dashes = 1;
-        if (digit(lexer->lookahead) || lexer->lookahead == '.') {
+        // `->` is a plain word: `>` after a lone dash is not a redirection.
+        if (lexer->lookahead == '>') {
+            parameter = false;
+            joined = true;
+            only_dashes = false;
+        } else if (digit(lexer->lookahead) || lexer->lookahead == '.') {
             parameter = false;
             joined = true;
             only_dashes = false;
