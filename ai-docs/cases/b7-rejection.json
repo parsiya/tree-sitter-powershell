@@ -1,0 +1,158 @@
+[
+ {
+  "name": "foreach assignment member chain",
+  "source": "foreach ($name in $names) {\n    $id = (New-Object uri(Invoke-Example \"$($cfg.Root)/$name/info\").endpoint).Path.Split(\"/\")[1]\n}"
+ },
+ {
+  "name": "assignment member chain",
+  "source": "$id = (New-Object uri(Invoke-Example \"x\").endpoint).Path.Split(\"/\")[1]"
+ },
+ {
+  "name": "assignment single member",
+  "source": "$id = (New-Object uri(Get-Item example).path)"
+ },
+ {
+  "name": "member receiver",
+  "source": "New-Object uri(Get-Item example).path"
+ },
+ {
+  "name": "method call receiver",
+  "source": "New-Object uri(Get-Item example).Trim()"
+ },
+ {
+  "name": "method call with argument",
+  "source": "New-Object uri(Get-Item example).Trim(1)"
+ },
+ {
+  "name": "element access receiver",
+  "source": "New-Object uri(Get-Item example)[0]"
+ },
+ {
+  "name": "element access then member",
+  "source": "New-Object uri(Get-Item example)[0].path"
+ },
+ {
+  "name": "static member receiver",
+  "source": "New-Object uri(Get-Item example)::path"
+ },
+ {
+  "name": "static method receiver",
+  "source": "New-Object uri(Get-Item example)::path(1)"
+ },
+ {
+  "name": "member chain with call and index",
+  "source": "New-Object uri(Get-Item example).a.b(1)[0]"
+ },
+ {
+  "name": "number inside parenthesis",
+  "source": "New-Object uri(1).path"
+ },
+ {
+  "name": "variable inside parenthesis",
+  "source": "New-Object uri($a).path"
+ },
+ {
+  "name": "quoted string inside parenthesis",
+  "source": "New-Object uri(\"x\").path"
+ },
+ {
+  "name": "dotted word before parenthesis",
+  "source": "New-Object a.b(Get-Item x).path"
+ },
+ {
+  "name": "variable before parenthesis",
+  "source": "New-Object $v(Get-Item x).path"
+ },
+ {
+  "name": "member then unquoted array item",
+  "source": "New-Object uri(Get-Item x).path,tail"
+ },
+ {
+  "name": "member then variable array item",
+  "source": "New-Object uri(Get-Item x).path,$b"
+ },
+ {
+  "name": "method call then unquoted array item",
+  "source": "Write-Output Fix($a).Trim(),tail"
+ },
+ {
+  "name": "member then quoted tail",
+  "source": "New-Object uri(Get-Item x).path\"s\""
+ },
+ {
+  "name": "member then word argument",
+  "source": "New-Object uri(Get-Item x).path tail"
+ },
+ {
+  "name": "member then parameter",
+  "source": "New-Object uri(Get-Item x).path -Foo 1"
+ },
+ {
+  "name": "member then pipe",
+  "source": "New-Object uri(Get-Item x).path | Out-Null"
+ },
+ {
+  "name": "member then redirection",
+  "source": "New-Object uri(Get-Item x).path 2>$null"
+ },
+ {
+  "name": "member then statement",
+  "source": "$a = New-Object uri(Get-Item x).path; $b = 1"
+ },
+ {
+  "name": "control: parenthesis without postfix",
+  "source": "New-Object uri(Get-Item x)"
+ },
+ {
+  "name": "control: parenthesis then word argument",
+  "source": "New-Object uri(Get-Item x) tail"
+ },
+ {
+  "name": "control: spaced receiver member",
+  "source": "New-Object uri (Get-Item x).path"
+ },
+ {
+  "name": "control: spaced receiver comma tail",
+  "source": "New-Object uri (Get-Item x).path,tail"
+ },
+ {
+  "name": "control: argument list call",
+  "source": "New-Object uri((Get-Item x))"
+ },
+ {
+  "name": "control: inner method call",
+  "source": "New-Object uri($a.Trim()).path"
+ },
+ {
+  "name": "control: command name adjacent parenthesis",
+  "source": "Fix($a).Trim()"
+ },
+ {
+  "name": "control: command name adjacent index",
+  "source": "Fix($a)[0]"
+ },
+ {
+  "name": "invalid: stray close parenthesis",
+  "source": "New-Object uri(Get-Item x).path)"
+ },
+ {
+  "name": "invalid: unclosed parenthesis",
+  "source": "New-Object uri(Get-Item x"
+ },
+ {
+  "name": "invalid: unclosed assignment parenthesis",
+  "source": "$a = (New-Object uri(Get-Item x).path"
+ },
+ {
+  "name": "unsupported: adjacent second parenthesis",
+  "source": "New-Object uri(Get-Item x)(Get-Item y)"
+ },
+ {
+  "name": "unsupported: word attached after parenthesis",
+  "source": "New-Object uri(Get-Item x)tail"
+ },
+ {
+  "name": "unsupported: trailing dot after parenthesis",
+  "source": "New-Object uri(Get-Item x)."
+ }
+]
