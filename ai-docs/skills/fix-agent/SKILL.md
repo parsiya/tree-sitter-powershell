@@ -27,6 +27,8 @@ Run tools from `$GRAMMAR`, pointing `--fork` at your worktree.
    ```
 
 4. Iterate until the target agrees with Native and quick passes without regressions.
+   Each original file you were given must show `agree` in the quick run's
+   grammar results; if it still differs, report what differs.
 5. Record only reviewed expectations for your suite:
    `node ai-docs/tools/proof-kit.mjs --suites --suite TOPIC --fork "$W" --write-expectations`.
    Inspect the expectation changes, run
@@ -36,6 +38,8 @@ Run tools from `$GRAMMAR`, pointing `--fork` at your worktree.
 Existing expectations may be corrected when Native evidence proves them wrong.
 Never delete/skip tests or weaken checks. Add C byte/value tests when those matter:
 the proof kit compares validity, kinds and extents, not literal values.
+Prefer extending existing grammar rules over copying a rule chain; if a copy is
+unavoidable, say so in the handback.
 
 Original corpus files and archives are immutable. Never execute, repair,
 reformat, change encoding/BOM/line endings or permissions, split, truncate or

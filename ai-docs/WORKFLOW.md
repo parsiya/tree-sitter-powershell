@@ -34,21 +34,48 @@ Iterate targeted checks and quick validation. At handback, run
 `node ai-docs/tools/proof-kit.mjs --suites --fork WORKTREE` once, record only
 reviewed new/improved expectations, and commit explicit files.
 Report the branch/commit, test result, converter impact and any blocker.
+Workers do not report elapsed time; the parent records each worker's time and
+attempts from the agent runtime.
 
 ## Integrate and repeat
 
 The parent merges fixes with `--no-ff`, resolves source conflicts, and adapts
 the PowerShell converter/tests. External-token order must match in grammar and scanner.
+Before the first build, regenerate with `validate full --only source,compat`,
+read the `git diff opengrep/ocaml/lib/CST.ml`, and write the converter changes
+for every changed type at once rather than one compile error per build.
 Rerun `validate full`; it regenerates `opengrep/ocaml/`. Fix reported failures
-and repeat. Run `node ai-docs/tools/proof-kit.mjs --suites` once on the integrated parser.
+and repeat. Fixes can expose new problems in files that previously failed
+earlier, so expect a short second worker round after the first integration. Run `node ai-docs/tools/proof-kit.mjs --suites` once on the integrated parser.
 Never hand-edit generated output.
 
 When checks pass, commit the grammar and Opengrep integration with explicit files.
+Commit once at the end of the batch: worker commits and their merges are the only
+commits made during it. Exception: if a session must stop partway, commit
+tested integrated work so it is not lost; never commit untested work. Doc and
+process edits made between batches also go into one commit, not one per change.
 Run full on the clean committed trees, then:
 
 ```sh
 node ai-docs/tools/validate.mjs promote NAME
 ```
+
+## Grammar size check after each batch
+
+At the end of each batch, add a row to [grammar-size.md](grammar-size.md):
+
+```sh
+grep '^#define STATE_COUNT' opengrep/ocaml/lib/parser.c
+wc -c < opengrep/ocaml/lib/parser.c
+```
+
+Compare the new row with the last row marked "review". If the state count has
+grown more than 10% since then, or a worker reported copying a rule chain, tell
+the user in the batch report and suggest a grammar review; do not start it
+yourself. The user runs the review in a new top-level Opus 5.5 session, using
+[grammar-review-prompt.md](grammar-review-prompt.md). The review first
+suggests cleanups and stops; the user picks which ones to do. Then record a
+new row marked "review".
 
 ## Correcting an existing test expectation
 
