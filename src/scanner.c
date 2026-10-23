@@ -29,7 +29,8 @@ enum TOKEN_TYPE {
     PARAMETER_DOT_BOUNDARY,
     PARAMETER_DOT_LITERAL_BOUNDARY,
     QUALIFIED_VARIABLE,
-    QUALIFIED_VARIABLE_IN_STRING
+    QUALIFIED_VARIABLE_IN_STRING,
+    TRY_CLAUSE_AHEAD
 };
 
 /* --- API --- */
@@ -102,11 +103,9 @@ static bool is_word_char(int32_t c)
     return iswalnum(c) || c == '_' || c == '-';
 }
 
-// After a newline, `else` or `elseif` continues an if statement used as a
-// value, as in `$x = if ($a) { 1 }` followed by `else { 2 }` on the next line.
-// Look past blank lines and line comments for one of those keywords. Only
-// called where the grammar allows an elseif or else clause to start.
-static bool else_follows(TSLexer *lexer)
+// Clauses continue compound statements even when an enclosing assignment
+// could otherwise end at the newline.
+static bool clause_follows(TSLexer *lexer, bool allow_else, bool allow_try)
 {
     for (;;) {
         while (iswspace(lexer->lookahead)) skip(lexer);
@@ -114,12 +113,16 @@ static bool else_follows(TSLexer *lexer)
         while (lexer->lookahead != 0 && !line_end(lexer->lookahead)) skip(lexer);
     }
 
-    const char *keyword = "else";
+    const char *keyword;
+    if (allow_else && towlower(lexer->lookahead) == 'e') keyword = "else";
+    else if (allow_try && towlower(lexer->lookahead) == 'c') keyword = "catch";
+    else if (allow_try && towlower(lexer->lookahead) == 'f') keyword = "finally";
+    else return false;
     for (const char *c = keyword; *c; c++) {
         if (towlower(lexer->lookahead) != (wint_t)(unsigned char)*c) return false;
         skip(lexer);
     }
-    if (towlower(lexer->lookahead) == 'i') {
+    if (keyword[0] == 'e' && towlower(lexer->lookahead) == 'i') {
         skip(lexer);
         if (towlower(lexer->lookahead) != 'f') return false;
         skip(lexer);
@@ -373,6 +376,7 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
 {
     bool allow_pipe = true;
     bool allow_else = valid_symbols[ELSE_CLAUSE_AHEAD];
+    bool allow_try = valid_symbols[TRY_CLAUSE_AHEAD];
     skip_line_end(lexer); // The newline after the left-hand side.
     for (;;) {
         while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
@@ -406,10 +410,10 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
             if (!line_end(lexer->lookahead)) continue;
         } else if (line_end(lexer->lookahead)) {
             allow_pipe = false;
-            if (!allow_else) return false;
+            if (!allow_else && !allow_try) return false;
         } else {
             if (lexer->lookahead == '|') return allow_pipe;
-            return allow_else && else_follows(lexer);
+            return (allow_else || allow_try) && clause_follows(lexer, allow_else, allow_try);
         }
         if (!line_end(lexer->lookahead)) return false;
         skip_line_end(lexer);

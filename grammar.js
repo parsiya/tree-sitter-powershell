@@ -78,6 +78,7 @@ export default grammar({
     $._parameter_dot_literal_boundary,
     $._qualified_variable,
     $._qualified_variable_in_string,
+    $._try_clause_ahead,
   ],
 
   extras: ($) => [
@@ -821,10 +822,11 @@ export default grammar({
         ),
       ),
 
-    catch_clauses: ($) => repeat1($.catch_clause),
+    catch_clauses: ($) => prec.left(repeat1($.catch_clause)),
 
     catch_clause: ($) =>
       seq(
+        optional($._try_clause_ahead),
         reservedWord('catch'),
         optional($.catch_type_list),
         $.statement_block,
@@ -833,7 +835,8 @@ export default grammar({
     catch_type_list: ($) =>
       seq($.type_literal, repeat(seq(',', $.type_literal))),
 
-    finally_clause: ($) => seq(reservedWord('finally'), $.statement_block),
+    finally_clause: ($) =>
+      seq(optional($._try_clause_ahead), reservedWord('finally'), $.statement_block),
 
     data_statement: ($) =>
       seq(
