@@ -598,6 +598,9 @@ export default grammar({
     // `"a b" { }` is read as a string and not as the longer word `"a`.
     _command_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E][^\(\)\{\}${WS};\&]*`)),
 
+    // A clause word never starts with `$`: `$x.Method('a') { }` is an expression.
+    _switch_clause_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E\$][^\(\)\{\}${WS};\&]*`)),
+
     // Parameters
     // Native also takes an en dash, em dash or horizontal bar as the dash. The
     // precedence keeps such a name ahead of the generic word it also matches.
@@ -787,17 +790,17 @@ export default grammar({
 
     switch_parameter: ($) =>
       choice(
-        reservedWord('-regex'),
-        reservedWord('-wildcard'),
-        reservedWord('-exact'),
-        reservedWord('-casesensitive'),
-        reservedWord('-parallel'),
+        prefixReservedWord('-regex'),
+        prefixReservedWord('-wildcard'),
+        prefixReservedWord('-exact'),
+        prefixReservedWord('-casesensitive'),
+        prefixReservedWord('-parallel'),
       ),
 
     switch_condition: ($) =>
       choice(
         seq('(', $.pipeline, ')'),
-        seq(reservedWord('-file'), $.switch_filename),
+        seq(prefixReservedWord('-file'), $.switch_filename),
       ),
 
     switch_filename: ($) => choice($._command_token, $._primary_expression),
@@ -816,7 +819,7 @@ export default grammar({
       ),
 
     switch_clause_condition: ($) =>
-      choice($._command_token, $._primary_expression),
+      choice($._switch_clause_token, $._primary_expression),
 
     foreach_statement: ($) =>
       seq(
@@ -2572,6 +2575,18 @@ export default grammar({
 function reservedWord(word) {
   // return word // when debuging
   return alias(reserved(caseInsensitive(word)), word);
+}
+
+/**
+ * Like reservedWord, but also any non-empty prefix of the name after the dash,
+ * as a switch parameter such as `-c` or `-casesens` is.
+ *
+ * @param {string} word
+ */
+function prefixReservedWord(word) {
+  const letters = [...word.slice(1)].map((l) => `[${l}${l.toUpperCase()}]`);
+  const tail = letters.slice(1).reduceRight((rest, l) => `(?:${l}${rest})?`, '');
+  return alias(reserved(`${DASH}${letters[0]}${tail}`), word);
 }
 
 /**
