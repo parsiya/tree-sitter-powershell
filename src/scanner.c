@@ -1262,6 +1262,19 @@ static bool scan_quote_unit_content(TSLexer *lexer)
 {
     if (lexer->lookahead == '`') {
         lexer->advance(lexer, false);
+        if (lexer->lookahead == '`') {
+            // Native escapes a quote after an even run of backticks, too.
+            unsigned ticks = 1;
+            while (lexer->lookahead == '`') {
+                lexer->advance(lexer, false);
+                ticks++;
+            }
+            if (ticks % 2 || !double_quote(lexer->lookahead)) return false;
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            lexer->result_symbol = QUOTE_UNIT_ESCAPE;
+            return true;
+        }
         if (!double_quote(lexer->lookahead)) return false;
         lexer->advance(lexer, false);
     } else if (double_quote(lexer->lookahead)) {

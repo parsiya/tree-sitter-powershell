@@ -1,0 +1,507 @@
+==================
+Clean block after end block
+==================
+
+function f {
+  end { a }
+  clean { b }
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (named_block_list
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Clean block in a script
+==================
+
+clean { a }
+
+---
+
+(program
+  (named_block_list
+    (named_block
+      (block_name)
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)))))))))
+
+==================
+Clean hyphen is a command name
+==================
+
+function f { Clean-Item x }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (generic_token)))))))))))
+
+==================
+Clean block ignores case
+==================
+
+function f { process { a } CLEAN { b } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (named_block_list
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (named_block
+              (block_name)
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Do hyphen is a command name
+==================
+
+Do-Thing -Name x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Do hyphen command in script block argument
+==================
+
+f -OnClick { Do-Thing }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name))))))))))))))))
+
+==================
+Do loop keeps its keyword
+==================
+
+do { a } while ($x)
+
+---
+
+(program
+  (statement_list
+    (do_statement
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name))))))
+      (while_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable))))))))))))))))
+
+==================
+Dot source variable path with at sign
+==================
+
+. $root\@.ps1 # c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (variable)
+              (path_command_name_token)))
+          (command_elements
+            (command_argument_sep)))))
+    (comment)))
+
+==================
+Dot source variable path with inner at sign
+==================
+
+& $root\a@b.ps1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (variable)
+              (path_command_name_token))))))))
+
+==================
+Nested string escapes a quote after an even backtick run
+==================
+
+"x $( "a``"$($t)" ) y"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal
+                                                            (sub_expression
+                                                              (statement_list
+                                                                (pipeline
+                                                                  (pipeline_chain
+                                                                    (logical_expression
+                                                                      (bitwise_expression
+                                                                        (comparison_expression
+                                                                          (additive_expression
+                                                                            (multiplicative_expression
+                                                                              (format_expression
+                                                                                (range_expression
+                                                                                  (array_literal_expression
+                                                                                    (unary_expression
+                                                                                      (variable))))))))))))))))))))))))))))))))))))))))))))
+
+==================
+Nested string closes at a quote after no backticks
+==================
+
+"x $( "a" + "b" ) y"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (expandable_string_literal))))))))
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+==================
+Nested string closes at a quote after an odd backtick run
+==================
+
+"x $( "a`" ) y"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+==================
+Nested string in a script block of a string
+==================
+
+$a = "($(($f | % { "N=``"$($t.Replace('x', 'y'))\\$_``"" }) -join ' OR '))"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (expandable_string_literal
+                                  (sub_expression
+                                    (statement_list
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (comparison_expression
+                                                  (additive_expression
+                                                    (multiplicative_expression
+                                                      (format_expression
+                                                        (range_expression
+                                                          (array_literal_expression
+                                                            (unary_expression
+                                                              (parenthesized_expression
+                                                                (pipeline
+                                                                  (pipeline_chain
+                                                                    (logical_expression
+                                                                      (bitwise_expression
+                                                                        (comparison_expression
+                                                                          (additive_expression
+                                                                            (multiplicative_expression
+                                                                              (format_expression
+                                                                                (range_expression
+                                                                                  (array_literal_expression
+                                                                                    (unary_expression
+                                                                                      (variable))))))))))
+                                                                    (command
+                                                                      (command_name)
+                                                                      (command_elements
+                                                                        (command_argument_sep)
+                                                                        (array_literal_expression
+                                                                          (unary_expression
+                                                                            (script_block_expression
+                                                                              (script_block
+                                                                                (script_block_body
+                                                                                  (statement_list
+                                                                                    (pipeline
+                                                                                      (pipeline_chain
+                                                                                        (logical_expression
+                                                                                          (bitwise_expression
+                                                                                            (comparison_expression
+                                                                                              (additive_expression
+                                                                                                (multiplicative_expression
+                                                                                                  (format_expression
+                                                                                                    (range_expression
+                                                                                                      (array_literal_expression
+                                                                                                        (unary_expression
+                                                                                                          (string_literal
+                                                                                                            (expandable_string_literal
+                                                                                                              (sub_expression
+                                                                                                                (statement_list
+                                                                                                                  (pipeline
+                                                                                                                    (pipeline_chain
+                                                                                                                      (logical_expression
+                                                                                                                        (bitwise_expression
+                                                                                                                          (comparison_expression
+                                                                                                                            (additive_expression
+                                                                                                                              (multiplicative_expression
+                                                                                                                                (format_expression
+                                                                                                                                  (range_expression
+                                                                                                                                    (array_literal_expression
+                                                                                                                                      (unary_expression
+                                                                                                                                        (invokation_expression
+                                                                                                                                          (variable)
+                                                                                                                                          (member_name
+                                                                                                                                            (simple_name))
+                                                                                                                                          (argument_list
+                                                                                                                                            (argument_expression_list
+                                                                                                                                              (argument_expression
+                                                                                                                                                (logical_argument_expression
+                                                                                                                                                  (bitwise_argument_expression
+                                                                                                                                                    (comparison_argument_expression
+                                                                                                                                                      (additive_argument_expression
+                                                                                                                                                        (multiplicative_argument_expression
+                                                                                                                                                          (format_argument_expression
+                                                                                                                                                            (range_argument_expression
+                                                                                                                                                              (unary_expression
+                                                                                                                                                                (string_literal
+                                                                                                                                                                  (verbatim_string_characters)))))))))))
+                                                                                                                                              (argument_expression
+                                                                                                                                                (logical_argument_expression
+                                                                                                                                                  (bitwise_argument_expression
+                                                                                                                                                    (comparison_argument_expression
+                                                                                                                                                      (additive_argument_expression
+                                                                                                                                                        (multiplicative_argument_expression
+                                                                                                                                                          (format_argument_expression
+                                                                                                                                                            (range_argument_expression
+                                                                                                                                                              (unary_expression
+                                                                                                                                                                (string_literal
+                                                                                                                                                                  (verbatim_string_characters)))))))))))))))))))))))))))
+                                                                                                              (variable))))))))))))))))))))))))))))))))
+                                                (comparison_operator)
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (string_literal
+                                                              (verbatim_string_characters))))))))))))))))))))))))))))))))
