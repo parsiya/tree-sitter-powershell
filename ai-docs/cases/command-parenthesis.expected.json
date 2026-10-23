@@ -61,7 +61,7 @@
   "Write-Output $(Get-Item example)": {"status":"agree","differences":[]},
   "Write-Output Example.Type(Get-Item first)(Get-Item second)": {"status":"fail","differences":["commands missing 42:57","elements missing 42:50 StringConstantExpressionAst/BareWord","elements missing 51:57 StringConstantExpressionAst/BareWord","validity native=valid ts=invalid"]},
   "Write-Output Example.Type(Get-Item example) tail": {"status":"agree","differences":[]},
-  "Write-Output Example.Type(Get-Item example), tail": {"status":"fail","differences":["elements extent 25:49 ArrayLiteralAst ts 25:43","elements extra 43:49 ,","elements kind 25:49 ArrayLiteralAst ts parenthesized_expression","validity native=valid ts=invalid"]},
+  "Write-Output Example.Type(Get-Item example), tail": {"status":"fail","differences":["validity native=valid ts=invalid"]},
   "Write-Output Example.Type(1 + 2)": {"status":"agree","differences":[]},
   "Write-Output Example.Type($first -band $second)": {"status":"agree","differences":[]},
   "Write-Output Example.Type($first -eq $second)": {"status":"agree","differences":[]},

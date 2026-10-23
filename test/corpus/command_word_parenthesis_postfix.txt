@@ -1,0 +1,243 @@
+===
+Command word parenthesis: member access receiver
+===
+
+New-Object uri(Get-Item example).path
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token))))))
+                  (member_name
+                    (simple_name)))))))))))
+
+===
+Command word parenthesis: method call receiver
+===
+
+New-Object uri(Get-Item example).Trim()
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token))))))
+                  (member_name
+                    (simple_name))
+                  (argument_list))))))))))
+
+===
+Command word parenthesis: element access receiver
+===
+
+New-Object uri(Get-Item example)[0]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token))))))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))))
+
+===
+Command word parenthesis: member access then unquoted array item
+===
+
+New-Object uri(Get-Item example).path,tail
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (generic_token))))))
+                  (member_name
+                    (simple_name))))
+              (generic_token))))))))
+
+===
+Command word parenthesis: member chain in an assignment inside foreach
+===
+
+foreach ($name in $names) {
+    $id = (New-Object uri(Invoke-Example "x").endpoint).Path.Split("/")[1]
+}
+
+---
+
+(program
+  (statement_list
+    (foreach_statement
+      (variable)
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (assignment_expression
+              (left_assignment_expression
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable)))))))))))
+              (assignement_operator)
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (element_access
+                                      (invokation_expression
+                                        (member_access
+                                          (parenthesized_expression
+                                            (pipeline
+                                              (pipeline_chain
+                                                (command
+                                                  (command_name)
+                                                  (command_elements
+                                                    (command_argument_sep)
+                                                    (generic_token)
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (member_access
+                                                          (parenthesized_expression
+                                                            (pipeline
+                                                              (pipeline_chain
+                                                                (command
+                                                                  (command_name)
+                                                                  (command_elements
+                                                                    (command_argument_sep)
+                                                                    (array_literal_expression
+                                                                      (unary_expression
+                                                                        (string_literal
+                                                                          (expandable_string_literal)))))))))
+                                                          (member_name
+                                                            (simple_name))))))))))
+                                          (member_name
+                                            (simple_name)))
+                                        (member_name
+                                          (simple_name))
+                                        (argument_list
+                                          (argument_expression_list
+                                            (argument_expression
+                                              (logical_argument_expression
+                                                (bitwise_argument_expression
+                                                  (comparison_argument_expression
+                                                    (additive_argument_expression
+                                                      (multiplicative_argument_expression
+                                                        (format_argument_expression
+                                                          (range_argument_expression
+                                                            (unary_expression
+                                                              (string_literal
+                                                                (expandable_string_literal))))))))))))))
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (integer_literal
+                                                          (decimal_integer_literal))))))))))))))))))))))))))))))

@@ -1379,6 +1379,16 @@ export default grammar({
               // Outrank adjacent-expression alternatives without changing their trees.
               prec.dynamic(3, $.argument_list),
               prec.dynamic(-1, $.parenthesized_expression),
+              // `New-Object uri(Get-Item x).t`: the parenthesis is the receiver
+              // of a member, element or call, as after a separator.
+              seq(
+                alias($._paren_member_array, $.array_literal_expression),
+                optional(seq($._completed_member_boundary, $._argument_after_quote)),
+              ),
+              seq(
+                alias($._paren_call_array, $.array_literal_expression),
+                optional(seq($._completed_expression_boundary, $._argument_after_quote)),
+              ),
             ),
           )),
           seq(
@@ -1557,7 +1567,10 @@ export default grammar({
       seq(
         ',',
         $._command_array_item_start,
-        alias($._command_unary_expression, $.unary_expression),
+        choice(
+          alias($._command_unary_expression, $.unary_expression),
+          $._command_array_word,
+        ),
       ),
 
     _paren_member_value: ($) =>
