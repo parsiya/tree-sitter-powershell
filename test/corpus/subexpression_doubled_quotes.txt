@@ -1,0 +1,510 @@
+================================================================================
+Subexpression doubled quotes delimit strings
+================================================================================
+
+"a$("" ("" + $p))"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (expandable_string_literal))))))))
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (variable)))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression doubled quote string with an escaped quote
+================================================================================
+
+"a$(""x""""y"")"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression doubled quote string with an interpolated variable
+================================================================================
+
+"a$(""x$y"")"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal
+                                                            (variable)))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression doubled quote empty string
+================================================================================
+
+"a$("""")"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression doubled quote string as a command argument
+================================================================================
+
+"a$(Write-Output ""x y"" -Verbose)"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)
+                                        (command_elements
+                                          (command_argument_sep)
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (string_literal
+                                                (expandable_string_literal))))
+                                          (command_argument_sep)
+                                          (command_parameter))))))))))))))))))))))
+
+================================================================================
+Subexpression strings around a hashtable value block
+================================================================================
+
+$h = @{
+    Name = "Port $p$(
+        if ($AddService) {
+            "" ("" + $Hash[[String] $p] + "")""
+        }
+    )";
+    Other = 1
+}
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (hash_literal_expression
+                                (hash_literal_body
+                                  (hash_entry
+                                    (key_expression
+                                      (simple_name))
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (expandable_string_literal
+                                                              (variable)
+                                                              (sub_expression
+                                                                (statement_list
+                                                                  (if_statement
+                                                                    (pipeline
+                                                                      (pipeline_chain
+                                                                        (logical_expression
+                                                                          (bitwise_expression
+                                                                            (comparison_expression
+                                                                              (additive_expression
+                                                                                (multiplicative_expression
+                                                                                  (format_expression
+                                                                                    (range_expression
+                                                                                      (array_literal_expression
+                                                                                        (unary_expression
+                                                                                          (variable))))))))))))
+                                                                    (statement_block
+                                                                      (statement_list
+                                                                        (pipeline
+                                                                          (pipeline_chain
+                                                                            (logical_expression
+                                                                              (bitwise_expression
+                                                                                (comparison_expression
+                                                                                  (additive_expression
+                                                                                    (additive_expression
+                                                                                      (additive_expression
+                                                                                        (multiplicative_expression
+                                                                                          (format_expression
+                                                                                            (range_expression
+                                                                                              (array_literal_expression
+                                                                                                (unary_expression
+                                                                                                  (string_literal
+                                                                                                    (expandable_string_literal))))))))
+                                                                                      (multiplicative_expression
+                                                                                        (format_expression
+                                                                                          (range_expression
+                                                                                            (array_literal_expression
+                                                                                              (unary_expression
+                                                                                                (element_access
+                                                                                                  (variable)
+                                                                                                  (logical_expression
+                                                                                                    (bitwise_expression
+                                                                                                      (comparison_expression
+                                                                                                        (additive_expression
+                                                                                                          (multiplicative_expression
+                                                                                                            (format_expression
+                                                                                                              (range_expression
+                                                                                                                (array_literal_expression
+                                                                                                                  (unary_expression
+                                                                                                                    (expression_with_unary_operator
+                                                                                                                      (cast_expression
+                                                                                                                        (type_literal
+                                                                                                                          (type_spec
+                                                                                                                            (type_name
+                                                                                                                              (type_identifier))))
+                                                                                                                        (unary_expression
+                                                                                                                          (variable))))))))))))))))))))
+                                                                                    (multiplicative_expression
+                                                                                      (format_expression
+                                                                                        (range_expression
+                                                                                          (array_literal_expression
+                                                                                            (unary_expression
+                                                                                              (string_literal
+                                                                                                (expandable_string_literal))))))))))))))))))))))))))))))))
+                                  (hash_entry
+                                    (key_expression
+                                      (simple_name))
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression plain quote string is unchanged
+================================================================================
+
+"a$("x" + "y")"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (expandable_string_literal))))))))
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+================================================================================
+Here-string subexpression keeps doubled quotes as an escape
+================================================================================
+
+@"
+a$("x""y")
+"@
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_here_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+================================================================================
+Doubled quotes outside a subexpression stay an escape
+================================================================================
+
+"a ""b"" c"
+$a = ""; $b = ""
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (expandable_string_literal)))))))))))))))
+    (empty_statement)
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (string_literal
+                                (expandable_string_literal)))))))))))))))))

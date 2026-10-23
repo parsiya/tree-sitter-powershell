@@ -3,6 +3,7 @@
 
 #include "tree_sitter/parser.h"
 #include "parameter_letters.h"
+#include <stdlib.h>
 #include <wctype.h>
 
 enum TOKEN_TYPE {
@@ -35,8 +36,20 @@ enum TOKEN_TYPE {
     TRAILING_DOT_REAL_LITERAL,
     VARIABLE_COMMAND_NAME_CONTINUATION,
     INVOCATION_ARGUMENT_BOUNDARY,
-    VARIABLE_BEFORE_LITERAL_DOT
+    VARIABLE_BEFORE_LITERAL_DOT,
+    STRING_SUBEXPRESSION_START,
+    STRING_SUBEXPRESSION_END,
+    QUOTE_UNIT_OPEN,
+    QUOTE_UNIT_CLOSE,
+    QUOTE_UNIT_ESCAPE,
+    EXPANDABLE_STRING_AHEAD
 };
+
+// Native reads a doubled quote inside the subexpression of an expandable
+// string as one quote, so the scanner counts the open string subexpressions.
+typedef struct {
+    unsigned char string_subexpression_depth;
+} Scanner;
 
 /* --- API --- */
 
@@ -177,12 +190,22 @@ static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
     return colons;
 }
 
-static bool scan_qualified_variable(TSLexer *lexer, const bool *valid_symbols)
+static bool scan_qualified_variable(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols)
 {
     bool in_string = valid_symbols[QUALIFIED_VARIABLE_IN_STRING];
     if (lexer->lookahead != '$' && lexer->lookahead != '@') return false;
     if (in_string && lexer->lookahead == '@') return false;
+    bool sigil_dollar = lexer->lookahead == '$';
     lexer->advance(lexer, false);
+    if (in_string && sigil_dollar && valid_symbols[EXPANDABLE_STRING_AHEAD] &&
+        valid_symbols[STRING_SUBEXPRESSION_START] &&
+        lexer->lookahead == '(') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        if (scanner->string_subexpression_depth < 255) scanner->string_subexpression_depth++;
+        lexer->result_symbol = STRING_SUBEXPRESSION_START;
+        return true;
+    }
     bool static_access = false;
     if (scan_variable_path(lexer, &static_access) < 2) return false;
     lexer->result_symbol = in_string ? QUALIFIED_VARIABLE_IN_STRING : QUALIFIED_VARIABLE;
@@ -868,8 +891,66 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
     return true;
 }
 
+static bool double_quote(int32_t c)
+{
+    return c == '"' || (c >= 0x201c && c <= 0x201e);
+}
+
+// The first unit of a quote run in a string: one quote, a doubled pair, or a
+// backtick-escaped quote. A second adjacent unit is an escaped quote.
+static bool scan_quote_unit_content(TSLexer *lexer)
+{
+    if (lexer->lookahead == '`') {
+        lexer->advance(lexer, false);
+        if (!double_quote(lexer->lookahead)) return false;
+        lexer->advance(lexer, false);
+    } else if (double_quote(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+        if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    } else {
+        return false;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_CLOSE;
+    if (lexer->lookahead == '`') {
+        lexer->advance(lexer, false);
+        if (!double_quote(lexer->lookahead)) return true;
+        lexer->advance(lexer, false);
+    } else if (double_quote(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+        if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    } else {
+        return true;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_ESCAPE;
+    return true;
+}
+
+// The opening unit: one quote or a doubled pair.
+static bool scan_quote_unit_open(TSLexer *lexer)
+{
+    if (!double_quote(lexer->lookahead)) return false;
+    lexer->advance(lexer, false);
+    if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_OPEN;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    Scanner *scanner = payload;
+    if (!valid_symbols[ERROR_SENTINEL]) {
+        if (valid_symbols[STRING_SUBEXPRESSION_END]) {
+            if (scanner->string_subexpression_depth) scanner->string_subexpression_depth--;
+            lexer->result_symbol = STRING_SUBEXPRESSION_END;
+            return true;
+        }
+        if (valid_symbols[QUOTE_UNIT_CLOSE] &&
+            (lexer->lookahead == '`' || double_quote(lexer->lookahead)))
+            return scan_quote_unit_content(lexer);
+    }
     // A dot ends a parameter name and starts a command word, not a member.
     if (!valid_symbols[ERROR_SENTINEL] &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
@@ -952,9 +1033,16 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
             skip(lexer);
         }
+        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth == 1 &&
+            double_quote(lexer->lookahead))
+            return scan_quote_unit_open(lexer);
         if (lexer->lookahead == '$' || lexer->lookahead == '@')
-            return scan_qualified_variable(lexer, valid_symbols);
+            return scan_qualified_variable(scanner, lexer, valid_symbols);
     }
+
+    if (word && valid_symbols[QUOTE_UNIT_OPEN] && !valid_symbols[ERROR_SENTINEL] &&
+        scanner->string_subexpression_depth == 1 && double_quote(lexer->lookahead))
+        return scan_quote_unit_open(lexer);
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.
@@ -976,18 +1064,24 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 void *tree_sitter_powershell_external_scanner_create()
 {
-    return NULL;
+    return calloc(1, sizeof(Scanner));
 }
 
 void tree_sitter_powershell_external_scanner_destroy(void *p)
 {
+    free(p);
 }
 
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer)
 {
-    return 0;
+    Scanner *scanner = payload;
+    if (!scanner->string_subexpression_depth) return 0;
+    buffer[0] = (char)scanner->string_subexpression_depth;
+    return 1;
 }
 
 void tree_sitter_powershell_external_scanner_deserialize(void *payload, const char *buffer, unsigned length)
 {
+    Scanner *scanner = payload;
+    scanner->string_subexpression_depth = length ? (unsigned char)buffer[0] : 0;
 }

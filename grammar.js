@@ -86,6 +86,14 @@ export default grammar({
     $._variable_command_name_continuation,
     $._invocation_argument_boundary,
     $._variable_before_literal_dot,
+    $._string_subexpression_start,
+    $._string_subexpression_end,
+    $._quote_unit_open,
+    $._quote_unit_close,
+    $._quote_unit_escape,
+    // Never produced. It marks the content of an expandable string, as opposed
+    // to a here-string, so that the scanner can track its subexpressions.
+    $._expandable_string_ahead,
   ],
 
   extras: ($) => [
@@ -225,24 +233,48 @@ export default grammar({
         $.verbatim_here_string_characters,
       ),
 
+    // Inside the subexpression of an expandable string Native reads a doubled
+    // quote as one quote: `"a$("" x "")"` holds the string ` x `. The scanner
+    // counts the open subexpressions of such strings and splits runs of quotes
+    // into units: one quote, a doubled pair or a backtick-escaped quote.
     expandable_string_literal: ($) =>
-      seq(
-        DOUBLE_QUOTE,
-        repeat(
-          choice(
-            // Comment markers inside strings are text, not extra comments.
-            token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
-            alias($._qualified_variable_in_string, $.variable),
-            $.variable,
-            $.sub_expression,
-            token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
-            token.immediate(/`.{1}|`\r?\n/),
-            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
-            token.immediate('$'),
+      choice(
+        seq(
+          DOUBLE_QUOTE,
+          repeat(
+            choice(
+              // Comment markers inside strings are text, not extra comments.
+              token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+              alias($._qualified_variable_in_string, $.variable),
+              $.variable,
+              $.sub_expression,
+              token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
+              token.immediate(/`.{1}|`\r?\n/),
+              token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+              token.immediate('$'),
+              $._expandable_string_ahead,
+            ),
           ),
+          repeat(token.immediate('$')),
+          token.immediate(DOUBLE_QUOTE),
         ),
-        repeat(token.immediate('$')),
-        token.immediate(DOUBLE_QUOTE),
+        seq(
+          $._quote_unit_open,
+          repeat(
+            choice(
+              token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+              alias($._qualified_variable_in_string, $.variable),
+              $.variable,
+              $.sub_expression,
+              token.immediate(/\$(`[^"\u201C-\u201E]|`\r?\n|[\s\\])/),
+              token.immediate(/`[^"\u201C-\u201E]|`\r?\n/),
+              $._quote_unit_escape,
+              token.immediate('$'),
+              $._expandable_string_ahead,
+            ),
+          ),
+          $._quote_unit_close,
+        ),
       ),
 
     expandable_here_string_literal: ($) =>
@@ -1661,7 +1693,16 @@ export default grammar({
     parenthesized_expression: ($) => seq('(', $.pipeline, ')'),
 
     sub_expression: ($) =>
-      seq('$(', field('statements', optional($.statement_list)), ')'),
+      choice(
+        seq('$(', field('statements', optional($.statement_list)), ')'),
+        // In an expandable string; see expandable_string_literal.
+        seq(
+          alias($._string_subexpression_start, '$('),
+          field('statements', optional($.statement_list)),
+          ')',
+          $._string_subexpression_end,
+        ),
+      ),
 
     array_expression: ($) =>
       seq('@(', field('statements', optional($.statement_list)), ')'),
