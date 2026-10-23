@@ -442,6 +442,7 @@ export default grammar({
         // Lookahead keeps a path's single colons distinct from static `::`.
         $._qualified_variable,
         '$$',
+        '@$',
         '$^',
         '$?',
         '$_',

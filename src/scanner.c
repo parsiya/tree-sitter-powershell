@@ -349,7 +349,6 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         return true;
     }
     if (start && (lexer->lookahead == ':' ||
-                  (lexer->lookahead == '@' && !valid_symbols[VARIABLE_BEFORE_LITERAL_DOT]) ||
                   lexer->lookahead == '>' || lexer->lookahead == '#' ||
                   lexer->lookahead == '<')) return false;
 
@@ -363,6 +362,14 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     if (start && (lexer->lookahead == '$' || lexer->lookahead == '@')) {
         bool splat = lexer->lookahead == '@';
         lexer->advance(lexer, false);
+        // `@$name/path` is an expandable word, while `@${name}` and `@$(...)`
+        // begin with the splatted variable `@$`.
+        bool at_expansion = false;
+        if (splat && lexer->lookahead == '$') {
+            lexer->advance(lexer, false);
+            if (!variable_char(lexer->lookahead)) return false;
+            at_expansion = true;
+        }
         if (lexer->lookahead == '(' || (splat && !variable_char(lexer->lookahead)))
             return false;
         bool automatic = lexer->lookahead == '$' || lexer->lookahead == '?' ||
@@ -372,7 +379,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         unsigned colons = scan_variable_name(lexer, &static_access, &valid_name);
         // In command mode `$name.` is a variable followed by a literal word,
         // not member access across the whitespace after the dot.
-        if (valid_name && !automatic && lexer->lookahead == '.' &&
+        if (!at_expansion && valid_name && !automatic && lexer->lookahead == '.' &&
             valid_symbols[VARIABLE_BEFORE_LITERAL_DOT]) {
             lexer->mark_end(lexer);
             if (!literal_dot_follows(lexer)) {
@@ -383,16 +390,15 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
-        if (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
+        if (!at_expansion && (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
             lexer->lookahead == '[' || lexer->lookahead == '>' ||
-            (static_access && colons >= 2)) {
+            (static_access && colons >= 2))) {
             if (colons >= 2 && valid_symbols[QUALIFIED_VARIABLE]) {
                 lexer->result_symbol = QUALIFIED_VARIABLE;
                 return true;
             }
             return false;
         }
-        if (splat) return false;
         joined = consumed = true;
     }
 
@@ -631,6 +637,29 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     bool member = valid_symbols[COMPLETED_MEMBER_BOUNDARY];
     if (!quoted && !value && !member) return false;
     int32_t c = lexer->lookahead;
+    if (c == '`') {
+        lexer->mark_end(lexer);
+        lexer->advance(lexer, false);
+        if (command_array_space(lexer->lookahead)) {
+            if (lexer->lookahead == '\r') {
+                lexer->advance(lexer, false);
+                if (lexer->lookahead == '\n') lexer->advance(lexer, false);
+            } else {
+                lexer->advance(lexer, false);
+            }
+            while (!line_end(lexer->lookahead) && command_array_space(lexer->lookahead))
+                lexer->advance(lexer, false);
+            // Escaped whitespace is trivia at a completed expression boundary.
+            // A following parameter still needs its ordinary separator path.
+            if (command_word_end(lexer->lookahead) || lexer->lookahead == '-' ||
+                lexer->lookahead == '#' || lexer->lookahead == '>') return false;
+        } else if (lexer->eof(lexer)) {
+            return false;
+        }
+        lexer->result_symbol = quoted ? QUOTED_ARGUMENT_BOUNDARY :
+            value ? COMPLETED_EXPRESSION_BOUNDARY : COMPLETED_MEMBER_BOUNDARY;
+        return true;
+    }
     if (c == '.' && member) {
         lexer->mark_end(lexer);
         if (!literal_dot_follows(lexer)) return false;
@@ -642,7 +671,7 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '`' || c == '#' || c == 0xfeff ||
+        c == '#' || c == 0xfeff ||
         c == 0x2060 || c == 0x200b || c == 0xa0) return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
@@ -905,6 +934,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
          valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
         (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
+         lexer->lookahead == '`' ||
          (lexer->lookahead == '.' && valid_symbols[COMPLETED_MEMBER_BOUNDARY]) ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
@@ -915,8 +945,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 valid_symbols[VARIABLE_BEFORE_LITERAL_DOT];
     if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING]) &&
         !valid_symbols[ERROR_SENTINEL] &&
-        (valid_symbols[QUALIFIED_VARIABLE_IN_STRING] || !word ||
-         (lexer->lookahead == '@' && !valid_symbols[VARIABLE_BEFORE_LITERAL_DOT]))) {
+        (valid_symbols[QUALIFIED_VARIABLE_IN_STRING] || !word)) {
         while (!valid_symbols[QUALIFIED_VARIABLE_IN_STRING] &&
                command_array_space(lexer->lookahead)) {
             if (valid_symbols[STATEMENT_TERMINATOR] &&
