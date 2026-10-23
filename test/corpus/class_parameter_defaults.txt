@@ -1,0 +1,241 @@
+===
+Class method: typed parameter with default value
+===
+
+class C { [string] M([string] $v = "") { return $v } }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (string_literal
+                                  (expandable_string_literal))))))))))))))
+        (script_block
+          (script_block_body
+            (statement_list
+              (flow_control_statement
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (variable))))))))))))))))))))
+
+===
+Class constructor: untyped parameters, one with a default
+===
+
+class C { C($a, $b = 1 + 2) { } }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable))
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))))))))))))
+
+===
+Class method: defaults are separated by commas
+===
+
+class C { static M([int] $a = 1, $b = @(1, 2), [bool] $c = $true) { } }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (class_attribute)
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal)))))))))))))
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (array_expression
+                                  (statement_list
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal)))
+                                                        (unary_expression
+                                                          (integer_literal
+                                                            (decimal_integer_literal))))))))))))))))))))))))))
+          (class_method_parameter
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))))))))
+
+===
+Class method: ternary default
+===
+
+class C { M($a = $x ? 1 : 2, $b = 3) { } }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (ternary_expression
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))))))))))))

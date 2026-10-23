@@ -1434,7 +1434,152 @@ export default grammar({
         optional(seq('=', $._expression)),
       ),
 
-    class_method_parameter: ($) => seq(optional($.type_literal), $.variable),
+    class_method_parameter: ($) =>
+      seq(
+        optional($.type_literal),
+        $.variable,
+        optional($.class_method_parameter_default),
+      ),
+
+    class_method_parameter_default: ($) =>
+      seq('=', $._class_parameter_default_expression),
+
+    // A comma separates the parameters, so a default is an expression without
+    // comma arrays: the chain below mirrors `_expression` down to its operands.
+    _class_parameter_default_expression: ($) =>
+      choice(
+        alias($._class_default_logical, $.logical_expression),
+        alias($._class_default_ternary, $.ternary_expression),
+      ),
+
+    _class_default_ternary: ($) =>
+      prec.right(
+        seq(
+          field('condition', alias($._class_default_logical, $.logical_expression)),
+          '?',
+          field('consequence', $._class_parameter_default_expression),
+          ':',
+          field('alternative', $._class_parameter_default_expression),
+        ),
+      ),
+
+    _class_default_logical: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_bitwise, $.bitwise_expression),
+          seq(
+            alias($._class_default_logical, $.logical_expression),
+            choice(
+              reservedWord('-and'),
+              reservedWord('-or'),
+              reservedWord('-xor'),
+            ),
+            alias($._class_default_bitwise, $.bitwise_expression),
+          ),
+        ),
+      ),
+
+    _class_default_bitwise: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_comparison, $.comparison_expression),
+          seq(
+            alias($._class_default_bitwise, $.bitwise_expression),
+            choice(
+              reservedWord('-band'),
+              reservedWord('-bor'),
+              reservedWord('-bxor'),
+            ),
+            alias($._class_default_comparison, $.comparison_expression),
+          ),
+        ),
+      ),
+
+    _class_default_comparison: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_additive, $.additive_expression),
+          alias($._class_default_null_coalescing, $.null_coalescing_expression),
+          seq(
+            alias($._class_default_comparison, $.comparison_expression),
+            $.comparison_operator,
+            choice(
+              alias($._class_default_additive, $.additive_expression),
+              alias($._class_default_null_coalescing, $.null_coalescing_expression),
+            ),
+          ),
+        ),
+      ),
+
+    _class_default_null_coalescing: ($) =>
+      prec.left(
+        seq(
+          choice(
+            alias($._class_default_additive, $.additive_expression),
+            alias($._class_default_null_coalescing, $.null_coalescing_expression),
+          ),
+          '??',
+          alias($._class_default_additive, $.additive_expression),
+        ),
+      ),
+
+    _class_default_additive: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_multiplicative, $.multiplicative_expression),
+          seq(
+            alias($._class_default_additive, $.additive_expression),
+            choice('+', '-'),
+            alias($._class_default_multiplicative, $.multiplicative_expression),
+          ),
+        ),
+      ),
+
+    _class_default_multiplicative: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_format, $.format_expression),
+          seq(
+            alias($._class_default_multiplicative, $.multiplicative_expression),
+            choice('/', '\\', '%', '*'),
+            alias($._class_default_format, $.format_expression),
+          ),
+        ),
+      ),
+
+    _class_default_format: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_range, $.range_expression),
+          seq(
+            alias($._class_default_format, $.format_expression),
+            $.format_operator,
+            alias($._class_default_range, $.range_expression),
+          ),
+        ),
+      ),
+
+    _class_default_range: ($) =>
+      prec.left(
+        choice(
+          alias($._class_default_array, $.array_literal_expression),
+          seq(
+            alias($._class_default_range, $.range_expression),
+            '..',
+            alias($._class_default_array, $.array_literal_expression),
+          ),
+        ),
+      ),
+
+    _class_default_array: ($) => alias($._class_default_unary, $.unary_expression),
+
+    _class_default_unary: ($) =>
+      prec.right(
+        choice(
+          $._primary_expression,
+          alias($._command_unary_operator, $.expression_with_unary_operator),
+        ),
+      ),
 
     class_method_parameter_list: ($) =>
       seq($.class_method_parameter, repeat(seq(',', $.class_method_parameter))),
