@@ -1,0 +1,122 @@
+===
+Static command words: a parenthesized command is a separate argument
+===
+
+Write-Output [Widget]::Run(Get-Item sample)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)
+                    (command_elements
+                      (command_argument_sep)
+                      (generic_token))))))))))))
+
+===
+Static command words: bracket and member-looking arguments are literal
+===
+
+Write-Output [Widget] [Widget]::Ready [int]17 [Widget[]]::Run
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Static command words: embedded quotes and subexpressions stay in the word
+===
+
+Write-Output [Widget]::"Run" [Widget]::$(Get-Item sample)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)
+                        (command_elements
+                          (command_argument_sep)
+                          (generic_token))))))))))))))
+
+===
+Static command words: numeric parentheses are not a static method call
+===
+
+Write-Output [Widget]::Run(1)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))))))))
+
+===
+Static command words: unclosed argument parentheses are rejected
+:error
+===
+
+Write-Output [Widget]::Run(1
+
+---
+
+(ERROR)

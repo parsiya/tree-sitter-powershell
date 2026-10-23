@@ -1,0 +1,82 @@
+[
+  {"name":"static-looking word and numeric parentheses","source":"Write-Output [Widget]::Run(1)"},
+  {"name":"static-looking word and command parentheses","source":"Write-Output [Widget]::Run(Get-Item sample)"},
+  {"name":"static-looking word and array parentheses","source":"Write-Output [Widget]::Run(1, 2)"},
+  {"name":"static-looking word and variable parentheses","source":"Write-Output [Widget]::Run($item)"},
+  {"name":"static-looking word and spaced parentheses","source":"Write-Output [Widget]::Run (1)"},
+  {"name":"static-looking word and pipeline parentheses","source":"Write-Output [Widget]::Run(Get-Item sample | Select-Object Name)"},
+  {"name":"static-looking word in a command pipeline","source":"Get-Item sample | Write-Output [Widget]::Run(1) | Out-Null"},
+  {"name":"static-looking word in assignment command","source":"$result = Write-Output [Widget]::Run(1)"},
+  {"name":"multiple command arguments","source":"Write-Output before [Widget]::Run(1) after"},
+  {"name":"two static-looking arguments","source":"Write-Output [Widget]::Run(1) [Gadget]::Build(2)"},
+  {"name":"qualified static-looking word","source":"Write-Output [Example.Widget]::Run(1)"},
+  {"name":"array type looking word","source":"Write-Output [Widget[]]::Run(1)"},
+  {"name":"generic type looking word","source":"Write-Output [Collections.Generic.List[int]]::Run(1)"},
+  {"name":"static member without parentheses","source":"Write-Output [Widget]::Ready"},
+  {"name":"type-looking word","source":"Write-Output [Widget]"},
+  {"name":"cast-looking word","source":"Write-Output [int]17"},
+  {"name":"array-looking word","source":"Write-Output [Widget[]]"},
+  {"name":"dot after type-looking word","source":"Write-Output [Widget].Ready"},
+  {"name":"bracket path word","source":"Write-Output [cache]/item.txt"},
+  {"name":"unclosed bracket word","source":"Write-Output [Widget"},
+  {"name":"empty brackets word","source":"Write-Output []"},
+  {
+    "name":"bracket word with embedded variable",
+    "source":"Write-Output [Widget]::$action(1)",
+    "known":[{
+      "difference":"typed missing VariableExpressionAst 23:30",
+      "reason":"Inherited generic_token representation keeps unquoted interpolated variables in its raw word token rather than variable children; the ordinary interpolated word control shows the same limitation."
+    }]
+  },
+  {
+    "name":"ordinary interpolated word control",
+    "source":"Write-Output prefix$action(1)",
+    "known":[{
+      "difference":"typed missing VariableExpressionAst 19:26",
+      "reason":"Inherited generic_token representation keeps unquoted interpolated variables in its raw word token rather than variable children."
+    }]
+  },
+  {"name":"bracket word with quoted piece","source":"Write-Output [Widget]::\"Run\"(1)"},
+  {"name":"bracket word with embedded subexpression","source":"Write-Output [Widget]::$(Get-Item sample)(1)"},
+  {"name":"bracket word with escaped character","source":"Write-Output [Widget]::R`xn(1)"},
+  {"name":"bracket word with escaped space","source":"Write-Output [Widget]::Run` Name(1)"},
+  {"name":"parameter attached static-looking word","source":"Write-Output -InputObject:[Widget]::Run(1)"},
+  {"name":"parameter separated static-looking word","source":"Write-Output -InputObject [Widget]::Run(1)"},
+  {"name":"comma array of static-looking words","source":"Write-Output [Widget]::Ready,[Gadget]::Ready"},
+  {"name":"word array followed by parentheses","source":"Write-Output label,[Widget]::Run(1)"},
+  {"name":"variable array with bracket word","source":"Write-Output $item,[Widget]::Ready"},
+  {"name":"bracket word after quoted argument","source":"Write-Output \"prefix\"[Widget]::Run(1)"},
+  {"name":"bracket word followed by redirection","source":"Write-Output [Widget]::Run(1) > result.txt"},
+  {"name":"bracket word followed by comment","source":"Write-Output [Widget]::Run(1) # synthetic"},
+  {"name":"invoked command argument mode","source":"& Write-Output [Widget]::Run(1)"},
+  {"name":"dot invoked command argument mode","source":". Write-Output [Widget]::Run(1)"},
+  {"name":"standalone static invocation control","source":"[Widget]::Run(1)"},
+  {"name":"assigned static invocation control","source":"$result = [Widget]::Run(1)"},
+  {"name":"parenthesized static invocation control","source":"Write-Output ([Widget]::Run(1))"},
+  {"name":"subexpression static invocation control","source":"Write-Output $([Widget]::Run(1))"},
+  {"name":"array expression static invocation control","source":"Write-Output @([Widget]::Run(1))"},
+  {"name":"scriptblock static invocation control","source":"Write-Output { [Widget]::Run(1) }"},
+  {"name":"real static call as method argument control","source":"$item.Run([Widget]::Run(1))"},
+  {"name":"real variable method command argument control","source":"Write-Output $item.Run(1)"},
+  {"name":"parenthesized receiver command argument control","source":"Write-Output ([Widget]).Run(1)"},
+  {"name":"standalone type literal control","source":"[Widget]"},
+  {"name":"standalone cast control","source":"[int]17"},
+  {"name":"ordinary command parentheses control","source":"Write-Output Widget.Run(1)"},
+  {"name":"quoted static-looking argument control","source":"Write-Output '[Widget]::Run(1)'"},
+  {
+    "name":"empty command parentheses invalid",
+    "source":"Write-Output [Widget]::Run()",
+    "expect":"invalid",
+    "known":[{
+      "difference":"validity native=invalid ts=valid",
+      "reason":"Inherited command-parenthesis grammar accepts empty argument_list after a word; Native rejects it. The unchanged baseline already accepts this exact source, as does the command-parenthesis-native suite's empty parentheses case. Fixing empty command parentheses is a separate root cause."
+    }]
+  },
+  {"name":"unclosed command parentheses invalid","source":"Write-Output [Widget]::Run(1","expect":"invalid"},
+  {"name":"bare command inside actual method invalid","source":"[Widget]::Run(Get-Item sample)","expect":"invalid"},
+  {"name":"unclosed actual method invalid","source":"[Widget]::Run(1","expect":"invalid"},
+  {"name":"computed actual static member control","source":"[Widget]::(1)"},
+  {"name":"two parameter generic-looking word","source":"Write-Output [Example.Map[string,int]]::Run(1)"},
+  {"name":"bracket word then scriptblock","source":"Write-Output [Widget]::Run{ 1 }"},
+  {"name":"bracket word followed by new statement","source":"Write-Output [Widget]::Ready\n[Widget]::Run(1)"}
+]
