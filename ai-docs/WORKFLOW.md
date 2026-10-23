@@ -75,6 +75,11 @@ flowchart TD
 
 The full brief is [skills/fix-agent/SKILL.md](skills/fix-agent/SKILL.md). In short:
 
+The parent assigns independent grammar root causes to fix agents rather than
+implementing additional grammar topics itself. Parent work is classification,
+coordination, merging, converter integration and certification. Finishing a
+cancelled worker's preserved task is the exception.
+
 1. **Classify with PowerShell's parser first.** Write made-up cases
    (reductions, negative controls, neighbouring forms that already work) and run
    the proof kit on the current parser to see the failure.
@@ -83,9 +88,12 @@ The full brief is [skills/fix-agent/SKILL.md](skills/fix-agent/SKILL.md). In sho
    `$GRAMMAR/ai-docs/local/worktrees/og-TOPIC` is a good place for `$W`: it is
    ignored by Git and by Opengrep's Dune build.
 3. **Edit** the grammar, scanner or pattern syntax, and append tests.
-4. **Validate quick:** `node ai-docs/tools/validate.mjs quick --fork "$W" --label TOPIC-N`.
-5. **Prove:** the topic's cases agree with Native; `--suites` shows no new
-   difference.
+4. **Prove the target first:** run the topic's cases with `--fork "$W"` before
+   paying for quick's whole-corpus checks.
+5. **Validate quick**, then run `--suites --fork "$W"` once the topic is ready
+   to hand back. It uses the worktree's committed cases plus canonical local
+   cases. New differences remain regressions; do not rerun every suite after
+   every small edit.
 6. **Commit on `og/TOPIC`** and hand back the branch with a short report.
 
 Always run the tools from `$GRAMMAR` (its `ai-docs/local/` has the config,
@@ -122,7 +130,7 @@ vendor files, corpus and baseline), and point them at `$W` with `--fork`.
 
 | Fix agent | Parent |
 | --- | --- |
-| One root cause in its own `og/TOPIC` worktree. | Chooses topics and fills in the brief's TOPIC block; may run several fix agents in parallel. |
+| One root cause in its own `og/TOPIC` worktree. | Assigns independent grammar topics to fix agents, fills in each TOPIC block, and coordinates parallel work. |
 | Edits only `grammar.js`, `src/scanner.c`, `src/parameter_letters.h`, `opengrep/grammar.cjs` (pattern syntax), tests and its own cases. | Merges serially and resolves conflicts by hand. |
 | Runs only `validate.mjs quick` and `proof-kit.mjs`: no Dune, no `full`, no sub-agents. | Owns regeneration, converter changes, Dune, `validate.mjs full`, commits on both repositories, and promotion. |
 | Writes only in its worktree and in run or report folders the tools create. | Verifies agent claims independently before relying on them. |
@@ -159,7 +167,11 @@ than starting a duplicate.
   routine cleanup.
 - **Scratch goes in `ai-docs/local/`.** The tools give each build its own
   `TREE_SITTER_LIBDIR`; do the same for manual `tree-sitter test` runs, since the
-  CLI caches compiled parsers by language name.
+  CLI caches compiled parsers by language name. Also give each invocation its
+  own `XDG_CACHE_HOME`; the CLI's compilation lock otherwise remains shared.
+- **Bound console output, not proof coverage.** The kit keeps full JSON and
+  caps console output at 6 KB by default. Use `--all` only for small selected
+  cases; inspect particular JSON entries and generated-type hunks, not whole reports.
 - **Blockers are recorded** with their evidence; then continue with independent
   work.
 

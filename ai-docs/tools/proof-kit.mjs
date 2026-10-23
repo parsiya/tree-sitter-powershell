@@ -8,15 +8,17 @@
 //                                    [--fork ... | --parser-dir ...] [--out DIR]
 //
 // --source TEXT  one-off check of a snippet (quick classification while writing cases):
-//                trailing-trivia on by default, every difference printed; the generated
+//                trailing-trivia on by default, compact output; the generated
 //                cases file goes to local/results/proof-kit/adhoc/, never into a suite.
 // --all          print every difference of a failing case, not just the first.
+//                Also disables the 6 KB console limit. Full JSON is always retained.
 // --suite NAMES  restrict --suites to these suites, e.g. to record a new suite's
 //                expectations without rewriting the others:
 //                --suites --suite my-topic --write-expectations
 //
-// Suites (--suites): runs every SUITE.json in each DIR (default: ai-docs/cases and, when
-// present, ai-docs/local/cases, reported separately) with --known-pattern trailing-trivia,
+// Suites (--suites): runs every SUITE.json in each DIR (default: the fork's ai-docs/cases,
+// or this checkout's without --fork, plus canonical ai-docs/local/cases when present)
+// with --known-pattern trailing-trivia,
 // and compares each with DIR/SUITE.expected.json: summary counts (informational) and, per
 // case, its status and the sorted list (a multiset) of its remaining difference keys
 // (unexpected differences and "stale known: ..." entries). The run fails (exit 1) on a
@@ -169,6 +171,7 @@ import { spawnSync, execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   AI_DOCS, TOOLS, PARSER, ABI14_LIB, GENERATOR, ENV_SH, CORPUS, KIT, LOCAL, RESULTS, PWSH, PWSH_ARGS, PWSH_VERSION, CONFIG_FILE, nativeEnv, prepareLocal,
 } from './config.mjs';
@@ -300,7 +303,6 @@ function parseArgs(argv) {
   if (opts.suite !== undefined && !opts.suites) throw new InputError('--suite goes with --suites');
   if (opts.source !== undefined) {
     if (opts.suites || opts.positional.length) throw new InputError('--source replaces CASES.json and --suites');
-    opts.all = true;
     opts.knownPattern ??= SUITE_PATTERN;
   }
   if (opts.suites) {
@@ -928,6 +930,23 @@ function compareCase(c, native, ts) {
 
 // ---------------------------------------------------------------- driver
 
+export function compactOutput(lines, all = false) {
+  const text = lines.join('\n');
+  if (all || Buffer.byteLength(text) <= 6000) return text;
+  const footer = lines.slice(-2);
+  const budget = 6000 - Buffer.byteLength(footer.join('\n')) - 180;
+  const shown = [];
+  let bytes = 0;
+  for (const line of lines.slice(0, -2)) {
+    const length = Buffer.byteLength(line) + 1;
+    if (bytes + length > budget) break;
+    shown.push(line);
+    bytes += length;
+  }
+  return [...shown, `... ${lines.length - shown.length - footer.length} detail lines omitted; full details remain in the JSON report.`,
+    ...footer].join('\n');
+}
+
 function summarize(report, elapsed, all = false) {
   const s = report.summary;
   const lines = [
@@ -957,7 +976,7 @@ function summarize(report, elapsed, all = false) {
   }
   for (const limit of s.kit_limits) lines.push(`kit limit: ${limit}`);
   lines.push(`report: ${rel(report.path)}`);
-  return lines.join('\n');
+  return compactOutput(lines, all);
 }
 
 // Default report names: timestamp plus process id, so back-to-back runs never collide.
@@ -1157,23 +1176,28 @@ function compareExpectation(expected, actual) {
   return { failures, improvements };
 }
 
+export function suiteDirectories(opts) {
+  if (opts.positional.length) return opts.positional.map(d => path.resolve(d));
+  const committed = opts.fork ? path.resolve(opts.fork, 'ai-docs/cases') : path.join(AI_DOCS, 'cases');
+  return [committed, ...[path.join(LOCAL, 'cases')].filter(d => fs.existsSync(d))];
+}
+
 async function runSuites(opts) {
   const started = performance.now();
-  const dirs = opts.positional.length ? opts.positional.map(d => path.resolve(d))
-    : [path.join(AI_DOCS, 'cases'), path.join(LOCAL, 'cases')].filter(d => fs.existsSync(d));
+  const dirs = suiteDirectories(opts);
+  const wanted = opts.suite?.split(',');
   const suites = [];
   for (const dir of dirs) {
     if (!fs.statSync(dir, { throwIfNoEntry: false })?.isDirectory()) throw new InputError(`not a suites folder: ${dir}`);
     for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.json') && !f.endsWith('.expected.json')).sort()) {
+      if (wanted && !wanted.includes(path.basename(file, '.json'))) continue;
       const casesFile = path.join(dir, file);
       suites.push({ dir, name: path.basename(file, '.json'), casesFile, cases: loadCases(casesFile) });
     }
   }
   if (opts.suite !== undefined) {
-    const wanted = opts.suite.split(',');
     const missing = wanted.filter(name => !suites.some(s => s.name === name));
     if (missing.length) throw new InputError(`no such suite: ${missing.join(', ')}`);
-    suites.splice(0, suites.length, ...suites.filter(s => wanted.includes(s.name)));
   }
   if (!suites.length) throw new InputError(`no suites in ${dirs.join(', ') || 'ai-docs/cases'}`);
   const outDir = path.resolve(opts.out ?? path.join(RESULTS, 'proof-kit', `suites-${stampNow()}`));
@@ -1218,14 +1242,16 @@ async function runSuites(opts) {
   const summaryFile = path.join(outDir, 'summary.json');
   fs.writeFileSync(summaryFile, `${JSON.stringify({ tool: 'proof-kit.mjs --suites', created_at: new Date().toISOString(),
     parser: parser.mode, known_pattern: SUITE_PATTERN, verdict, suites: results }, null, 1)}\n`);
-  console.log([`proof-kit --suites: parser ${parser.mode}${opts.fork ? ` ${opts.fork}` : ''}; known pattern ${SUITE_PATTERN}; ` +
-    `${((performance.now() - started) / 1000).toFixed(1)}s`, ...lines, verdict, `reports: ${rel(outDir)}`].join('\n'));
+  console.log(compactOutput([`proof-kit --suites: parser ${parser.mode}${opts.fork ? ` ${opts.fork}` : ''}; known pattern ${SUITE_PATTERN}; ` +
+    `${((performance.now() - started) / 1000).toFixed(1)}s`, ...lines, verdict, `reports: ${rel(outDir)}`], opts.all));
   return failed ? 1 : 0;
 }
 
-try {
-  process.exitCode = await main();
-} catch (error) {
-  console.error(`proof-kit: ${error instanceof InputError || error instanceof assert.AssertionError ? error.message : error.stack}`);
-  process.exitCode = 2;
+if (process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    process.exitCode = await main();
+  } catch (error) {
+    console.error(`proof-kit: ${error instanceof InputError || error instanceof assert.AssertionError ? error.message : error.stack}`);
+    process.exitCode = 2;
+  }
 }

@@ -77,7 +77,12 @@ The tools source the build environment themselves when `local/config.json` sets
    Expected-error cases must really fail. Add a C test in
    `test/*.c` when exact bytes or values matter (CR handling, string values):
    the kit compares extents and kinds, not values.
-4. **Quick validation** (use a new label each run):
+4. **Targeted proof first.** Run the topic's cases with `--fork "$W"` after
+   each edit; fix target differences before running whole-corpus checks.
+   Keep output compact: full details are in JSON; reserve `--all` for small
+   selected cases.
+
+   **Quick validation** (use a new label each run):
 
    ```sh
    node ai-docs/tools/validate.mjs quick --fork "$W" --label TOPIC-N
@@ -86,18 +91,17 @@ The tools source the build environment themselves when `local/config.json` sets
    It must PASS: inherited inputs preserved, 0.22 tests, ABI 14 C tests, raw corpus
    parse `regressed 0`, grammar harness `worse 0`. Read `moves` and `improved`:
    they should be your target files.
-5. **Proof.**
+5. **Final proof regression check** once the topic is ready to hand back,
+   not after each small edit:
 
    ```sh
-   node ai-docs/tools/proof-kit.mjs "$W/ai-docs/cases/TOPIC.json" --fork "$W" --known-pattern trailing-trivia \
-     --out ai-docs/local/results/proof-kit/TOPIC-after.json
    node ai-docs/tools/proof-kit.mjs --suites --fork "$W"
    ```
 
    Target cases must agree. The suites must pass (improvements are fine). Any
    remaining difference needs an explicit `known` entry with a real reason (an
    inherited, documented behaviour), never just to make the run pass.
-6. Repeat 2–5 until done.
+6. Iterate 2–4 until the target proofs and quick pass; run step 5 at handback.
 7. **Record expectations.** Once step 5 passes:
 
    ```sh

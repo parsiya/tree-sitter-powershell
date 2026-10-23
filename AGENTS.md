@@ -62,6 +62,15 @@ expected trees. Do not preserve a grammar bug just to keep such a test passing.
 
 ## The fix loop
 
+The parent coordinates: classify and assign each independent grammar root cause
+to a fix agent in its own worktree. Do not implement several grammar topics in
+the parent while workers run. The parent owns merging, converter integration
+and certification; it may finish a cancelled worker's preserved task directly.
+For each edit, run the targeted proof first, then quick validation. Run the
+whole proof suite once the topic is ready to hand back, not after every edit.
+Default to compact output; use `--all` only for a small selected case. Inspect
+the JSON report for specific differences instead of dumping it or generated diffs.
+
 Work in your own worktree from `opengrep-dev`:
 
 ```sh
@@ -70,16 +79,17 @@ W=$PWD/ai-docs/local/worktrees/og-TOPIC
 ```
 
 1. **Classify with PowerShell's own parser first.** It is the reference.
-   `node ai-docs/tools/proof-kit.mjs --source 'snippet'` prints every
-   difference between it and Opengrep's parser for one snippet.
+   `node ai-docs/tools/proof-kit.mjs --source 'snippet'` prints a compact
+   comparison; its JSON report retains every difference.
 2. **Write the proof cases** (next section) and run them to see the failure.
-3. **Edit** the grammar in `$W`, and add tests.
+3. **Edit** the grammar in `$W`, add tests, and run the topic's proof with
+   `--fork "$W"`. Resolve target differences before quick validation.
 4. **Validate:** `node ai-docs/tools/validate.mjs quick --fork "$W" --label TOPIC-N`
    (about 20 s, new label each run). It must PASS.
-5. **Prove:** run your cases with `--fork "$W"`. Then
+5. **Final proof regression check, once ready to hand back:**
    `node ai-docs/tools/proof-kit.mjs --suites "$W/ai-docs/cases" --fork "$W"`
    must show no new differences in any suite.
-6. Repeat 3–5. Then record your suite's expectations (next section), commit on
+6. Iterate 3–4; run step 5 when ready. Then record your suite's expectations, commit on
    `og/TOPIC` with explicit file names, and report back.
 
 Full step-by-step brief: [ai-docs/skills/fix-agent/SKILL.md](ai-docs/skills/fix-agent/SKILL.md).
@@ -104,8 +114,8 @@ Every fix needs a proof suite. Use the kit; never write a one-off proof script.
      `ai-docs/local/cases/` with `"corpus_path": "BATCH/relative/path"`.
    - The schema, fact families and difference keys are in the header of
      [ai-docs/tools/proof-kit.mjs](ai-docs/tools/proof-kit.mjs).
-2. **Before:** `node ai-docs/tools/proof-kit.mjs "$W/ai-docs/cases/TOPIC.json" --known-pattern trailing-trivia --all`
-3. **After:** the same command with `--fork "$W"`. The target cases must agree
+2. **Before:** `node ai-docs/tools/proof-kit.mjs "$W/ai-docs/cases/TOPIC.json" --known-pattern trailing-trivia`
+3. **After:** the same command with `--fork "$W"`, before quick validation. The target cases must agree
    with PowerShell. A remaining difference is acceptable only as an explicit
    `known` entry with a real reason (inherited, documented behaviour).
 4. **Record** only your suite's expectations, then review the diff:

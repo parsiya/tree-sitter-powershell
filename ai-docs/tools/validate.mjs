@@ -205,7 +205,7 @@ async function sourceStage(run, { sh }) {
   const lint = await sh(`${q(PARSER)}/node_modules/.bin/eslint --config ${q(PARSER)}/eslint.config.mjs grammar.js`,
     { cwd: fork, capture: true });
   assert.ok(!/ignored/i.test(lint.stdout), 'eslint ignored grammar.js');
-  await sh(`node --test ${q(path.join(TOOLS, 'inherited-inputs.test.mjs'))}`);
+  await sh(`node --test ${q(path.join(TOOLS, 'inherited-inputs.test.mjs'))} ${q(path.join(TOOLS, 'proof-kit.test.mjs'))}`);
 
   const inherited = git(fork, 'ls-tree', '-r', '-z', '--name-only', 'upstream/main', 'test').split('\0').filter(Boolean);
   let inheritedCases = 0;
@@ -331,7 +331,7 @@ function countTreeSitterTests(text) {
 
 async function compatFullStage(run, { sh }) {
   const lib = path.join(run.dir, 'compat-lib');
-  const { stdout } = await sh(`export TREE_SITTER_LIBDIR=${q(lib)}\nbash ${q(`${PARSER}/opengrep/test.sh`)} ${q(ROOT)}`,
+  const { stdout } = await sh(`export TREE_SITTER_LIBDIR=${q(lib)} XDG_CACHE_HOME=${q(path.join(run.dir, 'tree-sitter-cache'))}\nbash ${q(`${PARSER}/opengrep/test.sh`)} ${q(ROOT)}`,
     { capture: true });
   const counts = countTreeSitterTests(stdout);
   assert.ok(counts.passed > 0 && counts.failed === 0, `compatibility tests: ${JSON.stringify(counts)}`);
@@ -356,7 +356,7 @@ async function compatQuickStage(run, { sh }) {
           fs.copyFileSync(path.join(dir, name), path.join(work, 'test/corpus', name));
         }
       }
-      const { stdout } = await sh(`export TREE_SITTER_LIBDIR=${q(path.join(run.dir, 'compat-lib'))}\ntree-sitter test`,
+      const { stdout } = await sh(`export TREE_SITTER_LIBDIR=${q(path.join(run.dir, 'compat-lib'))} XDG_CACHE_HOME=${q(path.join(run.dir, 'tree-sitter-cache'))}\ntree-sitter test`,
         { cwd: work, capture: true });
       counts = countTreeSitterTests(stdout);
       assert.ok(counts.passed > 0 && counts.failed === 0, `0.22 tests: ${JSON.stringify(counts)}`);

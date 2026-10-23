@@ -108,7 +108,7 @@ Run the commands from this repository's root.
    ```sh
    node ai-docs/tools/proof-kit.mjs CASES.json [--fork WORKTREE] --known-pattern trailing-trivia
    node ai-docs/tools/proof-kit.mjs --suites [--suite NAME] [--fork WORKTREE]
-   node ai-docs/tools/proof-kit.mjs --source 'one snippet'   # quick check, every difference
+   node ai-docs/tools/proof-kit.mjs --source 'one snippet'   # compact check; full details in JSON
    ```
 
    The first form checks one case file; the case schema is in the header of
@@ -116,6 +116,13 @@ Run the commands from this repository's root.
    `ai-docs/cases/` against its `.expected.json` (and `ai-docs/local/cases/` when
    present). See [cases/README.md](cases/README.md), including how to update
    expectations deliberately.
+
+   Console output is capped at 6 KB; full comparisons always remain in JSON.
+   Use `--all` only when deliberately requesting verbose output for small cases.
+   With `--fork WORKTREE`, default suites come from that worktree plus the
+   canonical local corpus suites. `--suite` loads only the selected suites.
+   Validation isolates both tree-sitter's library directory and cache/lock
+   directory, so parallel test runs do not share its language-name lock.
 
 ## What is never committed
 
