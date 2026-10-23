@@ -527,6 +527,7 @@ echo	:" " last
         (command
           (command_name)
           (command_elements
+            (command_argument_sep)
             (colon_command_argument
               (string_literal
                 (expandable_string_literal)))

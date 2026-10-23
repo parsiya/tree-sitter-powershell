@@ -1,0 +1,225 @@
+[
+  {
+    "name": "trailing dot before assignment",
+    "source": "Write-Output $node.\n$value = Test-Thing -Server $server -Port 1433",
+    "expect": "valid"
+  },
+  {
+    "name": "trailing dot before command",
+    "source": "Write-Output $node.\nTest-Thing -Server $server",
+    "expect": "valid"
+  },
+  {
+    "name": "trailing dot at eof",
+    "source": "Write-Output $node."
+  },
+  {
+    "name": "trailing dot before horizontal space",
+    "source": "Write-Output $node. $next"
+  },
+  {
+    "name": "trailing dot crlf assignment",
+    "source": "Write-Output $node.\r\n$value = Test-Thing"
+  },
+  {
+    "name": "trailing dot lone cr assignment",
+    "source": "Write-Output $node.\r$value = Test-Thing"
+  },
+  {
+    "name": "trailing dot semicolon assignment",
+    "source": "Write-Output $node.; $value = Test-Thing",
+    "expect": "invalid"
+  },
+  {
+    "name": "trailing dot before pipeline",
+    "source": "Write-Output $node.| Out-String",
+    "expect": "invalid"
+  },
+  {
+    "name": "trailing dot inside parenthesis",
+    "source": "(Write-Output $node.)",
+    "expect": "invalid"
+  },
+  {
+    "name": "trailing dot inside scriptblock",
+    "source": "{ Write-Output $node.}",
+    "expect": "invalid"
+  },
+  {
+    "name": "trailing dot and line comment",
+    "source": "Write-Output $node. # dot ends the argument\n$value = Test-Thing"
+  },
+  {
+    "name": "trailing dot and explicit continuation",
+    "source": "Write-Output $node. `\n$next"
+  },
+  {
+    "name": "trailing dot and adjacent continuation",
+    "source": "Write-Output $node.`\n$next"
+  },
+  {
+    "name": "trailing dot with escaped space",
+    "source": "Write-Output $node.` $next"
+  },
+  {
+    "name": "member before newline assignment",
+    "source": "Write-Output $node.Name\n$value = Test-Thing"
+  },
+  {
+    "name": "member continues after dot newline",
+    "source": "$value = $node.\nName"
+  },
+  {
+    "name": "command dot newline then member name",
+    "source": "Write-Output $node.\nName"
+  },
+  {
+    "name": "command dot space then member name",
+    "source": "Write-Output $node. Name"
+  },
+  {
+    "name": "dynamic member",
+    "source": "Write-Output $node.$name"
+  },
+  {
+    "name": "quoted member",
+    "source": "Write-Output $node.'Name'"
+  },
+  {
+    "name": "parenthesized member",
+    "source": "Write-Output $node.(Get-Name)"
+  },
+  {
+    "name": "method call",
+    "source": "Write-Output $node.ToString()"
+  },
+  {
+    "name": "braced variable trailing dot",
+    "source": "Write-Output ${node}.\n$value = Test-Thing"
+  },
+  {
+    "name": "qualified variable trailing dot",
+    "source": "Write-Output $script:node.\n$value = Test-Thing"
+  },
+  {
+    "name": "deep qualified variable trailing dot",
+    "source": "Write-Output $script:node:leaf.\n$value = Test-Thing"
+  },
+  {
+    "name": "deep qualified variable member control",
+    "source": "Write-Output $script:node:leaf.Name\n$value = Test-Thing",
+    "expect": "valid"
+  },
+  {
+    "name": "deep qualified variable trailing colon member control",
+    "source": "Write-Output $script:node:.Name\n$value = Test-Thing",
+    "expect": "valid"
+  },
+  {
+    "name": "deep qualified splat control",
+    "source": "Write-Output @script:node:leaf\n$value = Test-Thing",
+    "expect": "valid"
+  },
+  {
+    "name": "special variable trailing dot",
+    "source": "Write-Output $_.\n$value = Test-Thing"
+  },
+  {
+    "name": "expression dynamic member continues after newline",
+    "source": "$value = $node.\n$next = Test-Thing"
+  },
+  {
+    "name": "incomplete expression dot invalid",
+    "source": "$value = $node.",
+    "expect": "invalid"
+  },
+  {
+    "name": "escaped literal dot",
+    "source": "Write-Output $node`.\n$value = Test-Thing",
+    "known": [
+      {
+        "difference": "typed missing VariableExpressionAst 13:18",
+        "reason": "Inherited joined-word representation stores escaped text and variable expansion inside one external generic token."
+      }
+    ]
+  },
+  {
+    "name": "array ordinary variables control",
+    "source": "Write-Output $node, $next, word\n$value = Test-Thing"
+  },
+  {
+    "name": "trailing dot before comma",
+    "source": "Write-Output $node.,word",
+    "expect": "invalid"
+  },
+  {
+    "name": "member trailing dot",
+    "source": "Write-Output $node.Name.\n$value = Test-Thing"
+  },
+  {
+    "name": "splat trailing dot",
+    "source": "Write-Output @node.\n$value = Test-Thing"
+  },
+  {
+    "name": "trailing double dot",
+    "source": "Write-Output $node..\n$value = Test-Thing"
+  },
+  {
+    "name": "empty braced variable invalid",
+    "source": "Write-Output ${}.\n$value = Test-Thing",
+    "expect": "invalid"
+  },
+  {
+    "name": "unclosed braced variable invalid",
+    "source": "Write-Output ${node.\n$value = Test-Thing",
+    "expect": "invalid"
+  },
+  {
+    "name": "literal dollar dot is not a variable prefix",
+    "source": "Write-Output $.\n$value = Test-Thing",
+    "known": [
+      {
+        "difference": "validity native=valid ts=invalid",
+        "reason": "Inherited bare-dollar word rejection, reproduced with the clean a60d19d ABI14 parser; a literal dollar is not a variable prefix."
+      },
+      {
+        "difference": "commands extent 0:15 ts 0:13",
+        "reason": "Inherited consequence of rejecting the bare-dollar word, unchanged from clean a60d19d."
+      },
+      {
+        "difference": "elements missing 13:15 StringConstantExpressionAst/BareWord",
+        "reason": "Inherited bare-dollar word rejection, unchanged from clean a60d19d."
+      }
+    ]
+  },
+  {
+    "name": "dot is not literal when escaped member follows",
+    "source": "Write-Output $node.`Name\n$value = Test-Thing",
+    "expect": "invalid"
+  },
+  {
+    "name": "indented assignment after dot",
+    "source": "Write-Output $node.\n            $value = Test-Thing -Server $server -Port 1433",
+    "expect": "valid"
+  },
+  {
+    "name": "dot before tab separator",
+    "source": "Write-Output $node.\t$next",
+    "expect": "valid"
+  },
+  {
+    "name": "dot before nonbreaking space",
+    "source": "Write-Output $node.\u00a0$next",
+    "expect": "valid"
+  },
+  {
+    "name": "tab colon word separator control",
+    "source": "echo\t:\" \" last",
+    "expect": "valid"
+  },
+  {
+    "name": "tab after explicit continuation separator control",
+    "source": "Write-Debug `\n\t\"debug\"",
+    "expect": "valid"
+  }
+]
