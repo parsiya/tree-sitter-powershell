@@ -3,6 +3,7 @@
 
 #include "tree_sitter/parser.h"
 #include "parameter_letters.h"
+#include <stdlib.h>
 #include <wctype.h>
 
 enum TOKEN_TYPE {
@@ -35,8 +36,23 @@ enum TOKEN_TYPE {
     TRAILING_DOT_REAL_LITERAL,
     VARIABLE_COMMAND_NAME_CONTINUATION,
     INVOCATION_ARGUMENT_BOUNDARY,
-    VARIABLE_BEFORE_LITERAL_DOT
+    VARIABLE_BEFORE_LITERAL_DOT,
+    COMMAND_NAME_SUBEXPRESSION,
+    ANGLE_ARGUMENT_BOUNDARY,
+    LEADING_BOM,
+    STRING_SUBEXPRESSION_START,
+    STRING_SUBEXPRESSION_END,
+    QUOTE_UNIT_OPEN,
+    QUOTE_UNIT_CLOSE,
+    QUOTE_UNIT_ESCAPE,
+    EXPANDABLE_STRING_AHEAD
 };
+
+// Native reads a doubled quote inside the subexpression of an expandable
+// string as one quote, so the scanner counts the open string subexpressions.
+typedef struct {
+    unsigned char string_subexpression_depth;
+} Scanner;
 
 /* --- API --- */
 
@@ -101,6 +117,21 @@ static bool scan_command_array_item_start(TSLexer *lexer, const bool *valid_symb
 static bool is_quote(int32_t c)
 {
     return c == '"' || c == '\'' || (c >= 0x2018 && c <= 0x201e);
+}
+
+// Skip a quoted value of a `--name=` option, as the parameter token matches it.
+static bool skip_option_quote(TSLexer *lexer)
+{
+    bool single = lexer->lookahead == '\'' ||
+                  (lexer->lookahead >= 0x2018 && lexer->lookahead <= 0x201b);
+    lexer->advance(lexer, false);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == 0 || c == '\r' || c == '\n') return false;
+        lexer->advance(lexer, false);
+        if (single ? (c == '\'' || (c >= 0x2018 && c <= 0x201b))
+                   : (c == '"' || (c >= 0x201c && c <= 0x201e))) return true;
+    }
 }
 
 static bool is_word_char(int32_t c)
@@ -177,12 +208,22 @@ static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
     return colons;
 }
 
-static bool scan_qualified_variable(TSLexer *lexer, const bool *valid_symbols)
+static bool scan_qualified_variable(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols)
 {
     bool in_string = valid_symbols[QUALIFIED_VARIABLE_IN_STRING];
     if (lexer->lookahead != '$' && lexer->lookahead != '@') return false;
     if (in_string && lexer->lookahead == '@') return false;
+    bool sigil_dollar = lexer->lookahead == '$';
     lexer->advance(lexer, false);
+    if (in_string && sigil_dollar && valid_symbols[EXPANDABLE_STRING_AHEAD] &&
+        valid_symbols[STRING_SUBEXPRESSION_START] &&
+        lexer->lookahead == '(') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        if (scanner->string_subexpression_depth < 255) scanner->string_subexpression_depth++;
+        lexer->result_symbol = STRING_SUBEXPRESSION_START;
+        return true;
+    }
     bool static_access = false;
     if (scan_variable_path(lexer, &static_access) < 2) return false;
     lexer->result_symbol = in_string ? QUALIFIED_VARIABLE_IN_STRING : QUALIFIED_VARIABLE;
@@ -332,6 +373,8 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
     return valid_symbols[NUMERIC_COMMAND_NAME];
 }
 
+static bool continuation_ends_statement(TSLexer *lexer, const bool *valid_symbols);
+
 // Only start a word when it is not a standalone expression. Once an unquoted
 // word has begun, adjacent quotes and $() belong to it. Leave those expressions
 // in the tree so that nested commands remain visible to syntax consumers.
@@ -405,8 +448,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     unsigned dashes = 0;
     bool only_dashes = true;
     bool parameter_dot = false;
+    // `--name=$(...)` is a word, not a parameter, once a subexpression follows.
+    bool option_word = false;
+    bool option_separator = false;
     if (parameter) {
         lexer->advance(lexer, false);
+        option_word = lexer->lookahead == '-';
         parameter_dot = ((lexer->lookahead < 0x80 && iswalpha(lexer->lookahead)) ||
                          is_unicode_parameter_letter(lexer->lookahead) ||
                          lexer->lookahead == '_' || lexer->lookahead == '?' ||
@@ -437,17 +484,27 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         if (c == '-') dashes++;
         else only_dashes = false;
         if (is_quote(c)) {
+            // A quoted `--name="value"` stays a parameter unless `$(` follows.
+            if (option_separator) {
+                if (!skip_option_quote(lexer)) return false;
+                consumed = true;
+                lexer->mark_end(lexer);
+                continue;
+            }
             joined = quoted = true;
             break;
         }
         // Keep the existing parameter representation for -Name:value and
         // --option=value; only an attached quote makes -o"value" a word.
-        if (parameter && (c == ':' || c == '=')) return false;
+        if (parameter && (c == ':' || c == '=')) {
+            if (!option_word) return false;
+            option_separator = true;
+        }
         if (c == '$') {
             lexer->mark_end(lexer);
             lexer->advance(lexer, false);
             if (lexer->lookahead == '(') {
-                if (parameter_name) return false;
+                if (parameter_name && !option_word) return false;
                 if (!consumed) {
                     if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
                     lexer->result_symbol = COMMAND_WORD_EXPRESSION;
@@ -463,8 +520,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             lexer->advance(lexer, false);
             if (c == '`') {
                 if (parameter_dot && lexer->lookahead == '.') return false;
-                if (!consumed && !part &&
-                    command_array_space(lexer->lookahead)) return false;
+                if (!consumed && !part && command_array_space(lexer->lookahead)) {
+                    // Escaped whitespace is trivia, so it may end the statement.
+                    // The token is empty and starts where this word attempt did.
+                    return !valid_symbols[STATEMENT_TERMINATOR] ? false :
+                        continuation_ends_statement(lexer, valid_symbols);
+                }
                 if (lexer->eof(lexer)) return false;
                 if (lexer->lookahead) lexer->advance(lexer, false);
                 joined = true;
@@ -534,22 +595,54 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
     }
 }
 
+// At a possible end of the statement. A backtick before whitespace (a line
+// continuation, or escaped whitespace) is trivia, so the statement can end
+// after it: `Get-X -a `\n}`. An empty line or the end of the input ends the
+// statement; a comment, a pipe or another token does not.
+static bool statement_terminator_follows(TSLexer *lexer, const bool *valid_symbols)
+{
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == 0 || c == '}' || c == ';' || c == ')') return true;
+        if (c == '`') {
+            skip(lexer);
+            if (lexer->eof(lexer) || !command_array_space(lexer->lookahead)) return false;
+            if (lexer->lookahead == '\r') {
+                skip(lexer);
+                if (lexer->lookahead == '\n') skip(lexer);
+            } else {
+                skip(lexer);
+            }
+            continue;
+        }
+        if (line_end(c)) return !statement_continuation_follows(lexer, valid_symbols);
+        if (!iswspace(c) && c != 0xa0) return false;
+        skip(lexer);
+    }
+}
+
+// The caller has consumed a backtick that is followed by whitespace, after
+// marking the start of the token.
+static bool continuation_ends_statement(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (lexer->lookahead == '\r') {
+        skip(lexer);
+        if (lexer->lookahead == '\n') skip(lexer);
+    } else {
+        skip(lexer);
+    }
+    if (!statement_terminator_follows(lexer, valid_symbols)) return false;
+    lexer->result_symbol = STATEMENT_TERMINATOR;
+    return true;
+}
+
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[STATEMENT_TERMINATOR]) {
         lexer->result_symbol = STATEMENT_TERMINATOR;
         // This token has no characters -- everything is lookahead to determine its existence
         lexer->mark_end(lexer);
-
-        for (;;) {
-            if (lexer->lookahead == 0) return true;
-            if (lexer->lookahead == '}') return true;
-            if (lexer->lookahead == ';') return true;
-            if (lexer->lookahead == ')') return true;
-            if (line_end(lexer->lookahead)) return !statement_continuation_follows(lexer, valid_symbols);
-            if (!iswspace(lexer->lookahead)) return false;
-            skip(lexer);
-        }
+        return statement_terminator_follows(lexer, valid_symbols);
     }
 
     return false;
@@ -605,10 +698,13 @@ static bool scan_script_block_argument_start(void *payload, TSLexer *lexer, cons
 // space would otherwise be lexed as the separator before the next argument.
 // The spaces (and line continuations) are skipped and an empty extra token is
 // returned, so that the comma is then lexed as usual.
-static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *valid_symbols, bool *skipped_backtick)
+static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *valid_symbols,
+                                     bool *skipped_backtick, bool *stray_backtick)
 {
     if (!valid_symbols[SPACES_BEFORE_COMMA]) return false;
 
+    // The empty statement terminator also starts here, if no comma follows.
+    lexer->mark_end(lexer);
     bool skipped = false;
     for (;;) {
         if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
@@ -616,7 +712,10 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
         } else if (lexer->lookahead == '`') {
             *skipped_backtick = true;
             skip(lexer);
-            if (!line_end(lexer->lookahead)) return false;
+            if (!line_end(lexer->lookahead)) {
+                *stray_backtick = true;
+                return false;
+            }
             skip_line_end(lexer);
         } else {
             break;
@@ -652,7 +751,12 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
             // Escaped whitespace is trivia at a completed expression boundary.
             // A following parameter still needs its ordinary separator path.
             if (command_word_end(lexer->lookahead) || lexer->lookahead == '-' ||
-                lexer->lookahead == '#' || lexer->lookahead == '>') return false;
+                lexer->lookahead == '#' || lexer->lookahead == '>') {
+                if (!valid_symbols[STATEMENT_TERMINATOR] ||
+                    !statement_terminator_follows(lexer, valid_symbols)) return false;
+                lexer->result_symbol = STATEMENT_TERMINATOR;
+                return true;
+            }
         } else if (lexer->eof(lexer)) {
             return false;
         }
@@ -671,8 +775,7 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == 0 || iswspace(c) || c == '.' || c == '[' || c == ':' ||
         c == ';' || c == '|' || c == '&' || c == ')' || c == '}' ||
         c == ',' || c == '>' || c == '<' ||
-        c == '#' || c == 0xfeff ||
-        c == 0x2060 || c == 0x200b || c == 0xa0) return false;
+        c == '#' || c == 0xa0) return false;
     if ((c == '(' || c == '{') && !value) return false;
     lexer->mark_end(lexer);
     if (c == '-') {
@@ -842,6 +945,16 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
     return true;
 }
 
+// `<tag>`: the command name `<` is directly followed by its first argument.
+static bool scan_angle_argument_boundary(TSLexer *lexer)
+{
+    int32_t c = lexer->lookahead;
+    if (command_word_end(c) || c == '<' || c == '>' || c == '`') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = ANGLE_ARGUMENT_BOUNDARY;
+    return true;
+}
+
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
 {
     while (iswspace(lexer->lookahead)) skip(lexer);
@@ -868,8 +981,108 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
     return true;
 }
 
+// Inside a command name, `$(` takes everything up to its matching parenthesis
+// as literal text, like Native: quotes and comments do not hide parentheses.
+// `${` likewise ends at the first unescaped `}`.
+static bool scan_command_name_subexpression(TSLexer *lexer)
+{
+    if (lexer->lookahead == '{') {
+        lexer->advance(lexer, false);
+        while (!lexer->eof(lexer) && lexer->lookahead != '}') {
+            bool escape = lexer->lookahead == '`';
+            lexer->advance(lexer, false);
+            if (escape && !lexer->eof(lexer)) lexer->advance(lexer, false);
+        }
+        if (lexer->eof(lexer)) return false;
+        lexer->advance(lexer, false);
+    } else {
+        unsigned depth = 0;
+        do {
+            if (lexer->eof(lexer)) return false;
+            if (lexer->lookahead == '(') depth++;
+            else if (lexer->lookahead == ')') depth--;
+            lexer->advance(lexer, false);
+        } while (depth);
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMAND_NAME_SUBEXPRESSION;
+    return true;
+}
+
+static bool double_quote(int32_t c)
+{
+    return c == '"' || (c >= 0x201c && c <= 0x201e);
+}
+
+// The first unit of a quote run in a string: one quote, a doubled pair, or a
+// backtick-escaped quote. A second adjacent unit is an escaped quote.
+static bool scan_quote_unit_content(TSLexer *lexer)
+{
+    if (lexer->lookahead == '`') {
+        lexer->advance(lexer, false);
+        if (!double_quote(lexer->lookahead)) return false;
+        lexer->advance(lexer, false);
+    } else if (double_quote(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+        if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    } else {
+        return false;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_CLOSE;
+    if (lexer->lookahead == '`') {
+        lexer->advance(lexer, false);
+        if (!double_quote(lexer->lookahead)) return true;
+        lexer->advance(lexer, false);
+    } else if (double_quote(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+        if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    } else {
+        return true;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_ESCAPE;
+    return true;
+}
+
+// The opening unit: one quote or a doubled pair.
+static bool scan_quote_unit_open(TSLexer *lexer)
+{
+    if (!double_quote(lexer->lookahead)) return false;
+    lexer->advance(lexer, false);
+    if (double_quote(lexer->lookahead)) lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = QUOTE_UNIT_OPEN;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    Scanner *scanner = payload;
+    if (!valid_symbols[ERROR_SENTINEL]) {
+        if (valid_symbols[STRING_SUBEXPRESSION_END]) {
+            if (scanner->string_subexpression_depth) scanner->string_subexpression_depth--;
+            lexer->result_symbol = STRING_SUBEXPRESSION_END;
+            return true;
+        }
+        if (valid_symbols[QUOTE_UNIT_CLOSE] &&
+            (lexer->lookahead == '`' || double_quote(lexer->lookahead)))
+            return scan_quote_unit_content(lexer);
+    }
+    // Native PowerShell drops one UTF-8 BOM that starts a file; any other U+FEFF
+    // (and U+2060, U+200B) is an ordinary character. The grammar only accepts
+    // this token before the first statement, so a BOM at column 0 there is the
+    // file's BOM.
+    if (valid_symbols[LEADING_BOM] && !valid_symbols[ERROR_SENTINEL] &&
+        lexer->lookahead == 0xfeff && lexer->get_column(lexer) == 0) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = LEADING_BOM;
+        return true;
+    }
+    if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !valid_symbols[ERROR_SENTINEL] &&
+        (lexer->lookahead == '(' || lexer->lookahead == '{'))
+        return scan_command_name_subexpression(lexer);
     // A dot ends a parameter name and starts a command word, not a member.
     if (!valid_symbols[ERROR_SENTINEL] &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
@@ -881,6 +1094,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = literal ? PARAMETER_DOT_LITERAL_BOUNDARY : PARAMETER_DOT_BOUNDARY;
         return valid_symbols[lexer->result_symbol];
     }
+    if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !valid_symbols[ERROR_SENTINEL] &&
+        scan_angle_argument_boundary(lexer))
+        return true;
     if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !valid_symbols[ERROR_SENTINEL])
         return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !valid_symbols[ERROR_SENTINEL]) {
@@ -952,9 +1168,16 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
             skip(lexer);
         }
+        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth == 1 &&
+            double_quote(lexer->lookahead))
+            return scan_quote_unit_open(lexer);
         if (lexer->lookahead == '$' || lexer->lookahead == '@')
-            return scan_qualified_variable(lexer, valid_symbols);
+            return scan_qualified_variable(scanner, lexer, valid_symbols);
     }
+
+    if (word && valid_symbols[QUOTE_UNIT_OPEN] && !valid_symbols[ERROR_SENTINEL] &&
+        scanner->string_subexpression_depth == 1 && double_quote(lexer->lookahead))
+        return scan_quote_unit_open(lexer);
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.
@@ -963,10 +1186,17 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         return scan_command_word(lexer, valid_symbols);
 
     bool skipped_backtick = false;
-    if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick)) return true;
+    bool stray_backtick = false;
+    if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick, &stray_backtick))
+        return true;
     // Skipped characters cannot be restored, and the other external tokens
     // cannot follow a backtick anyway.
-    if (skipped_backtick) return false;
+    if (skipped_backtick) {
+        if (stray_backtick || !valid_symbols[STATEMENT_TERMINATOR] ||
+            !statement_terminator_follows(lexer, valid_symbols)) return false;
+        lexer->result_symbol = STATEMENT_TERMINATOR;
+        return true;
+    }
 
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
@@ -976,18 +1206,24 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
 void *tree_sitter_powershell_external_scanner_create()
 {
-    return NULL;
+    return calloc(1, sizeof(Scanner));
 }
 
 void tree_sitter_powershell_external_scanner_destroy(void *p)
 {
+    free(p);
 }
 
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer)
 {
-    return 0;
+    Scanner *scanner = payload;
+    if (!scanner->string_subexpression_depth) return 0;
+    buffer[0] = (char)scanner->string_subexpression_depth;
+    return 1;
 }
 
 void tree_sitter_powershell_external_scanner_deserialize(void *payload, const char *buffer, unsigned length)
 {
+    Scanner *scanner = payload;
+    scanner->string_subexpression_depth = length ? (unsigned char)buffer[0] : 0;
 }
