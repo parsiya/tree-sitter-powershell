@@ -45,6 +45,20 @@ const SIMPLE_NAME_LETTER = new RegExp(PARAMETER_LETTER, 'u');
 // CLR arities allow literal backticks (also doubled in PowerShell source).
 // The initial type-name character is still restricted below.
 const TYPE_IDENTIFIER = new RegExp('(' + VARIABLE_NAME.source + '|`)+', 'u');
+// Assembly-qualified type names: `, Assembly[, Key = Value]...` up to the
+// closing bracket. Native accepts empty parts and stray names after the
+// assembly, but a part holds at most one `=` and no inner whitespace, and the
+// specifier never crosses a line or contains brackets.
+const ASSEMBLY_SPACE = String.raw`[\t\p{Zs}]`;
+const ASSEMBLY_CHAR =
+  String.raw`[^\x00\t-\r =,\[\]\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]`;
+const ASSEMBLY_PART =
+  `${ASSEMBLY_SPACE}*${ASSEMBLY_CHAR}*${ASSEMBLY_SPACE}*` +
+  `(=${ASSEMBLY_SPACE}*${ASSEMBLY_CHAR}*${ASSEMBLY_SPACE}*)?`;
+const ASSEMBLY_QUALIFIER = new RegExp(
+  `,${ASSEMBLY_SPACE}*(${ASSEMBLY_CHAR}+${ASSEMBLY_SPACE}*(,${ASSEMBLY_PART})*|(,${ASSEMBLY_PART})+)`,
+  'u',
+);
 const VARIABLE_REFERENCE = new RegExp(
   `${VARIABLE_NAME.source}(\\?|${VARIABLE_NAME.source})*`,
   'u',
@@ -1912,7 +1926,10 @@ export default grammar({
         ),
       ),
 
-    type_literal: ($) => seq('[', $.type_spec, ']'),
+    type_literal: ($) =>
+      seq('[', $.type_spec, optional($.assembly_qualifier), ']'),
+
+    assembly_qualifier: ($) => token(ASSEMBLY_QUALIFIER),
 
     type_spec: ($) =>
       choice(

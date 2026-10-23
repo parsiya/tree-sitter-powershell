@@ -1,0 +1,202 @@
+==================
+Assembly-qualified type: assembly name only
+==================
+trap [Foo.Bar, Foo] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (type_name
+            (type_name
+              (type_identifier))
+            (type_identifier)))
+        (assembly_qualifier))
+      (statement_block))))
+
+==================
+Assembly-qualified type: key value pairs
+==================
+trap [Foo.Bar,Foo,Culture = neutral,PublicKeyToken = b77a5c561934e089] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (type_name
+            (type_name
+              (type_identifier))
+            (type_identifier)))
+        (assembly_qualifier))
+      (statement_block))))
+
+==================
+Assembly-qualified type: empty parts are accepted
+==================
+trap [Foo.Bar,,K=,=V,] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (type_name
+            (type_name
+              (type_identifier))
+            (type_identifier)))
+        (assembly_qualifier))
+      (statement_block))))
+
+==================
+Assembly-qualified type: array element before the qualifier
+==================
+trap [Foo.Bar[],Foo] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (array_type_name
+            (type_name
+              (type_name
+                (type_identifier))
+              (type_identifier))))
+        (assembly_qualifier))
+      (statement_block))))
+
+==================
+Assembly-qualified type: bracketed generic argument
+==================
+trap [List[[Foo.Bar,Foo,K=V]]] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (generic_type_name
+            (type_name
+              (type_identifier)))
+          (generic_type_arguments
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_name
+                    (type_identifier))
+                  (type_identifier)))
+              (assembly_qualifier)))))
+      (statement_block))))
+
+==================
+Assembly-qualified type: unbracketed generic arguments stay separate types
+==================
+trap [List[Foo.Bar,Foo]] { }
+
+---
+
+(program
+  (statement_list
+    (trap_statement
+      (type_literal
+        (type_spec
+          (generic_type_name
+            (type_name
+              (type_identifier)))
+          (generic_type_arguments
+            (type_spec
+              (type_name
+                (type_name
+                  (type_identifier))
+                (type_identifier)))
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (statement_block))))
+
+==================
+Assembly-qualified type: piped statement
+==================
+[Foo.Bar,Foo,K=V] | Out-Null
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (type_literal
+                            (type_spec
+                              (type_name
+                                (type_name
+                                  (type_identifier))
+                                (type_identifier)))
+                            (assembly_qualifier)))))))))))
+        (command
+          (command_name))))))
+
+==================
+Assembly-qualified type: static member
+==================
+$x = [Foo.Bar,Foo,Version = 4.0.0.0]::Prop
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (member_access
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_name
+                                        (type_identifier))
+                                      (type_identifier)))
+                                  (assembly_qualifier))
+                                (member_name
+                                  (simple_name))))))))))))))))))
