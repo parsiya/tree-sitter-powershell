@@ -32,7 +32,9 @@ enum TOKEN_TYPE {
     QUALIFIED_VARIABLE_IN_STRING,
     TRY_CLAUSE_AHEAD,
     NUMERIC_COMMAND_NAME,
-    TRAILING_DOT_REAL_LITERAL
+    TRAILING_DOT_REAL_LITERAL,
+    VARIABLE_COMMAND_NAME_CONTINUATION,
+    INVOCATION_ARGUMENT_BOUNDARY
 };
 
 /* --- API --- */
@@ -724,14 +726,24 @@ static bool scan_command_name_escape(TSLexer *lexer, const bool *valid_symbols)
 // not absorb the next argument after an invocation operator.
 static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *valid_symbols)
 {
-    if (!valid_symbols[PATH_COMMAND_NAME_CONTINUATION] || valid_symbols[ERROR_SENTINEL]) return false;
+    bool variable = valid_symbols[VARIABLE_COMMAND_NAME_CONTINUATION];
+    if ((!variable && !valid_symbols[PATH_COMMAND_NAME_CONTINUATION]) ||
+        valid_symbols[ERROR_SENTINEL]) return false;
     int32_t c = lexer->lookahead;
+    // In invocation position a dot after the initial variable belongs to
+    // expression syntax, not to a literal command path.
+    if (variable && c == '.') return false;
+    lexer->mark_end(lexer);
+    if (variable && c == '?') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '[') return false;
+    }
     if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') ||
         (c >= 'A' && c <= 'Z') || c == '_' || c == '?' || c == '-' ||
         c == '.' || c == '\\' || c == '/' || c == '$' || c == '@' ||
         c == '"' || c == '\'' || c == '`' || (c >= 0x2018 && c <= 0x201e)) {
-        lexer->mark_end(lexer);
-        lexer->result_symbol = PATH_COMMAND_NAME_CONTINUATION;
+        lexer->result_symbol = variable ? VARIABLE_COMMAND_NAME_CONTINUATION :
+                                         PATH_COMMAND_NAME_CONTINUATION;
         return true;
     }
     return false;
@@ -740,6 +752,25 @@ static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *vali
 static bool type_name_letter(int32_t c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL])
+        return false;
+    int32_t c = lexer->lookahead;
+    lexer->mark_end(lexer);
+    if (c == '.') {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+        // A dot without a member starts a separate argument in command mode.
+        if (c != '.' && c != '#' &&
+            (!command_word_end(c) || c == '(' || c == '{')) return false;
+    } else if (c != '/' && c != '\\') {
+        return false;
+    }
+    lexer->result_symbol = INVOCATION_ARGUMENT_BOUNDARY;
+    return true;
 }
 
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
@@ -801,7 +832,12 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if ((numeric_name || numeric_literal) && !valid_symbols[ERROR_SENTINEL] &&
         (digit(lexer->lookahead) || (numeric_name && lexer->lookahead == '.')))
         return scan_numeric_start(lexer, valid_symbols);
+    if (valid_symbols[VARIABLE_COMMAND_NAME_CONTINUATION] && lexer->lookahead == '?')
+        return scan_path_command_name_continuation(lexer, valid_symbols);
     if (scan_path_command_name_continuation(lexer, valid_symbols)) return true;
+    if (valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] && lexer->lookahead == '.')
+        return scan_invocation_argument_boundary(lexer, valid_symbols);
+    if (scan_invocation_argument_boundary(lexer, valid_symbols)) return true;
     if (!valid_symbols[ERROR_SENTINEL]) {
         if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
         if (valid_symbols[PARAMETER_ARGUMENT_START]) {
