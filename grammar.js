@@ -12,6 +12,9 @@ const PREC = {
 const SINGLE_QUOTE = /['\u2018-\u201B]/;
 const DOUBLE_QUOTE = /["\u201C-\u201E]/;
 
+// Native operators accept en dash, em dash and horizontal bar for their dash.
+const DASH = String.raw`[-\u2013-\u2015]`;
+
 // Number suffixes are case-insensitive in PowerShell: 1KB, 1kb and 0X1F.
 const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
 const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
@@ -414,7 +417,7 @@ export default grammar({
 
     // Operators and punctuators
     assignement_operator: ($) =>
-      choice('=', '!=', '+=', '*=', '/=', '%=', '-=', '??='),
+      choice('=', '!=', '+=', '*=', '/=', '%=', choice('-=', alias($._unicode_minus_assign, '-=')), '??='),
 
     file_redirection_operator: ($) =>
       choice(
@@ -589,10 +592,18 @@ export default grammar({
     _command_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E][^\(\)\{\}${WS};\&]*`)),
 
     // Parameters
-    _single_command_parameter: ($) => token(new RegExp(
-      String.raw`-(${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
-      'u',
-    )),
+    // Native also takes an en dash, em dash or horizontal bar as the dash. The
+    // precedence keeps such a name ahead of the generic word it also matches.
+    _single_command_parameter: ($) => choice(
+      token(new RegExp(
+        String.raw`-(${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
+        'u',
+      )),
+      token(prec(1, new RegExp(
+        String.raw`[\u2013-\u2015](${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
+        'u',
+      ))),
+    ),
 
     command_parameter: ($) =>
       choice(
@@ -1147,7 +1158,7 @@ export default grammar({
           // At a token boundary escaped whitespace is trivia, not a name.
           $._command_name_start_escape,
           $._command_name_dollar,
-          new RegExp(`[^${COMMAND_NAME_STOP}0-9.][^${COMMAND_NAME_STOP}]*`),
+          new RegExp(`[^${COMMAND_NAME_STOP}\\u2013-\\u20150-9.][^${COMMAND_NAME_STOP}]*`),
           // Dot-prefixed names remain commands unless a number starts the word.
           new RegExp(
             `\\.([^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*)?`,
@@ -1453,7 +1464,7 @@ export default grammar({
         seq('!', $.unary_expression),
         seq(alias($._bnot_operator, '-bnot'), $.unary_expression),
         seq('+', $.unary_expression),
-        seq('-', $.unary_expression),
+        seq(choice('-', alias($._unicode_minus, '-')), $.unary_expression),
         $.pre_increment_expression,
         $.pre_decrement_expression,
         $.cast_expression,
@@ -1479,6 +1490,10 @@ export default grammar({
     // leading letters spell a unary keyword stays that operator (see dashCommandName).
     _dash_command_name: ($) => prec(PREC.KEYWORD, dashCommandName()),
 
+    // En dash, em dash and horizontal bar also spell `-`, `-=` and `--`.
+    _unicode_minus: ($) => /[\u2013-\u2015]/,
+    _unicode_minus_assign: ($) => /[\u2013-\u2015]=/,
+    _unicode_decrement: ($) => /[\u2013-\u2015][\u2013-\u2015-]|-[\u2013-\u2015]/,
     // A leading quoted string ends an argument even without following spaces.
     // Keep each adjacent argument visible directly under command_elements.
     quoted_command_argument: ($) => $.string_literal,
@@ -1792,7 +1807,7 @@ export default grammar({
           alias($._class_default_multiplicative, $.multiplicative_expression),
           seq(
             alias($._class_default_additive, $.additive_expression),
-            choice('+', '-'),
+            choice('+', choice('-', alias($._unicode_minus, '-'))),
             alias($._class_default_multiplicative, $.multiplicative_expression),
           ),
         ),
@@ -1979,7 +1994,7 @@ export default grammar({
           $.multiplicative_expression,
           seq(
             $.additive_expression,
-            choice('+', '-'),
+            choice('+', choice('-', alias($._unicode_minus, '-'))),
             $.multiplicative_expression,
           ),
         ),
@@ -2028,7 +2043,7 @@ export default grammar({
       ),
 
     pre_increment_expression: ($) => seq('++', $.unary_expression),
-    pre_decrement_expression: ($) => seq('--', $.unary_expression),
+    pre_decrement_expression: ($) => seq(choice('--', alias($._unicode_decrement, '--')), $.unary_expression),
 
     cast_expression: ($) =>
       prec(PREC.CAST, seq($.type_literal, $.unary_expression)),
@@ -2100,7 +2115,7 @@ export default grammar({
       prec(PREC.UNARY, seq($._primary_expression, '++')),
 
     post_decrement_expression: ($) =>
-      prec(PREC.UNARY, seq($._primary_expression, '--')),
+      prec(PREC.UNARY, seq($._primary_expression, choice('--', alias($._unicode_decrement, '--')))),
 
     member_access: ($) =>
       prec.left(
@@ -2289,7 +2304,7 @@ export default grammar({
           $.multiplicative_argument_expression,
           seq(
             $.additive_argument_expression,
-            choice('+', '-'),
+            choice('+', choice('-', alias($._unicode_minus, '-'))),
             $.multiplicative_argument_expression,
           ),
         ),
@@ -2450,7 +2465,7 @@ export default grammar({
         alias($._attribute_multiplicative_expression, $.multiplicative_expression),
         seq(
           alias($._attribute_additive_expression, $.additive_expression),
-          choice('+', '-'),
+          choice('+', choice('-', alias($._unicode_minus, '-'))),
           alias($._attribute_multiplicative_expression, $.multiplicative_expression),
         ),
       )),
@@ -2524,7 +2539,7 @@ function reserved(regex) {
 function caseInsensitive(word) {
   return word
     .split('')
-    .map((letter) => `[${letter}${letter.toUpperCase()}]`)
+    .map((letter, i) => (letter === '-' && i === 0 ? DASH : `[${letter}${letter.toUpperCase()}]`))
     .join('');
 }
 
