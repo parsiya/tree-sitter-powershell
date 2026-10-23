@@ -1,0 +1,122 @@
+[
+ {
+  "name": "leading comma named param",
+  "source": "param([Parameter(, ParameterSetName = 'X')]$a)"
+ },
+ {
+  "name": "leading comma bare name",
+  "source": "param([Parameter(,Mandatory)]$a)"
+ },
+ {
+  "name": "leading comma two named",
+  "source": "param([Parameter(,A=1,B=2)][int]$a = 1)"
+ },
+ {
+  "name": "leading comma then positional",
+  "source": "param([Foo(, 'a', B=1)]$a)"
+ },
+ {
+  "name": "leading comma on newline",
+  "source": "param([Parameter(\n, A=1)]$a)"
+ },
+ {
+  "name": "leading comma trailing newline",
+  "source": "param([Parameter(,\nA=1)]$a)"
+ },
+ {
+  "name": "leading comma function params",
+  "source": "function f([Parameter(,A=1)]$a) {}"
+ },
+ {
+  "name": "leading comma cmdletbinding",
+  "source": "function f { [CmdletBinding(, DefaultParameterSetName='a')]param() }"
+ },
+ {
+  "name": "leading comma script cmdletbinding",
+  "source": "[CmdletBinding(,A=1)]\nparam()"
+ },
+ {
+  "name": "leading comma attributed variable",
+  "source": "[Foo(,A=1)][int]$x = 1"
+ },
+ {
+  "name": "leading comma then more params",
+  "source": "param([Foo(,A=1)]$a, [Foo(,B=2)]$b)"
+ },
+ {
+  "name": "leading comma positional unary",
+  "source": "[Foo(,1,2)]$x"
+ },
+ {
+  "name": "control no leading comma",
+  "source": "param([Parameter(A=1)]$a)"
+ },
+ {
+  "name": "only comma",
+  "source": "param([Parameter(,)]$a)"
+ },
+ {
+  "name": "double leading comma",
+  "source": "param([Parameter(,,A=1)]$a)"
+ },
+ {
+  "name": "double leading comma bare",
+  "source": "param([Parameter(,,A)]$a)"
+ },
+ {
+  "name": "two empty before named",
+  "source": "param([Parameter(, ,A=1)]$a)"
+ },
+ {
+  "name": "doubled comma between",
+  "source": "param([Parameter(A=1,,B=2)]$a)"
+ },
+ {
+  "name": "doubled commas",
+  "source": "param([Parameter(,,)]$a)"
+ },
+ {
+  "name": "trailing comma",
+  "source": "param([Parameter(A=1,)]$a)"
+ },
+ {
+  "name": "leading and trailing comma",
+  "source": "param([Parameter(,A=1,)]$a)"
+ },
+ {
+  "name": "trailing comma positional",
+  "source": "[Alias('a',)]$x"
+ },
+ {
+  "name": "leading comma then doubled",
+  "source": "param([Parameter(,A=1,,B=2)]$a)"
+ },
+ {
+  "name": "leading comma missing separator",
+  "source": "[Foo(,A B)]$x"
+ },
+ {
+  "name": "leading comma class property",
+  "source": "class C {\n[Parameter(,Mandatory=$true)][int]$x\n}"
+ },
+ {
+  "name": "control class property no leading comma",
+  "source": "class C {\n[Parameter(Mandatory=$true)][int]$x\n}"
+ },
+ {
+  "name": "leading comma class property hidden bare name",
+  "source": "class C {\nhidden [Parameter(, Mandatory)][int]$x\n}"
+ },
+ {
+  "name": "double leading comma class property",
+  "source": "class C {\n[Parameter(,,Mandatory=$true)][int]$x\n}"
+ },
+ {
+  "name": "trailing comma class property",
+  "source": "class C {\n[Parameter(Mandatory=$true,)][int]$x\n}"
+ },
+ {
+  "name": "only comma class property",
+  "source": "class C {\n[Parameter(,)][int]$x\n}"
+ }
+]

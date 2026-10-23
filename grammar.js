@@ -1954,14 +1954,23 @@ export default grammar({
 
     attribute_name: ($) => $.type_spec,
 
+    // Native accepts one empty argument before a named or bare-name first
+    // argument; a leading comma before an expression is a unary comma.
     attribute_arguments: ($) =>
-      seq($.attribute_argument, repeat(seq(',', $.attribute_argument))),
+      choice(
+        seq($.attribute_argument, repeat(seq(',', $.attribute_argument))),
+        seq(
+          ',',
+          alias($._attribute_name_argument, $.attribute_argument),
+          repeat(seq(',', $.attribute_argument)),
+        ),
+      ),
 
     attribute_argument: ($) =>
-      choice(
-        $._attribute_expression,
-        seq($.simple_name, optional(seq('=', $._attribute_expression))),
-      ),
+      choice($._attribute_expression, $._attribute_name_argument),
+
+    _attribute_name_argument: ($) =>
+      seq($.simple_name, optional(seq('=', $._attribute_expression))),
 
     // Attribute commas separate arguments, not array elements. Keep the normal
     // expression node names so existing attribute CSTs remain unchanged.
