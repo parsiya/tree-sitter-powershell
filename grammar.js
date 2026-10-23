@@ -848,40 +848,37 @@ export default grammar({
         reservedWord('for'),
         '(',
         optional(
-          seq(
-            optional(
-              seq(
-                field('for_initializer', $.for_initializer),
-                $._statement_terminator,
+          choice(
+            seq(
+              field('for_initializer', $.for_initializer),
+              $._statement_terminator,
+              optional(
+                seq(choice(';', $._for_newline), optional($._for_after_separator)),
               ),
             ),
-            optional(
-              seq(
-                choice(';', $._for_newline),
-                optional(
-                  seq(
-                    field('for_condition', $.for_condition),
-                    $._statement_terminator,
-                  ),
-                ),
-                optional(
-                  seq(
-                    choice(';', $._for_newline),
-                    optional(
-                      seq(
-                        field('for_iterator', $.for_iterator),
-                        $._statement_terminator,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            seq(';', optional($._for_after_separator)),
           ),
         ),
         ')',
         $.statement_block,
       ),
+
+    // After the first separator. Newlines directly after a `;` or the opening
+    // parenthesis are whitespace; only one after a clause separates clauses.
+    _for_after_separator: ($) =>
+      choice(
+        seq(
+          field('for_condition', $.for_condition),
+          $._statement_terminator,
+          optional(
+            seq(choice(';', $._for_newline), optional($._for_iterator_clause)),
+          ),
+        ),
+        seq(';', optional($._for_iterator_clause)),
+      ),
+
+    _for_iterator_clause: ($) =>
+      seq(field('for_iterator', $.for_iterator), $._statement_terminator),
 
     // A newline between for clauses, used like `;`. A named token: inline,
     // Opengrep's simplified grammar would alias it in each of the many

@@ -1,0 +1,512 @@
+===
+For header: comment lines before the initializer
+===
+
+for (
+    # first
+    $i = 0;
+    $i -lt 3;
+    $i++
+) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (comment)
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: newline after the first semicolon
+===
+
+for ($i = 0;
+    $i -lt 3; $i++) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: newline directly after the parenthesis
+===
+
+for (
+$i = 0; $i -lt 3; $i++) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: blank line and comment between clauses
+===
+
+for ($i = 0;
+
+# note
+$i -lt 3; $i++) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (comment)
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: newline separated clauses
+===
+
+for (
+$i = 0
+$i -lt 3
+$i++) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: empty condition after a newline
+===
+
+for ($i = 0;
+;
+$i++) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_initializer
+        (pipeline
+          (assignment_expression
+            (left_assignment_expression
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))
+            (assignement_operator)
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))))
+      (for_iterator
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (post_increment_expression
+                                (variable))))))))))))))
+      (statement_block))))
+
+===
+For header: empty initializer, condition on the next line
+===
+
+for (;
+$i -lt 3;) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (for_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))
+                  (comparison_operator)
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (integer_literal
+                                (decimal_integer_literal))))))))))))))
+      (statement_block))))
+
+===
+For header: newline after the parenthesis before empty clauses
+===
+
+for (
+;;) { }
+
+---
+
+(program
+  (statement_list
+    (for_statement
+      (statement_block))))
