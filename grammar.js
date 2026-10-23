@@ -12,6 +12,13 @@ const PREC = {
 const SINGLE_QUOTE = /['\u2018-\u201B]/;
 const DOUBLE_QUOTE = /["\u201C-\u201E]/;
 
+// Keywords that start a statement and so need a command-name alternative.
+const STATEMENT_KEYWORDS = [
+  'break', 'continue', 'throw', 'return', 'exit', 'try', 'trap', 'if', 'function',
+  'filter', 'workflow', 'switch', 'for', 'foreach', 'while', 'parallel', 'using',
+  'begin', 'process', 'end', 'dynamicparam',
+];
+
 // Native operators accept en dash, em dash and horizontal bar for their dash.
 const DASH = String.raw`[-\u2013-\u2015]`;
 
@@ -1190,6 +1197,9 @@ export default grammar({
           ),
           $._numeric_command_name,
           $._keyword_dash_command_name,
+          seq($._keyword_single_quote_command_name, $._string_literal_immediate),
+          seq($._keyword_double_quote_command_name, $._expandable_string_literal_immediate),
+          $._keyword_empty_quote_command_name,
           $._dash_command_name,
           seq(
             new RegExp(caseInsensitive('return') + '\\$'),
@@ -1235,6 +1245,20 @@ export default grammar({
         new RegExp(caseInsensitive('dynamicparam-')),
         new RegExp(caseInsensitive('clean-')),
         new RegExp(caseInsensitive('do-')),
+      )),
+
+    // A statement keyword directly followed by a quote is the start of a
+    // command name (`throw'x'`), as for a dash above.
+    _keyword_single_quote_command_name: ($) =>
+      token(new RegExp(`(${STATEMENT_KEYWORDS.map(caseInsensitive).join('|')})${SINGLE_QUOTE.source}`)),
+
+    _keyword_double_quote_command_name: ($) =>
+      token(new RegExp(`(${STATEMENT_KEYWORDS.map(caseInsensitive).join('|')})${DOUBLE_QUOTE.source}`)),
+
+    _keyword_empty_quote_command_name: ($) =>
+      token(new RegExp(
+        `(${STATEMENT_KEYWORDS.map(caseInsensitive).join('|')})` +
+        `(${SINGLE_QUOTE.source}${SINGLE_QUOTE.source}|${DOUBLE_QUOTE.source}${DOUBLE_QUOTE.source})`,
       )),
 
     // An `@` continues a word but cannot start one (`@x` is a splat).
