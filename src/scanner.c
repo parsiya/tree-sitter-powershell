@@ -257,7 +257,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         lexer->result_symbol = COMMAND_WORD_EXPRESSION;
         return true;
     }
-    if (start && (lexer->lookahead == ':' || lexer->lookahead == '@' || lexer->lookahead == '[' ||
+    if (start && (lexer->lookahead == ':' || lexer->lookahead == '@' ||
                   lexer->lookahead == '>' || lexer->lookahead == '#' ||
                   lexer->lookahead == '<')) return false;
 

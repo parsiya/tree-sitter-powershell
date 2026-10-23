@@ -461,7 +461,8 @@ export default grammar({
       choice(
         token(
           choice(
-            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|\[`,;\&:\s\u00a0>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
+            // Brackets are literal in argument mode, including `[Type]::Member`.
+            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|`,;\&:\s\u00a0>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
             /[0-9*]([^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,>][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
             /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\{\}\|;,`]*%[^\&\s\u00a0\(\)\{\}\|;,`]*/,
