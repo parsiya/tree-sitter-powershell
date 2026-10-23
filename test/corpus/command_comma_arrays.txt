@@ -2632,9 +2632,7 @@ $obj.Method(First,,Second)
                             (member_name
                               (simple_name))
                             (argument_list
-                              (ERROR
-                                (simple_name)
-                                (simple_name)))))))))))))))))
+                              (ERROR))))))))))))))))
 
 ====================
 Command comma array: invalid-78

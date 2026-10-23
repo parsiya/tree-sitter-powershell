@@ -16,9 +16,17 @@ const DOUBLE_QUOTE = /["\u201C-\u201E]/;
 const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
 const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
 
+// Whitespace for class bodies: tree-sitter's \s is ASCII only, but Native
+// PowerShell (Char.IsWhiteSpace) also accepts these Unicode spaces and NEL.
+// U+FEFF, U+2060 and U+200B are not whitespace.
+const WS = String.raw`\t-\r \u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000`;
+// The same without line breaks or the ASCII space, for trivia that follows a
+// separator.
+const HSPACE = String.raw`\t\v\f\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000`;
+
 // Characters that cannot appear in the first part of a command name.
-const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
-const COMMAND_NAME_CONTINUATION = '[^\\{\\}\\(\\);,\\|\\&`"\'\\u2018-\\u201E\\s\\u00a0\\r\\n]';
+const COMMAND_NAME_STOP = `\\{\\}\\(\\);,\\|\\&\`"'\\u2018-\\u201E${WS}\\[\\]\\+\\-\\*\\/\\$@<\\!`;
+const COMMAND_NAME_CONTINUATION = `[^\\{\\}\\(\\);,\\|\\&\`"'\\u2018-\\u201E${WS}]`;
 // PowerShell tests UTF-16 characters with Char.IsLetterOrDigit, not Unicode
 // identifier rules: combining marks and supplementary-plane letters end a name.
 // Explicit letter ranges also cover tree-sitter 0.22's missing UnicodeData
@@ -121,10 +129,9 @@ export default grammar({
     /`\n/,
     /`\r\n/,
     /`[ \t\v\f\r\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/,
-    // No-break spaces. U+FEFF, U+2060 and U+200B are not whitespace in Native
-    // PowerShell; a file's leading BOM is _leading_bom. (A single-character
-    // class here changes the error-recovery tree of invalid-77.)
-    /[\u00A0\u202F]/,
+    // Unicode spaces. U+FEFF, U+2060 and U+200B are not whitespace in Native
+    // PowerShell; a file's leading BOM is _leading_bom.
+    new RegExp(String.raw`[${WS}]`),
     // Spaces before a comma (see scanner.c)
     $._spaces_before_comma,
   ],
@@ -544,17 +551,17 @@ export default grammar({
         token(
           choice(
             // Brackets are literal in argument mode, including `[Type]::Member`.
-            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|`,;\&:\s\u00a0<>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
-            /[0-9*]([^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,>][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*)?/,
+            new RegExp(String.raw`[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|\x60,;\&:${WS}<>0-9*][^"'\u2018-\u201E\x60\&${WS}\(\)\{\}\|;,]*`),
+            new RegExp(String.raw`[0-9*]([^"'\u2018-\u201E\x60\&${WS}\(\)\{\}\|;,>][^"'\u2018-\u201E\x60\&${WS}\(\)\{\}\|;,]*)?`),
             // Percentages are words in argument mode, not unary expressions.
-            /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\{\}\|;,`]*%[^\&\s\u00a0\(\)\{\}\|;,`]*/,
+            new RegExp(String.raw`-(?:[0-9]|\.[0-9])[^\&${WS}\(\)\{\}\|;,\x60]*%[^\&${WS}\(\)\{\}\|;,\x60]*`),
           ),
         ),
         seq(
           // After lexer extras, '+' must still start a word, not unary plus.
           choice(
             $._command_word_start,
-            token(prec(1, /\+[^\s\u00a0"'\u2018-\u201E`$(){}|;,&]*/)),
+            token(prec(1, new RegExp(String.raw`\+[^${WS}"'\u2018-\u201E\x60$(){}|;,&]*`))),
           ),
           repeat(
             choice(
@@ -570,7 +577,7 @@ export default grammar({
 
     // Does not start with `"`, so a quoted switch clause condition such as
     // `"a b" { }` is read as a string and not as the longer word `"a`.
-    _command_token: ($) => token(/[^\(\)\{\}\s\u00a0;\&"'\u2018-\u201E][^\(\)\{\}\s\u00a0;\&]*/),
+    _command_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E][^\(\)\{\}${WS};\&]*`)),
 
     // Parameters
     _single_command_parameter: ($) => token(new RegExp(
@@ -592,7 +599,7 @@ export default grammar({
             seq(
               new RegExp(String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
               repeat(choice(
-                /[^\s\u00a0"'\u2018-\u201E`;|&(){}]/,
+                new RegExp(String.raw`[^${WS}"'\u2018-\u201E\x60;|&(){}]`),
                 seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
                 seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
               )),
@@ -1076,7 +1083,7 @@ export default grammar({
     // A `$(` inside a name is literal text up to its matching parenthesis.
     _command_name_part: ($) =>
       choice(
-        token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n\$]+/),
+        token.immediate(new RegExp(String.raw`[^\{\}\(\);,\|\&\x60"'\u2018-\u201E${WS}\$]+`)),
         seq(token.immediate('$'), optional($._command_name_subexpression)),
         $._command_name_escape,
         seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
@@ -1190,7 +1197,7 @@ export default grammar({
               // Keep horizontal trivia outside the required value's extent.
               repeat(choice(
                 $.command_argument_sep,
-                alias(token(prec(1, /[\t\v\f\u00a0]+/)), $.command_argument_sep),
+                alias(token(prec(1, new RegExp(`[${HSPACE}]+`))), $.command_argument_sep),
               )),
               $._command_parameter_argument,
             )),
@@ -1211,7 +1218,7 @@ export default grammar({
           seq(
             $.command_argument_sep,
             $.generic_token,
-            alias(token.immediate(/[\t\v\f]+/), $.command_argument_sep),
+            alias(token.immediate(new RegExp(`[${HSPACE}]+`)), $.command_argument_sep),
             $._argument_after_quote,
           ),
           seq(
@@ -1232,7 +1239,8 @@ export default grammar({
     stop_parsing: ($) => choice('--%', /--%[^\r\n]+/),
 
     // A colon is a separator only immediately after a command parameter.
-    command_argument_sep: ($) => prec.right(/[ \t\u00a0]+/),
+    // A lexical precedence keeps the separator ahead of the equivalent extras.
+    command_argument_sep: ($) => prec.right(token(prec(1, new RegExp(`[ ${HSPACE}]+`)))),
 
     _command_word: ($) => choice($.generic_token, $.colon_command_argument),
 
@@ -1260,7 +1268,7 @@ export default grammar({
     // Dash-leading tokens are strings, not new parameters or unary expressions,
     // when a parameter colon has requested a value.
     parameter_argument_word: ($) => token.immediate(prec(1, new RegExp(
-      String.raw`-+(?:${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*:?|-[0-9.][^\s\u00a0"'\u2018-\u201E\x60$(){}|;,&]*|-`,
+      String.raw`-+(?:${PARAMETER_LETTER}|[_?\x60-])${PARAMETER_CHAR}*:?|-[0-9.][^${WS}"'\u2018-\u201E\x60$(){}|;,&]*|-`,
       'u',
     ))),
 
@@ -1270,7 +1278,7 @@ export default grammar({
       choice(
         // Label-like words remain literal: `:word$value` does not expand.
         alias(token(new RegExp(
-          `:(?:${PARAMETER_LETTER}|_)[^\\s\\u00a0(){}|;&,]*`,
+          `:(?:${PARAMETER_LETTER}|_)[^${WS}(){}|;&,]*`,
           'u',
         )), $.generic_token),
         prec.right(seq(
@@ -1287,7 +1295,7 @@ export default grammar({
 
     colon_word_text: ($) =>
       choice(
-        token.immediate(prec(1, /[^\s\u00a0"'\u2018-\u201E`$();|&,{}]+/)),
+        token.immediate(prec(1, new RegExp(String.raw`[^${WS}"'\u2018-\u201E\x60$();|&,{}]+`))),
         // CLI 0.22 misreads the union of \s and \S inside a character class.
         token.immediate(/`[^\r\n]|`[\r\n]/),
       ),
