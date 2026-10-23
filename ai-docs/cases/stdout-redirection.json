@@ -1,0 +1,21 @@
+[
+  {"name": "explicit stdout", "source": "Write-Output ok 1> out.txt\n"},
+  {"name": "explicit stdout append", "source": "Write-Output ok 1>> out.txt\n"},
+  {"name": "adjacent target", "source": "Write-Output ok 1>out.txt\n"},
+  {"name": "adjacent append target", "source": "Write-Output ok 1>>out.txt\n"},
+  {"name": "variable target", "source": "Write-Output ok 1> $target\n"},
+  {"name": "quoted target", "source": "Write-Output ok 1> 'my output.txt'\n"},
+  {"name": "expression stdout", "source": "(1 + 2) 1> out.txt\n"},
+  {"name": "expression append", "source": "(1 + 2) 1>> out.txt\n"},
+  {"name": "implicit stdout", "source": "Write-Output ok > out.txt\n"},
+  {"name": "implicit append", "source": "Write-Output ok >> out.txt\n"},
+  {"name": "stderr", "source": "Write-Output ok 2> err.txt\n"},
+  {"name": "stderr append", "source": "Write-Output ok 2>> err.txt\n"},
+  {"name": "all streams", "source": "Write-Output ok *> all.txt\n"},
+  {"name": "stdout merge", "source": "Write-Output ok 1>&2\n", "expect": "invalid",
+    "known": [{"difference": "validity native=invalid ts=valid", "reason": "Inherited merging_redirection_operator accepts 1>&2, which Native rejects as RedirectionNotSupported; independent of file-redirection token extents."}]},
+  {"name": "separate numeric argument", "source": "Write-Output 1 > out.txt\n"},
+  {"name": "quoted operator", "source": "Write-Output '1>' \"1>>\"\n"},
+  {"name": "missing target", "source": "Write-Output ok 1>\n", "expect": "invalid"},
+  {"name": "missing append target", "source": "Write-Output ok 1>>\n", "expect": "invalid"}
+]
