@@ -35,7 +35,8 @@ enum TOKEN_TYPE {
     TRAILING_DOT_REAL_LITERAL,
     VARIABLE_COMMAND_NAME_CONTINUATION,
     INVOCATION_ARGUMENT_BOUNDARY,
-    VARIABLE_BEFORE_LITERAL_DOT
+    VARIABLE_BEFORE_LITERAL_DOT,
+    COMMAND_NAME_SUBEXPRESSION
 };
 
 /* --- API --- */
@@ -868,8 +869,39 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
     return true;
 }
 
+// Inside a command name, `$(` takes everything up to its matching parenthesis
+// as literal text, like Native: quotes and comments do not hide parentheses.
+// `${` likewise ends at the first unescaped `}`.
+static bool scan_command_name_subexpression(TSLexer *lexer)
+{
+    if (lexer->lookahead == '{') {
+        lexer->advance(lexer, false);
+        while (!lexer->eof(lexer) && lexer->lookahead != '}') {
+            bool escape = lexer->lookahead == '`';
+            lexer->advance(lexer, false);
+            if (escape && !lexer->eof(lexer)) lexer->advance(lexer, false);
+        }
+        if (lexer->eof(lexer)) return false;
+        lexer->advance(lexer, false);
+    } else {
+        unsigned depth = 0;
+        do {
+            if (lexer->eof(lexer)) return false;
+            if (lexer->lookahead == '(') depth++;
+            else if (lexer->lookahead == ')') depth--;
+            lexer->advance(lexer, false);
+        } while (depth);
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMAND_NAME_SUBEXPRESSION;
+    return true;
+}
+
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
+    if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !valid_symbols[ERROR_SENTINEL] &&
+        (lexer->lookahead == '(' || lexer->lookahead == '{'))
+        return scan_command_name_subexpression(lexer);
     // A dot ends a parameter name and starts a command word, not a member.
     if (!valid_symbols[ERROR_SENTINEL] &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
