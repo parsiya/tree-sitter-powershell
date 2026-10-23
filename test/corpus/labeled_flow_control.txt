@@ -1,0 +1,93 @@
+==================
+Labeled continue is followed by a command on the same line
+==================
+
+continue outer foo
+
+---
+
+(program
+  (statement_list
+    (flow_control_statement
+      (label_expression
+        (simple_name)))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Labeled continue is followed by an if statement on the same line
+==================
+
+continue outer if ($c) { }
+
+---
+
+(program
+  (statement_list
+    (flow_control_statement
+      (label_expression
+        (simple_name)))
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block))))
+
+==================
+Labeled break ends at a semicolon
+==================
+
+break outer; foo
+
+---
+
+(program
+  (statement_list
+    (flow_control_statement
+      (label_expression
+        (simple_name)))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Labeled break ends at a closing brace
+==================
+
+if ($c) { break outer }
+
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (flow_control_statement
+            (label_expression
+              (simple_name))))))))
