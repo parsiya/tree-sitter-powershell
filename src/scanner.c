@@ -267,13 +267,14 @@ static bool named_ellipsis_follows(TSLexer *lexer)
 }
 
 // A command name may begin with a `$` that no variable name follows; the rest
-// of the word comes from the immediate name parts. The `$` was just consumed.
+// of the word comes from the immediate name parts, including a quoted part
+// (`$"text {0}" -f $x`). The `$` was just consumed.
 static bool scan_command_name_dollar(TSLexer *lexer)
 {
     lexer->mark_end(lexer);
     int32_t c = lexer->lookahead;
     if (variable_char(c) || c == '$' || c == '^' || c == '{' || c == '(' || c == ':' ||
-        c == '`' || is_quote(c) || (c == '.' && named_ellipsis_follows(lexer))) return false;
+        c == '`' || (c == '.' && named_ellipsis_follows(lexer))) return false;
     // A dash or `>` run would otherwise lex as an operator, not as the name's tail.
     while (lexer->lookahead == '-' || lexer->lookahead == '>') {
         lexer->advance(lexer, false);
