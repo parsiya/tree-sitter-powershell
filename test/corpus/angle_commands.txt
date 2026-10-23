@@ -1,0 +1,272 @@
+=================
+Angle command: opening tag
+=================
+<foo>
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))))
+
+=================
+Angle command: closing tag
+=================
+</foo>
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))))
+
+=================
+Angle command: user data wrapper
+=================
+<powershell>
+Get-Date
+</powershell>
+<persist>true</persist>
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))))
+
+=================
+Angle command: lone angle then a separate statement
+=================
+<
+Get-Date
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+=================
+Angle command: separated argument
+=================
+< foo bar
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+=================
+Angle command: tag with attribute and following arguments
+=================
+<foo a='b'> $x -p
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)
+            (command_argument_sep)
+            (generic_token
+              (string_literal
+                (verbatim_string_characters)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (command_parameter)))))))
+
+=================
+Angle command: after semicolon and pipe
+=================
+Get-Date; </foo> | <bar>
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)
+            (command_argument_sep)))
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)))))))
+
+=================
+Angle command: invocation operator
+=================
+& <foo>
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name)
+          (command_elements
+            (generic_token)))))))
+
+=================
+Angle command: nested blocks and assignment
+=================
+if ($x) { <foo> } else { </foo> }
+$y = <foo>
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)
+                (command_elements
+                  (generic_token)))))))
+      (else_clause
+        (statement_block
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (generic_token)))))))))
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (generic_token)))))))))
+
+=================
+Angle command: comment start stays a comment
+=================
+<# note #>
+<foo> # tail
+---
+
+(program
+  (comment)
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (generic_token)
+            (command_argument_sep)))))
+    (comment)))
+
+=================
+Angle command: argument position tag is a redirection
+:error
+=================
+Get-X </p>
+---
+
+=================
+Angle command: double angle is a redirection
+:error
+=================
+<<foo>>
+---
+
+=================
+Angle command: second angle after tag arguments
+:error
+=================
+<foo> <bar>
+---
+
+=================
+Angle command: unterminated comment
+:error
+=================
+<#
+---

@@ -86,6 +86,7 @@ export default grammar({
     $._variable_command_name_continuation,
     $._invocation_argument_boundary,
     $._variable_before_literal_dot,
+    $._angle_argument_boundary,
   ],
 
   extras: ($) => [
@@ -362,7 +363,6 @@ export default grammar({
         '6>>',
         '*>',
         '*>>',
-        '<',
       ),
 
     merging_redirection_operator: ($) =>
@@ -471,7 +471,7 @@ export default grammar({
     braced_variable: ($) => /\$\{[^}]+\}/,
 
     // Commands
-    // A word cannot start like a redirection (`>`, `2>`, `*>`), so that
+    // A word cannot start like a redirection (`<`, `>`, `2>`, `*>`), so that
     // `tool arg 2>$null` ends the word before the redirection. Inside a word,
     // `>` is an ordinary character: `a=b>c` is one argument.
     generic_token: ($) =>
@@ -479,7 +479,7 @@ export default grammar({
         token(
           choice(
             // Brackets are literal in argument mode, including `[Type]::Member`.
-            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|`,;\&:\s\u00a0>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
+            /[^\(\)\$\"\'\u2018-\u201E\+\-\{\}@\|`,;\&:\s\u00a0<>0-9*][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*/,
             /[0-9*]([^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,>][^"'\u2018-\u201E`\&\s\u00a0\(\)\{\}\|;,]*)?/,
             // Percentages are words in argument mode, not unary expressions.
             /-(?:[0-9]|\.[0-9])[^\&\s\u00a0\(\)\{\}\|;,`]*%[^\&\s\u00a0\(\)\{\}\|;,`]*/,
@@ -922,6 +922,21 @@ export default grammar({
             field('command_elements', optional($.command_elements)),
           ),
           seq(
+            field('command_name', alias('<', $.command_name)),
+            field('command_elements', optional(choice(
+              $.command_elements,
+              alias($._adjacent_angle_arguments, $.command_elements),
+            ))),
+          ),
+          seq(
+            $.command_invokation_operator,
+            field('command_name', alias('<', $.command_name)),
+            field('command_elements', optional(choice(
+              $.command_elements,
+              alias($._adjacent_angle_arguments, $.command_elements),
+            ))),
+          ),
+          seq(
             $.command_invokation_operator,
             // optional($.command_module),
             field('command_name', $.command_name_expr),
@@ -939,6 +954,17 @@ export default grammar({
       prec.right(
         seq(
           $._invocation_argument_boundary,
+          $._argument_after_quote,
+          repeat($._command_element),
+        ),
+      ),
+
+    // A statement starting with `<` is a command named `<`; the rest of the
+    // word (`<foo>`, `</foo>`) is its first argument (see scanner.c).
+    _adjacent_angle_arguments: ($) =>
+      prec.right(
+        seq(
+          $._angle_argument_boundary,
           $._argument_after_quote,
           repeat($._command_element),
         ),
