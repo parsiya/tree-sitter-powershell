@@ -134,7 +134,7 @@ let children_regexps : (string * Run.exp option) list = [
   "script_block_argument_start", None;
   "quoted_argument_boundary", None;
   "pat_para_", None;
-  "verbatim_string_characters", None;
+  "verbatim_here_string_characters", None;
   "pat__ieq", None;
   "pat_throw_", None;
   "imm_tok_prec_p1_pat_dc9636f", None;
@@ -174,6 +174,7 @@ let children_regexps : (string * Run.exp option) list = [
   "pat_filter_", None;
   "pat_begin_", None;
   "parameter_argument_word", None;
+  "variable_command_name_continuation", None;
   "else_clause_ahead", None;
   "label", None;
   "pat__cconts", None;
@@ -223,7 +224,7 @@ let children_regexps : (string * Run.exp option) list = [
   "imm_tok_pat_2bb0af8", None;
   "pat_3d58547", None;
   "pat__ige", None;
-  "pat_6a8c7a7", None;
+  "pat_61b775e", None;
   "pat__inot_", None;
   "command_word_expression", None;
   "parameter_argument_separator", None;
@@ -279,7 +280,7 @@ let children_regexps : (string * Run.exp option) list = [
   "pat__para", None;
   "parameter_argument_start", None;
   "pat_do", None;
-  "variable_command_name_continuation", None;
+  "variable_before_literal_dot", None;
   "imm_tok_pat_99bafa0", None;
   "tok_choice_pat_a6a64fa", None;
   "pat_func_", None;
@@ -294,6 +295,7 @@ let children_regexps : (string * Run.exp option) list = [
   "pat__ge", None;
   "foreach_member_name", None;
   "trailing_dot_type_name", None;
+  "verbatim_string_characters", None;
   "tok_prec_p1_pat_fb4042a", None;
   "pat__cge", None;
   "pat__repl", None;
@@ -323,7 +325,6 @@ let children_regexps : (string * Run.exp option) list = [
     |];
   );
   "pat_75780b9", None;
-  "verbatim_here_string_characters", None;
   "tok_at_choice_pat_7059588_colon_choice_pat_b2ccb50", None;
   "completed_member_boundary", None;
   "imm_tok_dollar", None;
@@ -399,7 +400,7 @@ let children_regexps : (string * Run.exp option) list = [
       |];
     );
   );
-  "command_argument_sep", Some (Token (Name "pat_6a8c7a7"););
+  "command_argument_sep", Some (Token (Name "pat_61b775e"););
   "string_literal_immediate",
   Some (
     Seq [
@@ -1473,7 +1474,10 @@ let children_regexps : (string * Run.exp option) list = [
   );
   "completed_argument_member",
   Some (
-    Token (Name "member_access");
+    Alt [|
+      Token (Name "member_access");
+      Token (Name "variable_before_literal_dot");
+    |];
   );
   "completed_argument_value",
   Some (
@@ -3140,7 +3144,7 @@ let trans_pat_para_ ((kind, body) : mt) : CST.pat_para_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_verbatim_string_characters ((kind, body) : mt) : CST.verbatim_string_characters =
+let trans_verbatim_here_string_characters ((kind, body) : mt) : CST.verbatim_here_string_characters =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3317,6 +3321,11 @@ let trans_pat_begin_ ((kind, body) : mt) : CST.pat_begin_ =
   | Children _ -> assert false
 
 let trans_parameter_argument_word ((kind, body) : mt) : CST.parameter_argument_word =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_variable_command_name_continuation ((kind, body) : mt) : CST.variable_command_name_continuation =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3566,7 +3575,7 @@ let trans_pat__ige ((kind, body) : mt) : CST.pat__ige =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_pat_6a8c7a7 ((kind, body) : mt) : CST.pat_6a8c7a7 =
+let trans_pat_61b775e ((kind, body) : mt) : CST.pat_61b775e =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3846,7 +3855,7 @@ let trans_pat_do ((kind, body) : mt) : CST.pat_do =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_variable_command_name_continuation ((kind, body) : mt) : CST.variable_command_name_continuation =
+let trans_variable_before_literal_dot ((kind, body) : mt) : CST.variable_before_literal_dot =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -3917,6 +3926,11 @@ let trans_foreach_member_name ((kind, body) : mt) : CST.foreach_member_name =
   | Children _ -> assert false
 
 let trans_trailing_dot_type_name ((kind, body) : mt) : CST.trailing_dot_type_name =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_verbatim_string_characters ((kind, body) : mt) : CST.verbatim_string_characters =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -4037,11 +4051,6 @@ let trans_pat_75780b9 ((kind, body) : mt) : CST.pat_75780b9 =
   | Leaf v -> v
   | Children _ -> assert false
 
-
-let trans_verbatim_here_string_characters ((kind, body) : mt) : CST.verbatim_here_string_characters =
-  match body with
-  | Leaf v -> v
-  | Children _ -> assert false
 
 let trans_tok_at_choice_pat_7059588_colon_choice_pat_b2ccb50 ((kind, body) : mt) : CST.tok_at_choice_pat_7059588_colon_choice_pat_b2ccb50 =
   match body with
@@ -4244,7 +4253,7 @@ let trans_verbatim_command_argument_chars ((kind, body) : mt) : CST.verbatim_com
 let trans_command_argument_sep ((kind, body) : mt) : CST.command_argument_sep =
   match body with
   | Children v ->
-      trans_pat_6a8c7a7 (Run.matcher_token v)
+      trans_pat_61b775e (Run.matcher_token v)
   | Leaf _ -> assert false
 
 let trans_string_literal_immediate ((kind, body) : mt) : CST.string_literal_immediate =
@@ -6757,7 +6766,17 @@ and trans_completed_argument_array ((kind, body) : mt) : CST.completed_argument_
 and trans_completed_argument_member ((kind, body) : mt) : CST.completed_argument_member =
   match body with
   | Children v ->
-      trans_member_access (Run.matcher_token v)
+      (match v with
+      | Alt (0, v) ->
+          `Member_access (
+            trans_member_access (Run.matcher_token v)
+          )
+      | Alt (1, v) ->
+          `Var_before_lit_dot (
+            trans_variable_before_literal_dot (Run.matcher_token v)
+          )
+      | _ -> assert false
+      )
   | Leaf _ -> assert false
 
 and trans_completed_argument_value ((kind, body) : mt) : CST.completed_argument_value =

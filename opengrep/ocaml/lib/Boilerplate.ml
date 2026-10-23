@@ -221,6 +221,9 @@ let map_qualified_variable_in_string (env : env) (tok : CST.qualified_variable_i
 let map_pat_module (env : env) (tok : CST.pat_module) =
   (* pattern [mM][oO][dD][uU][lL][eE] *) token env tok
 
+let map_variable_command_name_continuation (env : env) (tok : CST.variable_command_name_continuation) =
+  (* variable_command_name_continuation *) token env tok
+
 let map_pat__ge (env : env) (tok : CST.pat__ge) =
   (* pattern [--][gG][eE] *) token env tok
 
@@ -269,8 +272,8 @@ let map_pat_trap (env : env) (tok : CST.pat_trap) =
 let map_pat_8a0ae06 (env : env) (tok : CST.pat_8a0ae06) =
   (* pattern `.{1}|`\r?\n *) token env tok
 
-let map_pat_6a8c7a7 (env : env) (tok : CST.pat_6a8c7a7) =
-  (* pattern [ \u00a0]+ *) token env tok
+let map_pat_61b775e (env : env) (tok : CST.pat_61b775e) =
+  (* pattern [ \t\u00a0]+ *) token env tok
 
 let map_pat_enum_ (env : env) (tok : CST.pat_enum_) =
   (* pattern [eE][nN][uU][mM][--] *) token env tok
@@ -496,9 +499,6 @@ let map_pat_ret (env : env) (tok : CST.pat_ret) =
 let map_pat__crep (env : env) (tok : CST.pat__crep) =
   (* pattern [--][cC][rR][eE][pP][lL][aA][cC][eE] *) token env tok
 
-let map_verbatim_here_string_characters (env : env) (tok : CST.verbatim_here_string_characters) =
-  (* verbatim_here_string_characters *) token env tok
-
 let map_pat_421479c (env : env) (tok : CST.pat_421479c) =
   (* pattern "[\"\\u201C-\\u201E]" *) token env tok
 
@@ -662,6 +662,9 @@ let map_tok_prec_p1_pat_d01e7ed (env : env) (tok : CST.tok_prec_p1_pat_d01e7ed) 
 let map_pat__as (env : env) (tok : CST.pat__as) =
   (* pattern [--][aA][sS] *) token env tok
 
+let map_verbatim_string_characters (env : env) (tok : CST.verbatim_string_characters) =
+  (* verbatim_string_characters *) token env tok
+
 let map_foreach_member_name (env : env) (tok : CST.foreach_member_name) =
   (* pattern [fF][oO][rR][eE][aA][cC][hH] *) token env tok
 
@@ -747,8 +750,8 @@ let map_parameter_argument_word (env : env) (tok : CST.parameter_argument_word) 
 let map_pat__iin (env : env) (tok : CST.pat__iin) =
   (* pattern [--][iI][iI][nN] *) token env tok
 
-let map_verbatim_string_characters (env : env) (tok : CST.verbatim_string_characters) =
-  (* verbatim_string_characters *) token env tok
+let map_verbatim_here_string_characters (env : env) (tok : CST.verbatim_here_string_characters) =
+  (* verbatim_here_string_characters *) token env tok
 
 let map_imm_tok_pat_2bb0af8 (env : env) (tok : CST.imm_tok_pat_2bb0af8) =
   (* pattern \r\n|\r|\n *) token env tok
@@ -840,8 +843,8 @@ let map_pat_4f029d2 (env : env) (tok : CST.pat_4f029d2) =
 let map_dimension (env : env) (xs : CST.dimension) =
   R.List (List.map (token env (* "," *)) xs)
 
-let map_variable_command_name_continuation (env : env) (tok : CST.variable_command_name_continuation) =
-  (* variable_command_name_continuation *) token env tok
+let map_variable_before_literal_dot (env : env) (tok : CST.variable_before_literal_dot) =
+  (* variable_before_literal_dot *) token env tok
 
 let map_pat_75780b9 (env : env) (tok : CST.pat_75780b9) =
   (* pattern \$`(.{1}|`\r?\n) *) token env tok
@@ -864,7 +867,7 @@ let map_foreach_parameter (env : env) (x : CST.foreach_parameter) =
   )
 
 let map_command_argument_sep (env : env) (x : CST.command_argument_sep) =
-  map_pat_6a8c7a7 env x
+  map_pat_61b775e env x
 
 let map_real_literal (env : env) (x : CST.real_literal) =
   (match x with
@@ -2497,7 +2500,14 @@ and map_completed_argument_array (env : env) (x : CST.completed_argument_array) 
   )
 
 and map_completed_argument_member (env : env) (x : CST.completed_argument_member) =
-  map_member_access env x
+  (match x with
+  | `Member_access x -> R.Case ("Member_access",
+      map_member_access env x
+    )
+  | `Var_before_lit_dot tok -> R.Case ("Var_before_lit_dot",
+      (* variable_before_literal_dot *) token env tok
+    )
+  )
 
 and map_completed_argument_value (env : env) (x : CST.completed_argument_value) =
   (match x with
@@ -3321,7 +3331,7 @@ and map_primary_expression (env : env) (x : CST.primary_expression) =
       map_value env x
     )
   | `Member_access x -> R.Case ("Member_access",
-      map_completed_argument_member env x
+      map_member_access env x
     )
   | `Elem_access x -> R.Case ("Elem_access",
       map_element_access env x

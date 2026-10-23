@@ -137,6 +137,8 @@ type qualified_variable_in_string = Token.t
 
 type pat_module = Token.t (* pattern [mM][oO][dD][uU][lL][eE] *)
 
+type variable_command_name_continuation = Token.t
+
 type pat__ge = Token.t (* pattern [--][gG][eE] *)
 
 type pat_switch = Token.t (* pattern [sS][wW][iI][tT][cC][hH] *)
@@ -171,7 +173,7 @@ type pat_trap = Token.t (* pattern [tT][rR][aA][pP] *)
 
 type pat_8a0ae06 = Token.t (* pattern `.{1}|`\r?\n *)
 
-type pat_6a8c7a7 = Token.t (* pattern [ \u00a0]+ *)
+type pat_61b775e = Token.t (* pattern [ \t\u00a0]+ *)
 
 type pat_enum_ = Token.t (* pattern [eE][nN][uU][mM][--] *)
 
@@ -302,8 +304,6 @@ type pat_ret = Token.t (* pattern [rR][eE][tT][uU][rR][nN] *)
 
 type pat__crep = Token.t (* pattern [--][cC][rR][eE][pP][lL][aA][cC][eE] *)
 
-type verbatim_here_string_characters = Token.t
-
 type pat_421479c = Token.t (* pattern "[\"\\u201C-\\u201E]" *)
 
 type pat__inotin = Token.t (* pattern [--][iI][nN][oO][tT][iI][nN] *)
@@ -405,6 +405,8 @@ type tok_prec_p1_pat_d01e7ed = Token.t
 
 type pat__as = Token.t (* pattern [--][aA][sS] *)
 
+type verbatim_string_characters = Token.t
+
 type foreach_member_name = Token.t (* pattern [fF][oO][rR][eE][aA][cC][hH] *)
 
 type pat_throw = Token.t (* pattern [tT][hH][rR][oO][wW] *)
@@ -467,7 +469,7 @@ type parameter_argument_word =
 
 type pat__iin = Token.t (* pattern [--][iI][iI][nN] *)
 
-type verbatim_string_characters = Token.t
+type verbatim_here_string_characters = Token.t
 
 type imm_tok_pat_2bb0af8 = Token.t (* pattern \r\n|\r|\n *)
 
@@ -532,7 +534,7 @@ type pat_4f029d2 = Token.t (* pattern "\"[^\"]*\"" *)
 
 type dimension = Token.t (* "," *) list (* one or more *)
 
-type variable_command_name_continuation = Token.t
+type variable_before_literal_dot = Token.t
 
 type pat_75780b9 = Token.t (* pattern \$`(.{1}|`\r?\n) *)
 
@@ -543,7 +545,7 @@ type stop_parsing = [
 
 type foreach_parameter = [ `Pat__para of pat__para ]
 
-type command_argument_sep = pat_6a8c7a7
+type command_argument_sep = pat_61b775e
 
 type real_literal = [
     `Trai_dot_real_lit of trailing_dot_real_literal (*tok*)
@@ -1311,7 +1313,10 @@ and completed_argument_array = [
     )
 ]
 
-and completed_argument_member = member_access
+and completed_argument_member = [
+    `Member_access of member_access
+  | `Var_before_lit_dot of variable_before_literal_dot (*tok*)
+]
 
 and completed_argument_value = [
     `Paren_exp of parenthesized_expression
@@ -1696,7 +1701,7 @@ and post_increment_expression = (primary_expression * Token.t (* "++" *))
 
 and primary_expression = [
     `Value of value
-  | `Member_access of completed_argument_member
+  | `Member_access of member_access
   | `Elem_access of element_access
   | `Invo_exp of invokation_expression
   | `Post_incr_exp of post_increment_expression
