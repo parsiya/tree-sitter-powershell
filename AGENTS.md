@@ -10,6 +10,10 @@ fix into a tooling, audit or documentation project unless the user asks.
    Use a new label each time. Read the summary, then only the failing stage's log.
 2. Group actual failures by root cause. The parent assigns each independent
    grammar fix to a subagent in its own `og/TOPIC` worktree from `opengrep-dev`.
+   Give each subagent the [fix-agent brief](ai-docs/skills/fix-agent/SKILL.md),
+   topic, grammar root, worktree/branch, reproduction or failing file/offset,
+   and scope. Run independent workers in parallel. The parent reviews and
+   merges their returned branches and handles converter integration.
 3. Workers make a small reproduction, check Native PowerShell where needed,
    fix it, add regression tests and run targeted checks before `validate quick`.
    Run existing proof suites once at handback, not after every edit.
