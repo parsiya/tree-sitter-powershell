@@ -1,0 +1,32 @@
+{
+ "suite": "b5-tab-pipe",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":25,"agree":7,"invalid_rejected":0,"known":18,"fail":0,"unsupported":0,"skipped":0,"known_differences":21},
+ "cases": {
+  "full shape in if": {"status":"known","differences":[]},
+  "word tab pipe backtick": {"status":"known","differences":[]},
+  "word tab pipe no continuation": {"status":"known","differences":[]},
+  "word space pipe backtick": {"status":"known","differences":[]},
+  "word tab pipe backtick lf": {"status":"known","differences":[]},
+  "word two tabs pipe backtick": {"status":"known","differences":[]},
+  "word tab pipe newline": {"status":"known","differences":[]},
+  "word tab pipe space newline": {"status":"known","differences":[]},
+  "no args tab pipe backtick": {"status":"known","differences":[]},
+  "word space tab pipe backtick": {"status":"known","differences":[]},
+  "assignment word tab pipe backtick": {"status":"known","differences":[]},
+  "variable arg tab pipe backtick": {"status":"known","differences":[]},
+  "parameter arg tab pipe backtick": {"status":"known","differences":[]},
+  "tab before backtick continuation": {"status":"agree","differences":[]},
+  "word tab pipe backtick then tab-indented command": {"status":"known","differences":[]},
+  "plus word tab pipe": {"status":"known","differences":[]},
+  "word tab word control": {"status":"agree","differences":[]},
+  "plus tab number control": {"status":"agree","differences":[]},
+  "word tab quoted control": {"status":"agree","differences":[]},
+  "word tab scriptblock close": {"status":"agree","differences":[]},
+  "word tab semicolon control": {"status":"agree","differences":[]},
+  "word tab pipe chain": {"status":"known","differences":[]},
+  "word tab ampersand pipe chain": {"status":"known","differences":[]},
+  "word tab pipe pipe chain": {"status":"known","differences":[]},
+  "word tab redirection control": {"status":"agree","differences":[]}
+ }
+}
