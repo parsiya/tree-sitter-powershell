@@ -220,6 +220,12 @@ static bool command_word_end(int32_t c)
            c == '{' || c == '}' || c == ';' || c == ',' || c == '|' || c == '&';
 }
 
+// Operator characters that cannot start a parameter name after a dash.
+static bool dash_word_symbol(int32_t c)
+{
+    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%';
+}
+
 static bool literal_dot_follows(TSLexer *lexer)
 {
     if (lexer->lookahead != '.') return false;
@@ -267,13 +273,14 @@ static bool named_ellipsis_follows(TSLexer *lexer)
 }
 
 // A command name may begin with a `$` that no variable name follows; the rest
-// of the word comes from the immediate name parts. The `$` was just consumed.
+// of the word comes from the immediate name parts, including a quoted part
+// (`$"text {0}" -f $x`). The `$` was just consumed.
 static bool scan_command_name_dollar(TSLexer *lexer)
 {
     lexer->mark_end(lexer);
     int32_t c = lexer->lookahead;
     if (variable_char(c) || c == '$' || c == '^' || c == '{' || c == '(' || c == ':' ||
-        c == '`' || is_quote(c) || (c == '.' && named_ellipsis_follows(lexer))) return false;
+        c == '`' || (c == '.' && named_ellipsis_follows(lexer))) return false;
     // A dash or `>` run would otherwise lex as an operator, not as the name's tail.
     while (lexer->lookahead == '-' || lexer->lookahead == '>') {
         lexer->advance(lexer, false);
@@ -537,6 +544,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
     // `--name=$(...)` is a word, not a parameter, once a subexpression follows.
     bool option_word = false;
     bool option_separator = false;
+    // `--name:value` and `--name=${var}` are words: the parameter token cannot hold them.
+    bool option_value_word = false;
     if (parameter) {
         lexer->advance(lexer, false);
         option_word = !unicode_dash && lexer->lookahead == '-';
@@ -556,6 +565,11 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             joined = true;
             only_dashes = false;
             if (scan_number_prefix(lexer) && command_word_end(lexer->lookahead)) return false;
+        } else if (!unicode_dash && dash_word_symbol(lexer->lookahead)) {
+            // `-=x`: no parameter name follows the dash, so this is a plain word.
+            parameter = false;
+            joined = true;
+            only_dashes = false;
         }
         lexer->mark_end(lexer);
     }
@@ -596,11 +610,15 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         // --option=value; only an attached quote makes -o"value" a word.
         if (parameter && (c == ':' || c == '=')) {
             if (!option_word && c == ':') return false;
+            if (option_word && c == ':' && !option_separator && parameter_name)
+                option_value_word = true;
             option_separator = true;
         }
         if (c == '$') {
             lexer->mark_end(lexer);
             lexer->advance(lexer, false);
+            if (option_word && option_separator && lexer->lookahead == '{')
+                option_value_word = true;
             if (lexer->lookahead == '(') {
                 if (parameter_name && !option_word) return false;
                 if (!consumed) {
@@ -655,7 +673,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         lexer->result_symbol = BARE_DASHES;
         return true;
     }
-    if (!consumed || (start && (!joined || (parameter_name && !quoted)))) return false;
+    if (!consumed || (start && !option_value_word && (!joined || (parameter_name && !quoted)))) return false;
     if (!escaped_quote) lexer->mark_end(lexer);
     lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
     return true;
@@ -1262,6 +1280,19 @@ static bool scan_quote_unit_content(TSLexer *lexer)
 {
     if (lexer->lookahead == '`') {
         lexer->advance(lexer, false);
+        if (lexer->lookahead == '`') {
+            // Native escapes a quote after an even run of backticks, too.
+            unsigned ticks = 1;
+            while (lexer->lookahead == '`') {
+                lexer->advance(lexer, false);
+                ticks++;
+            }
+            if (ticks % 2 || !double_quote(lexer->lookahead)) return false;
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            lexer->result_symbol = QUOTE_UNIT_ESCAPE;
+            return true;
+        }
         if (!double_quote(lexer->lookahead)) return false;
         lexer->advance(lexer, false);
     } else if (double_quote(lexer->lookahead)) {
