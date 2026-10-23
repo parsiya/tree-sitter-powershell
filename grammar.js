@@ -463,7 +463,7 @@ export default grammar({
         reservedWord('-cnotmatch'),
         reservedWord('-contains'),
         reservedWord('-creplace'),
-        reservedWord('-csplit'),
+        alias($._csplit_operator, '-csplit'),
         reservedWord('-eq'),
         reservedWord('-ge'),
         reservedWord('-gt'),
@@ -485,7 +485,7 @@ export default grammar({
         reservedWord('-ireplace'),
         reservedWord('-is'),
         reservedWord('-isnot'),
-        reservedWord('-isplit'),
+        alias($._isplit_operator, '-isplit'),
         alias($._join_operator, '-join'),
         reservedWord('-le'),
         reservedWord('-like'),
@@ -1427,16 +1427,20 @@ export default grammar({
         $.cast_expression,
         $.attributed_expression,
         seq(alias($._split_operator, '-split'), $.unary_expression),
+        seq(alias($._csplit_operator, '-csplit'), $.unary_expression),
+        seq(alias($._isplit_operator, '-isplit'), $.unary_expression),
         seq(alias($._join_operator, '-join'), $.unary_expression),
       ),
 
-    // Unary keyword operators, also used by comparison_operator (-split, -join)
+    // Unary keyword operators, also used by comparison_operator (-split, -csplit, -isplit, -join)
     // so that each stays one token. Aliased back to the keyword, so trees are
     // unchanged. Named rules: inline, Opengrep's simplified grammar would alias
     // them in every unary production, which adds about 250 parser states.
     _not_operator: ($) => reserved(caseInsensitive('-not')),
     _bnot_operator: ($) => reserved(caseInsensitive('-bnot')),
     _split_operator: ($) => reserved(caseInsensitive('-split')),
+    _csplit_operator: ($) => reserved(caseInsensitive('-csplit')),
+    _isplit_operator: ($) => reserved(caseInsensitive('-isplit')),
     _join_operator: ($) => reserved(caseInsensitive('-join')),
 
     // `-Name args` at a statement start is a command named `-Name`. A word whose

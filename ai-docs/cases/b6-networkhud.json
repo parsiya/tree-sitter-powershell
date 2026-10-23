@@ -166,5 +166,177 @@
  {
   "name": "invalid dash number then argument",
   "source": "-1 $y\r\n"
+ },
+ {
+  "name": "unary csplit stays an expression",
+  "source": "-csplit 'a'\r\n"
+ },
+ {
+  "name": "unary csplit in upper case stays an expression",
+  "source": "-CSPLIT 'a'\r\n"
+ },
+ {
+  "name": "unary csplit in mixed case stays an expression",
+  "source": "-cSplit 'a'\r\n"
+ },
+ {
+  "name": "unary isplit stays an expression",
+  "source": "-isplit 'a'\r\n"
+ },
+ {
+  "name": "unary isplit in upper case stays an expression",
+  "source": "-ISPLIT 'a'\r\n"
+ },
+ {
+  "name": "unary isplit in mixed case stays an expression",
+  "source": "-iSplit 'a'\r\n"
+ },
+ {
+  "name": "unary split in upper case stays an expression",
+  "source": "-SPLIT 'a'\r\n"
+ },
+ {
+  "name": "unary split in mixed case stays an expression",
+  "source": "-sPlit 'a'\r\n"
+ },
+ {
+  "name": "unary csplit on a variable",
+  "source": "-csplit $y\r\n"
+ },
+ {
+  "name": "unary csplit with two arguments",
+  "source": "-csplit 'a' 'b'\r\n"
+ },
+ {
+  "name": "unary csplit attached to a variable",
+  "source": "-csplit$y\r\n"
+ },
+ {
+  "name": "unary csplit attached to a number",
+  "source": "-csplit1\r\n"
+ },
+ {
+  "name": "unary csplit attached to parentheses",
+  "source": "-csplit($y)\r\n"
+ },
+ {
+  "name": "unary isplit attached to a variable",
+  "source": "-isplit$y\r\n"
+ },
+ {
+  "name": "unary csplit in a block",
+  "source": "if ($a) {\r\n    -csplit 'a'\r\n}\r\n"
+ },
+ {
+  "name": "unary csplit after an assignment",
+  "source": "$a = -csplit 'a'\r\n"
+ },
+ {
+  "name": "unary isplit in parentheses",
+  "source": "(-isplit 'a')\r\n"
+ },
+ {
+  "name": "unary csplit before a pipe",
+  "source": "-csplit 'a' | Out-Null\r\n"
+ },
+ {
+  "name": "unary csplit after a newline",
+  "source": "Get\r\n-csplit 'a'\r\n"
+ },
+ {
+  "name": "binary csplit stays an operator",
+  "source": "$x -csplit 'a'\r\n"
+ },
+ {
+  "name": "binary isplit stays an operator",
+  "source": "$x -isplit 'a'\r\n"
+ },
+ {
+  "name": "command parameter named csplit",
+  "source": "Cmd -csplit 'a'\r\n"
+ },
+ {
+  "name": "command parameter named isplit",
+  "source": "Cmd -isplit 'a'\r\n"
+ },
+ {
+  "name": "dash word with a longer csplit prefix",
+  "source": "-csplitx 'a'\r\n"
+ },
+ {
+  "name": "dash word with a longer isplit prefix",
+  "source": "-isplitx 'a'\r\n"
+ },
+ {
+  "name": "dash word with a longer split prefix",
+  "source": "-splitx 'a'\r\n"
+ },
+ {
+  "name": "dash word with a longer csplit prefix in upper case",
+  "source": "-CSPLITX 'a'\r\n"
+ },
+ {
+  "name": "dash word that is a csplit prefix",
+  "source": "-cspli 'a'\r\n"
+ },
+ {
+  "name": "dash word that is an isplit prefix",
+  "source": "-ispli 'a'\r\n"
+ },
+ {
+  "name": "dash word that is a split prefix",
+  "source": "-spli 'a'\r\n"
+ },
+ {
+  "name": "dash word c",
+  "source": "-c 'a'\r\n"
+ },
+ {
+  "name": "dash word i",
+  "source": "-i 'a'\r\n"
+ },
+ {
+  "name": "dash word cs",
+  "source": "-cs 'a'\r\n"
+ },
+ {
+  "name": "dash word is",
+  "source": "-is 'a'\r\n"
+ },
+ {
+  "name": "dash word csplit followed by a non-letter after a prefix",
+  "source": "-csp1 'a'\r\n"
+ },
+ {
+  "name": "dash word csplit prefix then a dash",
+  "source": "-csplit-x 'a'\r\n"
+ },
+ {
+  "name": "invalid unary csplit attached to an underscore",
+  "source": "-csplit_x\r\n"
+ },
+ {
+  "name": "invalid unary isplit attached to an underscore",
+  "source": "-isplit_x\r\n"
+ },
+ {
+  "name": "binary csplit after parentheses",
+  "source": "(1) -csplit 'a'\r\n"
+ },
+ {
+  "name": "binary csplit then unary split",
+  "source": "$x -csplit -split 'a'\r\n"
+ },
+ {
+  "name": "binary isplit in a command argument",
+  "source": "Cmd ($x -isplit 'a')\r\n"
+ },
+ {
+  "name": "nested unary csplit isplit",
+  "source": "-csplit -isplit 'a'\r\n"
+ },
+ {
+  "name": "command argument csplit after a variable",
+  "source": "Cmd $x -csplit 'a'\r\n"
  }
 ]
