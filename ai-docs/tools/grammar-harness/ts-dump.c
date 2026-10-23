@@ -1,8 +1,9 @@
 /* Parse files with a tree-sitter-powershell parser and print, per file, the
    errors plus the spans of commands, command elements and redirections.
    Comments are not command elements and do not interrupt comma merging. Paths
-   are read NUL-separated from stdin. A UTF-8 BOM is skipped so offsets match
-   the native dumper.
+   are read NUL-separated from stdin. Every file is parsed unchanged, a UTF-8
+   BOM included, as Opengrep parses it; offsets are reported from after a
+   leading BOM so they match the native dumper.
 
    Node names: TS_DUMP_NAMES=FILE (from abi14-names.mjs) reports a simplified
    ABI14 parser's tree with the unsimplified grammar's names. Nodes that grammar
@@ -26,6 +27,14 @@
 extern const TSLanguage *tree_sitter_powershell(void);
 
 typedef struct { uint32_t s, e; const char *type; } Span;
+
+/* Harness offsets count from after a leading UTF-8 BOM, like the native
+   dumper's. The parser always gets the unchanged bytes, BOM included, as
+   Opengrep's frontend passes them; only reported offsets are shifted. */
+static uint32_t bom_shift;
+static uint32_t shifted(uint32_t byte) { return byte > bom_shift ? byte - bom_shift : 0; }
+static uint32_t start_byte(TSNode n) { return shifted(ts_node_start_byte(n)); }
+static uint32_t end_byte(TSNode n) { return shifted(ts_node_end_byte(n)); }
 
 /* ------------------------------------------------------------ node names */
 
@@ -197,7 +206,7 @@ static void print_errors(TSNode root) {
     int error = ts_node_is_error(n), missing = ts_node_is_missing(n);
     if (w.frames[w.depth].type && (error || missing) && count < 20) {
       printf("%s{\"s\":%u,\"e\":%u,\"m\":%d,\"r\":%u,\"p\":", count ? "," : "",
-             ts_node_start_byte(n), ts_node_end_byte(n), missing,
+             start_byte(n), end_byte(n), missing,
              ts_node_start_point(n).row + 1);
       print_type(walk_parent_type(&w));
       putchar('}');
@@ -212,7 +221,7 @@ static void print_errors(TSNode root) {
     const char *type = view_type(NO_PARENT, root);
     while (first_error_child(n, &n, &type)) {}
     printf("{\"s\":%u,\"e\":%u,\"m\":1,\"h\":1,\"r\":%u,\"p\":",
-           ts_node_start_byte(n), ts_node_end_byte(n), ts_node_start_point(n).row + 1);
+           start_byte(n), end_byte(n), ts_node_start_point(n).row + 1);
     print_type(type);
     putchar('}');
   }
@@ -228,13 +237,13 @@ static void add_element(Elements *el, TSNode child, const char *type) {
   if (!strcmp(type, ",")) { el->merge = 1; return; }
   if (!strcmp(type, "stop_parsing")) { el->stop = 1; return; }
   if (el->merge && el->n > 0) {
-    el->spans[el->n - 1].e = ts_node_end_byte(child);
+    el->spans[el->n - 1].e = end_byte(child);
     el->merge = 0;
     return;
   }
   el->merge = 0;
   if (el->n == el->cap) el->spans = realloc(el->spans, (el->cap = el->cap * 2 + 8) * sizeof(Span));
-  el->spans[el->n++] = (Span){ts_node_start_byte(child), ts_node_end_byte(child), type};
+  el->spans[el->n++] = (Span){start_byte(child), end_byte(child), type};
 }
 
 static void collect_elements(Elements *el, TSNode node) {
@@ -252,7 +261,7 @@ static void print_command(TSNode command, int *first) {
   Elements el = {0};
   if (!ts_node_is_null(elements)) collect_elements(&el, elements);
   printf("%s{\"s\":%u,\"e\":%u,\"sp\":%d,\"el\":[", *first ? "" : ",",
-         ts_node_start_byte(command), ts_node_end_byte(command), el.stop);
+         start_byte(command), end_byte(command), el.stop);
   for (uint32_t i = 0; i < el.n; i++) {
     printf("%s[%u,%u,", i ? "," : "", el.spans[i].s, el.spans[i].e);
     print_type(el.spans[i].type);
@@ -283,8 +292,8 @@ static void print_structure(TSNode root) {
   do {
     if (reported_as(&w, "redirection")) {
       TSNode n = ts_tree_cursor_current_node(&w.cursor);
-      printf("%s[%u,%u]", first_redirection ? "" : ",", ts_node_start_byte(n),
-             ts_node_end_byte(n));
+      printf("%s[%u,%u]", first_redirection ? "" : ",", start_byte(n),
+             end_byte(n));
       first_redirection = 0;
     }
   } while (walk_next(&w, 0));
@@ -322,7 +331,7 @@ static void print_tree(TSNode root) {
     if (count) putchar(',');
     putchar('[');
     print_json_string(type);
-    printf(",%u,%u,%lld,%d,", ts_node_start_byte(n), ts_node_end_byte(n), (long long)parent,
+    printf(",%u,%u,%lld,%d,", start_byte(n), end_byte(n), (long long)parent,
            ts_node_is_named(n) | ts_node_is_error(n) << 1 | ts_node_is_missing(n) << 2);
     if (field) print_json_string(field);
     else printf("null");
@@ -375,14 +384,13 @@ int main(int argc, char **argv) {
       return 2;
     }
     fclose(file);
-    uint32_t skip = !tree_mode && size >= 3 && (unsigned char)source[0] == 0xEF &&
-                    (unsigned char)source[1] == 0xBB &&
-                    (unsigned char)source[2] == 0xBF ? 3 : 0;
+    bom_shift = !tree_mode && size >= 3 && (unsigned char)source[0] == 0xEF &&
+                (unsigned char)source[1] == 0xBB &&
+                (unsigned char)source[2] == 0xBF ? 3 : 0;
     ts_parser_reset(parser);
     struct timespec start, finish;
     clock_gettime(CLOCK_MONOTONIC, &start);
-    TSTree *tree = ts_parser_parse_string(parser, NULL, source + skip,
-                                          (uint32_t)size - skip);
+    TSTree *tree = ts_parser_parse_string(parser, NULL, source, (uint32_t)size);
     clock_gettime(CLOCK_MONOTONIC, &finish);
     double ms = (finish.tv_sec - start.tv_sec) * 1000.0 +
                 (finish.tv_nsec - start.tv_nsec) / 1e6;
