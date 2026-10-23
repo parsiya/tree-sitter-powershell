@@ -166,5 +166,113 @@
  {
   "name": "inlinescript parameter in function control",
   "source": "function F { inlinescript -x }"
+ },
+ {
+  "name": "inlinescript semicolon bare is invalid",
+  "source": "workflow W { inlinescript; }"
+ },
+ {
+  "name": "inlinescript pipe is invalid",
+  "source": "workflow W { inlinescript | x }"
+ },
+ {
+  "name": "inlinescript ampersand then block is invalid",
+  "source": "workflow W { inlinescript& { 1 } }"
+ },
+ {
+  "name": "inlinescript parenthesis then block is invalid",
+  "source": "workflow W { inlinescript(1) { 1 } }"
+ },
+ {
+  "name": "inlinescript comma then block is invalid",
+  "source": "workflow W { inlinescript, { 1 } }"
+ },
+ {
+  "name": "inlinescript after pipe parameter is invalid",
+  "source": "workflow W { x | inlinescript -x }"
+ },
+ {
+  "name": "inlinescript mixed case newline parameter before block is invalid",
+  "source": "workflow W { InlineScript\n-x\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline parameter after semicolon is invalid",
+  "source": "workflow W { 1; inlinescript\n-x }"
+ },
+ {
+  "name": "inlinescript newline parameter in script block literal is invalid",
+  "source": "workflow W { & { inlinescript\n-x } }"
+ },
+ {
+  "name": "inlinescript newline parameter in nested workflow is invalid",
+  "source": "function F { workflow W { inlinescript\n-x } }"
+ },
+ {
+  "name": "inlinescript newline parameter after nested function is invalid",
+  "source": "workflow W { function F { 1 } inlinescript\n-x }"
+ },
+ {
+  "name": "inlinescript parameter after nested function is invalid",
+  "source": "workflow W { function F { 1 } inlinescript -x }"
+ },
+ {
+  "name": "inlinescript newline parameter in nested function control",
+  "source": "workflow W { function F { inlinescript\n-x } }"
+ },
+ {
+  "name": "inlinescript bare in nested function control",
+  "source": "workflow W { function F { inlinescript } }"
+ },
+ {
+  "name": "inlinescript newline parameter in function control",
+  "source": "function F { inlinescript\n-x }"
+ },
+ {
+  "name": "inlinescript newline word in function control",
+  "source": "function F { inlinescript\nx }"
+ },
+ {
+  "name": "inlinescript newline parameter after workflow ends control",
+  "source": "workflow W { 1 }\ninlinescript\n-x"
+ },
+ {
+  "name": "inlinescript parameter in filter control",
+  "source": "filter F { inlinescript -x }"
+ },
+ {
+  "name": "inlinescript dash suffix control",
+  "source": "workflow W { inlinescript-x\n-y }"
+ },
+ {
+  "name": "inlinescript prefix word parameter control",
+  "source": "workflow W { Inlinescriptx -x }"
+ },
+ {
+  "name": "inlinescript quoted suffix control",
+  "source": "workflow W { inlinescript\"a\" { 1 } }"
+ },
+ {
+  "name": "inlinescript variable suffix control",
+  "source": "workflow W { inlinescript$x { 1 } }"
+ },
+ {
+  "name": "inlinescript dot suffix control",
+  "source": "workflow W { inlinescript.x { 1 } }"
+ },
+ {
+  "name": "inlinescript hash suffix control",
+  "source": "workflow W { inlinescript# c\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript call operator name control",
+  "source": "workflow W { & inlinescript }"
+ },
+ {
+  "name": "inlinescript call operator name with block control",
+  "source": "workflow W { & inlinescript { 1 } }"
+ },
+ {
+  "name": "inlinescript as argument control",
+  "source": "workflow W { x inlinescript }"
  }
 ]

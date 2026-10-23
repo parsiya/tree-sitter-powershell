@@ -125,8 +125,9 @@ export default grammar({
     // to a here-string, so that the scanner can track its subexpressions.
     $._expandable_string_ahead,
     $._command_name_dollar,
-    // `inlinescript` whose script block follows, possibly after newlines. Only
-    // produced in a workflow body, where Native makes it a keyword (see scanner.c).
+    // The keyword `inlinescript`, whose script block must follow, possibly after
+    // newlines. Only produced in a workflow body, where Native makes it a
+    // keyword (see scanner.c).
     $._inlinescript_name,
     // Never produced as text. They mark the start of a function or workflow
     // body, and the end of any, so that the scanner knows the context.
