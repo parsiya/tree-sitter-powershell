@@ -1,0 +1,209 @@
+===
+Attribute arguments: leading comma before a named argument in a param block
+===
+
+param([Parameter(, ParameterSetName = 'X')]$a)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (attribute_name
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (attribute_arguments
+              (attribute_argument
+                (simple_name)
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (string_literal
+                                    (verbatim_string_characters)))))))))))))))
+        (variable)))))
+
+===
+Attribute arguments: leading comma before a bare name and later arguments
+===
+
+param([Parameter(,Mandatory, Position = 0)][int]$a)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (attribute_name
+              (type_spec
+                (type_name
+                  (type_identifier))))
+            (attribute_arguments
+              (attribute_argument
+                (simple_name))
+              (attribute_argument
+                (simple_name)
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal))))))))))))))
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable)))))
+
+===
+Attribute arguments: leading comma on a function attribute
+===
+
+function f {
+    [CmdletBinding(, DefaultParameterSetName = 'a')]
+    param()
+}
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (attribute_list
+            (attribute
+              (attribute_name
+                (type_spec
+                  (type_name
+                    (type_identifier))))
+              (attribute_arguments
+                (attribute_argument
+                  (simple_name)
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))
+
+===
+Attribute arguments: leading comma on a class property attribute
+===
+
+class C {
+    [Parameter(,Mandatory = $true)][int]$x
+}
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_property_definition
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))
+          (attribute_arguments
+            (attribute_argument
+              (simple_name)
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable)))))))))))))
+        (type_literal
+          (type_spec
+            (type_name
+              (type_identifier))))
+        (variable)))))
+
+===
+Attribute arguments: leading comma before a positional argument stays a unary comma
+===
+
+[Alias(, 'a', 'b')]$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (attributed_expression
+                              (attribute
+                                (attribute_name
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (attribute_arguments
+                                  (attribute_argument
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (expression_with_unary_operator
+                                                        (unary_expression
+                                                          (string_literal
+                                                            (verbatim_string_characters))))))))))))))
+                                  (attribute_argument
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (string_literal
+                                                        (verbatim_string_characters))))))))))))))
+                              (unary_expression
+                                (variable)))))))))))))))))
