@@ -262,7 +262,8 @@ export default grammar({
 
     expandable_here_string_literal: ($) =>
       seq(
-        /@["\u201C-\u201E] *(\r\n|\n|\r)/,
+        // Native skips any whitespace (not only spaces) between header and newline.
+        /@["\u201C-\u201E][ \t\v\f\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]*(\r\n|\n|\r)/,
         choice(
           // An empty here-string closes immediately after its opening newline.
           token.immediate(prec(2, /["\u201C-\u201E]@/)),
@@ -292,7 +293,7 @@ export default grammar({
     verbatim_here_string_characters: ($) =>
       token(
         seq(
-          /@['\u2018-\u201B][ \t\v\f]*\r?\n/,
+          /@['\u2018-\u201B][ \t\v\f\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]*(\r\n|\n|\r)/,
           // A content line cannot begin with a closing delimiter. In particular,
           // an empty or blank-only body must not consume a later here-string.
           repeat(seq(
@@ -300,7 +301,7 @@ export default grammar({
               /[^'\u2018-\u201B\r\n][^\r\n]*/,
               seq(SINGLE_QUOTE, optional(/[^@\r\n][^\r\n]*/)),
             )),
-            /\r?\n/,
+            /\r\n|\n|\r/,
           )),
           SINGLE_QUOTE,
           '@',
