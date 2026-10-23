@@ -94,6 +94,17 @@ and block comments, mixed expressions, escaped spaces and following parameters.
 Comments are trivia, not command elements, and cannot consume a pending comma
 merge in the batch comparison collector.
 
+## Escaped CLR type arity
+
+`escaped-type-arity` covers literal and doubled backticks in CLR generic names,
+including qualified/nested names, nested arguments and parameter constraints.
+Native accepts arity spellings and argument-count mismatches syntactically
+without resolving the type; invalid name starts, whitespace and missing arguments
+remain rejected. Native preserves a single backtick and collapses each doubled
+backtick in a type name: source ```Box``1``` has type name ``Box`1``. The CST keeps
+the raw identifier text, so converter normalization must perform that collapse
+without treating a single backtick before a digit as an ordinary escape.
+
 ## Counts
 
 Migrated 2026-10-22 from 50 local case files (5,139 cases). Columns: original

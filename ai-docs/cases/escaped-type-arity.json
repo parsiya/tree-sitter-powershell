@@ -1,0 +1,181 @@
+[
+ {
+  "name": "ordinary generic type",
+  "source": "[Box[int]]"
+ },
+ {
+  "name": "single backtick arity",
+  "source": "[Box`1[int]]"
+ },
+ {
+  "name": "escaped backtick arity",
+  "source": "[Box``1[int]]",
+  "expect": "valid"
+ },
+ {
+  "name": "escaped backtick open type",
+  "source": "[Box``1]"
+ },
+ {
+  "name": "qualified escaped arity",
+  "source": "[Demo.Box``1[Demo.Item]]"
+ },
+ {
+  "name": "two argument arity",
+  "source": "[Demo.Pair``2[string,int]]"
+ },
+ {
+  "name": "multi digit arity",
+  "source": "[Demo.Tuple``12[int]]"
+ },
+ {
+  "name": "zero arity parse only",
+  "source": "[Demo.Box``0[int]]"
+ },
+ {
+  "name": "arity argument count is not syntax",
+  "source": "[Demo.Pair``2[int]]"
+ },
+ {
+  "name": "nested generic argument",
+  "source": "[Demo.Box``1[Demo.Box``1[int]]]"
+ },
+ {
+  "name": "CLR nested generic name",
+  "source": "[Demo.Outer``1+Inner``1[int,string]]"
+ },
+ {
+  "name": "CLR nested arity only on inner",
+  "source": "[Demo.Outer+Inner``1[int]]"
+ },
+ {
+  "name": "CLR nested generic argument",
+  "source": "[Demo.Box``1[Demo.Outer+Inner]]"
+ },
+ {
+  "name": "qualified prefix with arity",
+  "source": "[Demo``1.Box[int]]"
+ },
+ {
+  "name": "bracketed generic argument",
+  "source": "[Demo.Box``1[[int]]]"
+ },
+ {
+  "name": "generic array",
+  "source": "[Demo.Box``1[int][]]"
+ },
+ {
+  "name": "generic type constraint",
+  "source": "param([Demo.Box``1[Demo.Item]]$Value)",
+  "expect": "valid"
+ },
+ {
+  "name": "function parameter type constraint",
+  "source": "function Read-Item([Demo.Pair``2[string,int]]$Value) { $Value }"
+ },
+ {
+  "name": "typed assignment",
+  "source": "[Demo.Box``1[int]]$Value = $null"
+ },
+ {
+  "name": "cast",
+  "source": "$Result = [Demo.Box``1[int]]$Value"
+ },
+ {
+  "name": "escaped arity static receiver",
+  "source": "[Demo.Box``1[int]]::Empty"
+ },
+ {
+  "name": "triple backtick arity",
+  "source": "[Box```1[int]]"
+ },
+ {
+  "name": "four backtick arity",
+  "source": "[Box````1[int]]"
+ },
+ {
+  "name": "backtick without digits",
+  "source": "[Box``[int]]"
+ },
+ {
+  "name": "backtick before letter",
+  "source": "[Bo`x[int]]"
+ },
+ {
+  "name": "escaped backtick before letter",
+  "source": "[Bo``x[int]]"
+ },
+ {
+  "name": "arity followed by identifier",
+  "source": "[Box``1More[int]]"
+ },
+ {
+  "name": "negative arity",
+  "source": "[Box``-1[int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "space before arity",
+  "source": "[Box ``1[int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "space inside arity",
+  "source": "[Box`` 1[int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "missing closing type bracket",
+  "source": "[Box``1[int]",
+  "expect": "invalid"
+ },
+ {
+  "name": "missing generic argument",
+  "source": "[Box``2[int,]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "empty generic argument",
+  "source": "[Box``2[,int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "missing leading type name",
+  "source": "[``1[int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "ordinary nested generic control",
+  "source": "[Demo.Outer+Inner[int]]"
+ },
+ {
+  "name": "trailing backtick type name",
+  "source": "[Box``]"
+ },
+ {
+  "name": "backtick after namespace separator",
+  "source": "[Demo.``1[int]]"
+ },
+ {
+  "name": "backtick after nested type separator",
+  "source": "[Box+``1[int]]"
+ },
+ {
+  "name": "backtick before nested type separator",
+  "source": "[Box``+Inner[int]]"
+ },
+ {
+  "name": "backtick before namespace separator",
+  "source": "[Box``.Inner[int]]"
+ },
+ {
+  "name": "backtick cannot start type name",
+  "source": "[``Box[int]]",
+  "expect": "invalid"
+ },
+ {
+  "name": "digit cannot start type name",
+  "source": "[1Box``1[int]]",
+  "expect": "invalid"
+ }
+]
