@@ -25,6 +25,14 @@ something different in those positions. Decide whether merging any of them
 helps readability or performance. Leaving them as they are, with a clear
 comment explaining why the copy exists, is an acceptable answer.
 
+Found in the 2026-10-23 review (keep in mind; do not re-measure from scratch):
+Opengrep's `simplify` (`Missing_node`) turns every inline regex, `token()` or
+`token.immediate()` inside a rule into a named preserved alias. In a rule with
+many `choice`/`optional` productions, or one used in several contexts, this
+multiplies ABI14 states; the 0.22 parser does not show it. Giving such a token
+its own rule removes the cost. The chains above were left as they are: they
+differ in `??`, unary comma and node names, and cost few states themselves.
+
 ## Phase 1: report only, then stop
 
 Do not edit anything in this phase. Write `ai-docs/local/results/grammar-review.md`
@@ -37,10 +45,21 @@ with:
 
 Stop and ask the user which proposals to implement.
 
-## Phase 2: implement approved proposals, one per commit
+## Phase 2: implement approved proposals, one commit each, then squash
 
 Work in a worktree (`git worktree add -b og/grammar-cleanup ai-docs/local/worktrees/og-grammar-cleanup opengrep-dev`).
 Each change must pass the behaviour-identity gate below before the next starts.
+Then commit it on `og/grammar-cleanup`, one commit per proposal, and record its
+size and gate result in the report. These commits are known-good checkpoints:
+if a later change goes wrong, reset the branch to the last one.
+
+When every approved change has passed, fold the branch into one commit on
+`opengrep-dev`: `git merge --squash og/grammar-cleanup` in the parent checkout,
+then regenerate `opengrep/ocaml/`, adapt the converter and run `validate full`.
+Commit the grammar, scanner, regenerated `opengrep/ocaml/`, grammar-size row and
+doc notes together as the one review commit. Add one Opengrep commit for the
+converter and pin. Then remove the worktree and delete the branch
+(`git branch -D`, since a squash merge does not mark it as merged).
 
 ## Tools (deterministic; use these instead of judgment where possible)
 
@@ -54,7 +73,17 @@ Each change must pass the behaviour-identity gate below before the next starts.
   - The strongest check is to dump full trees with the kept `ts-dump --tree`
     binaries of both runs. Feed every readable file of every corpus batch
     (NUL-separated paths on stdin) and diff the outputs. Use it for any change
-    that could move node boundaries or names.
+    that could move node boundaries or names. Ignore the per-file `"ms"`
+    timing field.
+  - Decided (2026-10-23 review); do not ask again: a file whose tree contains
+    an `ERROR` or `MISSING` node both before and after the change may get a
+    different tree. On a syntax error tree-sitter guesses a repair, and that
+    guess depends on the parse table's internals, so any table change
+    (fewer states, renamed tokens) can move it slightly. These files are
+    broken either way: invalid PowerShell or non-UTF-8 bytes, which `--tree`
+    still parses. Accept such differences and list the affected files in
+    the report. Every file without errors must keep a byte-identical tree;
+    a difference there fails the gate.
 - **Converter impact:** generated `opengrep/ocaml/lib/CST.ml` must not change
   unless the user approved it. Check with
   `node ai-docs/tools/validate.mjs full --only source,compat --label L`
@@ -75,7 +104,11 @@ Each change must pass the behaviour-identity gate below before the next starts.
   `src/node-types.json`, `opengrep/ocaml/`). Validation regenerates them.
 - External token order must stay identical in `grammar.js` and `scanner.c`.
 - Corpus files are immutable. Never delete, skip or weaken tests or expectations.
-- Commit explicit files only. No co-author trailer, no push.
+- Commit explicit files only. No co-author trailer, no push. Per-proposal
+  commits stay on `og/grammar-cleanup`; `opengrep-dev` gets one squashed review
+  commit (see phase 2).
 - Converter edits are parent work: if an approved change alters `CST.ml`,
   adapt the converter and run `validate full`.
-- When finished, add a row marked "review" to `ai-docs/grammar-size.md`.
+- When finished, add a row marked "review" to `ai-docs/grammar-size.md`, in
+  the review commit. It cannot name its own hash: write the base commit it
+  reviewed, for example `review of 2f8d138`.

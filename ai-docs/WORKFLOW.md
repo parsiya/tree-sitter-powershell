@@ -54,6 +54,8 @@ Commit once at the end of the batch: worker commits and their merges are the onl
 commits made during it. Exception: if a session must stop partway, commit
 tested integrated work so it is not lost; never commit untested work. Doc and
 process edits made between batches also go into one commit, not one per change.
+Do not commit excessively. The regenerated parser, the grammar-size row and the
+batch's doc notes go into the same final commit, never into a commit of their own.
 Run full on the clean committed trees, then:
 
 ```sh
@@ -62,7 +64,8 @@ node ai-docs/tools/validate.mjs promote NAME
 
 ## Grammar size check after each batch
 
-At the end of each batch, add a row to [grammar-size.md](grammar-size.md):
+At the end of each batch, add a row to [grammar-size.md](grammar-size.md) in the
+batch's final commit:
 
 ```sh
 grep '^#define STATE_COUNT' opengrep/ocaml/lib/parser.c
@@ -74,8 +77,8 @@ grown more than 10% since then, or a worker reported copying a rule chain, tell
 the user in the batch report and suggest a grammar review; do not start it
 yourself. The user runs the review in a new top-level Opus 5.5 session, using
 [grammar-review-prompt.md](grammar-review-prompt.md). The review first
-suggests cleanups and stops; the user picks which ones to do. Then record a
-new row marked "review".
+suggests cleanups and stops; the user picks which ones to do. The review is one
+grammar commit (see the review prompt), including a new row marked "review".
 
 ## Correcting an existing test expectation
 

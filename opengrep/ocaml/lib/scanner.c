@@ -114,23 +114,32 @@ static bool scan_command_array_item_start(TSLexer *lexer, const bool *valid_symb
     }
 }
 
+// Native quote families: ' and U+2018-U+201B, " and U+201C-U+201E.
+static bool single_quote(int32_t c)
+{
+    return c == '\'' || (c >= 0x2018 && c <= 0x201b);
+}
+
+static bool double_quote(int32_t c)
+{
+    return c == '"' || (c >= 0x201c && c <= 0x201e);
+}
+
 static bool is_quote(int32_t c)
 {
-    return c == '"' || c == '\'' || (c >= 0x2018 && c <= 0x201e);
+    return single_quote(c) || double_quote(c);
 }
 
 // Skip a quoted value of a `--name=` option, as the parameter token matches it.
 static bool skip_option_quote(TSLexer *lexer)
 {
-    bool single = lexer->lookahead == '\'' ||
-                  (lexer->lookahead >= 0x2018 && lexer->lookahead <= 0x201b);
+    bool single = single_quote(lexer->lookahead);
     lexer->advance(lexer, false);
     for (;;) {
         int32_t c = lexer->lookahead;
         if (c == 0 || c == '\r' || c == '\n') return false;
         lexer->advance(lexer, false);
-        if (single ? (c == '\'' || (c >= 0x2018 && c <= 0x201b))
-                   : (c == '"' || (c >= 0x201c && c <= 0x201e))) return true;
+        if (single ? single_quote(c) : double_quote(c)) return true;
     }
 }
 
@@ -913,7 +922,7 @@ static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *vali
     if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') ||
         (c >= 'A' && c <= 'Z') || c == '_' || c == '?' || c == '-' ||
         c == '.' || c == '\\' || c == '/' || c == '$' || c == '@' ||
-        c == '"' || c == '\'' || c == '`' || (c >= 0x2018 && c <= 0x201e)) {
+        c == '`' || is_quote(c)) {
         lexer->result_symbol = variable ? VARIABLE_COMMAND_NAME_CONTINUATION :
                                          PATH_COMMAND_NAME_CONTINUATION;
         return true;
@@ -1009,11 +1018,6 @@ static bool scan_command_name_subexpression(TSLexer *lexer)
     return true;
 }
 
-static bool double_quote(int32_t c)
-{
-    return c == '"' || (c >= 0x201c && c <= 0x201e);
-}
-
 // The first unit of a quote run in a string: one quote, a doubled pair, or a
 // backtick-escaped quote. A second adjacent unit is an escaped quote.
 static bool scan_quote_unit_content(TSLexer *lexer)
@@ -1056,10 +1060,18 @@ static bool scan_quote_unit_open(TSLexer *lexer)
     return true;
 }
 
+// The order of the checks below matters: a scanner that has advanced the
+// lexer cannot hand over to another one. The order is: string-subexpression
+// end and quote units, the leading BOM, the boundary, escape and continuation
+// tokens, argument boundaries, qualified variables, command words, spaces
+// before a comma, bare dashes and last the zero-width statement terminator.
+// During error recovery every external token is valid (ERROR_SENTINEL too),
+// so most checks are skipped while `recovering`.
 bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     Scanner *scanner = payload;
-    if (!valid_symbols[ERROR_SENTINEL]) {
+    const bool recovering = valid_symbols[ERROR_SENTINEL];
+    if (!recovering) {
         if (valid_symbols[STRING_SUBEXPRESSION_END]) {
             if (scanner->string_subexpression_depth) scanner->string_subexpression_depth--;
             lexer->result_symbol = STRING_SUBEXPRESSION_END;
@@ -1073,18 +1085,18 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     // (and U+2060, U+200B) is an ordinary character. The grammar only accepts
     // this token before the first statement, so a BOM at column 0 there is the
     // file's BOM.
-    if (valid_symbols[LEADING_BOM] && !valid_symbols[ERROR_SENTINEL] &&
+    if (valid_symbols[LEADING_BOM] && !recovering &&
         lexer->lookahead == 0xfeff && lexer->get_column(lexer) == 0) {
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         lexer->result_symbol = LEADING_BOM;
         return true;
     }
-    if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !valid_symbols[ERROR_SENTINEL] &&
+    if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !recovering &&
         (lexer->lookahead == '(' || lexer->lookahead == '{'))
         return scan_command_name_subexpression(lexer);
     // A dot ends a parameter name and starts a command word, not a member.
-    if (!valid_symbols[ERROR_SENTINEL] &&
+    if (!recovering &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
          valid_symbols[PARAMETER_DOT_LITERAL_BOUNDARY]) && lexer->lookahead == '.') {
         lexer->mark_end(lexer);
@@ -1094,12 +1106,12 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = literal ? PARAMETER_DOT_LITERAL_BOUNDARY : PARAMETER_DOT_BOUNDARY;
         return valid_symbols[lexer->result_symbol];
     }
-    if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !valid_symbols[ERROR_SENTINEL] &&
+    if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !recovering &&
         scan_angle_argument_boundary(lexer))
         return true;
-    if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !valid_symbols[ERROR_SENTINEL])
+    if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !recovering)
         return scan_command_array_item_start(lexer, valid_symbols);
-    if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !valid_symbols[ERROR_SENTINEL]) {
+    if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !recovering) {
         while (command_name_space(lexer->lookahead)) {
             if (valid_symbols[STATEMENT_TERMINATOR] &&
                 (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
@@ -1107,14 +1119,14 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         }
     }
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
-        !valid_symbols[ERROR_SENTINEL] && lexer->lookahead == '`')
+        !recovering && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols);
     bool numeric_name = valid_symbols[NUMERIC_COMMAND_NAME];
     // Argument words (including attached quotes) belong to scan_command_word.
     bool numeric_literal = valid_symbols[TRAILING_DOT_REAL_LITERAL] &&
         !valid_symbols[COMMAND_WORD_START] && !valid_symbols[COMMAND_WORD_PART] &&
         !valid_symbols[COMMAND_WORD_EXPRESSION];
-    if ((numeric_name || numeric_literal) && !valid_symbols[ERROR_SENTINEL] &&
+    if ((numeric_name || numeric_literal) && !recovering &&
         (digit(lexer->lookahead) || (numeric_name && lexer->lookahead == '.')))
         return scan_numeric_start(lexer, valid_symbols);
     if (valid_symbols[VARIABLE_COMMAND_NAME_CONTINUATION] && lexer->lookahead == '?')
@@ -1123,7 +1135,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if (valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] && lexer->lookahead == '.')
         return scan_invocation_argument_boundary(lexer, valid_symbols);
     if (scan_invocation_argument_boundary(lexer, valid_symbols)) return true;
-    if (!valid_symbols[ERROR_SENTINEL]) {
+    if (!recovering) {
         if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
         if (valid_symbols[PARAMETER_ARGUMENT_START]) {
             return scan_parameter_argument_start(lexer, valid_symbols);
@@ -1160,7 +1172,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 valid_symbols[COMMAND_WORD_EXPRESSION] ||
                 valid_symbols[VARIABLE_BEFORE_LITERAL_DOT];
     if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING]) &&
-        !valid_symbols[ERROR_SENTINEL] &&
+        !recovering &&
         (valid_symbols[QUALIFIED_VARIABLE_IN_STRING] || !word)) {
         while (!valid_symbols[QUALIFIED_VARIABLE_IN_STRING] &&
                command_array_space(lexer->lookahead)) {
@@ -1175,7 +1187,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             return scan_qualified_variable(scanner, lexer, valid_symbols);
     }
 
-    if (word && valid_symbols[QUOTE_UNIT_OPEN] && !valid_symbols[ERROR_SENTINEL] &&
+    if (word && valid_symbols[QUOTE_UNIT_OPEN] && !recovering &&
         scanner->string_subexpression_depth == 1 && double_quote(lexer->lookahead))
         return scan_quote_unit_open(lexer);
 

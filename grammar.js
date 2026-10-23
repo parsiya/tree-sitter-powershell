@@ -478,7 +478,7 @@ export default grammar({
         reservedWord('-is'),
         reservedWord('-isnot'),
         reservedWord('-isplit'),
-        reservedWord('-join'),
+        alias($._join_operator, '-join'),
         reservedWord('-le'),
         reservedWord('-like'),
         reservedWord('-lt'),
@@ -491,7 +491,7 @@ export default grammar({
         reservedWord('-replace'),
         reservedWord('-shl'),
         reservedWord('-shr'),
-        reservedWord('-split'),
+        alias($._split_operator, '-split'),
       ),
 
     format_operator: ($) => reservedWord('-f'),
@@ -506,21 +506,31 @@ export default grammar({
         '$^',
         '$?',
         '$_',
-        token(
-          seq(
-            '$',
-            optional(seq(VARIABLE_NAME, ':')),
-            choice(VARIABLE_REFERENCE, '?'),
-          ),
-        ),
-        token(
-          seq(
-            '@',
-            optional(seq(VARIABLE_NAME, ':')),
-            choice(VARIABLE_REFERENCE, '?'),
-          ),
-        ),
+        $._dollar_variable,
+        $._splatted_variable,
         $.braced_variable,
+      ),
+
+    // `$name`, `$scope:name`. The two variable tokens are named rules:
+    // inline, Opengrep's simplified grammar would alias them in every variable
+    // production, which adds parser states.
+    _dollar_variable: ($) =>
+      token(
+        seq(
+          '$',
+          optional(seq(VARIABLE_NAME, ':')),
+          choice(VARIABLE_REFERENCE, '?'),
+        ),
+      ),
+
+    // `@name` (splatting), `@scope:name`
+    _splatted_variable: ($) =>
+      token(
+        seq(
+          '@',
+          optional(seq(VARIABLE_NAME, ':')),
+          choice(VARIABLE_REFERENCE, '?'),
+        ),
       ),
 
     braced_variable: ($) => /\$\{[^}]+\}/,
@@ -793,7 +803,7 @@ export default grammar({
             ),
             optional(
               seq(
-                choice(';', token.immediate(/\r\n|\r|\n/)),
+                choice(';', $._for_newline),
                 optional(
                   seq(
                     field('for_condition', $.for_condition),
@@ -802,7 +812,7 @@ export default grammar({
                 ),
                 optional(
                   seq(
-                    choice(';', token.immediate(/\r\n|\r|\n/)),
+                    choice(';', $._for_newline),
                     optional(
                       seq(
                         field('for_iterator', $.for_iterator),
@@ -818,6 +828,11 @@ export default grammar({
         ')',
         $.statement_block,
       ),
+
+    // A newline between for clauses, used like `;`. A named token: inline,
+    // Opengrep's simplified grammar would alias it in each of the many
+    // for_statement productions, which adds about 400 parser states.
+    _for_newline: ($) => token.immediate(/\r\n|\r|\n/),
 
     for_initializer: ($) => $.pipeline,
 
@@ -1083,42 +1098,50 @@ export default grammar({
             `\\.([^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*)?`,
           ),
           $._numeric_command_name,
-          // tree-sitter does not allow to control lexer
-          // each start keyword into _statement rule must be present here
-          // https://github.com/airbus-cert/tree-sitter-powershell/issues/24
-          new RegExp(caseInsensitive('break-')),
-          new RegExp(caseInsensitive('continue-')),
-          new RegExp(caseInsensitive('throw-')),
-          // Adjacent @ and $ continue literal command names, not return statements.
-          new RegExp(caseInsensitive('return') + '[-@]'),
+          $._keyword_dash_command_name,
           seq(
             new RegExp(caseInsensitive('return') + '\\$'),
             optional($._command_name_subexpression),
           ),
-          new RegExp(caseInsensitive('exit-')),
-          new RegExp(caseInsensitive('try-')),
-          new RegExp(caseInsensitive('trap-')),
-          new RegExp(caseInsensitive('if-')),
-          new RegExp(caseInsensitive('function-')),
-          new RegExp(caseInsensitive('filter-')),
-          new RegExp(caseInsensitive('workflow-')),
           // `Classify` is a command: this outranks the lexical precedence of the
           // `class` and `enum` keyword tokens, which would otherwise cut the word short.
           token(prec(2, new RegExp(caseInsensitive('class') + COMMAND_NAME_CONTINUATION + '+'))),
           token(prec(2, new RegExp(caseInsensitive('enum') + COMMAND_NAME_CONTINUATION + '+'))),
-          new RegExp(caseInsensitive('switch-')),
-          new RegExp(caseInsensitive('for-')),
-          new RegExp(caseInsensitive('foreach-')),
-          new RegExp(caseInsensitive('while-')),
-          new RegExp(caseInsensitive('parallel-')),
-          new RegExp(caseInsensitive('using-')),
-          new RegExp(caseInsensitive('begin-')),
-          new RegExp(caseInsensitive('process-')),
-          new RegExp(caseInsensitive('end-')),
-          new RegExp(caseInsensitive('dynamicparam-')),
         ),
         repeat($._command_name_part),
       ),
+
+    // A statement keyword directly followed by `-` starts a command name such
+    // as `if-x`, not a statement. tree-sitter cannot make the lexer skip the
+    // keyword token, so every keyword that starts a statement must be listed
+    // here (https://github.com/airbus-cert/tree-sitter-powershell/issues/24).
+    // One named token: inline, Opengrep's simplified grammar would alias each
+    // alternative in _ordinary_command_name, which adds about 200 parser states.
+    _keyword_dash_command_name: ($) =>
+      token(choice(
+        new RegExp(caseInsensitive('break-')),
+        new RegExp(caseInsensitive('continue-')),
+        new RegExp(caseInsensitive('throw-')),
+        // Adjacent @ and $ continue literal command names, not return statements.
+        new RegExp(caseInsensitive('return') + '[-@]'),
+        new RegExp(caseInsensitive('exit-')),
+        new RegExp(caseInsensitive('try-')),
+        new RegExp(caseInsensitive('trap-')),
+        new RegExp(caseInsensitive('if-')),
+        new RegExp(caseInsensitive('function-')),
+        new RegExp(caseInsensitive('filter-')),
+        new RegExp(caseInsensitive('workflow-')),
+        new RegExp(caseInsensitive('switch-')),
+        new RegExp(caseInsensitive('for-')),
+        new RegExp(caseInsensitive('foreach-')),
+        new RegExp(caseInsensitive('while-')),
+        new RegExp(caseInsensitive('parallel-')),
+        new RegExp(caseInsensitive('using-')),
+        new RegExp(caseInsensitive('begin-')),
+        new RegExp(caseInsensitive('process-')),
+        new RegExp(caseInsensitive('end-')),
+        new RegExp(caseInsensitive('dynamicparam-')),
+      )),
 
     path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,
 
@@ -1369,18 +1392,27 @@ export default grammar({
     // A command comma requests a value; another comma is not unary array syntax.
     _command_unary_operator: ($) =>
       choice(
-        seq(reservedWord('-not'), $.unary_expression),
+        seq(alias($._not_operator, '-not'), $.unary_expression),
         seq('!', $.unary_expression),
-        seq(reservedWord('-bnot'), $.unary_expression),
+        seq(alias($._bnot_operator, '-bnot'), $.unary_expression),
         seq('+', $.unary_expression),
         seq('-', $.unary_expression),
         $.pre_increment_expression,
         $.pre_decrement_expression,
         $.cast_expression,
         $.attributed_expression,
-        seq(reservedWord('-split'), $.unary_expression),
-        seq(reservedWord('-join'), $.unary_expression),
+        seq(alias($._split_operator, '-split'), $.unary_expression),
+        seq(alias($._join_operator, '-join'), $.unary_expression),
       ),
+
+    // Unary keyword operators, also used by comparison_operator (-split, -join)
+    // so that each stays one token. Aliased back to the keyword, so trees are
+    // unchanged. Named rules: inline, Opengrep's simplified grammar would alias
+    // them in every unary production, which adds about 250 parser states.
+    _not_operator: ($) => reserved(caseInsensitive('-not')),
+    _bnot_operator: ($) => reserved(caseInsensitive('-bnot')),
+    _split_operator: ($) => reserved(caseInsensitive('-split')),
+    _join_operator: ($) => reserved(caseInsensitive('-join')),
 
     // A leading quoted string ends an argument even without following spaces.
     // Keep each adjacent argument visible directly under command_elements.
@@ -1422,6 +1454,12 @@ export default grammar({
         ),
       ),
 
+    // Postfix access on a parenthesis argument with no separator before it:
+    // `Fix($a).Trim()`, `Get($x)[0]`. The _paren_* rules repeat member_access,
+    // element_access and invokation_expression, because those accept any
+    // primary expression as the base, while here the base must be a
+    // parenthesized expression or another _paren_* access. A trailing comma
+    // list continues the argument as an array, as after a separator.
     _paren_member_array: ($) =>
       seq(
         alias($._paren_member_value, $.unary_expression),
@@ -1450,10 +1488,8 @@ export default grammar({
         alias($._paren_invokation, $.invokation_expression),
       ),
 
-    _paren_postfix_chain: ($) =>
-      choice($._paren_member_value, $._paren_call_value),
-
-    _paren_chain: ($) => choice($.parenthesized_expression, $._paren_postfix_chain),
+    _paren_chain: ($) =>
+      choice($.parenthesized_expression, $._paren_member_value, $._paren_call_value),
 
     _paren_member_access: ($) =>
       prec.left(
@@ -1606,6 +1642,8 @@ export default grammar({
 
     // A comma separates the parameters, so a default is an expression without
     // comma arrays: the chain below mirrors `_expression` down to its operands.
+    // Its operand is a _command_unary_expression, which has no unary comma
+    // either. Same node names as `_expression` (aliases).
     _class_parameter_default_expression: ($) =>
       choice(
         alias($._class_default_logical, $.logical_expression),
@@ -1731,15 +1769,9 @@ export default grammar({
         ),
       ),
 
-    _class_default_array: ($) => alias($._class_default_unary, $.unary_expression),
-
-    _class_default_unary: ($) =>
-      prec.right(
-        choice(
-          $._primary_expression,
-          alias($._command_unary_operator, $.expression_with_unary_operator),
-        ),
-      ),
+    // Like a command array item, a default has no unary comma: a comma ends it.
+    _class_default_array: ($) =>
+      alias($._command_unary_expression, $.unary_expression),
 
     class_method_parameter_list: ($) =>
       seq($.class_method_parameter, repeat(seq(',', $.class_method_parameter))),
@@ -2102,6 +2134,10 @@ export default grammar({
         seq($.argument_expression, repeat(seq(',', $.argument_expression))),
       ),
 
+    // Method call arguments. A comma separates the arguments, so this copy of
+    // the `_expression` chain has no comma arrays (an operand may still be a
+    // unary `,x`). Unlike the attribute and class-default copies it has its
+    // own visible node names, which the converter maps separately.
     argument_expression: ($) =>
       choice($.logical_argument_expression, $.ternary_argument_expression),
 
@@ -2291,6 +2327,9 @@ export default grammar({
 
     // Attribute commas separate arguments, not array elements. Keep the normal
     // expression node names so existing attribute CSTs remain unchanged.
+    // Unlike `_expression` this copy has no comma arrays and no `??` level,
+    // and a type literal operand stays a value instead of starting a cast
+    // (see _attribute_type_value).
     _attribute_expression: ($) =>
       choice(
         alias($._attribute_logical_expression, $.logical_expression),
