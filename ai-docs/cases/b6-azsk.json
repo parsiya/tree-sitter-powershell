@@ -1,0 +1,188 @@
+[
+ {
+  "name": "paren pipeline en dash join",
+  "source": "$p = (('^' + (($a | foreach {$_}) \u2013join '|') + '$')) -replace 'x',''\r\n"
+ },
+ {
+  "name": "paren en dash join",
+  "source": "($a) \u2013join '|'"
+ },
+ {
+  "name": "var en dash join",
+  "source": "$a \u2013join ','"
+ },
+ {
+  "name": "array en dash join",
+  "source": "1,2 \u2013join ','"
+ },
+ {
+  "name": "en dash eq",
+  "source": "$a \u2013eq 1"
+ },
+ {
+  "name": "en dash ne",
+  "source": "$a \u2013ne 1"
+ },
+ {
+  "name": "en dash like",
+  "source": "$a \u2013like 'x*'"
+ },
+ {
+  "name": "en dash match",
+  "source": "$a \u2013match 'x'"
+ },
+ {
+  "name": "en dash replace",
+  "source": "$a \u2013replace 'x','y'"
+ },
+ {
+  "name": "en dash split",
+  "source": "$a \u2013split ','"
+ },
+ {
+  "name": "en dash and",
+  "source": "$a \u2013and $b"
+ },
+ {
+  "name": "en dash or",
+  "source": "$a \u2013or $b"
+ },
+ {
+  "name": "en dash format",
+  "source": "'{0}' \u2013f $a"
+ },
+ {
+  "name": "en dash contains",
+  "source": "$a \u2013contains 1"
+ },
+ {
+  "name": "en dash in",
+  "source": "1 \u2013in $a"
+ },
+ {
+  "name": "en dash is type",
+  "source": "$a \u2013is [int]"
+ },
+ {
+  "name": "en dash case sensitive",
+  "source": "$a \u2013ceq 1"
+ },
+ {
+  "name": "em dash join",
+  "source": "$a \u2014join ','"
+ },
+ {
+  "name": "horizontal bar join",
+  "source": "$a \u2015join ','"
+ },
+ {
+  "name": "en dash unary join",
+  "source": "\u2013join $a"
+ },
+ {
+  "name": "en dash unary split",
+  "source": "\u2013split $a"
+ },
+ {
+  "name": "en dash not",
+  "source": "\u2013not $a"
+ },
+ {
+  "name": "en dash bnot",
+  "source": "\u2013bnot $a"
+ },
+ {
+  "name": "en dash chained",
+  "source": "$a \u2013join ',' \u2013replace 'x','y'"
+ },
+ {
+  "name": "en dash in condition",
+  "source": "if ($a \u2013eq 1) { $b }"
+ },
+ {
+  "name": "en dash in assignment",
+  "source": "$x = $a \u2013join ','\r\n"
+ },
+ {
+  "name": "ascii join control",
+  "source": "($a | foreach {$_}) -join '|'"
+ },
+ {
+  "name": "en dash after newline continuation",
+  "source": "$a `\r\n  \u2013join ','"
+ },
+ {
+  "name": "en dash no space after paren",
+  "source": "($a)\u2013join ','"
+ },
+ {
+  "name": "en dash operator word needs boundary",
+  "source": "$a \u2013joinx ','",
+  "expect": "invalid"
+ },
+ {
+  "name": "command ascii join argument",
+  "source": "f -join x"
+ },
+ {
+  "name": "ascii unary join statement",
+  "source": "-join $a"
+ },
+ {
+  "name": "ascii unary not statement",
+  "source": "-not $a"
+ },
+ {
+  "name": "en dash unary join assignment",
+  "source": "$x = \u2013join $a"
+ },
+ {
+  "name": "en dash unary not paren",
+  "source": "($x = \u2013not $a)"
+ },
+ {
+  "name": "en dash unary not condition",
+  "source": "if (\u2013not $a) { $b }"
+ },
+ {
+  "name": "en dash word statement",
+  "source": "\u2013foo"
+ },
+ {
+  "name": "command name containing en dash",
+  "source": "Get\u2013Item x"
+ },
+ {
+  "name": "command name ending en dash",
+  "source": "a\u2013 x"
+ },
+ {
+  "name": "en dash lone statement",
+  "source": "\u2013",
+  "expect": "invalid"
+ },
+ {
+  "name": "en dash unary join after word",
+  "source": "f $a \u2013join $b"
+ },
+ {
+  "name": "en dash command parameter",
+  "source": "f \u2013x"
+ },
+ {
+  "name": "em dash command parameter with argument",
+  "source": "f \u2014x y"
+ },
+ {
+  "name": "en dash parameter after argument",
+  "source": "f $a \u2013eq $b"
+ },
+ {
+  "name": "ascii parameter control",
+  "source": "f $a -eq $b"
+ },
+ {
+  "name": "en dash bare after argument",
+  "source": "f $a \u2013"
+ }
+]
