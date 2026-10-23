@@ -1,7 +1,7 @@
 {
  "suite": "cr-statement",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":105,"agree":90,"invalid_rejected":6,"known":6,"fail":3,"unsupported":0,"skipped":0,"known_differences":6},
+ "summary": {"cases":105,"agree":93,"invalid_rejected":6,"known":6,"fail":0,"unsupported":0,"skipped":0,"known_differences":6},
  "cases": {
   "statements-lf": {"status":"agree","differences":[]},
   "comment-lf": {"status":"known","differences":[]},
@@ -104,9 +104,9 @@
   "escaped-cr-word": {"status":"agree","differences":[]},
   "quoted-escaped-cr": {"status":"agree","differences":[]},
   "closing-cr-then-command": {"status":"agree","differences":[]},
-  "trailing-dot-independent": {"status":"fail","differences":["commands extent 0:21 ts 0:45","commands missing 28:45","elements extent 13:20 VariableExpressionAst ts 13:25","elements extra 26:27 generic_token","elements extra 28:40 generic_token","elements extra 41:45 generic_token","elements kind 13:20 VariableExpressionAst ts array_literal_expression>unary_expression>member_access","elements missing 20:21 StringConstantExpressionAst/BareWord","elements missing 28:40 StringConstantExpressionAst/BareWord","elements missing 41:45 StringConstantExpressionAst/BareWord","typed extra member_access 13:25","typed missing AssignmentStatementAst 23:45"]},
-  "reduction: dot after variable argument, CRLF": {"status":"fail","differences":["commands extent 0:42 ts 0:82","commands missing 54:82","elements extent 34:41 VariableExpressionAst ts 34:51","elements extra 52:53 generic_token","elements extra 54:66 generic_token","elements extra 67:74 command_parameter","elements extra 75:82 array_literal_expression>unary_expression>variable","elements kind 34:41 VariableExpressionAst ts array_literal_expression>unary_expression>member_access","elements missing 41:42 StringConstantExpressionAst/BareWord","elements missing 54:66 StringConstantExpressionAst/BareWord","elements missing 67:74 CommandParameterAst","elements missing 75:82 VariableExpressionAst","typed extra member_access 34:51","typed missing AssignmentStatementAst 44:82"]},
-  "reduction: dot after variable argument, LF": {"status":"fail","differences":["commands extent 0:42 ts 0:81","commands missing 53:81","elements extent 34:41 VariableExpressionAst ts 34:50","elements extra 51:52 generic_token","elements extra 53:65 generic_token","elements extra 66:73 command_parameter","elements extra 74:81 array_literal_expression>unary_expression>variable","elements kind 34:41 VariableExpressionAst ts array_literal_expression>unary_expression>member_access","elements missing 41:42 StringConstantExpressionAst/BareWord","elements missing 53:65 StringConstantExpressionAst/BareWord","elements missing 66:73 CommandParameterAst","elements missing 74:81 VariableExpressionAst","typed extra member_access 34:50","typed missing AssignmentStatementAst 43:81"]},
+  "trailing-dot-independent": {"status":"agree","differences":[]},
+  "reduction: dot after variable argument, CRLF": {"status":"agree","differences":[]},
+  "reduction: dot after variable argument, LF": {"status":"agree","differences":[]},
   "reduction: variable argument without dot, CRLF": {"status":"agree","differences":[]}
  }
 }

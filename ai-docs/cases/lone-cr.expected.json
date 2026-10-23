@@ -1,7 +1,7 @@
 {
  "suite": "lone-cr",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":114,"agree":99,"invalid_rejected":13,"known":0,"fail":2,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":114,"agree":101,"invalid_rejected":13,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "body-lf-text": {"status":"agree","differences":[]},
   "body-lf-blank": {"status":"agree","differences":[]},
@@ -78,7 +78,7 @@
   "closing-cr-hash": {"status":"agree","differences":[]},
   "sequential-cr": {"status":"agree","differences":[]},
   "statement-cr": {"status":"agree","differences":[]},
-  "verbatim-cr": {"status":"fail","differences":["commands missing 26:47","elements missing 26:38 StringConstantExpressionAst/BareWord","elements missing 39:47 StringConstantExpressionAst/BareWord","strings missing 9:25 SingleQuotedHereString","typed missing AssignmentStatementAst 0:25","validity native=valid ts=invalid"]},
+  "verbatim-cr": {"status":"agree","differences":[]},
   "overlap-34-8220": {"status":"agree","differences":[]},
   "overlap-34-8221": {"status":"agree","differences":[]},
   "overlap-34-8222": {"status":"agree","differences":[]},
@@ -106,7 +106,7 @@
   "escaped-cr-content-footer": {"status":"agree","differences":[]},
   "escaped-lf-content-footer": {"status":"agree","differences":[]},
   "cr-before-crlf-footer": {"status":"agree","differences":[]},
-  "header-tab-control": {"status":"fail","differences":["commands missing 22:43","elements missing 22:34 StringConstantExpressionAst/BareWord","elements missing 35:43 StringConstantExpressionAst/BareWord","strings missing 9:21 DoubleQuotedHereString","typed missing AssignmentStatementAst 0:21","validity native=valid ts=invalid"]},
+  "header-tab-control": {"status":"agree","differences":[]},
   "ascii-before-smart": {"status":"invalid-rejected","differences":[]},
   "empty-sequence": {"status":"agree","differences":[]},
   "blank-sequence": {"status":"agree","differences":[]},

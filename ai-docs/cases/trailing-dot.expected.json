@@ -1,7 +1,7 @@
 {
  "suite": "trailing-dot",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":99,"agree":60,"invalid_rejected":29,"known":0,"fail":10,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":99,"agree":61,"invalid_rejected":29,"known":0,"fail":9,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "classification: System.Security.": {"status":"agree","differences":[]},
   "classification: Example.": {"status":"agree","differences":[]},
@@ -23,7 +23,7 @@
   "classification: Example . Namespace.": {"status":"invalid-rejected","differences":[]},
   "classification: Example. .": {"status":"invalid-rejected","differences":[]},
   "classification: Example. .Namespace": {"status":"invalid-rejected","differences":[]},
-  "classification: Example`.": {"status":"fail","differences":["validity native=valid ts=invalid"]},
+  "classification: Example`.": {"status":"agree","differences":[]},
   "classification: Example+Nested.": {"status":"fail","differences":["validity native=valid ts=invalid"]},
   "classification: Example.+Nested": {"status":"fail","differences":["typed missing AssignmentStatementAst 0:25","validity native=valid ts=invalid"]},
   "classification: Example.+Nested.": {"status":"fail","differences":["typed missing AssignmentStatementAst 0:26","validity native=valid ts=invalid"]},

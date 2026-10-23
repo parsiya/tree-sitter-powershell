@@ -1,7 +1,7 @@
 {
  "suite": "remaining-native",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":27,"agree":23,"invalid_rejected":2,"known":1,"fail":1,"unsupported":0,"skipped":0,"known_differences":1},
+ "summary": {"cases":27,"agree":24,"invalid_rejected":2,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
  "cases": {
   "jagged parameter": {"status":"agree","differences":[]},
   "jagged class parameter": {"status":"agree","differences":[]},
@@ -27,7 +27,7 @@
   "smart quote command argument": {"status":"agree","differences":[]},
   "CR command boundary": {"status":"agree","differences":[]},
   "escaped spaces before comment in comma list": {"status":"agree","differences":[]},
-  "escaped space after parenthesized argument": {"status":"fail","differences":["commands extent 0:31 ts 0:45"]},
+  "escaped space after parenthesized argument": {"status":"agree","differences":[]},
   "invalid jagged type control": {"status":"invalid-rejected","differences":[]},
   "invalid param control": {"status":"invalid-rejected","differences":[]}
  }
