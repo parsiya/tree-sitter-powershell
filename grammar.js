@@ -122,6 +122,14 @@ export default grammar({
     // to a here-string, so that the scanner can track its subexpressions.
     $._expandable_string_ahead,
     $._command_name_dollar,
+    // `inlinescript` whose script block follows, possibly after newlines. Only
+    // produced in a workflow body, where Native makes it a keyword (see scanner.c).
+    $._inlinescript_name,
+    // Never produced as text. They mark the start of a function or workflow
+    // body, and the end of any, so that the scanner knows the context.
+    $._function_context_plain,
+    $._function_context_workflow,
+    $._function_context_end,
   ],
 
   extras: ($) => [
@@ -888,15 +896,18 @@ export default grammar({
     function_statement: ($) =>
       seq(
         choice(
-          reservedWord('function'),
-          reservedWord('filter'),
-          reservedWord('workflow'),
+          seq(
+            choice(reservedWord('function'), reservedWord('filter')),
+            $._function_context_plain,
+          ),
+          seq(reservedWord('workflow'), $._function_context_workflow),
         ),
         $.function_name,
         optional($.function_parameter_declaration),
         '{',
         optional($.script_block),
         '}',
+        $._function_context_end,
       ),
 
     function_name: ($) => $._command_token,
@@ -1037,8 +1048,29 @@ export default grammar({
               alias($._adjacent_invocation_arguments, $.command_elements),
             ))),
           ),
+          seq(
+            field('command_name', alias($._inlinescript_name, $.command_name)),
+            field('command_elements', alias($._inlinescript_elements, $.command_elements)),
+          ),
         ),
       ),
+
+    // The script block comes first, as the scanner has checked; parameters
+    // follow. Same tree as the block of an ordinary command, but it may
+    // start on a later line.
+    _inlinescript_elements: ($) =>
+      prec.right(
+        seq(
+          optional($.command_argument_sep),
+          alias($._inlinescript_block_argument, $.array_literal_expression),
+          repeat($._command_element),
+        ),
+      ),
+
+    _inlinescript_block_argument: ($) =>
+      alias($._inlinescript_block_value, $.unary_expression),
+
+    _inlinescript_block_value: ($) => $.script_block_expression,
 
     command_invokation_operator: ($) => choice('.', '&'),
 

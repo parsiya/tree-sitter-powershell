@@ -277,9 +277,14 @@ Invoke-Command {
 ---
 
 (program
-  (ERROR
-    (command_name)
-    (command_argument_sep)))
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)))))
+    (ERROR)))
 
 ==================
 Scriptblock argument still requires an opening brace

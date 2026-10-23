@@ -46,13 +46,22 @@ enum TOKEN_TYPE {
     QUOTE_UNIT_CLOSE,
     QUOTE_UNIT_ESCAPE,
     EXPANDABLE_STRING_AHEAD,
-    COMMAND_NAME_DOLLAR
+    COMMAND_NAME_DOLLAR,
+    INLINESCRIPT_NAME,
+    FUNCTION_CONTEXT_PLAIN,
+    FUNCTION_CONTEXT_WORKFLOW,
+    FUNCTION_CONTEXT_END
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
 // string as one quote, so the scanner counts the open string subexpressions.
+// Native reads `inlinescript` as a keyword only in a workflow body; a nested
+// function ends that context. Bit N of workflow_bits says whether the function
+// at depth N + 1 is a workflow; levels beyond 64 share the last bit.
 typedef struct {
     unsigned char string_subexpression_depth;
+    unsigned char function_depth;
+    unsigned long long workflow_bits;
 } Scanner;
 
 /* --- API --- */
@@ -942,6 +951,72 @@ static bool scan_parameter_argument_start(TSLexer *lexer, const bool *valid_symb
     }
 }
 
+static void push_function_context(Scanner *scanner, bool workflow)
+{
+    unsigned depth = scanner->function_depth;
+    if (depth < 64) {
+        unsigned long long bit = 1ULL << depth;
+        scanner->workflow_bits = workflow ? (scanner->workflow_bits | bit)
+                                          : (scanner->workflow_bits & ~bit);
+    }
+    if (depth < 255) scanner->function_depth++;
+}
+
+static bool in_workflow(const Scanner *scanner)
+{
+    unsigned depth = scanner->function_depth;
+    if (!depth) return false;
+    if (depth > 64) depth = 64;
+    return (scanner->workflow_bits >> (depth - 1)) & 1;
+}
+
+static bool word_char_ci(TSLexer *lexer, const char *word)
+{
+    for (; *word; word++) {
+        int32_t c = lexer->lookahead;
+        if (c != *word && c != *word - 'a' + 'A') return false;
+        lexer->advance(lexer, false);
+    }
+    return true;
+}
+
+// `inlinescript` followed, after any newlines and comments, by `{`. The
+// caller has skipped the whitespace before the word; the token is the word.
+static bool scan_inlinescript_name(TSLexer *lexer)
+{
+    if (!word_char_ci(lexer, "inlinescript")) return false;
+    if (lexer->lookahead != '{' && !command_array_space(lexer->lookahead)) return false;
+    lexer->mark_end(lexer);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (command_array_space(c)) {
+            lexer->advance(lexer, false);
+        } else if (c == '#') {
+            while (lexer->lookahead && !line_end(lexer->lookahead)) lexer->advance(lexer, false);
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead != '#') return false;
+            lexer->advance(lexer, false);
+            for (;;) {
+                if (!lexer->lookahead) return false;
+                if (lexer->lookahead == '#') {
+                    lexer->advance(lexer, false);
+                    if (lexer->lookahead == '>') {
+                        lexer->advance(lexer, false);
+                        break;
+                    }
+                } else {
+                    lexer->advance(lexer, false);
+                }
+            }
+        } else {
+            if (c != '{') return false;
+            lexer->result_symbol = INLINESCRIPT_NAME;
+            return true;
+        }
+    }
+}
+
 /* --- API Implementation --- */
 
 static int hex_digit(int32_t c)
@@ -1173,6 +1248,18 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     Scanner *scanner = payload;
     const bool recovering = valid_symbols[ERROR_SENTINEL];
     if (!recovering) {
+        // Empty tokens: only one of them is valid in any parser state.
+        if (valid_symbols[FUNCTION_CONTEXT_PLAIN] || valid_symbols[FUNCTION_CONTEXT_WORKFLOW]) {
+            push_function_context(scanner, valid_symbols[FUNCTION_CONTEXT_WORKFLOW]);
+            lexer->result_symbol = valid_symbols[FUNCTION_CONTEXT_WORKFLOW]
+                ? FUNCTION_CONTEXT_WORKFLOW : FUNCTION_CONTEXT_PLAIN;
+            return true;
+        }
+        if (valid_symbols[FUNCTION_CONTEXT_END]) {
+            if (scanner->function_depth) scanner->function_depth--;
+            lexer->result_symbol = FUNCTION_CONTEXT_END;
+            return true;
+        }
         if (valid_symbols[STRING_SUBEXPRESSION_END]) {
             if (scanner->string_subexpression_depth) scanner->string_subexpression_depth--;
             lexer->result_symbol = STRING_SUBEXPRESSION_END;
@@ -1219,6 +1306,10 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             skip(lexer);
         }
     }
+    // A failed match has consumed characters, so no other token is tried.
+    if (valid_symbols[INLINESCRIPT_NAME] && !recovering && in_workflow(scanner) &&
+        (lexer->lookahead == 'i' || lexer->lookahead == 'I'))
+        return scan_inlinescript_name(lexer);
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
         !recovering && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols,
@@ -1338,13 +1429,22 @@ void tree_sitter_powershell_external_scanner_destroy(void *p)
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer)
 {
     Scanner *scanner = payload;
-    if (!scanner->string_subexpression_depth) return 0;
     buffer[0] = (char)scanner->string_subexpression_depth;
-    return 1;
+    buffer[1] = (char)scanner->function_depth;
+    for (unsigned i = 0; i < 8; i++)
+        buffer[2 + i] = (char)(scanner->workflow_bits >> (8 * i));
+    return 10;
 }
 
 void tree_sitter_powershell_external_scanner_deserialize(void *payload, const char *buffer, unsigned length)
 {
     Scanner *scanner = payload;
-    scanner->string_subexpression_depth = length ? (unsigned char)buffer[0] : 0;
+    scanner->string_subexpression_depth = 0;
+    scanner->function_depth = 0;
+    scanner->workflow_bits = 0;
+    if (length < 10) return;
+    scanner->string_subexpression_depth = (unsigned char)buffer[0];
+    scanner->function_depth = (unsigned char)buffer[1];
+    for (unsigned i = 0; i < 8; i++)
+        scanner->workflow_bits |= (unsigned long long)(unsigned char)buffer[2 + i] << (8 * i);
 }
