@@ -1,0 +1,33 @@
+==================
+Assigned try retains catch and finally across newlines
+==================
+
+$value = try {}
+catch {}
+finally {}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (try_statement
+          (statement_block)
+          (catch_clauses
+            (catch_clause
+              (statement_block)))
+          (finally_clause
+            (statement_block)))))))

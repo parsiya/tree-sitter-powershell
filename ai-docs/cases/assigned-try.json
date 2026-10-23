@@ -1,0 +1,19 @@
+[
+  {"name": "same line catch", "source": "$value = try { $item.Value } catch { throw 'missing' }\n"},
+  {"name": "LF catch", "source": "$value = try {\n$item.Value\n}\ncatch {\nthrow 'missing'\n}\n"},
+  {"name": "CRLF catch", "source": "$value = try {\r\n$item.Value\r\n}\r\ncatch {\r\nthrow 'missing'\r\n}\r\n"},
+  {"name": "CR catch", "source": "$value = try {\r$item.Value\r}\rcatch {\rthrow 'missing'\r}\r"},
+  {"name": "blank line before catch", "source": "$value = try { $item.Value }\n\ncatch { throw 'missing' }\n"},
+  {"name": "line comment before catch", "source": "$value = try { $item.Value }\n# note\ncatch { throw 'missing' }\n"},
+  {"name": "block comment before catch", "source": "$value = try { $item.Value }\n<# note #>\ncatch { throw 'missing' }\n"},
+  {"name": "typed catch", "source": "$value = try { Get-Thing }\ncatch [System.Exception] { Write-Output missing }\n"},
+  {"name": "multiple catches", "source": "$value = try { Get-Thing }\ncatch [System.ArgumentException] { Write-Output bad }\ncatch { Write-Output missing }\n"},
+  {"name": "finally only", "source": "$value = try { Get-Thing }\nfinally { Write-Output done }\n"},
+  {"name": "catch and finally", "source": "$value = try { Get-Thing }\ncatch { Write-Output missing }\nfinally { Write-Output done }\n"},
+  {"name": "nested assignment", "source": "$outer = $inner = try { Get-Thing }\ncatch { Write-Output missing }\n"},
+  {"name": "hashtable value", "source": "$map = @{ Key = try { Get-Thing }\ncatch { Write-Output missing }\n}\n"},
+  {"name": "standalone try", "source": "try { Get-Thing }\ncatch { Write-Output missing }\n"},
+  {"name": "assigned if unaffected", "source": "$value = if ($true) { Get-Thing }\nelse { Write-Output missing }\n"},
+  {"name": "independent command", "source": "$value = try { Get-Thing }\ncatch { Write-Output missing }\nWrite-Output next\n"},
+  {"name": "missing catch block", "source": "$value = try { Get-Thing }\ncatch\n", "expect": "invalid"}
+]

@@ -1,0 +1,24 @@
+{
+ "suite": "assigned-try",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":17,"agree":16,"invalid_rejected":1,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "same line catch": {"status":"agree","differences":[]},
+  "LF catch": {"status":"agree","differences":[]},
+  "CRLF catch": {"status":"agree","differences":[]},
+  "CR catch": {"status":"agree","differences":[]},
+  "blank line before catch": {"status":"agree","differences":[]},
+  "line comment before catch": {"status":"agree","differences":[]},
+  "block comment before catch": {"status":"agree","differences":[]},
+  "typed catch": {"status":"agree","differences":[]},
+  "multiple catches": {"status":"agree","differences":[]},
+  "finally only": {"status":"agree","differences":[]},
+  "catch and finally": {"status":"agree","differences":[]},
+  "nested assignment": {"status":"agree","differences":[]},
+  "hashtable value": {"status":"agree","differences":[]},
+  "standalone try": {"status":"agree","differences":[]},
+  "assigned if unaffected": {"status":"agree","differences":[]},
+  "independent command": {"status":"agree","differences":[]},
+  "missing catch block": {"status":"invalid-rejected","differences":[]}
+ }
+}
