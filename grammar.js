@@ -113,6 +113,7 @@ export default grammar({
     // Never produced. It marks the content of an expandable string, as opposed
     // to a here-string, so that the scanner can track its subexpressions.
     $._expandable_string_ahead,
+    $._command_name_dollar,
   ],
 
   extras: ($) => [
@@ -1092,6 +1093,7 @@ export default grammar({
         choice(
           // At a token boundary escaped whitespace is trivia, not a name.
           $._command_name_start_escape,
+          $._command_name_dollar,
           new RegExp(`[^${COMMAND_NAME_STOP}0-9.][^${COMMAND_NAME_STOP}]*`),
           // Dot-prefixed names remain commands unless a number starts the word.
           new RegExp(

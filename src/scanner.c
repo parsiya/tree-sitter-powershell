@@ -45,7 +45,8 @@ enum TOKEN_TYPE {
     QUOTE_UNIT_OPEN,
     QUOTE_UNIT_CLOSE,
     QUOTE_UNIT_ESCAPE,
-    EXPANDABLE_STRING_AHEAD
+    EXPANDABLE_STRING_AHEAD,
+    COMMAND_NAME_DOLLAR
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -235,6 +236,33 @@ static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
     return colons;
 }
 
+// Opengrep's `$...NAME` metavariable is a variable, not a word.
+static bool named_ellipsis_follows(TSLexer *lexer)
+{
+    for (int dots = 0; dots < 3; dots++) {
+        if (lexer->lookahead != '.') return false;
+        lexer->advance(lexer, false);
+    }
+    return (lexer->lookahead >= 'A' && lexer->lookahead <= 'Z') || lexer->lookahead == '_';
+}
+
+// A command name may begin with a `$` that no variable name follows; the rest
+// of the word comes from the immediate name parts. The `$` was just consumed.
+static bool scan_command_name_dollar(TSLexer *lexer)
+{
+    lexer->mark_end(lexer);
+    int32_t c = lexer->lookahead;
+    if (variable_char(c) || c == '$' || c == '^' || c == '{' || c == '(' || c == ':' ||
+        c == '`' || is_quote(c) || (c == '.' && named_ellipsis_follows(lexer))) return false;
+    // A dash or `>` run would otherwise lex as an operator, not as the name's tail.
+    while (lexer->lookahead == '-' || lexer->lookahead == '>') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+    }
+    lexer->result_symbol = COMMAND_NAME_DOLLAR;
+    return true;
+}
+
 static bool scan_qualified_variable(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols)
 {
     bool in_string = valid_symbols[QUALIFIED_VARIABLE_IN_STRING];
@@ -251,6 +279,8 @@ static bool scan_qualified_variable(Scanner *scanner, TSLexer *lexer, const bool
         lexer->result_symbol = STRING_SUBEXPRESSION_START;
         return true;
     }
+    if (!in_string && sigil_dollar && valid_symbols[COMMAND_NAME_DOLLAR] &&
+        scan_command_name_dollar(lexer)) return true;
     bool static_access = false;
     if (scan_variable_path(lexer, &static_access) < 2) return false;
     lexer->result_symbol = in_string ? QUALIFIED_VARIABLE_IN_STRING : QUALIFIED_VARIABLE;
@@ -446,7 +476,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
                          lexer->lookahead == '^';
         bool static_access = false;
         bool valid_name;
+        int32_t name_start = lexer->lookahead;
         unsigned colons = scan_variable_name(lexer, &static_access, &valid_name);
+        // A `$` that no variable name follows is an ordinary word character.
+        bool bare_dollar = !splat && !at_expansion && !valid_name &&
+                           name_start != '{' && name_start != ':';
+        if (bare_dollar && name_start == '.' && named_ellipsis_follows(lexer)) return false;
         // In command mode `$name.` is a variable followed by a literal word,
         // not member access across the whitespace after the dot.
         if (!at_expansion && valid_name && !automatic && lexer->lookahead == '.' &&
@@ -460,7 +495,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
-        if (!at_expansion && (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
+        if (!at_expansion && !bare_dollar &&
+            (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
             lexer->lookahead == '[' || lexer->lookahead == '>' ||
             (static_access && colons >= 2))) {
             if (colons >= 2 && valid_symbols[QUALIFIED_VARIABLE]) {
@@ -470,6 +506,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             return false;
         }
         joined = consumed = true;
+        if (bare_dollar) lexer->mark_end(lexer);
     }
 
     unsigned dashes = 0;
@@ -1196,7 +1233,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     bool word = valid_symbols[COMMAND_WORD_START] || valid_symbols[COMMAND_WORD_PART] ||
                 valid_symbols[COMMAND_WORD_EXPRESSION] ||
                 valid_symbols[VARIABLE_BEFORE_LITERAL_DOT];
-    if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING]) &&
+    if ((valid_symbols[QUALIFIED_VARIABLE] || valid_symbols[QUALIFIED_VARIABLE_IN_STRING] ||
+         valid_symbols[COMMAND_NAME_DOLLAR]) &&
         !recovering &&
         (valid_symbols[QUALIFIED_VARIABLE_IN_STRING] || !word)) {
         while (!valid_symbols[QUALIFIED_VARIABLE_IN_STRING] &&

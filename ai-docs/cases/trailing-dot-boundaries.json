@@ -176,21 +176,7 @@
   },
   {
     "name": "literal dollar dot is not a variable prefix",
-    "source": "Write-Output $.\n$value = Test-Thing",
-    "known": [
-      {
-        "difference": "validity native=valid ts=invalid",
-        "reason": "Inherited bare-dollar word rejection, reproduced with the clean a60d19d ABI14 parser; a literal dollar is not a variable prefix."
-      },
-      {
-        "difference": "commands extent 0:15 ts 0:13",
-        "reason": "Inherited consequence of rejecting the bare-dollar word, unchanged from clean a60d19d."
-      },
-      {
-        "difference": "elements missing 13:15 StringConstantExpressionAst/BareWord",
-        "reason": "Inherited bare-dollar word rejection, unchanged from clean a60d19d."
-      }
-    ]
+    "source": "Write-Output $.\n$value = Test-Thing"
   },
   {
     "name": "dot is not literal when escaped member follows",

@@ -1,7 +1,7 @@
 {
  "suite": "trailing-dot-boundaries",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":46,"agree":34,"invalid_rejected":9,"known":3,"fail":0,"unsupported":0,"skipped":0,"known_differences":5},
+ "summary": {"cases":46,"agree":35,"invalid_rejected":9,"known":2,"fail":0,"unsupported":0,"skipped":0,"known_differences":2},
  "cases": {
   "trailing dot before assignment": {"status":"agree","differences":[]},
   "trailing dot before command": {"status":"agree","differences":[]},
@@ -42,7 +42,7 @@
   "trailing double dot": {"status":"agree","differences":[]},
   "empty braced variable invalid": {"status":"invalid-rejected","differences":[]},
   "unclosed braced variable invalid": {"status":"invalid-rejected","differences":[]},
-  "literal dollar dot is not a variable prefix": {"status":"known","differences":[]},
+  "literal dollar dot is not a variable prefix": {"status":"agree","differences":[]},
   "dot is not literal when escaped member follows": {"status":"invalid-rejected","differences":[]},
   "indented assignment after dot": {"status":"agree","differences":[]},
   "dot before tab separator": {"status":"agree","differences":[]},
