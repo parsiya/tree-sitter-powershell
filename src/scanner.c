@@ -130,16 +130,34 @@ static bool is_quote(int32_t c)
     return single_quote(c) || double_quote(c);
 }
 
+enum option_quote { OPTION_QUOTE_BAD, OPTION_QUOTE_PLAIN, OPTION_QUOTE_EXPANDABLE };
+
+static bool variable_char(int32_t c);
+
 // Skip a quoted value of a `--name=` option, as the parameter token matches it.
-static bool skip_option_quote(TSLexer *lexer)
+// A double-quoted value with a variable or subexpression is reported early, with
+// the lexer inside the string, so that the caller can end the word before it.
+static enum option_quote skip_option_quote(TSLexer *lexer)
 {
-    bool single = single_quote(lexer->lookahead);
+    bool single = lexer->lookahead == '\'' ||
+                  (lexer->lookahead >= 0x2018 && lexer->lookahead <= 0x201b);
     lexer->advance(lexer, false);
     for (;;) {
         int32_t c = lexer->lookahead;
-        if (c == 0 || c == '\r' || c == '\n') return false;
+        if (c == 0 || c == '\r' || c == '\n') return OPTION_QUOTE_BAD;
         lexer->advance(lexer, false);
-        if (single ? single_quote(c) : double_quote(c)) return true;
+        if (single ? (c == '\'' || (c >= 0x2018 && c <= 0x201b))
+                   : (c == '"' || (c >= 0x201c && c <= 0x201e))) return OPTION_QUOTE_PLAIN;
+        if (single) continue;
+        if (c == '`') {
+            if (lexer->lookahead == 0 || lexer->lookahead == '\r' ||
+                lexer->lookahead == '\n') return OPTION_QUOTE_BAD;
+            lexer->advance(lexer, false);
+        } else if (c == '$') {
+            int32_t d = lexer->lookahead;
+            if (d == '(' || d == '{' || d == '$' || d == '^' || variable_char(d))
+                return OPTION_QUOTE_EXPANDABLE;
+        }
     }
 }
 
@@ -495,7 +513,14 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         if (is_quote(c)) {
             // A quoted `--name="value"` stays a parameter unless `$(` follows.
             if (option_separator) {
-                if (!skip_option_quote(lexer)) return false;
+                enum option_quote kind = skip_option_quote(lexer);
+                if (kind == OPTION_QUOTE_BAD) return false;
+                if (kind == OPTION_QUOTE_EXPANDABLE) {
+                    lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
+                    return true;
+                }
+                // `-a="x"` stays a parameter; only `--a="x"` continues as a word.
+                if (!option_word) return false;
                 consumed = true;
                 lexer->mark_end(lexer);
                 continue;
@@ -506,7 +531,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         // Keep the existing parameter representation for -Name:value and
         // --option=value; only an attached quote makes -o"value" a word.
         if (parameter && (c == ':' || c == '=')) {
-            if (!option_word) return false;
+            if (!option_word && c == ':') return false;
             option_separator = true;
         }
         if (c == '$') {
