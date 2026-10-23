@@ -382,7 +382,10 @@ For every batch, full scans every readable PowerShell file from the corpus
 inventory with the committed rules in
 [tools/smoke/rules.yaml](tools/smoke/rules.yaml) (`Write-Host`,
 `Write-Verbose`, `Register-ArgumentCompleter`), using `opengrep scan --json
---no-git-ignore --max-target-bytes 0 --no-exclude-minified-files --no-strict`.
+--no-git-ignore --max-target-bytes 0 --no-exclude-minified-files --no-strict
+--timeout 30 --max-memory 4096`. The explicit per-file budget lets whole
+multi-MB files (such as the 4 MB AWS completers) finish; the corpus layer keeps
+its own fixed 1000 MiB parse-statistics budget and reports them as `exception`.
 `smoke/verify-smoke.mjs` then checks:
 
 - exit code 0 and every target scanned;

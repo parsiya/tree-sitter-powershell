@@ -172,8 +172,10 @@ function compare(ts, native) {
     if (problems.length < maxProblemsPerFile) problems.push({ kind, offset, detail, needsPath });
   };
   if (native.st !== 'ok') return { category: `native_${native.st}`, problems };
-  // These depend on installed modules and types, not on syntax.
-  const environmental = new Set(['TypeNotFound', 'ModuleNotFoundDuringParse', 'ErrorLoadingAssembly']);
+  // These depend on installed modules and types, not on syntax. The last two are
+  // Windows PowerShell 5.1 workflow syntax, which pwsh 7 still parses into a whole AST.
+  const environmental = new Set(['TypeNotFound', 'ModuleNotFoundDuringParse', 'ErrorLoadingAssembly',
+    'WorkflowNotSupportedInPowerShellCore', 'KeywordParameterReservedForFutureUse']);
   const syntaxErrors = native.err.filter(e => !environmental.has(e.id));
   if (syntaxErrors.length) return { category: 'native_invalid', detail: syntaxErrors[0].id, problems };
   if (ts.st === 'timeout') return { category: 'ts_timeout', problems };

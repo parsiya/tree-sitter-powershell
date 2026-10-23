@@ -545,6 +545,9 @@ export function compareFindingSets(before, now, reviews = [], sourceHashes = new
   };
 }
 
+const SMOKE_TIMEOUT_S = 30;
+const SMOKE_MAX_MEMORY_MIB = 4096;
+
 async function smokeStage(run, { sh }) {
   const details = {};
   const parts = [];
@@ -558,8 +561,11 @@ async function smokeStage(run, { sh }) {
     fs.writeFileSync(path.join(out, 'targets.nul'), Buffer.concat(readJsonl(inventory).map(row => Buffer.concat([
       Buffer.from(`${batchDir}/`), row.path_bytes_base64 ? Buffer.from(row.path_bytes_base64, 'base64') : Buffer.from(row.path),
       Buffer.from([0])]))));
+    // Whole multi-MB files (e.g. the 4 MB AWS completers) need more than the
+    // default per-file timeout and memory; inputs are never split or skipped.
     await sh(`set +e\ntimeout --signal=TERM --kill-after=5s 10m xargs -0 -s 1800000 ./bin/opengrep scan --config ${q(SMOKE_RULES)} ` +
       `--json --no-git-ignore --max-target-bytes 0 --no-exclude-minified-files --no-strict ` +
+      `--timeout ${SMOKE_TIMEOUT_S} --max-memory ${SMOKE_MAX_MEMORY_MIB} ` +
       `< ${q(`${out}/targets.nul`)} > ${q(`${out}/results.json`)} 2> ${q(`${out}/scan.stderr`)}\ncode=$?\nset -e\n` +
       `printf '%s\\n' "$code" > ${q(`${out}/exit-code.txt`)}\ntest "$code" -eq 0`);
     await sh(`node smoke/verify-smoke.mjs ${q(out)} ${q(batchDir)} ${q(inventory)} ${q(SMOKE_RULES)} > ${q(`${out}/verification.stdout`)}`,

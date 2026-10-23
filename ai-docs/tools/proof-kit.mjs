@@ -96,7 +96,9 @@
 // Fact families (Native is the reference for every extent):
 //   validity  Native syntax errors (TypeNotFound, ModuleNotFoundDuringParse and
 //             ErrorLoadingAssembly depend on the environment and are only listed, as in
-//             the grammar harness) versus ERROR/MISSING nodes (root has_error). Always
+//             the grammar harness; so are WorkflowNotSupportedInPowerShellCore and
+//             KeywordParameterReservedForFutureUse, Windows PowerShell 5.1 workflow
+//             syntax that pwsh 7 still parses into a complete AST) versus ERROR/MISSING nodes (root has_error). Always
 //             compared; for a Native-invalid case nothing else is compared, because
 //             Native's partial AST is not a reference.
 //   commands  every CommandAst versus every `command`, paired by start: exact extent,
@@ -197,7 +199,9 @@ const KNOWN_PATTERNS = {
 };
 // Every suite run (--suites) accepts this pattern; expectation files record it.
 const SUITE_PATTERN = 'trailing-trivia';
-const ENVIRONMENTAL = new Set(['TypeNotFound', 'ModuleNotFoundDuringParse', 'ErrorLoadingAssembly']);
+const ENVIRONMENTAL = new Set(['TypeNotFound', 'ModuleNotFoundDuringParse', 'ErrorLoadingAssembly',
+  // Windows PowerShell 5.1 workflows: pwsh 7 rejects them but still builds the whole AST.
+  'WorkflowNotSupportedInPowerShellCore', 'KeywordParameterReservedForFutureUse']);
 const NATIVE_VERSION = PWSH_VERSION;
 const WORK = KIT;
 
