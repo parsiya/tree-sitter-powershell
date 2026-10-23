@@ -688,7 +688,6 @@ export default grammar({
           $.trap_statement,
           $.try_statement,
           $.data_statement,
-          $.inlinescript_statement,
           $.parallel_statement,
           $.sequence_statement,
           seq(alias($._pipeline_chains, $.pipeline), $._statement_terminator),
@@ -800,7 +799,19 @@ export default grammar({
         $.statement_block,
       ),
 
-    foreach_parameter: ($) => choice(reservedWord('-parallel')),
+    // `-throttlelimit` is only valid next to `-parallel`, in either order.
+    foreach_parameter: ($) =>
+      seq(
+        repeat($.foreach_throttle_limit),
+        reservedWord('-parallel'),
+        repeat(choice(reservedWord('-parallel'), $.foreach_throttle_limit)),
+      ),
+
+    foreach_throttle_limit: ($) =>
+      seq(
+        reservedWord('-throttlelimit'),
+        choice($._command_token, $._primary_expression),
+      ),
 
     for_statement: ($) =>
       seq(
@@ -952,9 +963,6 @@ export default grammar({
       seq($.data_command, repeat(seq(',', $.data_command))),
 
     data_command: ($) => $.command_name_expr,
-
-    inlinescript_statement: ($) =>
-      seq(reservedWord('inlinescript'), $.statement_block),
 
     parallel_statement: ($) => seq(reservedWord('parallel'), $.statement_block),
 

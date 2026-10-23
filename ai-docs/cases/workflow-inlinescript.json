@@ -1,0 +1,186 @@
+[
+ {
+  "name": "inlinescript command in script",
+  "source": "InlineScript { Get-Date }"
+ },
+ {
+  "name": "inlinescript lowercase",
+  "source": "inlinescript { 1 }"
+ },
+ {
+  "name": "inlinescript multi-line block",
+  "source": "InlineScript {\n  $x = 1\n  Get-Thing $x\n}\n"
+ },
+ {
+  "name": "inlinescript in workflow",
+  "source": "workflow W { InlineScript { Get-Date } }"
+ },
+ {
+  "name": "inlinescript with using and params",
+  "source": "workflow W { param($a) InlineScript { $using:a } -PSComputerName $c }"
+ },
+ {
+  "name": "inlinescript with parameter first in script",
+  "source": "InlineScript -PSComputerName $c { 1 }"
+ },
+ {
+  "name": "inlinescript assigned",
+  "source": "workflow W { $r = InlineScript { 1 } }"
+ },
+ {
+  "name": "inlinescript piped",
+  "source": "workflow W { InlineScript { 1 } | Out-Null }"
+ },
+ {
+  "name": "inlinescript nested",
+  "source": "workflow W { InlineScript { InlineScript { 1 } } }"
+ },
+ {
+  "name": "inlinescript no block",
+  "source": "InlineScript"
+ },
+ {
+  "name": "inlinescript prefix word",
+  "source": "Inlinescriptx 1"
+ },
+ {
+  "name": "inlinescript dash word",
+  "source": "InlineScript-Thing 1"
+ },
+ {
+  "name": "workflow with param",
+  "source": "workflow W { param($a) Get-Thing $a }"
+ },
+ {
+  "name": "workflow with parameter list",
+  "source": "workflow W ($a, $b) { Get-Thing $a $b }"
+ },
+ {
+  "name": "workflow cmdletbinding",
+  "source": "workflow W { [CmdletBinding()] param([string]$a) Get-Thing $a }"
+ },
+ {
+  "name": "workflow parallel block",
+  "source": "workflow W { parallel { a; b } }"
+ },
+ {
+  "name": "workflow sequence nested",
+  "source": "workflow W { parallel { sequence { a; b } sequence { c } } }"
+ },
+ {
+  "name": "workflow nested sequence",
+  "source": "workflow W { sequence { sequence { a } } }"
+ },
+ {
+  "name": "workflow foreach parallel",
+  "source": "workflow W { foreach -parallel ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach parallel throttle number",
+  "source": "workflow W { foreach -parallel -throttlelimit 5 ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach throttle before parallel",
+  "source": "workflow W { foreach -throttlelimit 5 -parallel ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach throttle variable",
+  "source": "workflow W { foreach -parallel -throttlelimit $n ($x in $y) { a } }",
+  "known": [
+   {
+    "difference": "typed extra variable 46:48",
+    "reason": "Native's ForEachStatementAst does not visit ThrottleLimit as a child, so Native reports no fact for it; the grammar parses the throttle value as an ordinary expression"
+   }
+  ]
+ },
+ {
+  "name": "workflow foreach throttle paren",
+  "source": "workflow W { foreach -parallel -throttlelimit (1+2) ($x in $y) { a } }",
+  "known": [
+   {
+    "difference": "typed extra parenthesized_expression 46:51",
+    "reason": "Native's ForEachStatementAst does not visit ThrottleLimit as a child, so Native reports no fact for it; the grammar parses the throttle value as an ordinary expression"
+   }
+  ]
+ },
+ {
+  "name": "workflow foreach throttle string",
+  "source": "workflow W { foreach -parallel -throttlelimit \"5\" ($x in $y) { a } }",
+  "known": [
+   {
+    "difference": "strings extra 46:49 expandable_string_literal",
+    "reason": "Native's ForEachStatementAst does not visit ThrottleLimit as a child, so Native reports no fact for it; the grammar parses the throttle value as an ordinary expression"
+   }
+  ]
+ },
+ {
+  "name": "workflow foreach throttle member",
+  "source": "workflow W { foreach -parallel -throttlelimit $a.b ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach repeated parameters",
+  "source": "workflow W { foreach -parallel -throttlelimit 5 -parallel ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach repeated throttle",
+  "source": "workflow W { foreach -parallel -throttlelimit 5 -throttlelimit 6 ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow foreach repeated parallel",
+  "source": "workflow W { foreach -parallel -parallel ($x in $y) { a } }"
+ },
+ {
+  "name": "foreach parallel in script",
+  "source": "foreach -parallel ($x in $y) { a }"
+ },
+ {
+  "name": "foreach parallel throttle in function",
+  "source": "function f { foreach -parallel -throttlelimit 5 ($x in $y) { a } }"
+ },
+ {
+  "name": "workflow scope variables",
+  "source": "workflow W { $workflow:x = 1; $workflow:x; $using:x }"
+ },
+ {
+  "name": "workflow inside module with functions",
+  "source": "function A { 1 }\nworkflow W { param($a) InlineScript { $using:a } }\nfunction B { 2 }\nExport-ModuleMember -Function A, B"
+ },
+ {
+  "name": "workflow with all constructs",
+  "source": "workflow W {\n  param([string[]]$Names)\n  foreach -parallel ($n in $Names) {\n    sequence { InlineScript { Get-Thing $using:n } -PSComputerName $n; Get-Other }\n  }\n  parallel { a; b }\n}\n"
+ },
+ {
+  "name": "workflow in function",
+  "source": "function f { workflow W { InlineScript { 1 } } }"
+ },
+ {
+  "name": "invalid throttle without parallel",
+  "source": "workflow W { foreach -throttlelimit 5 ($x in $y) { a } }",
+  "expect": "invalid"
+ },
+ {
+  "name": "invalid throttle without parallel in script",
+  "source": "foreach -throttlelimit 5 ($x in $y) { a }",
+  "expect": "invalid"
+ },
+ {
+  "name": "invalid throttle without value",
+  "source": "workflow W { foreach -parallel -throttlelimit ($x in $y) { a } }",
+  "expect": "invalid"
+ },
+ {
+  "name": "invalid unknown foreach flag",
+  "source": "workflow W { foreach -parallel -throttlelimit 5 -foo ($x in $y) { a } }",
+  "expect": "invalid"
+ },
+ {
+  "name": "invalid two throttle values",
+  "source": "workflow W { foreach -parallel -throttlelimit 5 6 ($x in $y) { a } }",
+  "expect": "invalid"
+ },
+ {
+  "name": "invalid inlinescript unterminated block",
+  "source": "InlineScript { 1",
+  "expect": "invalid"
+ }
+]
