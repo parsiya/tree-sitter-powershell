@@ -1,0 +1,80 @@
+====================
+Subexpression doubled quote without a closer is invalid
+ :error
+====================
+
+"a$("" + $p)"
+
+---
+
+(program
+  (ERROR
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (variable))))))))))))))))
+
+====================
+Subexpression lone doubled quote pair is invalid
+ :error
+====================
+
+"a$("")"
+
+---
+
+(program
+  (ERROR
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal)))))))))))))))
+
+====================
+Subexpression plain string followed by a doubled quote is invalid
+ :error
+====================
+
+"a$("x""y")"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (ERROR
+                                  (string_literal
+                                    (expandable_string_literal))
+                                  (UNEXPECTED 'y'))))))))))))))))))

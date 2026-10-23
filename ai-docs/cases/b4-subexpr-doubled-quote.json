@@ -1,0 +1,198 @@
+[
+  {
+    "name": "doubled quotes delimit nested strings in a subexpression",
+    "source": "\"a$(\"\" (\"\" + $p))\""
+  },
+  {
+    "name": "doubled quotes with three nested strings",
+    "source": "\"a$(\"\" (\"\" + $p + \"\")\"\")\""
+  },
+  {
+    "name": "doubled quote opener without a closer is unterminated",
+    "source": "\"a$(\"\" + $p)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "lone doubled quote pair is unterminated",
+    "source": "\"a$(\"\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "single quote string in subexpression",
+    "source": "\"a$(\"x\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "single quote strings joined in subexpression",
+    "source": "\"a$(\"x\" + \"y\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string",
+    "source": "\"a$(\"\"x\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote empty string",
+    "source": "\"a$(\"\"\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string after an operator",
+    "source": "\"a$(1 + \"\"x\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string before an operator",
+    "source": "\"a$(\"\"x\"\" -f 1)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "two subexpressions with doubled quote strings",
+    "source": "\"a$(\"\"x\"\")b$(\"\"y\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string with an escaped inner quote",
+    "source": "\"a$(\"\"x\"\"\"\"y\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string with a variable",
+    "source": "\"a$(\"\"x$y\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string with a nested subexpression",
+    "source": "\"a$(\"\"x$($y)\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string with a backtick escape",
+    "source": "\"a$(\"\"b`$x\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string with a backtick quote",
+    "source": "\"a$(\"\"x`\"\"\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "triple quote opener closes an empty string",
+    "source": "\"a$(\"\"\"x\"\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "five quote run is an unterminated escaped quote",
+    "source": "\"a$(\"\"\"\"\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "doubled quote string with an escaped quote at both ends",
+    "source": "\"a$(\"\"\"\"\"x\"\"\"\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "single quoted string with doubled quotes inside a subexpression",
+    "source": "\"a$('x\"\"y')\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote strings joined by an operator",
+    "source": "\"a$(\"\"x\"\"+\"\"y\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string on its own lines",
+    "source": "\"a$(\n\"\"x\"\"\n)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string spanning lines",
+    "source": "\"a$(\n\"\"x\n y\"\"\n)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote strings in an if block inside a hashtable value",
+    "source": "$h = @{\n    Name = \"Port $p$(\n        if ($AddService) {\n            \"\" (\"\" + $Hash[[String] $p] + \"\")\"\"\n        }\n    )\";\n    Other = 1\n}"
+  },
+  {
+    "name": "doubled quote strings in a command argument",
+    "source": "\"a$(Write-Output \"\"x y\"\" -Verbose)\""
+  },
+  {
+    "name": "doubled quote string after a statement separator",
+    "source": "\"a$(\"\"x\"\" ; \"\"y\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quotes belong to the string outside a subexpression",
+    "source": "$a = \"\"; $b = \"\"",
+    "expect": "valid"
+  },
+  {
+    "name": "empty strings outside a subexpression",
+    "source": "$a = \"\" + \"\" + \"b\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote escape in a top level string",
+    "source": "\"a \"\"b\"\" c\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quotes in the string around a plain subexpression",
+    "source": "\"a \"\"$(1)\"\" c\"",
+    "expect": "valid"
+  },
+  {
+    "name": "plain string and operands in a subexpression",
+    "source": "\"a$(\"x\" -replace 'a', 'b')\"",
+    "expect": "valid"
+  },
+  {
+    "name": "plain string followed by a doubled quote is unterminated",
+    "source": "\"a$(\"x\"\"y\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "plain string closed by a doubled quote",
+    "source": "\"a$(\"x\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "plain string with a backtick quote is unterminated",
+    "source": "\"a$(\"x`\"y\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "plain string with an escaped quote after a backtick",
+    "source": "\"a$(\"`\"\"x\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote opener and a backtick quote",
+    "source": "\"a$(\"\"`\"x\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "typographic quote opener closed by a doubled quote",
+    "source": "\"a$(“x\"\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "here-string subexpression keeps a doubled quote escape",
+    "source": "@\"\na$(\"x\"\"y\")\n\"@",
+    "expect": "valid"
+  },
+  {
+    "name": "here-string subexpression doubled quote string is not a unit string",
+    "source": "@\"\na$(\"\"x\"\")\n\"@",
+    "expect": "invalid"
+  },
+  {
+    "name": "doubled quote string followed by a comment with doubled quotes",
+    "source": "\"a$(\"\"x\"\" # \"\"\n)\"",
+    "expect": "valid"
+  }
+]
