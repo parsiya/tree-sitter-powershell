@@ -1,0 +1,170 @@
+[
+ {
+  "name": "dash word statement",
+  "source": "-B $y\r\n"
+ },
+ {
+  "name": "dash word statement without arguments",
+  "source": "-B\r\n"
+ },
+ {
+  "name": "dash word after a newline",
+  "source": "Get\r\n-B $y\r\n"
+ },
+ {
+  "name": "dash word after a semicolon",
+  "source": "Get;-B $y\r\n"
+ },
+ {
+  "name": "escaped letter ends argument then dash line",
+  "source": "Cmd -A $x `Get\r\n    -B $y\r\n"
+ },
+ {
+  "name": "escaped letter then dash lines with trailing continuation",
+  "source": "Cmd -A $x `Get\r\n    -B $y `\r\n    -C 1 `\r\n\r\n"
+ },
+ {
+  "name": "dash lines with trailing continuation in a block",
+  "source": "if ($a) {\r\n    Cmd -A x`\r\n    -B $y `\r\n        -C 1 `\r\n}\r\n"
+ },
+ {
+  "name": "word backtick line end then dash word",
+  "source": "Cmd x`\r\n -B $y\r\n"
+ },
+ {
+  "name": "parameter backtick line end then dash word",
+  "source": "Cmd -A`\r\n -B $y\r\n"
+ },
+ {
+  "name": "space backtick continuation keeps the parameter",
+  "source": "Cmd -A $x `\r\n    -B $y\r\n"
+ },
+ {
+  "name": "dash word in a block",
+  "source": "if ($a) {\r\n    -B $y\r\n}\r\n"
+ },
+ {
+  "name": "dash word after an assignment",
+  "source": "$a = -B $y\r\n"
+ },
+ {
+  "name": "dash word in parentheses",
+  "source": "(-B $y)\r\n"
+ },
+ {
+  "name": "dash word after a call operator",
+  "source": "& -B $y\r\n"
+ },
+ {
+  "name": "dash word before a pipe",
+  "source": "-B $y | Out-Null\r\n"
+ },
+ {
+  "name": "dash word with a redirection",
+  "source": "-B $y > out.txt\r\n"
+ },
+ {
+  "name": "dash word with attached dash",
+  "source": "-B-C $y\r\n"
+ },
+ {
+  "name": "dash word with attached digit",
+  "source": "-B1 $y\r\n"
+ },
+ {
+  "name": "dash word with attached parenthesis",
+  "source": "-B($y)\r\n"
+ },
+ {
+  "name": "dash word with attached quote",
+  "source": "-B'x' $y\r\n"
+ },
+ {
+  "name": "dash word with attached variable",
+  "source": "-B$y z\r\n"
+ },
+ {
+  "name": "dash word with a longer unary keyword prefix",
+  "source": "-notx $y\r\n"
+ },
+ {
+  "name": "dash word with a binary operator name",
+  "source": "-eq 1\r\n"
+ },
+ {
+  "name": "dash word with a logical operator name",
+  "source": "-and $y\r\n"
+ },
+ {
+  "name": "dash word with a longer binary operator name",
+  "source": "-eqx $y\r\n"
+ },
+ {
+  "name": "unary not stays an expression",
+  "source": "-not $y\r\n"
+ },
+ {
+  "name": "unary not in upper case stays an expression",
+  "source": "-NOT $y\r\n"
+ },
+ {
+  "name": "unary bnot stays an expression",
+  "source": "-bnot 1\r\n"
+ },
+ {
+  "name": "unary split stays an expression",
+  "source": "-split 'a b'\r\n"
+ },
+ {
+  "name": "unary join stays an expression",
+  "source": "-join $y\r\n"
+ },
+ {
+  "name": "unary minus on a variable stays an expression",
+  "source": "-$y\r\n"
+ },
+ {
+  "name": "unary not attached to a variable",
+  "source": "-not$y\r\n"
+ },
+ {
+  "name": "unary not attached to a number",
+  "source": "-not1\r\n"
+ },
+ {
+  "name": "unary not attached to a type member in a condition",
+  "source": "if (-not[string]::IsNullOrEmpty($y)) { 1 }\r\n"
+ },
+ {
+  "name": "unary bnot attached to a variable",
+  "source": "-bnot$y\r\n"
+ },
+ {
+  "name": "unary join attached to a variable",
+  "source": "-join$y\r\n"
+ },
+ {
+  "name": "unary split attached to parentheses",
+  "source": "-split($y)\r\n"
+ },
+ {
+  "name": "invalid unary not attached to an underscore",
+  "source": "-not_x\r\n"
+ },
+ {
+  "name": "invalid dash underscore",
+  "source": "-_x $y\r\n"
+ },
+ {
+  "name": "invalid dash question mark",
+  "source": "-? $y\r\n"
+ },
+ {
+  "name": "invalid double dash word",
+  "source": "--B $y\r\n"
+ },
+ {
+  "name": "invalid dash number then argument",
+  "source": "-1 $y\r\n"
+ }
+]

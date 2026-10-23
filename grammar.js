@@ -1122,6 +1122,7 @@ export default grammar({
           ),
           $._numeric_command_name,
           $._keyword_dash_command_name,
+          $._dash_command_name,
           seq(
             new RegExp(caseInsensitive('return') + '\\$'),
             optional($._command_name_subexpression),
@@ -1437,6 +1438,10 @@ export default grammar({
     _bnot_operator: ($) => reserved(caseInsensitive('-bnot')),
     _split_operator: ($) => reserved(caseInsensitive('-split')),
     _join_operator: ($) => reserved(caseInsensitive('-join')),
+
+    // `-Name args` at a statement start is a command named `-Name`. A word whose
+    // leading letters spell a unary keyword stays that operator (see dashCommandName).
+    _dash_command_name: ($) => prec(PREC.KEYWORD, dashCommandName()),
 
     // A leading quoted string ends an argument even without following spaces.
     // Keep each adjacent argument visible directly under command_elements.
@@ -2485,4 +2490,42 @@ function caseInsensitive(word) {
     .split('')
     .map((letter) => `[${letter}${letter.toUpperCase()}]`)
     .join('');
+}
+
+// Unary keyword operators. Native ends a dash word's letters at the first
+// non-letter, so `-not$x` and `-not1` are the operator and `-notx` is a name.
+/**
+ * A word `-Name` that is not a unary keyword operator, as a regex: its leading
+ * run of ASCII letters is not one of the unary keywords.
+ */
+function dashCommandName() {
+  const unaryWords = ['not', 'bnot', 'split', 'csplit', 'isplit', 'join'];
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+  const both = (c) => `${c}${c.toUpperCase()}`;
+  const rest = `${PARAMETER_CHAR}*`;
+  // A parameter character that is not an ASCII letter ends the letter run.
+  const nonLetter = PARAMETER_CHAR.replace('[^', '[^A-Za-z');
+  const nonAscii = PARAMETER_LETTER.replace('[^\\P{L}', '[^\\P{L}\\x00-\\x7F');
+
+  const walk = (words, root) => {
+    const children = new Map();
+    for (const w of words) {
+      children.set(w[0], [...(children.get(w[0]) || []), w.slice(1)]);
+    }
+    const alternatives = [];
+    const others = [...letters].filter((c) => !children.has(c)).map(both).join('');
+    alternatives.push(`[${others}]${rest}`);
+    for (const [c, suffixes] of children) {
+      alternatives.push(suffixes.includes('') ?
+        // The whole keyword needs a longer letter run to be a name.
+        `[${both(c)}][A-Za-z]${rest}` :
+        `[${both(c)}]${walk(suffixes, false)}`);
+    }
+    if (root) return `(?:${alternatives.join('|')})`;
+    // A letter run that stops inside the keyword is a name.
+    alternatives.push(`${nonLetter}${rest}`);
+    return `(?:${alternatives.join('|')})?`;
+  };
+
+  return new RegExp(`-(?:${walk(unaryWords, true)}|${nonAscii}${rest})`, 'u');
 }

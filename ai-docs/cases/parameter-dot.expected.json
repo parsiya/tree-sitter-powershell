@@ -105,7 +105,7 @@
   "signed dotted quote control": {"status":"agree","differences":[]},
   "index-looking dotted quote control": {"status":"fail","differences":["elements extent 15:20 CommandParameterAst ts 15:40","elements kind 15:20 CommandParameterAst ts generic_token","elements missing 20:40 StringConstantExpressionAst/BareWord"]},
   "escaped dotted parameter control": {"status":"agree","differences":[]},
-  "invalid assignment": {"status":"fail","differences":["commands extra 11:24","commands missing 10:24","elements extra 11:24 command_name","elements missing 10:15 StringConstantExpressionAst/BareWord","elements missing 15:24 StringConstantExpressionAst/BareWord","validity native=valid ts=invalid"]},
+  "invalid assignment": {"status":"fail","differences":["elements extent 10:15 StringConstantExpressionAst/BareWord ts 10:24","elements missing 15:24 StringConstantExpressionAst/BareWord"]},
   "invalid missing colon value": {"status":"invalid-rejected","differences":[]},
   "invalid missing comma item": {"status":"invalid-rejected","differences":[]},
   "invalid member expression": {"status":"invalid-rejected","differences":[]},
