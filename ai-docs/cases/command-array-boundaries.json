@@ -1,0 +1,138 @@
+[
+  {
+    "name": "words with following parameter and pipeline",
+    "source": "Select-Item Red, Blue, Green -OutVariable result | Out-Null",
+    "expect": "valid"
+  },
+  {
+    "name": "mixed projected properties across a comment",
+    "source": "Select-Item @{Name='Shade';Expression={$_.Color}}, # calculated field\n Red, Blue, Green -OutVariable result | Out-Null",
+    "expect": "valid"
+  },
+  {
+    "name": "mixed projected properties CRLF",
+    "source": "Select-Item @{Name='Shade';Expression={$_.Color}}, # calculated field\r\n Red, Blue, Green -OutVariable result | Out-Null\r\nWrite-Output sentinel",
+    "expect": "valid"
+  },
+  {
+    "name": "export words comma escaped space and comments",
+    "source": "Publish-Item Send-Red, `   # first export\n Read-Blue, ` # second export\n Find-Green\nWrite-Output sentinel",
+    "expect": "valid"
+  },
+  {
+    "name": "export words CRLF",
+    "source": "Publish-Item Send-Red, `   # first export\r\n Read-Blue, ` # second export\r\n Find-Green\r\nWrite-Output sentinel",
+    "expect": "valid"
+  },
+  {
+    "name": "export words lone CR",
+    "source": "Publish-Item Send-Red, `   # first export\r Read-Blue, ` # second export\r Find-Green\rWrite-Output sentinel",
+    "expect": "valid"
+  },
+  {
+    "name": "line comment after comma",
+    "source": "Publish-Item Red, # first\n Blue, # second\n Green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "block comment between items",
+    "source": "Publish-Item Red, <# item boundary #> Blue, Green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped newline after comma",
+    "source": "Publish-Item Red, `\n Blue, `\n Green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "word array followed by separate argument",
+    "source": "Publish-Item Red, Blue Green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "word array followed by redirection",
+    "source": "Publish-Item Red, Blue > result.txt",
+    "expect": "valid"
+  },
+  {
+    "name": "attached parameter array",
+    "source": "Publish-Item -Names:Red, # next\n Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "attached dash word array",
+    "source": "Publish-Item -Names:-Red, # next\n -Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "colon word array",
+    "source": "Publish-Item :Red, # next\n Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "array adjacent to completed quote",
+    "source": "Publish-Item \"first\"Red, # next\n Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "array adjacent to completed expression",
+    "source": "Publish-Item ($value)Red, # next\n Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "mixed expression word and variable",
+    "source": "Publish-Item $red, # next\n Blue, $green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "word variable and expression",
+    "source": "Publish-Item Red, # next\n $blue, ($green) -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "expression only array control",
+    "source": "Publish-Item $red, # next\n $blue -Quiet",
+    "expect": "valid",
+    "known": [
+      {
+        "difference": "elements items 13:32 native 13:17,27:32 ts 13:17,19:25,27:32",
+        "reason": "Existing proof-kit unitItems includes the comment extra as an array item for a concrete expression array; Native and the CST retain the same two expressions and the comment."
+      }
+    ]
+  },
+  {
+    "name": "separate word arguments control",
+    "source": "Publish-Item Red Blue Green -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "comment without comma ends command",
+    "source": "Publish-Item Red # end\nRead-Item Blue",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped comma remains one word",
+    "source": "Publish-Item Red`,Blue -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "quoted comma remains one string",
+    "source": "Publish-Item 'Red,Blue' -Quiet",
+    "expect": "valid"
+  },
+  {
+    "name": "missing final item",
+    "source": "Publish-Item Red, # missing\n",
+    "expect": "invalid"
+  },
+  {
+    "name": "missing middle item",
+    "source": "Publish-Item Red,,Blue",
+    "expect": "invalid"
+  },
+  {
+    "name": "parameter without value after comma",
+    "source": "Publish-Item Red, -Quiet",
+    "expect": "valid"
+  }
+]

@@ -1,0 +1,33 @@
+{
+ "suite": "command-array-boundaries",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":26,"agree":19,"invalid_rejected":2,"known":5,"fail":0,"unsupported":0,"skipped":0,"known_differences":5},
+ "cases": {
+  "words with following parameter and pipeline": {"status":"known","differences":[]},
+  "mixed projected properties across a comment": {"status":"known","differences":[]},
+  "mixed projected properties CRLF": {"status":"known","differences":[]},
+  "export words comma escaped space and comments": {"status":"agree","differences":[]},
+  "export words CRLF": {"status":"agree","differences":[]},
+  "export words lone CR": {"status":"agree","differences":[]},
+  "line comment after comma": {"status":"agree","differences":[]},
+  "block comment between items": {"status":"agree","differences":[]},
+  "escaped newline after comma": {"status":"agree","differences":[]},
+  "word array followed by separate argument": {"status":"agree","differences":[]},
+  "word array followed by redirection": {"status":"agree","differences":[]},
+  "attached parameter array": {"status":"agree","differences":[]},
+  "attached dash word array": {"status":"agree","differences":[]},
+  "colon word array": {"status":"agree","differences":[]},
+  "array adjacent to completed quote": {"status":"agree","differences":[]},
+  "array adjacent to completed expression": {"status":"agree","differences":[]},
+  "mixed expression word and variable": {"status":"agree","differences":[]},
+  "word variable and expression": {"status":"agree","differences":[]},
+  "expression only array control": {"status":"known","differences":[]},
+  "separate word arguments control": {"status":"agree","differences":[]},
+  "comment without comma ends command": {"status":"known","differences":[]},
+  "escaped comma remains one word": {"status":"agree","differences":[]},
+  "quoted comma remains one string": {"status":"agree","differences":[]},
+  "missing final item": {"status":"invalid-rejected","differences":[]},
+  "missing middle item": {"status":"invalid-rejected","differences":[]},
+  "parameter without value after comma": {"status":"agree","differences":[]}
+ }
+}
