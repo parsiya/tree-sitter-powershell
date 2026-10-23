@@ -157,7 +157,6 @@ export default grammar({
 
   conflicts: ($) => [
     [$._literal, $.member_name],
-    [$._value, $.invokation_expression],
     [$.class_property_definition, $.attribute],
     [$.class_method_definition, $.attribute],
     // Keep declaration attributes possible until their following keyword is known.
@@ -2186,63 +2185,33 @@ export default grammar({
 
     // Finish a method call before reducing the enclosing command argument.
     invokation_expression: ($) =>
-      choice(
-        prec.right(
-          PREC.PARAM + 1,
-          choice(
-            seq(
-              $._primary_expression,
-              $._member_access_operator,
-              $.member_name,
-              $.argument_list,
-            ),
-            seq($._primary_expression, '::', $.member_name, $.argument_list),
-            // `$x.Where{ ... }`: a script block right after the member name is the only argument
-            seq(
-              $._primary_expression,
-              $._member_access_operator,
-              $.member_name,
-              $._script_block_argument_start,
-              $.script_block_expression,
-            ),
-            seq(
-              $._primary_expression,
-              '::',
-              $.member_name,
-              $._script_block_argument_start,
-              $.script_block_expression,
-            ),
-            $.invokation_foreach_expression,
+      prec.right(
+        PREC.PARAM + 1,
+        choice(
+          seq(
+            $._primary_expression,
+            $._member_access_operator,
+            $.member_name,
+            $.argument_list,
           ),
+          seq($._primary_expression, '::', $.member_name, $.argument_list),
+          // `$x.Where{ ... }`: a script block right after the member name is the only argument
+          seq(
+            $._primary_expression,
+            $._member_access_operator,
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          seq(
+            $._primary_expression,
+            '::',
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          $.invokation_foreach_expression,
         ),
-        // `[R]::W[T](...)`: a generic method on a type literal. Native accepts a generic
-        // call in a command argument only on a type literal, so other receivers stay
-        // unsupported. The conflict with the plain `[R]::W` keeps `[R]::W[0]` an element access.
-        seq(
-          $.type_literal,
-          '::',
-          $.member_name,
-          $._generic_method_type_arguments,
-          alias($._immediate_argument_list, $.argument_list),
-        ),
-      ),
-
-    // Unlike a type literal's arguments, a generic method's take no bracketed types.
-    _generic_method_type_arguments: ($) =>
-      seq(
-        '[',
-        alias($._generic_method_type_list, $.generic_type_arguments),
-        ']',
-      ),
-
-    _generic_method_type_list: ($) =>
-      seq($.type_spec, repeat(seq(',', $.type_spec))),
-
-    _immediate_argument_list: ($) =>
-      seq(
-        token.immediate('('),
-        field('argument_expression_list', optional($.argument_expression_list)),
-        ')',
       ),
 
     _foreach_member_name: ($) => token.immediate(reservedWord('foreach')),
