@@ -9,3 +9,4 @@ a grammar review.
 | 2026-10-23 | batch-003 | `90ecb7a` | 5551 | 13820231 | review (starting point; no review done yet) |
 | 2026-10-23 | batch-004 | `3812529` | 6864 | 16846988 | +24% states; review due before batch-005 |
 | 2026-10-23 | batch-004 | review of `2f8d138` | 5931 | 14155881 | review: inline tokens named as rules (for newline, keyword-dash command names, unary keyword operators, `$`/`@` variables), duplicate rules removed, chain comments, scanner tidy; −13.6% states |
+| 2026-10-23 | batch-005 | sources of `099dfda` | 5943 | 14166361 | +0.2% states since the review |
