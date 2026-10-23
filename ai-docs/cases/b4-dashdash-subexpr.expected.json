@@ -40,7 +40,7 @@
   "dashdash subexpression with dash name": {"status":"agree","differences":[]},
   "dashdash subexpression trailing dollar": {"status":"fail","differences":["elements kind 2:7 StringConstantExpressionAst/BareWord ts command_parameter"]},
   "dashdash subexpression space after dollar": {"status":"fail","differences":["elements kind 2:7 StringConstantExpressionAst/BareWord ts command_parameter"]},
-  "dashdash braced variable": {"status":"fail","differences":["commands extra 8:9","elements extent 2:10 ExpandableStringExpressionAst/BareWord ts 2:7","elements extra 7:10 script_block_expression","elements extra 8:9 command_name","elements kind 2:10 ExpandableStringExpressionAst/BareWord ts command_parameter","typed extra script_block_expression 7:10","typed missing VariableExpressionAst 6:10"]},
+  "dashdash braced variable": {"status":"fail","differences":["typed missing VariableExpressionAst 6:10"]},
   "dashdash braced variable then subexpression": {"status":"fail","differences":["typed missing VariableExpressionAst 6:10"]},
   "dashdash variable only": {"status":"fail","differences":["elements kind 2:8 ExpandableStringExpressionAst/BareWord ts command_parameter","typed missing VariableExpressionAst 6:8"]},
   "dashdash variable then word": {"status":"fail","differences":["elements kind 2:10 ExpandableStringExpressionAst/BareWord ts command_parameter","typed missing VariableExpressionAst 6:8"]},

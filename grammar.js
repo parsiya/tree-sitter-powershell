@@ -1191,6 +1191,8 @@ export default grammar({
           $._command_name_start_escape,
           $._command_name_dollar,
           new RegExp(`[^${COMMAND_NAME_STOP}\\u2013-\\u20150-9.][^${COMMAND_NAME_STOP}]*`),
+          // `*Die x`: a glob-like word is a command name.
+          new RegExp(`\\*[^${COMMAND_NAME_STOP}]*`),
           // Dot-prefixed names remain commands unless a number starts the word.
           new RegExp(
             `\\.([^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*)?`,
@@ -1428,7 +1430,11 @@ export default grammar({
             ),
             choice(
               // Outrank adjacent-expression alternatives without changing their trees.
-              prec.dynamic(3, $.argument_list),
+              // `w 'a'(1)'b'`: a word or quote may follow the closing parenthesis.
+              seq(
+                prec.dynamic(3, $.argument_list),
+                optional(seq($._completed_expression_boundary, $._argument_after_quote)),
+              ),
               prec.dynamic(-1, $.parenthesized_expression),
               // `New-Object uri(Get-Item x).t`: the parenthesis is the receiver
               // of a member, element or call, as after a separator.
