@@ -106,5 +106,65 @@
  {
   "name": "inlinescript newline unclosed block invalid",
   "source": "workflow W { inlinescript\n{ 1 }"
+ },
+ {
+  "name": "inlinescript parameter without block is invalid",
+  "source": "workflow W { inlinescript -x }"
+ },
+ {
+  "name": "inlinescript parameter then block is invalid",
+  "source": "workflow W { inlinescript -x { 1 } }"
+ },
+ {
+  "name": "inlinescript parameter with value then block is invalid",
+  "source": "workflow W { inlinescript -x 1 { 1 } }"
+ },
+ {
+  "name": "inlinescript newline parameter is invalid",
+  "source": "workflow W { inlinescript\n-x }"
+ },
+ {
+  "name": "inlinescript newline word is invalid",
+  "source": "workflow W { inlinescript\nx }"
+ },
+ {
+  "name": "inlinescript without block before brace is invalid",
+  "source": "workflow W { inlinescript }"
+ },
+ {
+  "name": "inlinescript semicolon then block is invalid",
+  "source": "workflow W { inlinescript; { 1 } }"
+ },
+ {
+  "name": "inlinescript argument then block is invalid",
+  "source": "workflow W { inlinescript (1)\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline parameter after newline block",
+  "source": "workflow W { inlinescript\n{ 1 }\n-x }"
+ },
+ {
+  "name": "inlinescript newline parameter before newline block",
+  "source": "workflow W { inlinescript\n-x\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript same line block then parameter",
+  "source": "workflow W { inlinescript { 1 } -x }"
+ },
+ {
+  "name": "inlinescript newline two blocks",
+  "source": "workflow W { inlinescript\n{ 1 }\n{ 2 } }"
+ },
+ {
+  "name": "inlinescript top level parameter control",
+  "source": "inlinescript -x"
+ },
+ {
+  "name": "inlinescript top level newline parameter control",
+  "source": "inlinescript\n-x"
+ },
+ {
+  "name": "inlinescript parameter in function control",
+  "source": "function F { inlinescript -x }"
  }
 ]

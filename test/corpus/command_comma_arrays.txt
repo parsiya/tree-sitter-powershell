@@ -2627,13 +2627,12 @@ $obj.Method(First,,Second)
                     (range_expression
                       (array_literal_expression
                         (unary_expression
-                          (member_access
+                          (invokation_expression
                             (variable)
                             (member_name
-                              (simple_name))))))))))))))
-    (ERROR
-      (ERROR)))
-  (ERROR))
+                              (simple_name))
+                            (argument_list
+                              (ERROR))))))))))))))))
 
 ====================
 Command comma array: invalid-78
@@ -2950,14 +2949,9 @@ Export-ModuleMember First, # boundary
 ---
 
 (program
-  (statement_list
-    (pipeline
-      (pipeline_chain
-        (command
-          (command_name)
-          (command_elements
-            (command_argument_sep)
-            (generic_token)))))
-    (ERROR
-      (comment)
-      (UNEXPECTED 'c'))))
+  (ERROR
+    (command_name)
+    (command_argument_sep)
+    (generic_token)
+    (comment)
+    (UNEXPECTED 'c')))

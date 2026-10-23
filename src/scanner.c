@@ -1429,6 +1429,8 @@ void tree_sitter_powershell_external_scanner_destroy(void *p)
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer)
 {
     Scanner *scanner = payload;
+    // Empty when idle: a non-empty state changes error recovery on invalid input.
+    if (!scanner->string_subexpression_depth && !scanner->function_depth) return 0;
     buffer[0] = (char)scanner->string_subexpression_depth;
     buffer[1] = (char)scanner->function_depth;
     for (unsigned i = 0; i < 8; i++)
