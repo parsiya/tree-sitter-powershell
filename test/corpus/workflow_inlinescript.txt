@@ -76,6 +76,188 @@ workflow W { param($a) InlineScript { $using:a } -PSComputerName $c }
                         (variable)))))))))))))
 
 ===
+InlineScript block on the next line in a workflow
+===
+
+workflow W { InlineScript
+{ Get-Date } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (array_literal_expression
+                      (unary_expression
+                        (script_block_expression
+                          (script_block
+                            (script_block_body
+                              (statement_list
+                                (pipeline
+                                  (pipeline_chain
+                                    (command
+                                      (command_name))))))))))))))))))))
+
+===
+InlineScript block after a comment, then parameters, in a workflow
+===
+
+workflow W { inlinescript <# c #>
+{ Get-Date } -PSComputerName $c }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (comment)
+                    (array_literal_expression
+                      (unary_expression
+                        (script_block_expression
+                          (script_block
+                            (script_block_body
+                              (statement_list
+                                (pipeline
+                                  (pipeline_chain
+                                    (command
+                                      (command_name))))))))))
+                    (command_argument_sep)
+                    (command_parameter)
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+InlineScript block on the next line is a separate statement in a function
+===
+
+function F { inlinescript
+{ Get-Date } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name))))
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (script_block_expression
+                                    (script_block
+                                      (script_block_body
+                                        (statement_list
+                                          (pipeline
+                                            (pipeline_chain
+                                              (command
+                                                (command_name)))))))))))))))))))))))))
+
+===
+InlineScript block on the next line after a nested function ends
+===
+
+workflow W { function F { inlinescript
+{ 1 } } inlinescript
+{ Get-Date } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (function_statement
+              (function_name)
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name))))
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (script_block_expression
+                                            (script_block
+                                              (script_block_body
+                                                (statement_list
+                                                  (pipeline
+                                                    (pipeline_chain
+                                                      (logical_expression
+                                                        (bitwise_expression
+                                                          (comparison_expression
+                                                            (additive_expression
+                                                              (multiplicative_expression
+                                                                (format_expression
+                                                                  (range_expression
+                                                                    (array_literal_expression
+                                                                      (unary_expression
+                                                                        (integer_literal
+                                                                          (decimal_integer_literal))))))))))))))))))))))))))))))))
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (array_literal_expression
+                      (unary_expression
+                        (script_block_expression
+                          (script_block
+                            (script_block_body
+                              (statement_list
+                                (pipeline
+                                  (pipeline_chain
+                                    (command
+                                      (command_name))))))))))))))))))))
+
+===
 InlineScript keeps command-name prefixes
 ===
 

@@ -1,0 +1,170 @@
+[
+ {
+  "name": "inlinescript newline block",
+  "source": "workflow W { inlinescript\n{\n  $a = 1\n}\n}"
+ },
+ {
+  "name": "inlinescript top level newline block",
+  "source": "inlinescript\n{ 1 }"
+ },
+ {
+  "name": "inlinescript blank lines before block",
+  "source": "workflow W { inlinescript\n\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript crlf block",
+  "source": "workflow W { inlinescript\r\n{ 1 }\r\n}"
+ },
+ {
+  "name": "inlinescript newline block then same line parameter",
+  "source": "workflow W { inlinescript\n{ 1 } -PSComputerName $c }"
+ },
+ {
+  "name": "inlinescript newline block in script block literal",
+  "source": "workflow W { & { inlinescript\n{ 1 } } }"
+ },
+ {
+  "name": "inlinescript newline block after semicolon",
+  "source": "workflow W { 1; inlinescript\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript block comment then newline block",
+  "source": "workflow W { inlinescript <# c #>\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline block after nested function",
+  "source": "workflow W { function F { 1 } inlinescript\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline block in nested workflow",
+  "source": "function F { workflow W { inlinescript\n{ 1 } } }"
+ },
+ {
+  "name": "inlinescript newline block in nested function control",
+  "source": "workflow W { function F { inlinescript\n{ 1 } } }"
+ },
+ {
+  "name": "inlinescript newline block in function control",
+  "source": "function F { inlinescript\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline block after workflow ends control",
+  "source": "workflow W { 1 }\ninlinescript\n{ 1 }"
+ },
+ {
+  "name": "inlinescript newline block in filter control",
+  "source": "filter F { inlinescript\n{ 1 } }"
+ },
+ {
+  "name": "workflow prefixed command name control",
+  "source": "workflow W { Inlinescript-Thing\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript comment then newline block",
+  "source": "workflow W { inlinescript # c\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript same line block control",
+  "source": "workflow W { inlinescript { 1 } }"
+ },
+ {
+  "name": "inlinescript newline block piped",
+  "source": "workflow W { inlinescript\n{ 1 } | Out-Null }"
+ },
+ {
+  "name": "inlinescript newline block assigned",
+  "source": "workflow W { $r = inlinescript\n{ 1 } }"
+ },
+ {
+  "name": "foreach parallel newline block control",
+  "source": "workflow W { foreach -parallel ($x in $y)\n{\n  a\n}\n}"
+ },
+ {
+  "name": "inlinescript newline block inside foreach parallel",
+  "source": "workflow W {\n  foreach -parallel ($x in $y)\n  {\n    inlinescript\n    {\n      $m = ('a', 'b')\n      foreach ($i in $m)\n      {\n        if (Get-Thing -Name $i)\n        {\n          continue\n        }\n      }\n    }\n  }\n}"
+ },
+ {
+  "name": "inlinescript no block control",
+  "source": "inlinescript"
+ },
+ {
+  "name": "inlinescript newline then statement control",
+  "source": "inlinescript\nGet-Date"
+ },
+ {
+  "name": "plain command newline block control",
+  "source": "foo\n{ 1 }"
+ },
+ {
+  "name": "parallel keyword newline block control",
+  "source": "workflow W { parallel\n{ a; b } }"
+ },
+ {
+  "name": "inlinescript prefix word newline block control",
+  "source": "Inlinescriptx\n{ 1 }"
+ },
+ {
+  "name": "inlinescript newline unclosed block invalid",
+  "source": "workflow W { inlinescript\n{ 1 }"
+ },
+ {
+  "name": "inlinescript parameter without block is invalid",
+  "source": "workflow W { inlinescript -x }"
+ },
+ {
+  "name": "inlinescript parameter then block is invalid",
+  "source": "workflow W { inlinescript -x { 1 } }"
+ },
+ {
+  "name": "inlinescript parameter with value then block is invalid",
+  "source": "workflow W { inlinescript -x 1 { 1 } }"
+ },
+ {
+  "name": "inlinescript newline parameter is invalid",
+  "source": "workflow W { inlinescript\n-x }"
+ },
+ {
+  "name": "inlinescript newline word is invalid",
+  "source": "workflow W { inlinescript\nx }"
+ },
+ {
+  "name": "inlinescript without block before brace is invalid",
+  "source": "workflow W { inlinescript }"
+ },
+ {
+  "name": "inlinescript semicolon then block is invalid",
+  "source": "workflow W { inlinescript; { 1 } }"
+ },
+ {
+  "name": "inlinescript argument then block is invalid",
+  "source": "workflow W { inlinescript (1)\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript newline parameter after newline block",
+  "source": "workflow W { inlinescript\n{ 1 }\n-x }"
+ },
+ {
+  "name": "inlinescript newline parameter before newline block",
+  "source": "workflow W { inlinescript\n-x\n{ 1 } }"
+ },
+ {
+  "name": "inlinescript same line block then parameter",
+  "source": "workflow W { inlinescript { 1 } -x }"
+ },
+ {
+  "name": "inlinescript newline two blocks",
+  "source": "workflow W { inlinescript\n{ 1 }\n{ 2 } }"
+ },
+ {
+  "name": "inlinescript top level parameter control",
+  "source": "inlinescript -x"
+ },
+ {
+  "name": "inlinescript top level newline parameter control",
+  "source": "inlinescript\n-x"
+ },
+ {
+  "name": "inlinescript parameter in function control",
+  "source": "function F { inlinescript -x }"
+ }
+]
