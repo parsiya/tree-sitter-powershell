@@ -83,6 +83,17 @@ words, embedded path variables and invocation-mode nullable index words.
 The last already had the same kind differences in the original ABI14 parser;
 this fix removes its syntax rejection without claiming to fix those kinds.
 
+## Escaped CLR type arity
+
+`escaped-type-arity` covers literal and doubled backticks in CLR generic names,
+including qualified/nested names, nested arguments and parameter constraints.
+Native accepts arity spellings and argument-count mismatches syntactically
+without resolving the type; invalid name starts, whitespace and missing arguments
+remain rejected. Native preserves a single backtick and collapses each doubled
+backtick in a type name: source ```Box``1``` has type name ``Box`1``. The CST keeps
+the raw identifier text, so converter normalization must perform that collapse
+without treating a single backtick before a digit as an ordinary escape.
+
 ## Counts
 
 Migrated 2026-10-22 from 50 local case files (5,139 cases). Columns: original

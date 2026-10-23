@@ -42,7 +42,9 @@ const PARAMETER_CHAR =
 // Simple names start with a BMP letter or underscore; continuations also allow
 // decimal digits. Include Unicode 16 letters and range interiors missing in CLI 0.22.
 const SIMPLE_NAME_LETTER = new RegExp(PARAMETER_LETTER, 'u');
-const TYPE_IDENTIFIER = VARIABLE_NAME;
+// CLR arities allow literal backticks (also doubled in PowerShell source).
+// The initial type-name character is still restricted below.
+const TYPE_IDENTIFIER = new RegExp('(' + VARIABLE_NAME.source + '|`)+', 'u');
 const VARIABLE_REFERENCE = new RegExp(
   `${VARIABLE_NAME.source}(\\?|${VARIABLE_NAME.source})*`,
   'u',

@@ -1,0 +1,126 @@
+===
+Escaped CLR arity: single backtick
+===
+
+[Box`1[int]]
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Escaped CLR arity: doubled backtick
+===
+
+[Box``1[int]]
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (type_literal (type_spec (generic_type_name (type_name (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))))))))))))))
+
+===
+Escaped CLR arity: qualified parameter constraint
+===
+
+param([Demo.Box``1[Demo.Item]]$Value)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (generic_type_name
+                  (type_name
+                    (type_name (type_identifier))
+                    (type_identifier)))
+                (generic_type_arguments
+                  (type_spec
+                    (type_name
+                      (type_name (type_identifier))
+                      (type_identifier))))))))
+        (variable)))))
+
+===
+Escaped CLR arity: nested type parameter constraint
+===
+
+param([Demo.Outer``1+Inner``1[string,int]]$Value)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (generic_type_name (type_name (type_name (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier))) (type_spec (type_name (type_identifier)))))))) (variable)))))
+
+===
+Escaped CLR arity: nested generic argument
+===
+
+param([Box``1[Box``1[int]]]$Value)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (generic_type_name
+                  (type_name (type_identifier)))
+                (generic_type_arguments
+                  (type_spec
+                    (generic_type_name
+                      (type_name (type_identifier)))
+                    (generic_type_arguments
+                      (type_spec
+                        (type_name (type_identifier))))))))))
+        (variable)))))
+
+===
+Escaped CLR arity: backtick after dot is not a trailing-dot name
+===
+
+param([Demo.``1[int]]$Value)
+
+---
+
+(program (param_block (parameter_list (script_parameter (attribute_list (attribute (type_literal (type_spec (generic_type_name (type_name (type_name (type_identifier)) (type_identifier))) (generic_type_arguments (type_spec (type_name (type_identifier)))))))) (variable)))))
+
+===
+Escaped CLR arity: backtick cannot start a type name
+:error
+===
+
+[``Box[int]]
+
+---
+
+(ERROR)
+
+===
+Escaped CLR arity: whitespace cannot split an arity
+:error
+===
+
+[Box`` 1[int]]
+
+---
+
+(ERROR)
+
+===
+Escaped CLR arity: generic argument is required
+:error
+===
+
+[Box``2[int,]]
+
+---
+
+(ERROR)

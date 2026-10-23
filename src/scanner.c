@@ -823,7 +823,7 @@ static bool scan_trailing_dot_type_name(TSLexer *lexer)
         int32_t c = lexer->lookahead;
         if (c == '.') {
             dots++;
-        } else if (type_name_letter(c) || (c >= '0' && c <= '9')) {
+        } else if (type_name_letter(c) || (c >= '0' && c <= '9') || c == '`') {
             if (dots > 1) return false;
             dots = 0;
         } else {
