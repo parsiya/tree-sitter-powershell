@@ -79,8 +79,8 @@ let map_pat_b026f1a (env : env) (tok : CST.pat_b026f1a) =
 let map_pat_proc (env : env) (tok : CST.pat_proc) =
   (* pattern [pP][rR][oO][cC][eE][sS][sS] *) token env tok
 
-let map_tok_pat_7059588_rep_plus_pat_7059588 (env : env) (tok : CST.tok_pat_7059588_rep_plus_pat_7059588) =
-  (* tok_pat_7059588_rep_plus_pat_7059588 *) token env tok
+let map_tok_pat_63ae94a_rep_plus_pat_63ae94a (env : env) (tok : CST.tok_pat_63ae94a_rep_plus_pat_63ae94a) =
+  (* tok_pat_63ae94a_rep_plus_pat_63ae94a *) token env tok
 
 let map_pat_if (env : env) (tok : CST.pat_if) =
   (* pattern [iI][fF] *) token env tok
@@ -899,10 +899,10 @@ let rec map_type_name (env : env) (x : CST.type_name) =
   | `Type_id tok -> R.Case ("Type_id",
       (* type_identifier *) token env tok
     )
-  | `Type_name_DOT_tok_pat_7059588_rep_plus_pat_7059588 (v1, v2, v3) -> R.Case ("Type_name_DOT_tok_pat_7059588_rep_plus_pat_7059588",
+  | `Type_name_DOT_tok_pat_63ae94a_rep_plus_pat_63ae94a (v1, v2, v3) -> R.Case ("Type_name_DOT_tok_pat_63ae94a_rep_plus_pat_63ae94a",
       let v1 = map_type_name env v1 in
       let v2 = (* "." *) token env v2 in
-      let v3 = map_tok_pat_7059588_rep_plus_pat_7059588 env v3 in
+      let v3 = map_tok_pat_63ae94a_rep_plus_pat_63ae94a env v3 in
       R.Tuple [v1; v2; v3]
     )
   )
@@ -1173,6 +1173,9 @@ let map_variable (env : env) (x : CST.variable) =
         )
       | `DOLLARDOLLAR tok -> R.Case ("DOLLARDOLLAR",
           (* "$$" *) token env tok
+        )
+      | `ATDOLLAR tok -> R.Case ("ATDOLLAR",
+          (* "@$" *) token env tok
         )
       | `DOLLARHAT tok -> R.Case ("DOLLARHAT",
           (* "$^" *) token env tok
@@ -2487,6 +2490,28 @@ and map_comparison_expression (env : env) (x : CST.comparison_expression) =
 
 and map_completed_argument_array (env : env) (x : CST.completed_argument_array) =
   (match x with
+  | `Rep1_choice_cmd_un_exp_COMMA_cmd_array_item_start_quoted_array_value_quoted_arg_boun (v1, v2, v3) -> R.Case ("Rep1_choice_cmd_un_exp_COMMA_cmd_array_item_start_quoted_array_value_quoted_arg_boun",
+      let v1 =
+        R.List (List.map (fun (v1, v2, v3) ->
+          let v1 =
+            (match v1 with
+            | `Cmd_un_exp x -> R.Case ("Cmd_un_exp",
+                map_command_unary_expression env x
+              )
+            | `Cmd_word x -> R.Case ("Cmd_word",
+                map_command_word env x
+              )
+            )
+          in
+          let v2 = (* "," *) token env v2 in
+          let v3 = (* command_array_item_start *) token env v3 in
+          R.Tuple [v1; v2; v3]
+        ) v1)
+      in
+      let v2 = map_quoted_array_value env v2 in
+      let v3 = (* quoted_argument_boundary *) token env v3 in
+      R.Tuple [v1; v2; v3]
+    )
   | `Comp_arg_value_comp_exp_boun (v1, v2) -> R.Case ("Comp_arg_value_comp_exp_boun",
       let v1 = map_completed_argument_value env v1 in
       let v2 = (* completed_expression_boundary *) token env v2 in
@@ -3346,6 +3371,9 @@ and map_primary_expression (env : env) (x : CST.primary_expression) =
       map_post_decrement_expression env x
     )
   )
+
+and map_quoted_array_value (env : env) (x : CST.quoted_array_value) =
+  map_string_literal env x
 
 and map_quoted_command_argument (env : env) (x : CST.quoted_command_argument) =
   map_string_literal env x

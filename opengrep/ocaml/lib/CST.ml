@@ -49,7 +49,7 @@ type pat_b026f1a = Token.t (* pattern "[^\\$\"\\u201C-\\u201E`]+" *)
 
 type pat_proc = Token.t (* pattern [pP][rR][oO][cC][eE][sS][sS] *)
 
-type tok_pat_7059588_rep_plus_pat_7059588 = Token.t
+type tok_pat_63ae94a_rep_plus_pat_63ae94a = Token.t
 
 type pat_if = Token.t (* pattern [iI][fF] *)
 
@@ -562,8 +562,8 @@ type string_literal_immediate = (pat_0cd92c2 * pat_3d58547)
 
 type type_name = [
     `Type_id of type_identifier (*tok*)
-  | `Type_name_DOT_tok_pat_7059588_rep_plus_pat_7059588 of (
-        type_name * Token.t (* "." *) * tok_pat_7059588_rep_plus_pat_7059588
+  | `Type_name_DOT_tok_pat_63ae94a_rep_plus_pat_63ae94a of (
+        type_name * Token.t (* "." *) * tok_pat_63ae94a_rep_plus_pat_63ae94a
     )
 ]
 
@@ -670,6 +670,7 @@ type variable = [
   | `Choice_qual_var of [
         `Qual_var of qualified_variable (*tok*)
       | `DOLLARDOLLAR of Token.t (* "$$" *)
+      | `ATDOLLAR of Token.t (* "@$" *)
       | `DOLLARHAT of Token.t (* "$^" *)
       | `DOLLARQMARK of Token.t (* "$?" *)
       | `DOLLAR_ of Token.t (* "$_" *)
@@ -1305,7 +1306,20 @@ and comparison_expression = [
 ]
 
 and completed_argument_array = [
-    `Comp_arg_value_comp_exp_boun of (
+    `Rep1_choice_cmd_un_exp_COMMA_cmd_array_item_start_quoted_array_value_quoted_arg_boun of (
+        (
+            [
+                `Cmd_un_exp of command_unary_expression
+              | `Cmd_word of command_word
+            ]
+          * Token.t (* "," *)
+          * command_array_item_start (*tok*)
+        )
+          list (* one or more *)
+      * quoted_array_value
+      * quoted_argument_boundary (*tok*)
+    )
+  | `Comp_arg_value_comp_exp_boun of (
         completed_argument_value * completed_expression_boundary (*tok*)
     )
   | `Comp_arg_member_comp_member_boun of (
@@ -1707,6 +1721,8 @@ and primary_expression = [
   | `Post_incr_exp of post_increment_expression
   | `Post_decr_exp of post_decrement_expression
 ]
+
+and quoted_array_value = string_literal
 
 and quoted_command_argument = string_literal
 

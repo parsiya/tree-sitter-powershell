@@ -145,7 +145,7 @@ let children_regexps : (string * Run.exp option) list = [
   "pat__notcos", None;
   "pat__notl", None;
   "pat__like", None;
-  "tok_pat_7059588_rep_plus_pat_7059588", None;
+  "tok_pat_63ae94a_rep_plus_pat_63ae94a", None;
   "pat_b026f1a", None;
   "pat_in", None;
   "pat_try_", None;
@@ -378,7 +378,7 @@ let children_regexps : (string * Run.exp option) list = [
       Seq [
         Token (Name "type_name");
         Token (Literal ".");
-        Token (Name "tok_pat_7059588_rep_plus_pat_7059588");
+        Token (Name "tok_pat_63ae94a_rep_plus_pat_63ae94a");
       ];
     |];
   );
@@ -515,6 +515,7 @@ let children_regexps : (string * Run.exp option) list = [
       Alt [|
         Token (Name "qualified_variable");
         Token (Literal "$$");
+        Token (Literal "@$");
         Token (Literal "$^");
         Token (Literal "$?");
         Token (Literal "$_");
@@ -1463,6 +1464,20 @@ let children_regexps : (string * Run.exp option) list = [
   Some (
     Alt [|
       Seq [
+        Repeat1 (
+          Seq [
+            Alt [|
+              Token (Name "command_unary_expression");
+              Token (Name "command_word");
+            |];
+            Token (Literal ",");
+            Token (Name "command_array_item_start");
+          ];
+        );
+        Token (Name "quoted_array_value");
+        Token (Name "quoted_argument_boundary");
+      ];
+      Seq [
         Token (Name "completed_argument_value");
         Token (Name "completed_expression_boundary");
       ];
@@ -2356,6 +2371,7 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Name "post_decrement_expression");
     |];
   );
+  "quoted_array_value", Some (Token (Name "string_literal"););
   "quoted_command_argument",
   Some (
     Token (Name "string_literal");
@@ -3199,7 +3215,7 @@ let trans_pat__like ((kind, body) : mt) : CST.pat__like =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_tok_pat_7059588_rep_plus_pat_7059588 ((kind, body) : mt) : CST.tok_pat_7059588_rep_plus_pat_7059588 =
+let trans_tok_pat_63ae94a_rep_plus_pat_63ae94a ((kind, body) : mt) : CST.tok_pat_63ae94a_rep_plus_pat_63ae94a =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -4191,13 +4207,13 @@ let rec trans_type_name ((kind, body) : mt) : CST.type_name =
             trans_type_identifier (Run.matcher_token v)
           )
       | Alt (1, v) ->
-          `Type_name_DOT_tok_pat_7059588_rep_plus_pat_7059588 (
+          `Type_name_DOT_tok_pat_63ae94a_rep_plus_pat_63ae94a (
             (match v with
             | Seq [v0; v1; v2] ->
                 (
                   trans_type_name (Run.matcher_token v0),
                   Run.trans_token (Run.matcher_token v1),
-                  trans_tok_pat_7059588_rep_plus_pat_7059588 (Run.matcher_token v2)
+                  trans_tok_pat_63ae94a_rep_plus_pat_63ae94a (Run.matcher_token v2)
                 )
             | _ -> assert false
             )
@@ -4621,26 +4637,30 @@ let trans_variable ((kind, body) : mt) : CST.variable =
                   Run.trans_token (Run.matcher_token v)
                 )
             | Alt (2, v) ->
-                `DOLLARHAT (
+                `ATDOLLAR (
                   Run.trans_token (Run.matcher_token v)
                 )
             | Alt (3, v) ->
-                `DOLLARQMARK (
+                `DOLLARHAT (
                   Run.trans_token (Run.matcher_token v)
                 )
             | Alt (4, v) ->
-                `DOLLAR_ (
+                `DOLLARQMARK (
                   Run.trans_token (Run.matcher_token v)
                 )
             | Alt (5, v) ->
+                `DOLLAR_ (
+                  Run.trans_token (Run.matcher_token v)
+                )
+            | Alt (6, v) ->
                 `Tok_dollar_choice_pat_7059588_colon_choice_pat_b2ccb50 (
                   trans_tok_dollar_choice_pat_7059588_colon_choice_pat_b2ccb50 (Run.matcher_token v)
                 )
-            | Alt (6, v) ->
+            | Alt (7, v) ->
                 `Tok_at_choice_pat_7059588_colon_choice_pat_b2ccb50 (
                   trans_tok_at_choice_pat_7059588_colon_choice_pat_b2ccb50 (Run.matcher_token v)
                 )
-            | Alt (7, v) ->
+            | Alt (8, v) ->
                 `Braced_var (
                   trans_braced_variable (Run.matcher_token v)
                 )
@@ -6738,6 +6758,42 @@ and trans_completed_argument_array ((kind, body) : mt) : CST.completed_argument_
   | Children v ->
       (match v with
       | Alt (0, v) ->
+          `Rep1_choice_cmd_un_exp_COMMA_cmd_array_item_start_quoted_array_value_quoted_arg_boun (
+            (match v with
+            | Seq [v0; v1; v2] ->
+                (
+                  Run.repeat1
+                    (fun v ->
+                      (match v with
+                      | Seq [v0; v1; v2] ->
+                          (
+                            (match v0 with
+                            | Alt (0, v) ->
+                                `Cmd_un_exp (
+                                  trans_command_unary_expression (Run.matcher_token v)
+                                )
+                            | Alt (1, v) ->
+                                `Cmd_word (
+                                  trans_command_word (Run.matcher_token v)
+                                )
+                            | _ -> assert false
+                            )
+                            ,
+                            Run.trans_token (Run.matcher_token v1),
+                            trans_command_array_item_start (Run.matcher_token v2)
+                          )
+                      | _ -> assert false
+                      )
+                    )
+                    v0
+                  ,
+                  trans_quoted_array_value (Run.matcher_token v1),
+                  trans_quoted_argument_boundary (Run.matcher_token v2)
+                )
+            | _ -> assert false
+            )
+          )
+      | Alt (1, v) ->
           `Comp_arg_value_comp_exp_boun (
             (match v with
             | Seq [v0; v1] ->
@@ -6748,7 +6804,7 @@ and trans_completed_argument_array ((kind, body) : mt) : CST.completed_argument_
             | _ -> assert false
             )
           )
-      | Alt (1, v) ->
+      | Alt (2, v) ->
           `Comp_arg_member_comp_member_boun (
             (match v with
             | Seq [v0; v1] ->
@@ -8745,6 +8801,12 @@ and trans_primary_expression ((kind, body) : mt) : CST.primary_expression =
           )
       | _ -> assert false
       )
+  | Leaf _ -> assert false
+
+and trans_quoted_array_value ((kind, body) : mt) : CST.quoted_array_value =
+  match body with
+  | Children v ->
+      trans_string_literal (Run.matcher_token v)
   | Leaf _ -> assert false
 
 and trans_quoted_command_argument ((kind, body) : mt) : CST.quoted_command_argument =
