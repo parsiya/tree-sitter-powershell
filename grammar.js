@@ -698,6 +698,7 @@ export default grammar({
         reservedWord('begin'),
         reservedWord('process'),
         reservedWord('end'),
+        reservedWord('clean'),
       ),
 
     statement_block: ($) =>
@@ -1232,9 +1233,12 @@ export default grammar({
         new RegExp(caseInsensitive('process-')),
         new RegExp(caseInsensitive('end-')),
         new RegExp(caseInsensitive('dynamicparam-')),
+        new RegExp(caseInsensitive('clean-')),
+        new RegExp(caseInsensitive('do-')),
       )),
 
-    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,
+    // An `@` continues a word but cannot start one (`@x` is a splat).
+    path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/][0-9a-zA-Z_?\-\.\\\/@]*/,
 
     // A variable alone (or followed by member access) is an expression.
     // Only an adjacent word suffix can turn it into an expandable path.

@@ -1,0 +1,350 @@
+[
+ {
+  "name": "clean block in function",
+  "source": "function f {\n  clean {\n    Write-Verbose x\n  }\n}"
+ },
+ {
+  "name": "clean after end",
+  "source": "function f {\n  end { a }\n  clean { b }\n}"
+ },
+ {
+  "name": "clean after process",
+  "source": "function f { process { a } clean { b } }"
+ },
+ {
+  "name": "all named blocks",
+  "source": "function f { begin { a } process { b } end { c } clean { d } }"
+ },
+ {
+  "name": "clean upper case",
+  "source": "function f { CLEAN { b } }"
+ },
+ {
+  "name": "clean mixed case",
+  "source": "function f { Clean { b } }"
+ },
+ {
+  "name": "clean only block",
+  "source": "function f { clean { b } }"
+ },
+ {
+  "name": "clean script top level",
+  "source": "clean { a }"
+ },
+ {
+  "name": "clean empty block",
+  "source": "function f { clean { } }"
+ },
+ {
+  "name": "clean block with nested script block",
+  "source": "function f { clean { $a | ForEach-Object { $_ } } }"
+ },
+ {
+  "name": "clean after dynamicparam",
+  "source": "function f { dynamicparam { a } clean { b } }"
+ },
+ {
+  "name": "clean in script block argument",
+  "source": "$x = { begin { a } clean { b } }"
+ },
+ {
+  "name": "clean block then end of function",
+  "source": "function f { process { a }\n clean { b }\n}\n$y = 1"
+ },
+ {
+  "name": "clean command top level",
+  "source": "clean"
+ },
+ {
+  "name": "clean command with argument",
+  "source": "clean x"
+ },
+ {
+  "name": "clean command in statement block",
+  "source": "if ($a) { clean }"
+ },
+ {
+  "name": "clean hyphen command",
+  "source": "Clean-Item x"
+ },
+ {
+  "name": "clean hyphen command in function",
+  "source": "function f { Clean-Item x }"
+ },
+ {
+  "name": "clean hyphen lower command in block",
+  "source": "function f { process { clean-item } }"
+ },
+ {
+  "name": "clean hyphen command first in body",
+  "source": "function f { CLEAN-Thing -Path $p }"
+ },
+ {
+  "name": "clean as argument word",
+  "source": "Write-Output clean"
+ },
+ {
+  "name": "clean as parameter",
+  "source": "f -clean"
+ },
+ {
+  "name": "clean variable",
+  "source": "$clean = 1"
+ },
+ {
+  "name": "clean member",
+  "source": "$x.clean()"
+ },
+ {
+  "name": "clean prefix command",
+  "source": "function f { Cleanup x }"
+ },
+ {
+  "name": "clean prefix block name is a command",
+  "source": "function f { cleaner { a } }"
+ },
+ {
+  "name": "function named clean",
+  "source": "function clean { a }"
+ },
+ {
+  "name": "do hyphen command",
+  "source": "Do-Thing"
+ },
+ {
+  "name": "do hyphen command with argument",
+  "source": "Do-Thing -Name x"
+ },
+ {
+  "name": "do hyphen upper",
+  "source": "DO-Thing"
+ },
+ {
+  "name": "do hyphen in script block",
+  "source": "$x = { Do-Thing }"
+ },
+ {
+  "name": "do hyphen in script block argument",
+  "source": "f -OnClick { Do-Thing }"
+ },
+ {
+  "name": "do hyphen in nested call",
+  "source": "$null = $l.Add((New-Button -OnClick { Do-Thing }))"
+ },
+ {
+  "name": "do hyphen after statement",
+  "source": "$a = 1; Do-Thing"
+ },
+ {
+  "name": "do hyphen in function",
+  "source": "function f { Do-Thing x }"
+ },
+ {
+  "name": "do while loop",
+  "source": "do { a } while ($x)"
+ },
+ {
+  "name": "do until loop",
+  "source": "do { a } until ($x)"
+ },
+ {
+  "name": "do loop then do hyphen",
+  "source": "do { a } while ($x)\nDo-Thing"
+ },
+ {
+  "name": "do hyphen then do loop",
+  "source": "Do-Thing\ndo { a } while ($x)"
+ },
+ {
+  "name": "do hyphen as argument",
+  "source": "f Do-Thing"
+ },
+ {
+  "name": "do prefix command",
+  "source": "Done-Thing x"
+ },
+ {
+  "name": "do loop no space",
+  "source": "do{ a }while($x)"
+ },
+ {
+  "name": "dot source variable path at",
+  "source": "$p = 1\n. $root\\@.ps1 # c"
+ },
+ {
+  "name": "dot source variable path at name",
+  "source": "$p = 1\n. $root\\@.ps1"
+ },
+ {
+  "name": "dot source variable path at middle",
+  "source": "$p = 1\n. $r\\a@b.ps1"
+ },
+ {
+  "name": "dot source variable path at end",
+  "source": "$p = 1\n. $r\\a@.ps1"
+ },
+ {
+  "name": "dot source variable slash at",
+  "source": "$p = 1\n. $r/@.ps1"
+ },
+ {
+  "name": "call variable path at",
+  "source": "& $r\\@.ps1"
+ },
+ {
+  "name": "variable path at with arguments",
+  "source": "$r\\@.ps1 x -y 1"
+ },
+ {
+  "name": "variable path at two segments",
+  "source": "$r\\@a\\b.ps1 -x 1"
+ },
+ {
+  "name": "variable path at statement end",
+  "source": "$r\\@.ps1"
+ },
+ {
+  "name": "dot source variable path at then pipe",
+  "source": "$p = 1\n. $r\\@.ps1 | Out-Null"
+ },
+ {
+  "name": "dot source variable path at then semicolon",
+  "source": "$p = 1\n. $r\\@.ps1; $a = 1"
+ },
+ {
+  "name": "dot source variable path plain",
+  "source": "$p = 1\n. $r\\a.ps1"
+ },
+ {
+  "name": "dot source variable path then splat argument",
+  "source": "$p = 1\n. $r\\a.ps1 @args"
+ },
+ {
+  "name": "dot source variable path then splatted hashtable",
+  "source": "$p = 1\n. $r\\a.ps1 @{ a = 1 }"
+ },
+ {
+  "name": "dot source variable then splat",
+  "source": "$p = 1\n. $r @args"
+ },
+ {
+  "name": "splat command arguments",
+  "source": "f @a @b"
+ },
+ {
+  "name": "path word relative at",
+  "source": "f .\\@.ps1"
+ },
+ {
+  "name": "nested string target shape",
+  "source": "$a = \"($(($f | % { \"Name=``\"$($t.Replace('\\', '\\\\'))\\\\$_``\"\" }) -join ' OR '))\""
+ },
+ {
+  "name": "nested string pair quote subexpression",
+  "source": "\"x $( \"a``\"$($t)\" ) y\""
+ },
+ {
+  "name": "nested string pair quote variable",
+  "source": "\"x $( \"a``\"$t\" ) y\""
+ },
+ {
+  "name": "nested string pair quote text",
+  "source": "\"x $( \"a``\"b\" ) y\""
+ },
+ {
+  "name": "nested string pair quote unterminated",
+  "source": "\"x $( \"a``\" ) y\""
+ },
+ {
+  "name": "nested string four ticks quote text",
+  "source": "\"x $( \"a````\"b\" ) y\""
+ },
+ {
+  "name": "nested string four ticks quote unterminated",
+  "source": "\"x $( \"a````\" ) y\""
+ },
+ {
+  "name": "nested string six ticks quote text",
+  "source": "\"x $( \"a``````\"b\" ) y\""
+ },
+ {
+  "name": "nested string one tick quote text",
+  "source": "\"x $( \"a`\"b\" ) y\""
+ },
+ {
+  "name": "nested string one tick quote unterminated",
+  "source": "\"x $( \"a`\" ) y\""
+ },
+ {
+  "name": "nested string three ticks quote text",
+  "source": "\"x $( \"a```\"b\" ) y\""
+ },
+ {
+  "name": "nested string three ticks quote unterminated",
+  "source": "\"x $( \"a```\" ) y\""
+ },
+ {
+  "name": "nested string no ticks closes",
+  "source": "\"x $( \"a\" ) y\""
+ },
+ {
+  "name": "nested string no ticks then more",
+  "source": "\"x $( \"a\" + \"b\" ) y\""
+ },
+ {
+  "name": "nested string pair before other character",
+  "source": "\"x $( \"a``x\" ) y\""
+ },
+ {
+  "name": "nested string pair at end before close",
+  "source": "\"x $( \"a``\" + \"b``\"\" ) y\""
+ },
+ {
+  "name": "nested string pair then doubled quote",
+  "source": "\"x $( \"a````\"\"\" ) y\""
+ },
+ {
+  "name": "nested string in here-string pair continues",
+  "source": "@\"\nx $( \"a``\"b\" ) y\n\"@"
+ },
+ {
+  "name": "nested string in here-string pair closes",
+  "source": "@\"\nx $( \"a``\" ) y\n\"@"
+ },
+ {
+  "name": "nested string in script block argument",
+  "source": "f { \"a``\"$($t)\" }"
+ },
+ {
+  "name": "nested string pair in statement block",
+  "source": "$a = \"($( if ($x) { \"a``\"$($t)\\\\$_``\"\" } ))\""
+ },
+ {
+  "name": "top level string with escaped tick",
+  "source": "\"a``\""
+ },
+ {
+  "name": "top level string with tick then quote",
+  "source": "\"a``\" \"b\""
+ },
+ {
+  "name": "top level string with escaped quote",
+  "source": "\"a`\"b\""
+ },
+ {
+  "name": "top level subexpression pair quote closes",
+  "source": "$( \"a``\" )"
+ },
+ {
+  "name": "top level subexpression adjacent junk is invalid",
+  "source": "$( \"a``\"b\" )"
+ },
+ {
+  "name": "string subexpression plain nested",
+  "source": "\"x $( \"a $t b\" ) y\""
+ },
+ {
+  "name": "string subexpression doubled quote",
+  "source": "\"x $(\"\" a \"\") y\""
+ }
+]
