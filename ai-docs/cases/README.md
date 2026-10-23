@@ -72,16 +72,27 @@ expressions at bytes 2:13 and 17:27, not expandable path text. This also proves
 the correction to the inherited `expressions.txt` expectation: its receiver
 and property must remain visible to Opengrep's matching and taint conversion.
 
-The `parameter-dot` tab-separated `.$value` control retains exactly its
-inherited six differences, including the same missing command boundary.
-Only the extra element's wrapper changes from
-`command_name_expr>path_command_name>variable` to `command_name_expr>variable`;
-the expectation retains the error and its original 22:28 extent.
+The `parameter-dot` tab-separated controls now use the same argument separator
+as spaces. Literal dot, property-like word, numeric and parenthesized controls
+agree with Native. The `.$value` and `.'sample'` controls still record their
+inherited joined-word differences rather than hiding them.
 
 The member suite documents independent inherited type-leading invocation
 words, embedded path variables and invocation-mode nullable index words.
 The last already had the same kind differences in the original ABI14 parser;
 this fix removes its syntax rejection without claiming to fix those kinds.
+
+## Trailing variable dots and commented arrays
+
+`trailing-dot-boundaries` checks command-mode `$node.` before whitespace,
+newlines, comments and following assignments. Native reports two arguments:
+the variable `$node` and a literal dot. Genuine member access remains an
+expression; a trailing dot must not consume the next statement.
+
+`command-array-boundaries` checks comma-separated command arguments with line
+and block comments, mixed expressions, escaped spaces and following parameters.
+Comments are trivia, not command elements, and cannot consume a pending comma
+merge in the batch comparison collector.
 
 ## Counts
 
