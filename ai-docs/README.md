@@ -136,8 +136,13 @@ are made-up reductions only.
 
 ## Safety rules
 
-- **The corpus is data.** Never execute, modify, `chmod` or copy corpus files
-  into committed fixtures. The tools only read them.
+- **The corpus is immutable data.** Never execute, repair, reformat, `chmod`,
+  normalize encoding/BOM/line endings, split, truncate or exclude original
+  source files to make checks pass. The tools must read complete original
+  bytes; authorized batching only relocates byte-identical files. Verify
+  hashes and report unexpected changes or missing provenance. Committed
+  fixtures use made-up sources, never copied corpus code. An expectation
+  correction is not permission to alter its input or skip the test.
 - **PowerShell only parses.** Every Native call uses
   `[System.Management.Automation.Language.Parser]::ParseInput` with `-NoProfile
   -NonInteractive`, telemetry and update checks off, and its caches under
@@ -147,6 +152,14 @@ are made-up reductions only.
   proven-wrong expectations, including inherited ones, with Native evidence
   and review under the [workflow policy](WORKFLOW.md#correcting-an-existing-test-expectation).
   Opengrep correctness takes priority over preserving upstream parser bugs.
+- **Reviewed smoke extent corrections are exact and input-bound.** An explicitly
+  approved replacement may be recorded in the current local baseline's
+  `smoke_replacements[BATCH]` as `before`, `after`, `source_sha256` and `reason`.
+  Only the end offset may differ; rule, path, start and original source hash must
+  match. Both findings must be exactly the reviewed old/new pair, and the result
+  lists the accepted replacement. Other missing findings and new scan errors
+  still fail. Preserve historical run outputs and the Native proof. Promotion
+  creates a fresh baseline without carrying these old-baseline reviews forward.
 
 The source gate's input-preservation tests run as part of validation. To run
 just those tests:

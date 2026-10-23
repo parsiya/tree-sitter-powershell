@@ -34,8 +34,16 @@ to independent work. Do not invent work after the batch is clear.
   `src/parser.c`, `src/grammar.json` or `src/node-types.json`, or hand-edit generated files.
 - Native evidence can justify correcting any test expectation, including
   upstream ones. Preserve inputs and coverage; never hide a regression.
-- Corpus files are read-only data. Never execute, modify or copy them into tests.
-  Use PowerShell only for parsing and made-up sources for committed fixtures.
+- Original corpus files and package archives are immutable, read-only data.
+  Never execute, repair, reformat, normalize encoding/BOM/line endings, chmod,
+  split, truncate or exclude a source file to make a check pass. Grammar and
+  Opengrep must work on the original complete input bytes. Authorized batching
+  may relocate unchanged files; verify content hashes rather than assuming this.
+  Never copy corpus code into tests; use made-up reductions and Native parse-only
+  checks. Correcting a proven-wrong expected tree or finding is not permission
+  to change its input, skip a test or hide an unsupported file.
+  Verify corpus integrity before claiming certification. Report unexpected
+  source changes and provenance gaps; never silently refresh their baseline.
 - Encoding and shared Opengrep code changes are deferred; record those blockers.
 - Workers do not run Dune/full validation or spawn agents. The parent owns integration.
 - Stage explicit files, no co-author trailers, no pushes.

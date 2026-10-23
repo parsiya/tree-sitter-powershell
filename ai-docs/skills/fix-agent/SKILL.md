@@ -37,7 +37,14 @@ Existing expectations may be corrected when Native evidence proves them wrong.
 Never delete/skip tests or weaken checks. Add C byte/value tests when those matter:
 the proof kit compares validity, kinds and extents, not literal values.
 
-Corpus files are read-only; never execute them or copy their code into tests.
+Original corpus files and archives are immutable. Never execute, repair,
+reformat, change encoding/BOM/line endings or permissions, split, truncate or
+exclude an input to obtain a passing check. Fix the grammar/converter for the
+complete original bytes; use only made-up reductions in committed tests.
+Batching may only relocate byte-identical inputs when authorized. Report hash
+mismatches or missing provenance; never silently replace an input baseline.
+Changing a Native-proven wrong expectation does not permit changing its source
+or skipping the test. Never copy corpus code into tests.
 Do not edit generated files, tools, the parent checkout or other worktrees.
 No Dune, full validation, nested agents or pushes. Parent handles converter integration.
 

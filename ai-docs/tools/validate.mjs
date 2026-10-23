@@ -205,7 +205,8 @@ async function sourceStage(run, { sh }) {
   const lint = await sh(`${q(PARSER)}/node_modules/.bin/eslint --config ${q(PARSER)}/eslint.config.mjs grammar.js`,
     { cwd: fork, capture: true });
   assert.ok(!/ignored/i.test(lint.stdout), 'eslint ignored grammar.js');
-  await sh(`node --test ${q(path.join(TOOLS, 'inherited-inputs.test.mjs'))} ${q(path.join(TOOLS, 'proof-kit.test.mjs'))}`);
+  await sh(`node --test ${q(path.join(TOOLS, 'inherited-inputs.test.mjs'))} ` +
+    `${q(path.join(TOOLS, 'proof-kit.test.mjs'))} ${q(path.join(TOOLS, 'smoke/compare-findings.test.mjs'))}`);
 
   const inherited = git(fork, 'ls-tree', '-r', '-z', '--name-only', 'upstream/main', 'test').split('\0').filter(Boolean);
   let inheritedCases = 0;
@@ -509,17 +510,36 @@ async function corpusStage(run, { sh }) {
   return details;
 }
 
-// Finding and error-file keys of a smoke run (smoke/verify-smoke.mjs writes keys.json):
-// a removed finding or a new error file fails; added findings are reported for review.
-function compareFindings(baseDir, nowDir) {
-  const before = readJson(path.join(baseDir, 'keys.json'));
-  const now = readJson(path.join(nowDir, 'keys.json'));
+// Only exact, source-hash-bound reviews may replace an expected finding extent.
+export function compareFindingSets(before, now, reviews = [], sourceHashes = new Map()) {
   const nowKeys = new Set(now.findings);
   const beforeKeys = new Set(before.findings);
   const beforeErrors = new Set(before.error_files);
+  const reviewedBefore = new Set(), reviewedAfter = new Set();
+  for (const review of reviews) {
+    const oldParts = review.before.split('\t'), newParts = review.after.split('\t');
+    assert.equal(oldParts.length, 4, 'reviewed finding must contain rule, path, start and end');
+    assert.equal(newParts.length, 4, 'reviewed finding must contain rule, path, start and end');
+    assert.deepEqual(oldParts.slice(0, 3), newParts.slice(0, 3),
+      'a reviewed extent correction cannot change the rule, path or start');
+    assert.notEqual(review.before, review.after, 'reviewed extent correction must change the end');
+    assert.match(review.source_sha256, /^[a-f0-9]{64}$/, 'review requires a source SHA-256');
+    assert.equal(sourceHashes.get(oldParts[1]), review.source_sha256,
+      'reviewed finding source differs from the approved original bytes');
+    assert.ok(typeof review.reason === 'string' && review.reason.trim(), 'review requires its evidence/reason');
+    assert.ok(beforeKeys.has(review.before) && !beforeKeys.has(review.after),
+      'reviewed old finding is not the exact baseline expectation');
+    assert.ok(nowKeys.has(review.after) && !nowKeys.has(review.before),
+      'reviewed replacement is not the exact current finding');
+    assert.ok(!reviewedBefore.has(review.before) && !reviewedAfter.has(review.after),
+      'duplicate reviewed finding replacement');
+    reviewedBefore.add(review.before);
+    reviewedAfter.add(review.after);
+  }
   return {
-    removed: before.findings.filter(key => !nowKeys.has(key)),
-    added: now.findings.filter(key => !beforeKeys.has(key)),
+    removed: before.findings.filter(key => !nowKeys.has(key) && !reviewedBefore.has(key)),
+    added: now.findings.filter(key => !beforeKeys.has(key) && !reviewedAfter.has(key)),
+    reviewed_replacements: reviews,
     new_error_paths: now.error_files.filter(file => !beforeErrors.has(file)),
     errors: now.error_files.length,
   };
@@ -550,12 +570,17 @@ async function smokeStage(run, { sh }) {
     const base = run.base('smoke', batch);
     let note = 'no baseline';
     if (base) {
-      const comparison = compareFindings(base, out);
+      const reviews = run.baseline.smoke_replacements?.[batch] ?? [];
+      const sourceHashes = new Map(readJsonl(inventory).map(row => [row.path, row.sha256]));
+      const comparison = compareFindingSets(
+        readJson(path.join(base, 'keys.json')), readJson(path.join(out, 'keys.json')), reviews, sourceHashes);
       fs.writeFileSync(path.join(out, 'finding-set-comparison.json'), `${JSON.stringify(comparison, null, 2)}\n`);
-      Object.assign(result, { removed: comparison.removed.length, added: comparison.added.length, new_error_paths: comparison.new_error_paths });
+      Object.assign(result, { removed: comparison.removed.length, added: comparison.added.length,
+        reviewed_replacements: comparison.reviewed_replacements.length, new_error_paths: comparison.new_error_paths });
       if (comparison.removed.length) failures.push(`${batch}: ${comparison.removed.length} finding(s) removed`);
       if (comparison.new_error_paths.length) failures.push(`${batch}: new scan errors in ${comparison.new_error_paths.length} file(s)`);
-      note = `removed ${comparison.removed.length}, added ${comparison.added.length}, new error files ${comparison.new_error_paths.length}`;
+      note = `removed ${comparison.removed.length}, added ${comparison.added.length}, ` +
+        `reviewed replacements ${comparison.reviewed_replacements.length}, new error files ${comparison.new_error_paths.length}`;
     }
     details[batch] = result;
     parts.push(`${batch} ${result.targets} targets, ${result.findings} findings / ${result.captures} captures byte-checked, ` +
@@ -676,4 +701,4 @@ async function main() {
   }
 }
 
-await main();
+if (process.argv[1] && path.resolve(process.argv[1]) === SELF) await main();
