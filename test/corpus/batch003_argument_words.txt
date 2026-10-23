@@ -1,0 +1,131 @@
+===
+Argument words: member suffix escape starts a separate word
+===
+
+Send-Notice $item.Detail.Text`n -Color Blue
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (member_access
+                    (variable)
+                    (member_name (simple_name)))
+                  (member_name (simple_name)))))
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Argument words: escaped line continuation separates member from suffix
+===
+
+Send-Notice $item.Detail.Text`
+tail next
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (member_access
+                    (variable)
+                    (member_name (simple_name)))
+                  (member_name (simple_name)))))
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+===
+Argument words: at-prefixed expansions and splat suffixes
+===
+
+Read-Settings @$Root/settings.json @$item.Detail.Text @Options/path @Options
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression (variable)))))))))
+
+===
+Argument words: at-prefixed parameter attachment and comma list
+===
+
+Read-Settings -File:@$Root/settings.json first,@$Root/other.json
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)))))))
+
+===
+Argument words: at-dollar before braces remains a splatted variable
+===
+
+Read-Settings @${Root}/settings.json
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression (variable)))
+            (script_block_expression
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command (command_name))))))))
+            (generic_token)))))))

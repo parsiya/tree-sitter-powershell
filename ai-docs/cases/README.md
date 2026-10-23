@@ -105,6 +105,22 @@ backtick in a type name: source ```Box``1``` has type name ``Box`1``. The CST ke
 the raw identifier text, so converter normalization must perform that collapse
 without treating a single backtick before a digit as an ordinary escape.
 
+## Batch-003 argument words
+
+`batch003-argument-words` checks exact Native argument kinds, counts and byte
+extents for escaped suffixes after completed member expressions and
+`@$Root/settings.json`-style expandable words. Native separates a member and
+an adjacent `` `n `` word; an actual escaped LF/CRLF is trivia at that boundary.
+A bare variable followed by an escape remains one expandable word.
+
+The at-prefix controls distinguish expandable `@$name` text, literal
+`@Options/path` text, ordinary splats and invalid prefixes. `@${name}` starts
+with the splatted variable `@$`, not interpolation. Exact known entries retain
+the inherited missing variable nodes inside flattened `generic_token` words,
+empty-scope splat rejection, splatted member overacceptance,
+variable-plus-parenthesis suffix rejection and escaped-newline-before-semicolon
+rejection (also reproduced on the unchanged parser). No element comparison is disabled.
+
 ## Counts
 
 Migrated 2026-10-22 from 50 local case files (5,139 cases). Columns: original
