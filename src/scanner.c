@@ -36,7 +36,8 @@ enum TOKEN_TYPE {
     VARIABLE_COMMAND_NAME_CONTINUATION,
     INVOCATION_ARGUMENT_BOUNDARY,
     VARIABLE_BEFORE_LITERAL_DOT,
-    COMMAND_NAME_SUBEXPRESSION
+    COMMAND_NAME_SUBEXPRESSION,
+    ANGLE_ARGUMENT_BOUNDARY
 };
 
 /* --- API --- */
@@ -843,6 +844,16 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
     return true;
 }
 
+// `<tag>`: the command name `<` is directly followed by its first argument.
+static bool scan_angle_argument_boundary(TSLexer *lexer)
+{
+    int32_t c = lexer->lookahead;
+    if (command_word_end(c) || c == '<' || c == '>' || c == '`') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = ANGLE_ARGUMENT_BOUNDARY;
+    return true;
+}
+
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
 {
     while (iswspace(lexer->lookahead)) skip(lexer);
@@ -913,6 +924,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = literal ? PARAMETER_DOT_LITERAL_BOUNDARY : PARAMETER_DOT_BOUNDARY;
         return valid_symbols[lexer->result_symbol];
     }
+    if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !valid_symbols[ERROR_SENTINEL] &&
+        scan_angle_argument_boundary(lexer))
+        return true;
     if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !valid_symbols[ERROR_SENTINEL])
         return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !valid_symbols[ERROR_SENTINEL]) {
