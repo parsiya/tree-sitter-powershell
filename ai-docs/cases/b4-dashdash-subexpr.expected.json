@@ -1,7 +1,7 @@
 {
  "suite": "b4-dashdash-subexpr",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":66,"agree":48,"invalid_rejected":1,"known":1,"fail":16,"unsupported":0,"skipped":0,"known_differences":1},
+ "summary": {"cases":66,"agree":49,"invalid_rejected":1,"known":1,"fail":15,"unsupported":0,"skipped":0,"known_differences":1},
  "cases": {
   "dashdash subexpression member then parameter": {"status":"fail","differences":["elements kind 24:27 StringConstantExpressionAst/BareWord ts command_parameter"]},
   "dashdash subexpression": {"status":"agree","differences":[]},
@@ -23,7 +23,7 @@
   "dashdash quoted value then subexpression": {"status":"agree","differences":[]},
   "dashdash single quoted value then subexpression": {"status":"agree","differences":[]},
   "dashdash quoted value only": {"status":"fail","differences":["elements kind 2:9 StringConstantExpressionAst/BareWord ts command_parameter"]},
-  "dashdash quoted subexpression": {"status":"fail","differences":["commands missing 9:10","elements kind 2:12 ExpandableStringExpressionAst/BareWord ts command_parameter","elements missing 9:10 StringConstantExpressionAst/BareWord","typed missing SubExpressionAst 7:11"]},
+  "dashdash quoted subexpression": {"status":"agree","differences":[]},
   "dashdash subexpression then quoted variable": {"status":"agree","differences":[]},
   "dashdash two options with subexpressions": {"status":"fail","differences":["elements kind 28:31 StringConstantExpressionAst/BareWord ts command_parameter"]},
   "dashdash colon two subexpressions": {"status":"agree","differences":[]},
