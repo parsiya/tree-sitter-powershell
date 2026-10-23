@@ -101,6 +101,7 @@ export default grammar({
     $._variable_command_name_continuation,
     $._invocation_argument_boundary,
     $._variable_before_literal_dot,
+    $._command_name_subexpression,
   ],
 
   extras: ($) => [
@@ -990,16 +991,19 @@ export default grammar({
     _slash_command_name: ($) =>
       seq(
         choice('/', /\.{1,2}\//),
-        repeat(
-          choice(
-            token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n]+/),
-            $._command_name_escape,
-            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
-            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
-            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
-            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
-          ),
-        ),
+        repeat($._command_name_part),
+      ),
+
+    // A `$(` inside a name is literal text up to its matching parenthesis.
+    _command_name_part: ($) =>
+      choice(
+        token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n\$]+/),
+        seq(token.immediate('$'), optional($._command_name_subexpression)),
+        $._command_name_escape,
+        seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+        seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+        token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+        token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
       ),
 
     command_name: ($) => choice($._slash_command_name, $._ordinary_command_name),
@@ -1022,7 +1026,11 @@ export default grammar({
           new RegExp(caseInsensitive('continue-')),
           new RegExp(caseInsensitive('throw-')),
           // Adjacent @ and $ continue literal command names, not return statements.
-          new RegExp(caseInsensitive('return') + '[-@$]'),
+          new RegExp(caseInsensitive('return') + '[-@]'),
+          seq(
+            new RegExp(caseInsensitive('return') + '\\$'),
+            optional($._command_name_subexpression),
+          ),
           new RegExp(caseInsensitive('exit-')),
           new RegExp(caseInsensitive('try-')),
           new RegExp(caseInsensitive('trap-')),
@@ -1045,16 +1053,7 @@ export default grammar({
           new RegExp(caseInsensitive('end-')),
           new RegExp(caseInsensitive('dynamicparam-')),
         ),
-        repeat(
-          choice(
-            token.immediate(/[^\{\}\(\);,\|\&`"'\u2018-\u201E\s\u00a0\r\n]+/),
-            $._command_name_escape,
-            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
-            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
-            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
-            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
-          ),
-        ),
+        repeat($._command_name_part),
       ),
 
     path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,

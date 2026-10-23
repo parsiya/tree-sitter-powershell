@@ -1,0 +1,294 @@
+==================
+Command name subexpression: colon
+==================
+
+foo:$($p)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: colon member suffix
+==================
+
+using:$($p).x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: argument follows
+==================
+
+foo:$($p).x c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Command name subexpression: parenthesized command
+==================
+
+Write-Output (foo:$($p).x)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Command name subexpression: nested in expandable string
+==================
+
+"$(using:$($prefix).$($id))"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)))))))))))))))))))))
+
+==================
+Command name subexpression: dash prefix and member suffix
+==================
+
+a-$(b).c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: adjacent parentheses stay an argument
+==================
+
+a$(b)(c)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)))))))))))
+
+==================
+Command name subexpression: literal text up to the matching parenthesis
+==================
+
+a$(b (c) d)e f
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Command name subexpression: several parts
+==================
+
+a$(b)$(c)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: braced name
+==================
+
+foo:${a b}.x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: return prefix
+==================
+
+return$(b) c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Command name subexpression: slash path
+==================
+
+/opt/a$($b) c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Command name subexpression: space after dollar
+==================
+
+a$ (b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Command name subexpression: variables unchanged
+==================
+
+foo:$p
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Command name subexpression: scope variable argument unchanged
+==================
+
+Write-Output $(using:x) $env:X ${a:b}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name))))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable
+                  (braced_variable))))))))))
