@@ -1,0 +1,290 @@
+===
+Adjacent parenthesis argument: member access, method call and index
+===
+
+Fix($a).Trim()
+Fix($a ).Trim
+Fix($a)[0]
+Fix($a).Trim().Length[0], 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable)))))))))))))
+                  (member_name
+                    (simple_name))
+                  (argument_list))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable)))))))))))))
+                  (member_name
+                    (simple_name)))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable)))))))))))))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (array_literal_expression
+              (unary_expression
+                (element_access
+                  (member_access
+                    (invokation_expression
+                      (parenthesized_expression
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable)))))))))))))
+                      (member_name
+                        (simple_name))
+                      (argument_list))
+                    (member_name
+                      (simple_name)))
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (integer_literal
+                                      (decimal_integer_literal)))))))))))))
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+===
+Adjacent parenthesis method call followed by an adjacent parameter
+===
+
+$x = Get-Date(Get-Date).ToUniversalTime()-uformat "%s"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (array_literal_expression
+                  (unary_expression
+                    (invokation_expression
+                      (parenthesized_expression
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name)))))
+                      (member_name
+                        (simple_name))
+                      (argument_list))))
+                (command_parameter)
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (string_literal
+                      (expandable_string_literal))))))))))))
+
+===
+Adjacent parenthesis method call inside a string subexpression
+===
+
+"a $(Fix($a).Trim()) b"
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)
+                                        (command_elements
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (invokation_expression
+                                                (parenthesized_expression
+                                                  (pipeline
+                                                    (pipeline_chain
+                                                      (logical_expression
+                                                        (bitwise_expression
+                                                          (comparison_expression
+                                                            (additive_expression
+                                                              (multiplicative_expression
+                                                                (format_expression
+                                                                  (range_expression
+                                                                    (array_literal_expression
+                                                                      (unary_expression
+                                                                        (variable)))))))))))))
+                                                (member_name
+                                                  (simple_name))
+                                                (argument_list)))))))))))))))))))))))))
+
+===
+Adjacent parenthesis controls: spaced receiver and inner call
+===
+
+Fix ($a ).Trim()
+Fix($a.Trim())
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (invokation_expression
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (variable)))))))))))))
+                  (member_name
+                    (simple_name))
+                  (argument_list))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (invokation_expression
+                                      (variable)
+                                      (member_name
+                                        (simple_name))
+                                      (argument_list))))))))))))))))))))

@@ -1338,6 +1338,85 @@ export default grammar({
             $._completed_expression_boundary,
             $._argument_after_quote,
           ),
+          // `Fix($a).Trim()`: with no separator the member access, call or
+          // index applies to the parenthesis, as it does after a separator.
+          // A bare member must not take the expression boundary: `(` after it
+          // starts the method arguments.
+          seq(
+            alias($._paren_member_array, $.array_literal_expression),
+            optional(seq(
+              $._completed_member_boundary,
+              $._argument_after_quote,
+            )),
+          ),
+          seq(
+            alias($._paren_call_array, $.array_literal_expression),
+            optional(seq(
+              $._completed_expression_boundary,
+              $._argument_after_quote,
+            )),
+          ),
+        ),
+      ),
+
+    _paren_member_array: ($) =>
+      seq(
+        alias($._paren_member_value, $.unary_expression),
+        repeat($._paren_postfix_array_item),
+      ),
+
+    _paren_call_array: ($) =>
+      seq(
+        alias($._paren_call_value, $.unary_expression),
+        repeat($._paren_postfix_array_item),
+      ),
+
+    _paren_postfix_array_item: ($) =>
+      seq(
+        ',',
+        $._command_array_item_start,
+        alias($._command_unary_expression, $.unary_expression),
+      ),
+
+    _paren_member_value: ($) =>
+      alias($._paren_member_access, $.member_access),
+
+    _paren_call_value: ($) =>
+      choice(
+        alias($._paren_element_access, $.element_access),
+        alias($._paren_invokation, $.invokation_expression),
+      ),
+
+    _paren_postfix_chain: ($) =>
+      choice($._paren_member_value, $._paren_call_value),
+
+    _paren_chain: ($) => choice($.parenthesized_expression, $._paren_postfix_chain),
+
+    _paren_member_access: ($) =>
+      prec.left(
+        choice(
+          seq($._paren_chain, $._member_access_operator, $.member_name),
+          seq($._paren_chain, '::', $.member_name),
+        ),
+      ),
+
+    _paren_element_access: ($) =>
+      prec(
+        PREC.ELEMENT_ACCESS,
+        seq(
+          $._paren_chain,
+          choice('[', $.null_conditional_element_operator),
+          $._expression,
+          ']',
+        ),
+      ),
+
+    _paren_invokation: ($) =>
+      prec.right(
+        PREC.PARAM + 1,
+        choice(
+          seq($._paren_chain, $._member_access_operator, $.member_name, prec.dynamic(3, $.argument_list)),
+          seq($._paren_chain, '::', $.member_name, prec.dynamic(3, $.argument_list)),
         ),
       ),
 
