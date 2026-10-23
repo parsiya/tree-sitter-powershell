@@ -1,0 +1,306 @@
+===
+Switch parameter abbreviations
+===
+
+switch -c ($x) { 1 { 2 } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_parameters
+        (switch_parameter))
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (integer_literal
+                (decimal_integer_literal)))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
+
+===
+Switch several abbreviated parameters
+===
+
+switch -rege -CASESENS ($x) { 1 { 2 } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_parameters
+        (switch_parameter)
+        (switch_parameter))
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (integer_literal
+                (decimal_integer_literal)))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
+
+===
+Switch file abbreviation
+===
+
+switch -fi $path { 1 { 2 } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_condition
+        (switch_filename
+          (variable)))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (integer_literal
+                (decimal_integer_literal)))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
+
+===
+Switch clause condition method call
+===
+
+switch ($true) { $line.StartsWith('a') { 1 } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (invokation_expression
+                (variable)
+                (member_name
+                  (simple_name))
+                (argument_list
+                  (argument_expression_list
+                    (argument_expression
+                      (logical_argument_expression
+                        (bitwise_argument_expression
+                          (comparison_argument_expression
+                            (additive_argument_expression
+                              (multiplicative_argument_expression
+                                (format_argument_expression
+                                  (range_argument_expression
+                                    (unary_expression
+                                      (string_literal
+                                        (verbatim_string_characters)))))))))))))))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
+
+===
+Switch clause conditions that start with a variable
+===
+
+switch ($true) { $a.B { 1 } $c { 2 } $d[0] { 3 } word { 4 } }
+
+---
+
+(program
+  (statement_list
+    (switch_statement
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition
+              (member_access
+                (variable)
+                (member_name
+                  (simple_name))))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal))))))))))))))))
+          (switch_clause
+            (switch_clause_condition
+              (variable))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal))))))))))))))))
+          (switch_clause
+            (switch_clause_condition
+              (element_access
+                (variable)
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal))))))))))))))))
+          (switch_clause
+            (switch_clause_condition)
+            (statement_block
+              (statement_list
+                (pipeline
+                  (pipeline_chain
+                    (logical_expression
+                      (bitwise_expression
+                        (comparison_expression
+                          (additive_expression
+                            (multiplicative_expression
+                              (format_expression
+                                (range_expression
+                                  (array_literal_expression
+                                    (unary_expression
+                                      (integer_literal
+                                        (decimal_integer_literal)))))))))))))))))))))
