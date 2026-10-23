@@ -584,10 +584,18 @@ export default grammar({
     _command_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E][^\(\)\{\}${WS};\&]*`)),
 
     // Parameters
-    _single_command_parameter: ($) => token(new RegExp(
-      String.raw`-(${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
-      'u',
-    )),
+    // Native also takes an en dash, em dash or horizontal bar as the dash. The
+    // precedence keeps such a name ahead of the generic word it also matches.
+    _single_command_parameter: ($) => choice(
+      token(new RegExp(
+        String.raw`-(${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
+        'u',
+      )),
+      token(prec(1, new RegExp(
+        String.raw`[\u2013-\u2015](${PARAMETER_LETTER}|[_?\x60])${PARAMETER_CHAR}*`,
+        'u',
+      ))),
+    ),
 
     command_parameter: ($) =>
       choice(

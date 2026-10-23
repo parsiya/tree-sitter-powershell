@@ -44,5 +44,20 @@
  {"name": "mixed dashes ascii then en", "source": "$a -\u2013ne 1\n"},
  {"name": "mixed dashes en then ascii", "source": "$a \u2013-ne 1\n"},
  {"name": "en dash operator without space after", "source": "$a \u2013ne1\n"},
- {"name": "en dash operator before paren", "source": "$a \u2013ne(1)\n"}
+ {"name": "en dash operator before paren", "source": "$a \u2013ne(1)\n"},
+ {"name": "em dash parameter command", "source": "Get-Item \u2014Path $p\n"},
+ {"name": "horizontal bar parameter command", "source": "Get-Item \u2015Path $p\n"},
+ {"name": "en dash parameter colon value", "source": "Get-Item \u2013Path:$p\n"},
+ {"name": "en dash parameter string value", "source": "Write-Host \u2013Object 'x'\n"},
+ {"name": "en dash parameter underscore name", "source": "f \u2013_x 1\n"},
+ {"name": "en dash parameter with inner dashes", "source": "f \u2013a\u2013b 1\n"},
+ {"name": "en dash parameters in a pipeline", "source": "Get-Item \u2013Path $p | Select-Object \u2013First 1\n"},
+ {"name": "en dash parameter inside script block", "source": "$x | ForEach-Object { Write-Host \u2013ne }\n"},
+ {"name": "en dash parameter then operator word", "source": "f \u2013Path \u2013ne\n"},
+ {"name": "en dash number argument", "source": "Write-Host \u20131\n"},
+ {"name": "en dash alone as argument", "source": "Write-Host \u2013 a\n"},
+ {"name": "en dash before quote as argument", "source": "Write-Host \u2013'a'\n"},
+ {"name": "command name containing en dash", "source": "Get\u2013Item x\n"},
+ {"name": "ascii parameter control", "source": "Get-Item -Path $p\n"},
+ {"name": "en dash parameter dot member", "source": "f \u2013Path.Name\n"}
 ]

@@ -197,6 +197,12 @@ static bool clause_follows(TSLexer *lexer, bool allow_else, bool allow_try)
     return !is_word_char(lexer->lookahead);
 }
 
+// En dash, em dash and horizontal bar also start a command parameter.
+static bool is_unicode_dash(int32_t c)
+{
+    return c >= 0x2013 && c <= 0x2015;
+}
+
 static bool command_word_end(int32_t c)
 {
     return c == 0 || command_array_space(c) || c == '(' || c == ')' ||
@@ -457,7 +463,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
 
     bool joined = false;
     bool consumed = false;
-    bool parameter = start && lexer->lookahead == '-';
+    bool unicode_dash = start && is_unicode_dash(lexer->lookahead);
+    bool parameter = start && (lexer->lookahead == '-' || unicode_dash);
     bool parameter_name = false;
     bool quoted = false;
     bool escaped_quote = false;
@@ -521,7 +528,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
     bool option_separator = false;
     if (parameter) {
         lexer->advance(lexer, false);
-        option_word = lexer->lookahead == '-';
+        option_word = !unicode_dash && lexer->lookahead == '-';
         parameter_dot = ((lexer->lookahead < 0x80 && iswalpha(lexer->lookahead)) ||
                          is_unicode_parameter_letter(lexer->lookahead) ||
                          lexer->lookahead == '_' || lexer->lookahead == '?' ||
@@ -627,7 +634,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         consumed = true;
         lexer->mark_end(lexer);
     }
-    if (only_dashes && dashes > 0 && dashes <= 2 &&
+    if (only_dashes && !unicode_dash && dashes > 0 && dashes <= 2 &&
         lexer->lookahead != ',' && valid_symbols[BARE_DASHES]) {
         lexer->result_symbol = BARE_DASHES;
         return true;

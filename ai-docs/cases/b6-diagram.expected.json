@@ -1,7 +1,7 @@
 {
  "suite": "b6-diagram",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":46,"agree":36,"invalid_rejected":5,"known":2,"fail":3,"unsupported":0,"skipped":0,"known_differences":2},
+ "summary": {"cases":61,"agree":53,"invalid_rejected":5,"known":3,"fail":0,"unsupported":0,"skipped":0,"known_differences":3},
  "cases": {
   "en dash -ne in script block argument": {"status":"known","differences":[]},
   "ascii -ne in script block argument": {"status":"known","differences":[]},
@@ -38,9 +38,9 @@
   "en dash unary minus": {"status":"agree","differences":[]},
   "en dash minus assignment": {"status":"agree","differences":[]},
   "en dash decrement": {"status":"agree","differences":[]},
-  "en dash parameter command": {"status":"fail","differences":["elements kind 9:16 CommandParameterAst ts generic_token"]},
-  "en dash operator word as argument": {"status":"fail","differences":["elements kind 11:16 CommandParameterAst ts generic_token"]},
-  "en dash operator word then value as arguments": {"status":"fail","differences":["elements kind 13:18 CommandParameterAst ts generic_token"]},
+  "en dash parameter command": {"status":"agree","differences":[]},
+  "en dash operator word as argument": {"status":"agree","differences":[]},
+  "en dash operator word then value as arguments": {"status":"agree","differences":[]},
   "ascii operator word as argument": {"status":"agree","differences":[]},
   "unknown en dash operator": {"status":"invalid-rejected","differences":[]},
   "unknown ascii operator": {"status":"invalid-rejected","differences":[]},
@@ -48,6 +48,21 @@
   "mixed dashes ascii then en": {"status":"invalid-rejected","differences":[]},
   "mixed dashes en then ascii": {"status":"invalid-rejected","differences":[]},
   "en dash operator without space after": {"status":"agree","differences":[]},
-  "en dash operator before paren": {"status":"agree","differences":[]}
+  "en dash operator before paren": {"status":"agree","differences":[]},
+  "em dash parameter command": {"status":"agree","differences":[]},
+  "horizontal bar parameter command": {"status":"agree","differences":[]},
+  "en dash parameter colon value": {"status":"agree","differences":[]},
+  "en dash parameter string value": {"status":"agree","differences":[]},
+  "en dash parameter underscore name": {"status":"agree","differences":[]},
+  "en dash parameter with inner dashes": {"status":"agree","differences":[]},
+  "en dash parameters in a pipeline": {"status":"known","differences":[]},
+  "en dash parameter inside script block": {"status":"agree","differences":[]},
+  "en dash parameter then operator word": {"status":"agree","differences":[]},
+  "en dash number argument": {"status":"agree","differences":[]},
+  "en dash alone as argument": {"status":"agree","differences":[]},
+  "en dash before quote as argument": {"status":"agree","differences":[]},
+  "command name containing en dash": {"status":"agree","differences":[]},
+  "ascii parameter control": {"status":"agree","differences":[]},
+  "en dash parameter dot member": {"status":"agree","differences":[]}
  }
 }
