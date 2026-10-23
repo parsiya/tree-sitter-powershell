@@ -665,7 +665,10 @@ export default grammar({
 
     statement_list: ($) => repeat1($._statement),
 
-    _statement: ($) =>
+    _statement: ($) => choice($._assigned_statement, $.empty_statement),
+
+    // An assignment needs a value: `$x = ;` is an error.
+    _assigned_statement: ($) =>
       prec.right(
         choice(
           $.if_statement,
@@ -680,10 +683,12 @@ export default grammar({
           $.inlinescript_statement,
           $.parallel_statement,
           $.sequence_statement,
-          seq($.pipeline, $._statement_terminator),
+          seq(alias($._pipeline_chains, $.pipeline), $._statement_terminator),
           // `npm run dev &` (PowerShell 7): runs the pipeline as a background job
-          seq($.pipeline, $.background_operator),
-          $.empty_statement,
+          seq(alias($._pipeline_chains, $.pipeline), $.background_operator),
+          // The value ends the statement: it holds its own terminator, or is
+          // a compound statement such as `$a = if ($b) { 1 } -join ''`.
+          alias($._assignment_pipeline, $.pipeline),
         ),
       ),
 
@@ -947,13 +952,14 @@ export default grammar({
 
     sequence_statement: ($) => seq(reservedWord('sequence'), $.statement_block),
 
-    pipeline: ($) =>
-      choice(
-        $.assignment_expression,
-        seq(
-          $.pipeline_chain,
-          repeat(seq($.pipeline_chain_tail, $.pipeline_chain)),
-        ),
+    pipeline: ($) => choice($._assignment_pipeline, $._pipeline_chains),
+
+    _assignment_pipeline: ($) => $.assignment_expression,
+
+    _pipeline_chains: ($) =>
+      seq(
+        $.pipeline_chain,
+        repeat(seq($.pipeline_chain_tail, $.pipeline_chain)),
       ),
 
     pipeline_chain: ($) =>
@@ -979,7 +985,7 @@ export default grammar({
       seq(
         $.left_assignment_expression,
         $.assignement_operator,
-        field('value', $._statement),
+        field('value', $._assigned_statement),
       ),
 
     _pipeline_tail: ($) => repeat1(seq('|', $.command)),

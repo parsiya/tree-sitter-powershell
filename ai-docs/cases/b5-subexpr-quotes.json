@@ -1,0 +1,240 @@
+[
+  {
+    "name": "escaped quotes delimit a string argument in a method call",
+    "source": "\"x $([string]::Join(`\"','`\", $a)) y\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote opens a string that a plain quote closes",
+    "source": "\"a $($b -join `\"='v'`r`n\")='v' c\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote opens a string that a plain quote closes before more arguments",
+    "source": "\"x $(f `\"a\" z) w\"",
+    "expect": "valid"
+  },
+  {
+    "name": "plain quote opens a string that an escaped quote closes",
+    "source": "\"x $(f \"a`\" z) w\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string as a command argument",
+    "source": "\"x $(f `\"x y`\" z) w\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string closing the subexpression",
+    "source": "\"x $(f `\"x y`\") w\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string after a parameter",
+    "source": "\"x $(f -a `\"x y`\" z) w\"",
+    "expect": "valid"
+  },
+  {
+    "name": "empty escaped quote string",
+    "source": "\"a$(f `\"`\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote opener closed by a doubled quote",
+    "source": "\"a$(f `\"\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string with an escaped inner quote",
+    "source": "\"a$(f `\"a`\"`\"b`\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string with an escaped dollar",
+    "source": "\"x $(f `\"a`$b`\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string with a variable",
+    "source": "\"x $(f `\"a $b c`\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote strings joined by an operator",
+    "source": "\"x $(`\"a`\" + `\"b`\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string after an operator",
+    "source": "\"x $($b -join `\"a`\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string on its own line",
+    "source": "\"x $(\n`\"a b`\"\n)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "two subexpressions with escaped quote strings",
+    "source": "\"x $(f `\"a`\")y$(g `\"b`\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string in an if block inside a hashtable value",
+    "source": "$h = @{\n    Name = \"p $(\n        if ($x) {\n            f `\"a b`\"\n        }\n    )\";\n    Other = 1\n}"
+  },
+  {
+    "name": "escaped quote opener without a closer is unterminated",
+    "source": "\"x $(f `\"a b)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "plain quote closes the escaped quote string early",
+    "source": "\"x $(f `\"a\"b`\" z)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "two escaped quotes after the string are an escape",
+    "source": "\"x $(f `\"a`\"`\" z)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "escaped quote and a plain quote after the string are an escape",
+    "source": "\"x $(f `\"a`\"\" z)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "doubled quote after an escaped quote opener closes the string",
+    "source": "\"x $(f `\"\"a\"\" z)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "escaped quotes belong to the string outside a subexpression",
+    "source": "\"a `\"b`\" c\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote in the string around a plain subexpression",
+    "source": "\"a `\"$($b)`\" c\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string in a here-string subexpression",
+    "source": "@\"\na $(f `\"x y`\" z)\n\"@"
+  },
+  {
+    "name": "escaped quote after a subexpression with a nested string, closing the outer string",
+    "source": "$c=if($a){\" k=`\"$($a -join \" \")`\"\"}else{\"\"}",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote after a subexpression with a semicolon string, closing the outer string",
+    "source": "$c = if ($a) { \" k=`\"$($a -join \";\")`\"\" } else { \"\" }\r\n$d = 1\r\n",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned if statement followed by an expression on the same line",
+    "source": "$a = if ($p) { 1 } 7",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned if statement followed by a unary operator",
+    "source": "$a = if ($p) { 1 } -join ''",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned if statement followed by a command",
+    "source": "$a = if ($p) { 1 } foo",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned foreach statement followed by a unary operator",
+    "source": "$a = foreach ($p in $q) { $p } -join ''",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned switch statement followed by a variable",
+    "source": "$a = switch ($p) { 1 { 2 } } $b",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned try statement followed by a unary operator",
+    "source": "$a = try { 1 } catch { 2 } -join ','",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned while statement followed by a string",
+    "source": "$a = while ($p) { 1 } 'x'",
+    "expect": "valid"
+  },
+  {
+    "name": "chained assignment of a compound statement followed by an expression",
+    "source": "$a = $b = if ($p) { 1 } 7",
+    "expect": "valid"
+  },
+  {
+    "name": "compound assignment inside a script block followed by a statement",
+    "source": "{ $a += if ($p) { 1 } -join '' }",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned if statement and a following assignment",
+    "source": "$a = if ($p) { 1 } else { 2 }\n$b = 3",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned if statement closing a parenthesized expression",
+    "source": "($a = if ($p) { 1 })",
+    "expect": "valid"
+  },
+  {
+    "name": "assigned value is not followed by a second expression",
+    "source": "$a = 1 7",
+    "expect": "invalid"
+  },
+  {
+    "name": "assigned variable is not followed by a second expression",
+    "source": "$a = $b 7",
+    "expect": "invalid"
+  },
+  {
+    "name": "assigned chain value is not followed by a second expression",
+    "source": "$a = $b = 1 7",
+    "expect": "invalid"
+  },
+  {
+    "name": "assigned pipeline continues with a pipe",
+    "source": "$a = 1 | foo\n$b = 2",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string attached to an argument word",
+    "source": "\"x $(f a`\"b c`\" z)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string attached after an argument word and before another",
+    "source": "\"x $(f a`\"b`\"c)\"",
+    "expect": "valid"
+  },
+  {
+    "name": "escaped quote string attached to an unterminated argument word",
+    "source": "\"x $(f a`\"b c)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "escaped quote string at the start of a statement",
+    "source": "\"x $(`\"a b`\" + `\"c`\")\"",
+    "expect": "valid"
+  },
+  {
+    "name": "doubled quote string attached to an argument word is unterminated",
+    "source": "\"x $(f a\"\" z)\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "plain quote string attached to an argument word",
+    "source": "\"x $(f a\"b c\" z)\"",
+    "expect": "valid"
+  }
+]

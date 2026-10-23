@@ -1,0 +1,220 @@
+================================================================================
+Subexpression escaped quotes delimit a string in a method argument
+================================================================================
+
+"x $([string]::Join(`"','`", $a)) y"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (invokation_expression
+                                                          (type_literal
+                                                            (type_spec
+                                                              (type_name
+                                                                (type_identifier))))
+                                                          (member_name
+                                                            (simple_name))
+                                                          (argument_list
+                                                            (argument_expression_list
+                                                              (argument_expression
+                                                                (logical_argument_expression
+                                                                  (bitwise_argument_expression
+                                                                    (comparison_argument_expression
+                                                                      (additive_argument_expression
+                                                                        (multiplicative_argument_expression
+                                                                          (format_argument_expression
+                                                                            (range_argument_expression
+                                                                              (unary_expression
+                                                                                (string_literal
+                                                                                  (expandable_string_literal)))))))))))
+                                                              (argument_expression
+                                                                (logical_argument_expression
+                                                                  (bitwise_argument_expression
+                                                                    (comparison_argument_expression
+                                                                      (additive_argument_expression
+                                                                        (multiplicative_argument_expression
+                                                                          (format_argument_expression
+                                                                            (range_argument_expression
+                                                                              (unary_expression
+                                                                                (variable)))))))))))))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression escaped quote opens a string that a plain quote closes
+================================================================================
+
+"a $($b -join `"='v'`r`n")='v' c"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable))))))))
+                                            (comparison_operator)
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (string_literal
+                                                          (expandable_string_literal))))))))))))))))))))))))))))))
+
+================================================================================
+Subexpression escaped quote string as a command argument
+================================================================================
+
+"x $(f `"x y`" z) w"
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (string_literal
+                            (expandable_string_literal
+                              (sub_expression
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)
+                                        (command_elements
+                                          (command_argument_sep)
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (string_literal
+                                                (expandable_string_literal))))
+                                          (command_argument_sep)
+                                          (generic_token))))))))))))))))))))))
+
+================================================================================
+Assignment of a compound statement ends the statement
+================================================================================
+
+$c = foreach ($p in $q) { $p } -join ''
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (foreach_statement
+          (variable)
+          (pipeline
+            (pipeline_chain
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (variable))))))))))))
+          (statement_block
+            (statement_list
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable)))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (expression_with_unary_operator
+                            (unary_expression
+                              (string_literal
+                                (verbatim_string_characters)))))))))))))))))
