@@ -1,0 +1,216 @@
+==================
+Continuation before a closing brace
+==================
+if ($a) {
+  Get-X -a `
+}
+---
+
+(program
+  (statement_list
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)
+                (command_elements
+                  (command_argument_sep)
+                  (command_parameter))))))))))
+
+==================
+Continuation after an expression before a closing brace
+==================
+{ ($a) `
+}
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (script_block_expression
+                            (script_block
+                              (script_block_body
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (logical_expression
+                                        (bitwise_expression
+                                          (comparison_expression
+                                            (additive_expression
+                                              (multiplicative_expression
+                                                (format_expression
+                                                  (range_expression
+                                                    (array_literal_expression
+                                                      (unary_expression
+                                                        (parenthesized_expression
+                                                          (pipeline
+                                                            (pipeline_chain
+                                                              (logical_expression
+                                                                (bitwise_expression
+                                                                  (comparison_expression
+                                                                    (additive_expression
+                                                                      (multiplicative_expression
+                                                                        (format_expression
+                                                                          (range_expression
+                                                                            (array_literal_expression
+                                                                              (unary_expression
+                                                                                (variable)))))))))))))))))))))))))))))))))))))))))
+
+==================
+Continuation then an empty line ends the command
+==================
+Get-X -a `
+
+Get-Y
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Continuation then a semicolon
+==================
+Get-X -a `
+; Get-Y
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Continuation then a pipe continues the pipeline
+==================
+Get-X -a `
+| Get-Y
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Continuation then an argument continues the command
+==================
+Get-X -a `
+-b
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+==================
+Continuation after an assignment before a closing brace
+==================
+{ $a = 1 `
+}
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (script_block_expression
+                            (script_block
+                              (script_block_body
+                                (statement_list
+                                  (pipeline
+                                    (assignment_expression
+                                      (left_assignment_expression
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable)))))))))))
+                                      (assignement_operator)
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (integer_literal
+                                                              (decimal_integer_literal))))))))))))))))))))))))))))))))

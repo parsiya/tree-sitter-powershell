@@ -1,7 +1,7 @@
 {
  "suite": "batch003-argument-words",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":52,"agree":30,"invalid_rejected":11,"known":11,"fail":0,"unsupported":0,"skipped":0,"known_differences":26},
+ "summary": {"cases":52,"agree":31,"invalid_rejected":11,"known":10,"fail":0,"unsupported":0,"skipped":0,"known_differences":20},
  "cases": {
   "member then escaped newline character": {"status":"agree","differences":[]},
   "member then escaped tab character": {"status":"agree","differences":[]},
@@ -18,7 +18,7 @@
   "member then escaped LF parameter": {"status":"agree","differences":[]},
   "member then escaped CRLF parameter": {"status":"agree","differences":[]},
   "member then escaped space parameter": {"status":"agree","differences":[]},
-  "member then escaped LF terminator": {"status":"known","differences":[]},
+  "member then escaped LF terminator": {"status":"agree","differences":[]},
   "member then escaped LF comment": {"status":"agree","differences":[]},
   "member then trailing escape": {"status":"invalid-rejected","differences":[]},
   "variable then escaped newline character stays joined": {"status":"known","differences":[]},

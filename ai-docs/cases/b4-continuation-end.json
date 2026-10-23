@@ -1,0 +1,478 @@
+[
+ {
+  "name": "command-eof-lf",
+  "source": "Get-Date -a `\n"
+ },
+ {
+  "name": "command-eof-crlf",
+  "source": "Get-Date -a `\r\n"
+ },
+ {
+  "name": "command-eof-blank-lines",
+  "source": "Get-Date -a `\n\n  \n"
+ },
+ {
+  "name": "command-eof-indent",
+  "source": "Get-Date -a `\n   "
+ },
+ {
+  "name": "command-eof-no-newline",
+  "source": "Get-Date -a `"
+ },
+ {
+  "name": "command-eof-space-backtick",
+  "source": "Get-Date -a ` "
+ },
+ {
+  "name": "command-no-args-eof",
+  "source": "Get-Date `\n"
+ },
+ {
+  "name": "command-block-end",
+  "source": "if (1) {\n  Get-X -a `\n}"
+ },
+ {
+  "name": "command-block-end-crlf",
+  "source": "if (1) {\r\n  Get-X -a `\r\n}\r\n"
+ },
+ {
+  "name": "command-block-end-blank-lines",
+  "source": "if (1) {\n  Get-X -a `\n\n    \n}"
+ },
+ {
+  "name": "command-block-end-same-line-indent",
+  "source": "if (1) {\n  Get-X -a `\n  }\nGet-Y"
+ },
+ {
+  "name": "command-paren-end",
+  "source": "(Get-X -a `\n)"
+ },
+ {
+  "name": "command-paren-end-blank",
+  "source": "(Get-X -a `\n\n)"
+ },
+ {
+  "name": "command-subexpression-end",
+  "source": "$(Get-X -a `\n)"
+ },
+ {
+  "name": "command-where-object-block-paren",
+  "source": "Get-Y | Where-Object {\n  $_.Name -eq 'x' -and $_.Id `\n})"
+ },
+ {
+  "name": "command-where-object-block",
+  "source": "Get-Y | Where-Object {\n  Get-X -a `\n}"
+ },
+ {
+  "name": "command-next-argument",
+  "source": "Get-X -a `\n-b"
+ },
+ {
+  "name": "command-semicolon",
+  "source": "Get-X -a `\n;Get-Y"
+ },
+ {
+  "name": "command-pipe",
+  "source": "Get-X -a `\n| Get-Y"
+ },
+ {
+  "name": "command-pipe-eof",
+  "source": "Get-X -a `\n|"
+ },
+ {
+  "name": "command-comment-line",
+  "source": "Get-X -a `\n# note\nGet-Y"
+ },
+ {
+  "name": "command-comment-line-eof",
+  "source": "Get-X -a `\n# note\n"
+ },
+ {
+  "name": "command-comment-line-block",
+  "source": "{ Get-X -a `\n# note\n}"
+ },
+ {
+  "name": "command-blank-line-then-statement",
+  "source": "Get-X -a `\n\nGet-Y"
+ },
+ {
+  "name": "command-then-statement",
+  "source": "Get-X -a `\nGet-Y"
+ },
+ {
+  "name": "command-then-statement-crlf",
+  "source": "Get-X -a `\r\nGet-Y\r\n"
+ },
+ {
+  "name": "command-double-continuation-eof",
+  "source": "Get-X -a `\n `\n"
+ },
+ {
+  "name": "command-double-continuation-block",
+  "source": "{ Get-X -a `\n `\n}"
+ },
+ {
+  "name": "command-then-if-else",
+  "source": "if (1) { Get-X -a `\n}\nelse { Get-Z }"
+ },
+ {
+  "name": "command-redirect-eof",
+  "source": "Get-X -a 2>$null `\n"
+ },
+ {
+  "name": "command-string-arg-eof",
+  "source": "Get-X 'a' `\n"
+ },
+ {
+  "name": "command-variable-arg-eof",
+  "source": "Get-X $a `\n"
+ },
+ {
+  "name": "command-hash-arg-eof",
+  "source": "Get-X @{ a = 1 } `\n"
+ },
+ {
+  "name": "command-subexpression-arg-eof",
+  "source": "Get-X $(1) `\n"
+ },
+ {
+  "name": "command-paren-arg-eof",
+  "source": "Get-X (1) `\n"
+ },
+ {
+  "name": "command-comma-eof",
+  "source": "Get-X 1, `\n"
+ },
+ {
+  "name": "command-comma-block",
+  "source": "{ Get-X 1, `\n}"
+ },
+ {
+  "name": "command-named-parameter-eof",
+  "source": "Get-X -a `\n"
+ },
+ {
+  "name": "command-name-only-block",
+  "source": "{ Get-X `\n}"
+ },
+ {
+  "name": "pipeline-eof",
+  "source": "Get-X | Get-Y -a `\n"
+ },
+ {
+  "name": "pipeline-block",
+  "source": "{ Get-X | Get-Y -a `\n}"
+ },
+ {
+  "name": "pipeline-chain-eof",
+  "source": "Get-X && Get-Y -a `\n"
+ },
+ {
+  "name": "pipeline-chain-or-block",
+  "source": "{ Get-X || Get-Y -a `\n}"
+ },
+ {
+  "name": "call-operator-eof",
+  "source": "& $a -x `\n"
+ },
+ {
+  "name": "expression-number-eof",
+  "source": "1 `\n"
+ },
+ {
+  "name": "expression-number-block",
+  "source": "{ 1 `\n}"
+ },
+ {
+  "name": "expression-variable-eof",
+  "source": "$a `\n"
+ },
+ {
+  "name": "expression-variable-block",
+  "source": "{ $a `\n}"
+ },
+ {
+  "name": "expression-paren-eof",
+  "source": "($a) `\n"
+ },
+ {
+  "name": "expression-paren-block",
+  "source": "{ ($a) `\n }"
+ },
+ {
+  "name": "expression-paren-crlf",
+  "source": "{ ($a) `\r\n }"
+ },
+ {
+  "name": "expression-string-block",
+  "source": "{ 'a' `\n}"
+ },
+ {
+  "name": "expression-binary-eof",
+  "source": "$a + 1 `\n"
+ },
+ {
+  "name": "expression-member-eof",
+  "source": "$a.b `\n"
+ },
+ {
+  "name": "expression-invocation-block",
+  "source": "{ $a.b() `\n}"
+ },
+ {
+  "name": "expression-array-eof",
+  "source": "@(1) `\n"
+ },
+ {
+  "name": "expression-semicolon",
+  "source": "$a `\n;1"
+ },
+ {
+  "name": "expression-next-line",
+  "source": "$a `\n$b"
+ },
+ {
+  "name": "expression-continues-operator",
+  "source": "$a `\n+ 1"
+ },
+ {
+  "name": "assignment-eof",
+  "source": "$a = 1 `\n"
+ },
+ {
+  "name": "assignment-eof-crlf",
+  "source": "$a = 1 `\r\n"
+ },
+ {
+  "name": "assignment-block",
+  "source": "{ $a = 1 `\n}"
+ },
+ {
+  "name": "assignment-command-eof",
+  "source": "$a = Get-X -a `\n"
+ },
+ {
+  "name": "assignment-command-block",
+  "source": "{ $a = Get-X -a `\n}"
+ },
+ {
+  "name": "assignment-pipeline-eof",
+  "source": "$a = Get-X | Get-Y `\n"
+ },
+ {
+  "name": "assignment-eq-line-end",
+  "source": "$a = `\n1"
+ },
+ {
+  "name": "assignment-compound-eof",
+  "source": "$a += 1 `\n"
+ },
+ {
+  "name": "assignment-no-value-eof",
+  "source": "$a = `\n"
+ },
+ {
+  "name": "assignment-then-statement",
+  "source": "$a = 1 `\nGet-Y"
+ },
+ {
+  "name": "control-while-body-end",
+  "source": "while ($a) {\n  $a = 1 `\n}"
+ },
+ {
+  "name": "control-foreach-body-end",
+  "source": "foreach ($i in 1..2) {\n  Write-Host $i `\n}"
+ },
+ {
+  "name": "control-if-condition-end",
+  "source": "if ($a `\n) { 1 }"
+ },
+ {
+  "name": "control-return-eof",
+  "source": "return 1 `\n"
+ },
+ {
+  "name": "control-return-block",
+  "source": "function f { return $a `\n}"
+ },
+ {
+  "name": "control-break-block",
+  "source": "while (1) { break `\n}"
+ },
+ {
+  "name": "control-throw-block",
+  "source": "{ throw 'x' `\n}"
+ },
+ {
+  "name": "control-function-body-eof",
+  "source": "function f {\n  Get-X -a `\n}\n"
+ },
+ {
+  "name": "control-try-end",
+  "source": "try { Get-X -a `\n} catch { }"
+ },
+ {
+  "name": "control-switch-end",
+  "source": "switch ($a) { 1 { Get-X -a `\n} }"
+ },
+ {
+  "name": "control-do-while-end",
+  "source": "do { Get-X -a `\n} while ($a)"
+ },
+ {
+  "name": "control-param-end",
+  "source": "param($a `\n)"
+ },
+ {
+  "name": "control-hashtable-end",
+  "source": "@{ a = 1 `\n}"
+ },
+ {
+  "name": "control-hashtable-entry-end",
+  "source": "@{ a = Get-X -a `\n}"
+ },
+ {
+  "name": "control-hashtable-semicolon",
+  "source": "@{ a = Get-X -a `\n; b = 2 }"
+ },
+ {
+  "name": "control-array-expression-end",
+  "source": "@(Get-X -a `\n)"
+ },
+ {
+  "name": "control-bracket-index-end",
+  "source": "$a[1 `\n]"
+ },
+ {
+  "name": "control-two-statements-eof",
+  "source": "Get-X -a `\nGet-Y -b `\n"
+ },
+ {
+  "name": "control-nested-blocks-end",
+  "source": "if (1) { if (2) { Get-X -a `\n} }"
+ },
+ {
+  "name": "control-space-after-backtick-block",
+  "source": "{ Get-X -a ` \n}"
+ },
+ {
+  "name": "control-comment-after-backtick-block",
+  "source": "{ Get-X -a ` # c\n}"
+ },
+ {
+  "name": "control-backtick-only-block",
+  "source": "{ `\n}"
+ },
+ {
+  "name": "control-backtick-only-eof",
+  "source": "`\n"
+ },
+ {
+  "name": "control-backtick-eof",
+  "source": "Get-X -a `"
+ },
+ {
+  "name": "control-backtick-block-no-lf",
+  "source": "{ Get-X -a ` }"
+ },
+ {
+  "name": "control-lone-cr-eof",
+  "source": "Get-X -a `\r"
+ },
+ {
+  "name": "control-lone-cr-block",
+  "source": "{ Get-X -a `\r}"
+ },
+ {
+  "name": "control-expression-backtick-eof",
+  "source": "$a `"
+ },
+ {
+  "name": "control-assignment-backtick-eof",
+  "source": "$a = 1 `"
+ },
+ {
+  "name": "control-double-backtick-eof",
+  "source": "Get-X -a ``\n"
+ },
+ {
+  "name": "control-escaped-newline-argument",
+  "source": "Get-X -a x`\n"
+ },
+ {
+  "name": "command-where-object-block-paren-valid",
+  "source": "(Get-Y | Where-Object {\n  $_.Id `\n})"
+ },
+ {
+  "name": "command-where-object-block-paren-crlf",
+  "source": "$a = (Get-Y | Where-Object {\r\n  $_.Id -eq 1 `\r\n})\r\n"
+ },
+ {
+  "name": "command-tab-after-backtick",
+  "source": "Get-X -a `\t\n"
+ },
+ {
+  "name": "command-blank-line-then-pipe",
+  "source": "Get-X -a `\n\n| Get-Y"
+ },
+ {
+  "name": "command-blank-line-then-comment-block",
+  "source": "{ Get-X -a `\n\n# c\n}"
+ },
+ {
+  "name": "command-pipe-continuation-then-end",
+  "source": "Get-X |`\n  Get-Y -a `\n"
+ },
+ {
+  "name": "command-keyword-statement-eof",
+  "source": "if (1) { 1 } `\n"
+ },
+ {
+  "name": "command-else-after-blank-line",
+  "source": "if (1) { Get-X `\n}\n\nelse { 2 }"
+ },
+ {
+  "name": "command-try-catch-after-continuation",
+  "source": "try { Get-X `\n}\ncatch { }"
+ },
+ {
+  "name": "command-quoted-then-semicolon",
+  "source": "Get-X 'a' `\n; Get-Y"
+ },
+ {
+  "name": "command-nested-parens-end",
+  "source": "((Get-X -a `\n))"
+ },
+ {
+  "name": "command-unicode-space-after-backtick",
+  "source": "Get-X -a ` \n"
+ },
+ {
+  "name": "command-lines-before-eof",
+  "source": "Get-X -a `\n`\n`\n"
+ },
+ {
+  "name": "command-continuation-then-argument-then-eof",
+  "source": "Get-X -a `\n b `\n"
+ },
+ {
+  "name": "command-here-string-then-end",
+  "source": "Get-X @'\nx\n'@ `\n"
+ },
+ {
+  "name": "control-stray-backtick-then-text",
+  "source": "Get-X -a `q"
+ },
+ {
+  "name": "control-stray-backtick-paren",
+  "source": "(Get-X -a `)"
+ },
+ {
+  "name": "control-continuation-in-string",
+  "source": "Get-X \"a `\n\""
+ },
+ {
+  "name": "control-comment-after-continuation-eof",
+  "source": "Get-X -a `\n# c"
+ }
+]

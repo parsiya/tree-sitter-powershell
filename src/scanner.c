@@ -332,6 +332,8 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
     return valid_symbols[NUMERIC_COMMAND_NAME];
 }
 
+static bool continuation_ends_statement(TSLexer *lexer, const bool *valid_symbols);
+
 // Only start a word when it is not a standalone expression. Once an unquoted
 // word has begun, adjacent quotes and $() belong to it. Leave those expressions
 // in the tree so that nested commands remain visible to syntax consumers.
@@ -463,8 +465,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
             lexer->advance(lexer, false);
             if (c == '`') {
                 if (parameter_dot && lexer->lookahead == '.') return false;
-                if (!consumed && !part &&
-                    command_array_space(lexer->lookahead)) return false;
+                if (!consumed && !part && command_array_space(lexer->lookahead)) {
+                    // Escaped whitespace is trivia, so it may end the statement.
+                    // The token is empty and starts where this word attempt did.
+                    return !valid_symbols[STATEMENT_TERMINATOR] ? false :
+                        continuation_ends_statement(lexer, valid_symbols);
+                }
                 if (lexer->eof(lexer)) return false;
                 if (lexer->lookahead) lexer->advance(lexer, false);
                 joined = true;
@@ -534,22 +540,54 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
     }
 }
 
+// At a possible end of the statement. A backtick before whitespace (a line
+// continuation, or escaped whitespace) is trivia, so the statement can end
+// after it: `Get-X -a `\n}`. An empty line or the end of the input ends the
+// statement; a comment, a pipe or another token does not.
+static bool statement_terminator_follows(TSLexer *lexer, const bool *valid_symbols)
+{
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == 0 || c == '}' || c == ';' || c == ')') return true;
+        if (c == '`') {
+            skip(lexer);
+            if (lexer->eof(lexer) || !command_array_space(lexer->lookahead)) return false;
+            if (lexer->lookahead == '\r') {
+                skip(lexer);
+                if (lexer->lookahead == '\n') skip(lexer);
+            } else {
+                skip(lexer);
+            }
+            continue;
+        }
+        if (line_end(c)) return !statement_continuation_follows(lexer, valid_symbols);
+        if (!iswspace(c)) return false;
+        skip(lexer);
+    }
+}
+
+// The caller has consumed a backtick that is followed by whitespace, after
+// marking the start of the token.
+static bool continuation_ends_statement(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (lexer->lookahead == '\r') {
+        skip(lexer);
+        if (lexer->lookahead == '\n') skip(lexer);
+    } else {
+        skip(lexer);
+    }
+    if (!statement_terminator_follows(lexer, valid_symbols)) return false;
+    lexer->result_symbol = STATEMENT_TERMINATOR;
+    return true;
+}
+
 static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool *valid_symbols)
 {
     if (valid_symbols[STATEMENT_TERMINATOR]) {
         lexer->result_symbol = STATEMENT_TERMINATOR;
         // This token has no characters -- everything is lookahead to determine its existence
         lexer->mark_end(lexer);
-
-        for (;;) {
-            if (lexer->lookahead == 0) return true;
-            if (lexer->lookahead == '}') return true;
-            if (lexer->lookahead == ';') return true;
-            if (lexer->lookahead == ')') return true;
-            if (line_end(lexer->lookahead)) return !statement_continuation_follows(lexer, valid_symbols);
-            if (!iswspace(lexer->lookahead)) return false;
-            skip(lexer);
-        }
+        return statement_terminator_follows(lexer, valid_symbols);
     }
 
     return false;
@@ -605,10 +643,13 @@ static bool scan_script_block_argument_start(void *payload, TSLexer *lexer, cons
 // space would otherwise be lexed as the separator before the next argument.
 // The spaces (and line continuations) are skipped and an empty extra token is
 // returned, so that the comma is then lexed as usual.
-static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *valid_symbols, bool *skipped_backtick)
+static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *valid_symbols,
+                                     bool *skipped_backtick, bool *stray_backtick)
 {
     if (!valid_symbols[SPACES_BEFORE_COMMA]) return false;
 
+    // The empty statement terminator also starts here, if no comma follows.
+    lexer->mark_end(lexer);
     bool skipped = false;
     for (;;) {
         if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
@@ -616,7 +657,10 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
         } else if (lexer->lookahead == '`') {
             *skipped_backtick = true;
             skip(lexer);
-            if (!line_end(lexer->lookahead)) return false;
+            if (!line_end(lexer->lookahead)) {
+                *stray_backtick = true;
+                return false;
+            }
             skip_line_end(lexer);
         } else {
             break;
@@ -652,7 +696,12 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
             // Escaped whitespace is trivia at a completed expression boundary.
             // A following parameter still needs its ordinary separator path.
             if (command_word_end(lexer->lookahead) || lexer->lookahead == '-' ||
-                lexer->lookahead == '#' || lexer->lookahead == '>') return false;
+                lexer->lookahead == '#' || lexer->lookahead == '>') {
+                if (!valid_symbols[STATEMENT_TERMINATOR] ||
+                    !statement_terminator_follows(lexer, valid_symbols)) return false;
+                lexer->result_symbol = STATEMENT_TERMINATOR;
+                return true;
+            }
         } else if (lexer->eof(lexer)) {
             return false;
         }
@@ -963,10 +1012,17 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         return scan_command_word(lexer, valid_symbols);
 
     bool skipped_backtick = false;
-    if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick)) return true;
+    bool stray_backtick = false;
+    if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick, &stray_backtick))
+        return true;
     // Skipped characters cannot be restored, and the other external tokens
     // cannot follow a backtick anyway.
-    if (skipped_backtick) return false;
+    if (skipped_backtick) {
+        if (stray_backtick || !valid_symbols[STATEMENT_TERMINATOR] ||
+            !statement_terminator_follows(lexer, valid_symbols)) return false;
+        lexer->result_symbol = STATEMENT_TERMINATOR;
+        return true;
+    }
 
     // The statement terminator consumes nothing, so it must be tried last: when
     // both are valid, a `--` has to win over the empty terminator.
