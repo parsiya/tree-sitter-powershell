@@ -1,7 +1,7 @@
 {
  "suite": "remaining-native",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":27,"agree":21,"invalid_rejected":2,"known":1,"fail":3,"unsupported":0,"skipped":0,"known_differences":1},
+ "summary": {"cases":27,"agree":23,"invalid_rejected":2,"known":1,"fail":1,"unsupported":0,"skipped":0,"known_differences":1},
  "cases": {
   "jagged parameter": {"status":"agree","differences":[]},
   "jagged class parameter": {"status":"agree","differences":[]},
@@ -19,10 +19,10 @@
   "bare plus then quoted multiply": {"status":"agree","differences":[]},
   "bare plus then number": {"status":"agree","differences":[]},
   "comma spaced strings": {"status":"agree","differences":[]},
-  "static-looking command argument": {"status":"fail","differences":["elements extent 13:27 StringConstantExpressionAst/BareWord ts 13:35","elements kind 13:27 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>invokation_expression","elements missing 27:35 ParenExpressionAst","typed extra invokation_expression 13:35","typed missing ParenExpressionAst 27:35"]},
+  "static-looking command argument": {"status":"agree","differences":[]},
   "variable parenthesized command argument": {"status":"agree","differences":[]},
   "assigned try catch": {"status":"agree","differences":[]},
-  "assigned try newline catch": {"status":"fail","differences":["commands extra 35:50","elements extra 35:40 command_name","elements extra 41:50 array_literal_expression>unary_expression>script_block_expression","typed extent AssignmentStatementAst 0:50 ts 0:34","typed extent TryStatementAst 10:50 ts 10:34","typed extra script_block_expression 41:50"]},
+  "assigned try newline catch": {"status":"agree","differences":[]},
   "smart closing quote": {"status":"agree","differences":[]},
   "smart quote command argument": {"status":"agree","differences":[]},
   "CR command boundary": {"status":"agree","differences":[]},

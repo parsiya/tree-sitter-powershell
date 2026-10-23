@@ -29,7 +29,12 @@ enum TOKEN_TYPE {
     PARAMETER_DOT_BOUNDARY,
     PARAMETER_DOT_LITERAL_BOUNDARY,
     QUALIFIED_VARIABLE,
-    QUALIFIED_VARIABLE_IN_STRING
+    QUALIFIED_VARIABLE_IN_STRING,
+    TRY_CLAUSE_AHEAD,
+    NUMERIC_COMMAND_NAME,
+    TRAILING_DOT_REAL_LITERAL,
+    VARIABLE_COMMAND_NAME_CONTINUATION,
+    INVOCATION_ARGUMENT_BOUNDARY
 };
 
 /* --- API --- */
@@ -102,11 +107,9 @@ static bool is_word_char(int32_t c)
     return iswalnum(c) || c == '_' || c == '-';
 }
 
-// After a newline, `else` or `elseif` continues an if statement used as a
-// value, as in `$x = if ($a) { 1 }` followed by `else { 2 }` on the next line.
-// Look past blank lines and line comments for one of those keywords. Only
-// called where the grammar allows an elseif or else clause to start.
-static bool else_follows(TSLexer *lexer)
+// Clauses continue compound statements even when an enclosing assignment
+// could otherwise end at the newline.
+static bool clause_follows(TSLexer *lexer, bool allow_else, bool allow_try)
 {
     for (;;) {
         while (iswspace(lexer->lookahead)) skip(lexer);
@@ -114,12 +117,16 @@ static bool else_follows(TSLexer *lexer)
         while (lexer->lookahead != 0 && !line_end(lexer->lookahead)) skip(lexer);
     }
 
-    const char *keyword = "else";
+    const char *keyword;
+    if (allow_else && towlower(lexer->lookahead) == 'e') keyword = "else";
+    else if (allow_try && towlower(lexer->lookahead) == 'c') keyword = "catch";
+    else if (allow_try && towlower(lexer->lookahead) == 'f') keyword = "finally";
+    else return false;
     for (const char *c = keyword; *c; c++) {
         if (towlower(lexer->lookahead) != (wint_t)(unsigned char)*c) return false;
         skip(lexer);
     }
-    if (towlower(lexer->lookahead) == 'i') {
+    if (keyword[0] == 'e' && towlower(lexer->lookahead) == 'i') {
         skip(lexer);
         if (towlower(lexer->lookahead) != 'f') return false;
         skip(lexer);
@@ -242,6 +249,76 @@ static bool scan_number_prefix(TSLexer *lexer)
     return true;
 }
 
+// Only the initial digits are emitted; the ordinary name rule consumes the
+// rest. Look ahead first so a numeric prefix followed by '.' stays an expression,
+// while an invalid numeric suffix (7z, 1.2tool) still starts a command name.
+// A complete trailing-dot number needs an external token to avoid stealing '..'.
+static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool hex = false;
+    bool fraction = lexer->lookahead == '.';
+    bool digits = false;
+    if (lexer->lookahead == '0') {
+        lexer->advance(lexer, false);
+        digits = true;
+        lexer->mark_end(lexer);
+        if (towlower(lexer->lookahead) == 'x') {
+            lexer->advance(lexer, false);
+            hex = true;
+            digits = false;
+        }
+    }
+    while (digit(lexer->lookahead) ||
+           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+        lexer->advance(lexer, false);
+        digits = true;
+        if (!hex) lexer->mark_end(lexer);
+    }
+    bool number = digits;
+    bool real = false;
+    if (!hex && lexer->lookahead == '.') {
+        lexer->advance(lexer, false);
+        if (digits && lexer->lookahead == '.') return false;
+        if (digits && command_word_end(lexer->lookahead) &&
+            valid_symbols[TRAILING_DOT_REAL_LITERAL]) {
+            lexer->mark_end(lexer);
+            lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
+            return true;
+        }
+        digits = false;
+        while (digit(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            digits = true;
+            if (fraction) lexer->mark_end(lexer);
+        }
+        if (fraction && !digits) return false;
+        number = real = digits;
+    }
+    if (number && !hex && towlower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        number = digit(lexer->lookahead);
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+    } else if (number && !real && (towlower(lexer->lookahead) == 'l' ||
+                                 (!hex && towlower(lexer->lookahead) == 'd'))) {
+        lexer->advance(lexer, false);
+    }
+    int32_t c = towlower(lexer->lookahead);
+    if (number && (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p')) {
+        lexer->advance(lexer, false);
+        number = towlower(lexer->lookahead) == 'b';
+        if (number) lexer->advance(lexer, false);
+    }
+    c = lexer->lookahead;
+    if (number && (c == '.' || command_word_end(c) || c == '[' ||
+                  c == '+' || c == '-' || c == '*' || c == '/' ||
+                  c == '<' || c == '!')) return false;
+    lexer->result_symbol = NUMERIC_COMMAND_NAME;
+    return valid_symbols[NUMERIC_COMMAND_NAME];
+}
+
 // Only start a word when it is not a standalone expression. Once an unquoted
 // word has begun, adjacent quotes and $() belong to it. Leave those expressions
 // in the tree so that nested commands remain visible to syntax consumers.
@@ -257,7 +334,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         lexer->result_symbol = COMMAND_WORD_EXPRESSION;
         return true;
     }
-    if (start && (lexer->lookahead == ':' || lexer->lookahead == '@' || lexer->lookahead == '[' ||
+    if (start && (lexer->lookahead == ':' || lexer->lookahead == '@' ||
                   lexer->lookahead == '>' || lexer->lookahead == '#' ||
                   lexer->lookahead == '<')) return false;
 
@@ -373,6 +450,7 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
 {
     bool allow_pipe = true;
     bool allow_else = valid_symbols[ELSE_CLAUSE_AHEAD];
+    bool allow_try = valid_symbols[TRY_CLAUSE_AHEAD];
     skip_line_end(lexer); // The newline after the left-hand side.
     for (;;) {
         while (!line_end(lexer->lookahead) && iswspace(lexer->lookahead)) skip(lexer);
@@ -406,10 +484,10 @@ static bool statement_continuation_follows(TSLexer *lexer, const bool *valid_sym
             if (!line_end(lexer->lookahead)) continue;
         } else if (line_end(lexer->lookahead)) {
             allow_pipe = false;
-            if (!allow_else) return false;
+            if (!allow_else && !allow_try) return false;
         } else {
             if (lexer->lookahead == '|') return allow_pipe;
-            return allow_else && else_follows(lexer);
+            return (allow_else || allow_try) && clause_follows(lexer, allow_else, allow_try);
         }
         if (!line_end(lexer->lookahead)) return false;
         skip_line_end(lexer);
@@ -648,14 +726,24 @@ static bool scan_command_name_escape(TSLexer *lexer, const bool *valid_symbols)
 // not absorb the next argument after an invocation operator.
 static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *valid_symbols)
 {
-    if (!valid_symbols[PATH_COMMAND_NAME_CONTINUATION] || valid_symbols[ERROR_SENTINEL]) return false;
+    bool variable = valid_symbols[VARIABLE_COMMAND_NAME_CONTINUATION];
+    if ((!variable && !valid_symbols[PATH_COMMAND_NAME_CONTINUATION]) ||
+        valid_symbols[ERROR_SENTINEL]) return false;
     int32_t c = lexer->lookahead;
+    // In invocation position a dot after the initial variable belongs to
+    // expression syntax, not to a literal command path.
+    if (variable && c == '.') return false;
+    lexer->mark_end(lexer);
+    if (variable && c == '?') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '[') return false;
+    }
     if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') ||
         (c >= 'A' && c <= 'Z') || c == '_' || c == '?' || c == '-' ||
         c == '.' || c == '\\' || c == '/' || c == '$' || c == '@' ||
         c == '"' || c == '\'' || c == '`' || (c >= 0x2018 && c <= 0x201e)) {
-        lexer->mark_end(lexer);
-        lexer->result_symbol = PATH_COMMAND_NAME_CONTINUATION;
+        lexer->result_symbol = variable ? VARIABLE_COMMAND_NAME_CONTINUATION :
+                                         PATH_COMMAND_NAME_CONTINUATION;
         return true;
     }
     return false;
@@ -664,6 +752,25 @@ static bool scan_path_command_name_continuation(TSLexer *lexer, const bool *vali
 static bool type_name_letter(int32_t c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
+{
+    if (!valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL])
+        return false;
+    int32_t c = lexer->lookahead;
+    lexer->mark_end(lexer);
+    if (c == '.') {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+        // A dot without a member starts a separate argument in command mode.
+        if (c != '.' && c != '#' &&
+            (!command_word_end(c) || c == '(' || c == '{')) return false;
+    } else if (c != '/' && c != '\\') {
+        return false;
+    }
+    lexer->result_symbol = INVOCATION_ARGUMENT_BOUNDARY;
+    return true;
 }
 
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
@@ -717,7 +824,20 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
         !valid_symbols[ERROR_SENTINEL] && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols);
+    bool numeric_name = valid_symbols[NUMERIC_COMMAND_NAME];
+    // Argument words (including attached quotes) belong to scan_command_word.
+    bool numeric_literal = valid_symbols[TRAILING_DOT_REAL_LITERAL] &&
+        !valid_symbols[COMMAND_WORD_START] && !valid_symbols[COMMAND_WORD_PART] &&
+        !valid_symbols[COMMAND_WORD_EXPRESSION];
+    if ((numeric_name || numeric_literal) && !valid_symbols[ERROR_SENTINEL] &&
+        (digit(lexer->lookahead) || (numeric_name && lexer->lookahead == '.')))
+        return scan_numeric_start(lexer, valid_symbols);
+    if (valid_symbols[VARIABLE_COMMAND_NAME_CONTINUATION] && lexer->lookahead == '?')
+        return scan_path_command_name_continuation(lexer, valid_symbols);
     if (scan_path_command_name_continuation(lexer, valid_symbols)) return true;
+    if (valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] && lexer->lookahead == '.')
+        return scan_invocation_argument_boundary(lexer, valid_symbols);
+    if (scan_invocation_argument_boundary(lexer, valid_symbols)) return true;
     if (!valid_symbols[ERROR_SENTINEL]) {
         if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
         if (valid_symbols[PARAMETER_ARGUMENT_START]) {

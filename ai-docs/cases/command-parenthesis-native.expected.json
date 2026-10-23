@@ -1,7 +1,7 @@
 {
  "suite": "command-parenthesis-native",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":11,"agree":8,"invalid_rejected":1,"known":0,"fail":2,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":11,"agree":9,"invalid_rejected":1,"known":0,"fail":1,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "word followed by command parentheses": {"status":"agree","differences":[]},
   "variable followed by command parentheses": {"status":"agree","differences":[]},
@@ -11,7 +11,7 @@
   "variable parentheses numeric control": {"status":"agree","differences":[]},
   "quoted prefix followed by command parentheses": {"status":"agree","differences":[]},
   "real method explicit nested command control": {"status":"agree","differences":[]},
-  "static-looking word separate issue": {"status":"fail","differences":["commands extent 0:48 ts 0:47","commands missing 31:47","elements extent 13:30 StringConstantExpressionAst/BareWord ts 13:34","elements extra 34:39 command_parameter","elements extra 40:47 generic_token","elements kind 13:30 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>member_access","elements missing 30:48 ParenExpressionAst","elements missing 31:39 StringConstantExpressionAst/BareWord","elements missing 40:47 StringConstantExpressionAst/BareWord","typed extra member_access 13:34","typed missing ParenExpressionAst 30:48","validity native=valid ts=invalid"]},
+  "static-looking word separate issue": {"status":"agree","differences":[]},
   "empty parentheses invalid": {"status":"fail","differences":["validity native=invalid ts=valid"]},
   "bare command inside real method invalid": {"status":"invalid-rejected","differences":[]}
  }

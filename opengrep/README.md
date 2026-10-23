@@ -87,6 +87,12 @@ are kept and are the easiest starting point for an Airbus pull request.
 | `fix/command-parenthesis-pipelines` | Accept full command pipelines in command-argument suffix parentheses while retaining legacy expression-only suffix trees and real method argument rules. Nested constructor subtrees agree with Native; the original file advances to an independent lone-CR here-string issue. Both batches have no regressions. | Not yet offered. |
 | `fix/lone-cr-here-string-content` | Preserve lone CR data, Native header/footer endings and escaped-CR/LF distinctions in expandable here-strings without normalizing bytes or swallowing following commands. Batch-001 has no remaining UTF-8 grammar rejection; batch-002 stays 795/795, no regressions. | Not yet offered. |
 | `fix/cr-statement-boundaries` | Recognize lone CR statement/comment/for-header boundaries and escaped comma continuation without changing literal CR data or LF-based source points. Combined batch-001: one structural difference now agrees; batch-002 stays 795/795, no regressions. | Not yet offered. |
+| `og/static-command-words` | Keep static-looking command arguments such as `[Widget]::Run(1)` as a bare word and a separate parenthesized argument; real expression-mode member calls remain expressions. | Out of scope. |
+| `og/stdout-redirection` | Include `1` in explicit stdout operators `1>` and `1>>`, rather than inventing a numeric argument and a late redirection extent. | Out of scope. |
+| `og/empty-stop-parsing` | Accept an empty `--%` marker inside its command without consuming the next statement. | Out of scope. |
+| `og/assigned-try` | Retain multiline catch/finally clauses in assigned try statements without changing assigned if/else continuation. | Out of scope. |
+| `og/numeric-member-assignment` | Keep numeric member expressions such as assigned `0.0.0.0` out of command-name syntax while preserving true digit-leading commands and argument words. | Out of scope. |
+| `og/member-command-names` | Read variable-leading member command names after `.` and `&` as property expressions, not path text. Correct the inherited member-tree expectation using Native evidence and retain separate adjacent arguments and genuine paths. | Out of scope. |
 
 Opengrep-only addition in `grammar.cjs`:
 

@@ -1,7 +1,7 @@
 {
  "suite": "completed-expression-standalone",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":48,"agree":42,"invalid_rejected":3,"known":0,"fail":3,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":48,"agree":43,"invalid_rejected":3,"known":0,"fail":2,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "Completed expression: adjacent subexpressions and quote": {"status":"agree","differences":[]},
   "Completed expression: leading quote member and quote": {"status":"agree","differences":[]},
@@ -47,7 +47,7 @@
   "Completed expression: method adjacency in assignment remains invalid": {"status":"invalid-rejected","differences":[]},
   "scope control: variable before parentheses": {"status":"agree","differences":[]},
   "line continuation CRLF": {"status":"agree","differences":[]},
-  "scope control: static-looking command word": {"status":"fail","differences":["elements extent 13:44 StringConstantExpressionAst/BareWord ts 13:52","elements kind 13:44 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>invokation_expression","elements missing 44:52 ParenExpressionAst","typed extra invokation_expression 13:52","typed extra member_access 13:34","typed missing ParenExpressionAst 44:52"]},
+  "scope control: static-looking command word": {"status":"agree","differences":[]},
   "scope control: mixed comma array": {"status":"agree","differences":[]},
   "scope control: bare plus": {"status":"agree","differences":[]},
   "scope control: method without adjacency": {"status":"agree","differences":[]}

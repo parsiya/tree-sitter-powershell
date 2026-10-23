@@ -1,7 +1,7 @@
 {
  "suite": "member-command-names",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":78,"agree":63,"invalid_rejected":8,"known":7,"fail":0,"unsupported":0,"skipped":0,"known_differences":9},
+ "summary": {"cases":80,"agree":65,"invalid_rejected":8,"known":7,"fail":0,"unsupported":0,"skipped":0,"known_differences":9},
  "cases": {
   "dot automatic member": {"status":"agree","differences":[]},
   "call variable member": {"status":"agree","differences":[]},
@@ -80,6 +80,8 @@
   "incomplete member index": {"status":"invalid-rejected","differences":[]},
   "incomplete quoted member": {"status":"invalid-rejected","differences":[]},
   "incomplete dynamic member": {"status":"invalid-rejected","differences":[]},
-  "incomplete member call": {"status":"invalid-rejected","differences":[]}
+  "incomplete member call": {"status":"invalid-rejected","differences":[]},
+  "adjacent path then empty stop": {"status":"agree","differences":[]},
+  "adjacent path then stop payload": {"status":"agree","differences":[]}
  }
 }

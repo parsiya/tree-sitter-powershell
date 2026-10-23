@@ -929,10 +929,12 @@ export default grammar({
     command_invokation_operator: ($) => choice('.', '&'),
 
     _adjacent_invocation_arguments: ($) =>
-      seq(
-        $._invocation_argument_boundary,
-        $._argument_after_quote,
-        repeat($._command_element),
+      prec.right(
+        seq(
+          $._invocation_argument_boundary,
+          $._argument_after_quote,
+          repeat($._command_element),
+        ),
       ),
 
     // This rule is ignored as it does not appear as a rule

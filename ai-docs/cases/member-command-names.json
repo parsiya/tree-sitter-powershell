@@ -84,5 +84,7 @@
   {"name":"incomplete member index","source":"& $item.Paths[","expect":"invalid"},
   {"name":"incomplete quoted member","source":"& $item.'Path","expect":"invalid"},
   {"name":"incomplete dynamic member","source":". $item.($property","expect":"invalid"},
-  {"name":"incomplete member call","source":". $item.Resolve(","expect":"invalid"}
+  {"name":"incomplete member call","source":". $item.Resolve(","expect":"invalid"},
+  {"name":"adjacent path then empty stop","source":"& $item.Path/more --%\n","expect":"valid"},
+  {"name":"adjacent path then stop payload","source":". $item.Path\\more --% literal $value\n","expect":"valid"}
 ]

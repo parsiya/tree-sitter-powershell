@@ -1,7 +1,7 @@
 {
  "suite": "comma-proof",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":108,"agree":87,"invalid_rejected":14,"known":4,"fail":3,"unsupported":0,"skipped":0,"known_differences":4},
+ "summary": {"cases":108,"agree":89,"invalid_rejected":14,"known":4,"fail":1,"unsupported":0,"skipped":0,"known_differences":4},
  "cases": {
   "words-plain": {"status":"agree","differences":[]},
   "words-parameter": {"status":"agree","differences":[]},
@@ -96,8 +96,8 @@
   "unchanged-91": {"status":"agree","differences":[]},
   "unchanged-92": {"status":"agree","differences":[]},
   "unchanged-93": {"status":"fail","differences":["elements kind 16:28 StringConstantExpressionAst/BareWord ts command_parameter","elements kind 29:31 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator","elements kind 9:15 StringConstantExpressionAst/BareWord ts command_parameter"]},
-  "unchanged-94": {"status":"fail","differences":["elements kind 9:19 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>member_access","typed extra member_access 9:19"]},
-  "unchanged-95": {"status":"fail","differences":["elements extra 15:16 array_literal_expression>unary_expression>integer_literal>decimal_integer_literal","typed extra redirection 16:24","typed missing FileRedirectionAst 15:24"]},
+  "unchanged-94": {"status":"agree","differences":[]},
+  "unchanged-95": {"status":"agree","differences":[]},
   "unchanged-96": {"status":"agree","differences":[]},
   "unicode-prefix": {"status":"agree","differences":[]},
   "pipeline-tight-boundary": {"status":"agree","differences":[]},
