@@ -1,0 +1,219 @@
+===
+InlineScript is an ordinary command
+===
+
+InlineScript { Get-Date }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (command
+                              (command_name))))))))))))))))
+
+===
+InlineScript is an ordinary command in a workflow
+===
+
+workflow W { param($a) InlineScript { $using:a } -PSComputerName $c }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (param_block
+          (parameter_list
+            (script_parameter
+              (variable))))
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name)
+                  (command_elements
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (script_block_expression
+                          (script_block
+                            (script_block_body
+                              (statement_list
+                                (pipeline
+                                  (pipeline_chain
+                                    (logical_expression
+                                      (bitwise_expression
+                                        (comparison_expression
+                                          (additive_expression
+                                            (multiplicative_expression
+                                              (format_expression
+                                                (range_expression
+                                                  (array_literal_expression
+                                                    (unary_expression
+                                                      (variable))))))))))))))))))
+                    (command_argument_sep)
+                    (command_parameter)
+                    (command_argument_sep)
+                    (array_literal_expression
+                      (unary_expression
+                        (variable)))))))))))))
+
+===
+InlineScript keeps command-name prefixes
+===
+
+Inlinescriptx 1
+InlineScript-Thing 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+===
+foreach -parallel with -throttlelimit
+===
+
+workflow W { foreach -parallel -throttlelimit 5 ($x in $y) { a } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (foreach_statement
+              (foreach_parameter
+                (foreach_throttle_limit
+                  (integer_literal
+                    (decimal_integer_literal))))
+              (variable)
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable))))))))))))
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+===
+foreach -throttlelimit before -parallel
+===
+
+workflow W { foreach -throttlelimit $n -parallel ($x in $y) { a } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (foreach_statement
+              (foreach_parameter
+                (foreach_throttle_limit
+                  (variable)))
+              (variable)
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (variable))))))))))))
+              (statement_block
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+===
+foreach -parallel alone
+===
+
+foreach -parallel ($x in $y) { a }
+
+---
+
+(program
+  (statement_list
+    (foreach_statement
+      (foreach_parameter)
+      (variable)
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (pipeline
+            (pipeline_chain
+              (command
+                (command_name)))))))))

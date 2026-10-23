@@ -25,7 +25,6 @@
 "catch" @keyword
 "finally" @keyword
 "data" @keyword
-"inlinescript" @keyword
 "parallel" @keyword
 "sequence" @keyword
 
