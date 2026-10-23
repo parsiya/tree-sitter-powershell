@@ -1,5 +1,6 @@
 /* Parse files with a tree-sitter-powershell parser and print, per file, the
-   errors plus the spans of commands, command elements and redirections. Paths
+   errors plus the spans of commands, command elements and redirections.
+   Comments are not command elements and do not interrupt comma merging. Paths
    are read NUL-separated from stdin. A UTF-8 BOM is skipped so offsets match
    the native dumper.
 
@@ -222,7 +223,8 @@ static void print_errors(TSNode root) {
 typedef struct { Span *spans; uint32_t n, cap; int merge, stop; } Elements;
 
 static void add_element(Elements *el, TSNode child, const char *type) {
-  if (!strcmp(type, "command_argument_sep") || !strcmp(type, "redirection")) return;
+  if (!strcmp(type, "command_argument_sep") || !strcmp(type, "redirection") ||
+      !strcmp(type, "comment")) return;
   if (!strcmp(type, ",")) { el->merge = 1; return; }
   if (!strcmp(type, "stop_parsing")) { el->stop = 1; return; }
   if (el->merge && el->n > 0) {
