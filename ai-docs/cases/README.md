@@ -52,6 +52,17 @@ git diff ai-docs/cases/*.expected.json   # one line per case: review every chang
 
 Commit the expectation changes with the grammar change that caused them.
 
+## Numeric member assignment
+
+`numeric-member-assignment` checks numeric receivers and member names in
+assignments and other expression contexts, alongside numeric-looking command
+names and argument words. A complete numeric prefix followed by a dot must
+remain an expression (`12.34.56.78`), while an invalid numeric suffix can start
+a command (`12.34tool`). Trailing-dot numeric member names are covered separately
+from ranges. Explicit known entries retain inherited unary/member precedence,
+numeric-dash and argument representations, empty-hex handling, and member/element
+overacceptance; these are not changed by command-name disambiguation.
+
 ## Counts
 
 Migrated 2026-10-22 from 50 local case files (5,139 cases). Columns: original

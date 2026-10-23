@@ -1,0 +1,128 @@
+[
+  { "name": "assignment dotted zero", "source": "$item = 0.0.0.0", "expect": "valid" },
+  { "name": "assignment dotted nonzero", "source": "$item = 12.34.56.78", "expect": "valid" },
+  { "name": "standalone dotted zero", "source": "0.0.0.0", "expect": "valid" },
+  { "name": "standalone dotted nonzero", "source": "12.34.56.78", "expect": "valid" },
+  { "name": "parenthesized dotted number", "source": "$item = (12.34.56.78)", "expect": "valid" },
+  { "name": "array dotted numbers", "source": "$item = 12.34.56.78,90.12.34.56", "expect": "valid" },
+  { "name": "return dotted number", "source": "return 12.34.56.78", "expect": "valid" },
+  { "name": "hash dotted number", "source": "$item = @{ Label = 12.34.56.78 }", "expect": "valid" },
+  { "name": "subexpression dotted number", "source": "$item = $(12.34.56.78)", "expect": "valid" },
+  { "name": "array expression dotted number", "source": "$item = @(12.34.56.78)", "expect": "valid" },
+  { "name": "method argument dotted number", "source": "$item.M(12.34.56.78)", "expect": "valid" },
+  { "name": "command dotted number", "source": "Write-Item 12.34.56.78", "expect": "valid" },
+  { "name": "command parenthesized dotted number", "source": "Write-Item (12.34.56.78)", "expect": "valid" },
+  { "name": "invoked dotted command", "source": "& 12.34.56.78", "expect": "valid" },
+  { "name": "dot invoked dotted command", "source": ". 12.34.56.78", "expect": "valid" },
+  { "name": "quoted dotted command", "source": "& '12.34.56.78'", "expect": "valid" },
+  { "name": "integer member", "source": "$item = 12.Label", "expect": "valid" },
+  { "name": "real member", "source": "$item = 12.34.Label", "expect": "valid" },
+  { "name": "fraction member", "source": "$item = .34.Label", "expect": "valid" },
+  { "name": "integer numeric member", "source": "$item = 12.34", "expect": "valid" },
+  { "name": "integer three components", "source": "$item = 12.34.56", "expect": "valid" },
+  { "name": "hex member", "source": "$item = 0x2A.Label", "expect": "valid" },
+  { "name": "multiplier member", "source": "$item = 12kb.Label", "expect": "valid" },
+  { "name": "exponent member", "source": "$item = 12e3.Label", "expect": "valid" },
+  { "name": "range control", "source": "$item = 12..34", "expect": "valid" },
+  { "name": "range real control", "source": "$item = 12.34..56.78", "expect": "valid" },
+  {
+    "name": "negative dotted number",
+    "source": "$item = -12.34.56.78",
+    "expect": "valid",
+    "known": [
+      { "difference": "typed missing MemberExpressionAst 8:20", "reason": "Inherited unary/member precedence: the grammar wraps the member in negation; Native includes the sign in its numeric receiver." },
+      { "difference": "typed extra member_access 9:20", "reason": "Inherited unary/member precedence, unchanged by command-name disambiguation." }
+    ]
+  },
+  {
+    "name": "positive dotted number",
+    "source": "$item = +12.34.56.78",
+    "expect": "valid",
+    "known": [
+      { "difference": "typed missing MemberExpressionAst 8:20", "reason": "Inherited unary/member precedence: the grammar wraps the member in unary plus; Native includes the sign in its numeric receiver." },
+      { "difference": "typed extra member_access 9:20", "reason": "Inherited unary/member precedence, unchanged by command-name disambiguation." }
+    ]
+  },
+  { "name": "numeric command word", "source": "12tool", "expect": "valid" },
+  { "name": "dotted numeric command word", "source": "12.34tool", "expect": "valid" },
+  { "name": "dotted executable is member expression", "source": "12.34.exe", "expect": "valid" },
+  { "name": "numeric dashed expression invalid", "source": "12-tool", "expect": "invalid" },
+  { "name": "numeric underscored command word", "source": "12_tool", "expect": "valid" },
+  { "name": "numeric slash expression invalid", "source": "12/tool", "expect": "invalid" },
+  { "name": "numeric backslash command word", "source": "12\\tool", "expect": "valid" },
+  { "name": "argument dotted path word", "source": "Write-Item 12.34.exe", "expect": "valid" },
+  { "name": "argument numeric word", "source": "Write-Item 12.34tool", "expect": "valid" },
+  { "name": "argument negative dotted word", "source": "Write-Item -12.34.56.78", "expect": "valid" },
+  {
+    "name": "argument negative decimal",
+    "source": "Write-Item -12.34",
+    "expect": "valid",
+    "known": [
+      { "difference": "elements kind 11:17 StringConstantExpressionAst/BareWord ts array_literal_expression>unary_expression>expression_with_unary_operator", "reason": "Inherited numeric-dash argument representation, also documented by the numeric-dash suites; command-name changes must not alter it." }
+    ]
+  },
+  { "name": "incomplete member", "source": "$item = 12.34.", "expect": "invalid" },
+  { "name": "trailing-dot numeric member", "source": "$item = 12.34.56.", "expect": "valid" },
+  { "name": "numeric expression followed by bare word", "source": "$item = 12.34.56.78 extra", "expect": "invalid" },
+  { "name": "plain integer", "source": "$item = 56", "expect": "valid" },
+  { "name": "trailing-dot real", "source": "$item = 56.", "expect": "valid" },
+  { "name": "trailing-dot method argument", "source": "$item.M(56.)", "expect": "valid" },
+  {
+    "name": "trailing-dot command argument",
+    "source": "Write-Item 56.",
+    "expect": "valid",
+    "known": [
+      { "difference": "elements kind 11:14 ConstantExpressionAst ts generic_token", "reason": "Inherited argument-token representation for a trailing-dot number, confirmed before the change; argument-word work is outside this command-name fix." }
+    ]
+  },
+  { "name": "numeric member then range", "source": "$item = 12.34.56..78", "expect": "valid" },
+  { "name": "numeric method receiver", "source": "$item = 12.34.ToString()", "expect": "valid" },
+  { "name": "numeric member then method", "source": "$item = 12.34.56.78.ToString()", "expect": "valid" },
+  {
+    "name": "numeric member then element invalid",
+    "source": "$item = 12.34.56.78[0]",
+    "expect": "invalid",
+    "known": [
+      { "difference": "validity native=invalid ts=valid", "reason": "Inherited member/element overacceptance: Native rejects this unparenthesized numeric-member suffix; both baseline and fix accept it." }
+    ]
+  },
+  { "name": "numeric member in condition", "source": "if (12.34.56.78) { $item = 1 }", "expect": "valid" },
+  { "name": "numeric member in arithmetic", "source": "$item = 12.34.56.78 + 2", "expect": "valid" },
+  { "name": "numeric member before pipeline", "source": "$item = 12.34.56.78 | Write-Item", "expect": "valid" },
+  { "name": "numeric member followed by statement", "source": "$item = 12.34.56.78; Write-Item done", "expect": "valid" },
+  { "name": "numeric member with trivia", "source": "$item = 12.34.56.78 # synthetic\n", "expect": "valid" },
+  { "name": "numeric-looking suffix word", "source": "12.34tool.more", "expect": "valid" },
+  { "name": "numeric-looking prefix word", "source": "12tool.34.56.78", "expect": "valid" },
+  { "name": "fractional numeric-looking word", "source": ".34tool", "expect": "valid" },
+  { "name": "incomplete exponent word", "source": "12e", "expect": "valid" },
+  {
+    "name": "empty hex numeric literal",
+    "source": "0x",
+    "expect": "valid",
+    "known": [
+      { "difference": "commands extra 0:2", "reason": "Inherited unsupported empty-hex numeric literal: Native accepts 0x as zero, while the grammar requires a hex digit and treats it as a command." },
+      { "difference": "elements extra 0:2 command_name", "reason": "Inherited unsupported empty-hex numeric literal, unchanged by numeric-member disambiguation." }
+    ]
+  },
+  { "name": "incomplete multiplier word", "source": "12k", "expect": "valid" },
+  { "name": "numeric-looking quoted command", "source": "12'tool'", "expect": "valid" },
+  { "name": "numeric-looking quoted argument", "source": "Write-Item 12'tool'", "expect": "valid" },
+  { "name": "numeric-looking expanded argument", "source": "Write-Item 12\"$suffix\"", "expect": "valid" },
+  { "name": "numeric-looking escaped command", "source": "12`tool", "expect": "valid" },
+  { "name": "escaped dot command", "source": "12`.34.56.78", "expect": "valid" },
+  { "name": "dot-prefixed command word", "source": ".tool", "expect": "valid" },
+  { "name": "relative command word", "source": "./tool", "expect": "valid" },
+  { "name": "parent relative command word", "source": "../tool", "expect": "valid" },
+  { "name": "argument hex member word", "source": "Write-Item 0x2A.Label", "expect": "valid" },
+  { "name": "argument exponent member word", "source": "Write-Item 12e3.Label", "expect": "valid" },
+  { "name": "argument multiplier member word", "source": "Write-Item 12kb.Label", "expect": "valid" },
+  { "name": "parameter attached dotted word", "source": "Write-Item -Label:12.34.56.78", "expect": "valid" },
+  { "name": "argument dotted comma words", "source": "Write-Item 12.34.56.78,90.12.34.56", "expect": "valid" },
+  { "name": "argument dotted string interpolation", "source": "Write-Item \"12.34.56.78\"", "expect": "valid" },
+  { "name": "missing member after exponent", "source": "$item = 12e3.", "expect": "invalid" },
+  { "name": "missing member after hex", "source": "$item = 0x2A.", "expect": "invalid" },
+  { "name": "missing member after multiplier", "source": "$item = 12kb.", "expect": "invalid" },
+  { "name": "numeric member cannot start bare argument", "source": "12.34.56.78 tool", "expect": "invalid" },
+  { "name": "incomplete array element", "source": "$item = 12.34.56.78[", "expect": "invalid" },
+  { "name": "incomplete addition", "source": "$item = 12.34.56.78 +", "expect": "invalid" }
+]

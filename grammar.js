@@ -79,6 +79,8 @@ export default grammar({
     $._qualified_variable,
     $._qualified_variable_in_string,
     $._try_clause_ahead,
+    $._numeric_command_name,
+    $._trailing_dot_real_literal,
   ],
 
   extras: ($) => [
@@ -187,19 +189,22 @@ export default grammar({
 
     // Real Literals
     real_literal: ($) =>
-      token(
-        choice(
-          seq(
-            /[0-9]+\.[0-9]+/,
-            optional(NUMBER_EXPONENT),
-            optional(NUMBER_MULTIPLIER),
+      choice(
+        $._trailing_dot_real_literal,
+        token(
+          choice(
+            seq(
+              /[0-9]+\.[0-9]+/,
+              optional(NUMBER_EXPONENT),
+              optional(NUMBER_MULTIPLIER),
+            ),
+            seq(
+              /\.[0-9]+/,
+              optional(NUMBER_EXPONENT),
+              optional(NUMBER_MULTIPLIER),
+            ),
+            seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
           ),
-          seq(
-            /\.[0-9]+/,
-            optional(NUMBER_EXPONENT),
-            optional(NUMBER_MULTIPLIER),
-          ),
-          seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
         ),
       ),
 
@@ -967,13 +972,12 @@ export default grammar({
         choice(
           // At a token boundary escaped whitespace is trivia, not a name.
           $._command_name_start_escape,
-          new RegExp(`[^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*`),
-          // A name can start with digits (`7z`), but digits followed by `..`
-          // start a range (`1..16`), not a command.
+          new RegExp(`[^${COMMAND_NAME_STOP}0-9.][^${COMMAND_NAME_STOP}]*`),
+          // Dot-prefixed names remain commands unless a number starts the word.
           new RegExp(
-            `[0-9]+([^${COMMAND_NAME_STOP}0-9.]|\\.[^${COMMAND_NAME_STOP}.])` +
-              `[^${COMMAND_NAME_STOP}]*`,
+            `\\.([^${COMMAND_NAME_STOP}0-9][^${COMMAND_NAME_STOP}]*)?`,
           ),
+          $._numeric_command_name,
           // tree-sitter does not allow to control lexer
           // each start keyword into _statement rule must be present here
           // https://github.com/airbus-cert/tree-sitter-powershell/issues/24

@@ -30,7 +30,9 @@ enum TOKEN_TYPE {
     PARAMETER_DOT_LITERAL_BOUNDARY,
     QUALIFIED_VARIABLE,
     QUALIFIED_VARIABLE_IN_STRING,
-    TRY_CLAUSE_AHEAD
+    TRY_CLAUSE_AHEAD,
+    NUMERIC_COMMAND_NAME,
+    TRAILING_DOT_REAL_LITERAL
 };
 
 /* --- API --- */
@@ -243,6 +245,76 @@ static bool scan_number_prefix(TSLexer *lexer)
         lexer->advance(lexer, false);
     }
     return true;
+}
+
+// Only the initial digits are emitted; the ordinary name rule consumes the
+// rest. Look ahead first so a numeric prefix followed by '.' stays an expression,
+// while an invalid numeric suffix (7z, 1.2tool) still starts a command name.
+// A complete trailing-dot number needs an external token to avoid stealing '..'.
+static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
+{
+    bool hex = false;
+    bool fraction = lexer->lookahead == '.';
+    bool digits = false;
+    if (lexer->lookahead == '0') {
+        lexer->advance(lexer, false);
+        digits = true;
+        lexer->mark_end(lexer);
+        if (towlower(lexer->lookahead) == 'x') {
+            lexer->advance(lexer, false);
+            hex = true;
+            digits = false;
+        }
+    }
+    while (digit(lexer->lookahead) ||
+           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+        lexer->advance(lexer, false);
+        digits = true;
+        if (!hex) lexer->mark_end(lexer);
+    }
+    bool number = digits;
+    bool real = false;
+    if (!hex && lexer->lookahead == '.') {
+        lexer->advance(lexer, false);
+        if (digits && lexer->lookahead == '.') return false;
+        if (digits && command_word_end(lexer->lookahead) &&
+            valid_symbols[TRAILING_DOT_REAL_LITERAL]) {
+            lexer->mark_end(lexer);
+            lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
+            return true;
+        }
+        digits = false;
+        while (digit(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            digits = true;
+            if (fraction) lexer->mark_end(lexer);
+        }
+        if (fraction && !digits) return false;
+        number = real = digits;
+    }
+    if (number && !hex && towlower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        number = digit(lexer->lookahead);
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+    } else if (number && !real && (towlower(lexer->lookahead) == 'l' ||
+                                 (!hex && towlower(lexer->lookahead) == 'd'))) {
+        lexer->advance(lexer, false);
+    }
+    int32_t c = towlower(lexer->lookahead);
+    if (number && (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p')) {
+        lexer->advance(lexer, false);
+        number = towlower(lexer->lookahead) == 'b';
+        if (number) lexer->advance(lexer, false);
+    }
+    c = lexer->lookahead;
+    if (number && (c == '.' || command_word_end(c) || c == '[' ||
+                  c == '+' || c == '-' || c == '*' || c == '/' ||
+                  c == '<' || c == '!')) return false;
+    lexer->result_symbol = NUMERIC_COMMAND_NAME;
+    return valid_symbols[NUMERIC_COMMAND_NAME];
 }
 
 // Only start a word when it is not a standalone expression. Once an unquoted
@@ -721,6 +793,14 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
         !valid_symbols[ERROR_SENTINEL] && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols);
+    bool numeric_name = valid_symbols[NUMERIC_COMMAND_NAME];
+    // Argument words (including attached quotes) belong to scan_command_word.
+    bool numeric_literal = valid_symbols[TRAILING_DOT_REAL_LITERAL] &&
+        !valid_symbols[COMMAND_WORD_START] && !valid_symbols[COMMAND_WORD_PART] &&
+        !valid_symbols[COMMAND_WORD_EXPRESSION];
+    if ((numeric_name || numeric_literal) && !valid_symbols[ERROR_SENTINEL] &&
+        (digit(lexer->lookahead) || (numeric_name && lexer->lookahead == '.')))
+        return scan_numeric_start(lexer, valid_symbols);
     if (scan_path_command_name_continuation(lexer, valid_symbols)) return true;
     if (!valid_symbols[ERROR_SENTINEL]) {
         if (valid_symbols[TRAILING_DOT_TYPE_NAME]) return scan_trailing_dot_type_name(lexer);
