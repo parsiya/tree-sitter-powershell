@@ -119,6 +119,21 @@ static bool is_quote(int32_t c)
     return c == '"' || c == '\'' || (c >= 0x2018 && c <= 0x201e);
 }
 
+// Skip a quoted value of a `--name=` option, as the parameter token matches it.
+static bool skip_option_quote(TSLexer *lexer)
+{
+    bool single = lexer->lookahead == '\'' ||
+                  (lexer->lookahead >= 0x2018 && lexer->lookahead <= 0x201b);
+    lexer->advance(lexer, false);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == 0 || c == '\r' || c == '\n') return false;
+        lexer->advance(lexer, false);
+        if (single ? (c == '\'' || (c >= 0x2018 && c <= 0x201b))
+                   : (c == '"' || (c >= 0x201c && c <= 0x201e))) return true;
+    }
+}
+
 static bool is_word_char(int32_t c)
 {
     return iswalnum(c) || c == '_' || c == '-';
@@ -433,8 +448,12 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
     unsigned dashes = 0;
     bool only_dashes = true;
     bool parameter_dot = false;
+    // `--name=$(...)` is a word, not a parameter, once a subexpression follows.
+    bool option_word = false;
+    bool option_separator = false;
     if (parameter) {
         lexer->advance(lexer, false);
+        option_word = lexer->lookahead == '-';
         parameter_dot = ((lexer->lookahead < 0x80 && iswalpha(lexer->lookahead)) ||
                          is_unicode_parameter_letter(lexer->lookahead) ||
                          lexer->lookahead == '_' || lexer->lookahead == '?' ||
@@ -465,17 +484,27 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols)
         if (c == '-') dashes++;
         else only_dashes = false;
         if (is_quote(c)) {
+            // A quoted `--name="value"` stays a parameter unless `$(` follows.
+            if (option_separator) {
+                if (!skip_option_quote(lexer)) return false;
+                consumed = true;
+                lexer->mark_end(lexer);
+                continue;
+            }
             joined = quoted = true;
             break;
         }
         // Keep the existing parameter representation for -Name:value and
         // --option=value; only an attached quote makes -o"value" a word.
-        if (parameter && (c == ':' || c == '=')) return false;
+        if (parameter && (c == ':' || c == '=')) {
+            if (!option_word) return false;
+            option_separator = true;
+        }
         if (c == '$') {
             lexer->mark_end(lexer);
             lexer->advance(lexer, false);
             if (lexer->lookahead == '(') {
-                if (parameter_name) return false;
+                if (parameter_name && !option_word) return false;
                 if (!consumed) {
                     if (!valid_symbols[COMMAND_WORD_EXPRESSION]) return false;
                     lexer->result_symbol = COMMAND_WORD_EXPRESSION;

@@ -1,0 +1,367 @@
+==================
+Double-dash option subexpression: value
+==================
+
+g --iam-account=$(x) --y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (command_parameter)))))))
+
+==================
+Double-dash option subexpression: word suffix
+==================
+
+g --a=$(x)y c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: dot suffix
+==================
+
+g --a=$(x).y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Double-dash option subexpression: text before
+==================
+
+g --a=b$(x) c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: directly after name
+==================
+
+g --a$(x)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Double-dash option subexpression: colon separator
+==================
+
+g --a:$(x) c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: two subexpressions
+==================
+
+g --a=$(x)$(y)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name))))))
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))))))))
+
+==================
+Double-dash option subexpression: quoted suffix
+==================
+
+g --a=$(x)"y" z
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name))))))
+              (string_literal
+                (expandable_string_literal)))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: quoted value before
+==================
+
+g --a="x"$(y) z
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: before pipeline
+==================
+
+g --a=$(x) | h
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Double-dash option subexpression: control stop parsing
+==================
+
+g --%a=$(x) y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token
+              (sub_expression
+                (statement_list
+                  (pipeline
+                    (pipeline_chain
+                      (command
+                        (command_name)))))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: control single dash
+==================
+
+g -a=$(x)y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (command
+                    (command_name)))))
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: control parameter colon argument
+==================
+
+g -a:$(x)y
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name))))))))
+            (generic_token)))))))
+
+==================
+Double-dash option subexpression: control plain value
+==================
+
+g --a=b $(x)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (sub_expression
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name))))))))))))))
