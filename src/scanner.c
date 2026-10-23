@@ -992,41 +992,20 @@ static bool word_char_ci(TSLexer *lexer, const char *word)
     return true;
 }
 
-// `inlinescript` followed, after any newlines and comments, by `{`. The
-// caller has skipped the whitespace before the word; the token is the word.
+// The word `inlinescript` ending at a Native token delimiter. The grammar then
+// requires the script block, so a bare or parameter-first keyword is an error
+// instead of an ordinary command. The caller has skipped the whitespace before
+// the word; the token is the word.
 static bool scan_inlinescript_name(TSLexer *lexer)
 {
     if (!word_char_ci(lexer, "inlinescript")) return false;
-    if (lexer->lookahead != '{' && !command_array_space(lexer->lookahead)) return false;
+    int32_t c = lexer->lookahead;
+    if (c != 0 && !command_array_space(c) && c != '{' && c != '}' && c != '(' &&
+        c != ')' && c != ';' && c != ',' && c != '|' && c != '&')
+        return false;
     lexer->mark_end(lexer);
-    for (;;) {
-        int32_t c = lexer->lookahead;
-        if (command_array_space(c)) {
-            lexer->advance(lexer, false);
-        } else if (c == '#') {
-            while (lexer->lookahead && !line_end(lexer->lookahead)) lexer->advance(lexer, false);
-        } else if (c == '<') {
-            lexer->advance(lexer, false);
-            if (lexer->lookahead != '#') return false;
-            lexer->advance(lexer, false);
-            for (;;) {
-                if (!lexer->lookahead) return false;
-                if (lexer->lookahead == '#') {
-                    lexer->advance(lexer, false);
-                    if (lexer->lookahead == '>') {
-                        lexer->advance(lexer, false);
-                        break;
-                    }
-                } else {
-                    lexer->advance(lexer, false);
-                }
-            }
-        } else {
-            if (c != '{') return false;
-            lexer->result_symbol = INLINESCRIPT_NAME;
-            return true;
-        }
-    }
+    lexer->result_symbol = INLINESCRIPT_NAME;
+    return true;
 }
 
 /* --- API Implementation --- */

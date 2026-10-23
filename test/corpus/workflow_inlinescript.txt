@@ -399,3 +399,125 @@ foreach -parallel ($x in $y) { a }
             (pipeline_chain
               (command
                 (command_name)))))))))
+
+===
+InlineScript without a block in a workflow is an error
+:error
+===
+
+workflow W { inlinescript }
+
+---
+
+(ERROR)
+
+===
+InlineScript with a parameter first in a workflow is an error
+:error
+===
+
+workflow W { inlinescript -x { 1 } }
+
+---
+
+(ERROR)
+
+===
+InlineScript with a parameter on the next line in a workflow is an error
+:error
+===
+
+workflow W { inlinescript
+-x }
+
+---
+
+(ERROR)
+
+===
+InlineScript with a parameter before the block on the next line is an error
+:error
+===
+
+workflow W { inlinescript
+-x
+{ 1 } }
+
+---
+
+(ERROR)
+
+===
+InlineScript before a pipe in a workflow is an error
+:error
+===
+
+workflow W { inlinescript | x }
+
+---
+
+(ERROR)
+
+===
+InlineScript with a parameter after a nested function ends is an error
+:error
+===
+
+workflow W { function F { 1 } inlinescript -x }
+
+---
+
+(ERROR)
+
+===
+InlineScript with a parameter on the next line in a function
+===
+
+function F { inlinescript
+-x }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name))))
+            (pipeline
+              (pipeline_chain
+                (command
+                  (command_name))))))))))
+
+===
+InlineScript with a parameter in a function inside a workflow
+===
+
+workflow W { function F { inlinescript -x } }
+
+---
+
+(program
+  (statement_list
+    (function_statement
+      (function_name)
+      (script_block
+        (script_block_body
+          (statement_list
+            (function_statement
+              (function_name)
+              (script_block
+                (script_block_body
+                  (statement_list
+                    (pipeline
+                      (pipeline_chain
+                        (command
+                          (command_name)
+                          (command_elements
+                            (command_argument_sep)
+                            (command_parameter)))))))))))))))
