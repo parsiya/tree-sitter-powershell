@@ -1,0 +1,362 @@
+==================
+Member names that begin with foreach are plain names
+==================
+
+$a.ForEachStatementCount | Should -Be 1
+$a.ForeachBegin()
+$a.foreach_x
+$a.ForEach2
+[T]::ForEachStatementCount
+[T]::ForeachBegin()
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (argument_list)))))))))))))))
+
+==================
+Foreach shorthand stays distinct
+==================
+
+$a.ForEach({ $_ })
+$a.foreach{ $_ }
+$a.ForEach
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (invokation_foreach_expression
+                              (variable)
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (script_block_expression
+                                                      (script_block
+                                                        (script_block_body
+                                                          (statement_list
+                                                            (pipeline
+                                                              (pipeline_chain
+                                                                (logical_expression
+                                                                  (bitwise_expression
+                                                                    (comparison_expression
+                                                                      (additive_expression
+                                                                        (multiplicative_expression
+                                                                          (format_expression
+                                                                            (range_expression
+                                                                              (array_literal_expression
+                                                                                (unary_expression
+                                                                                  (variable))))))))))))))))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (script_block_expression
+                              (script_block
+                                (script_block_body
+                                  (statement_list
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable))))))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (variable)
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+A bracket after a static member is still an element access
+==================
+
+[R]::W[0]
+[R]::W[0].X()
+[R]::W[$i]
+[R]::W[[int]]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (member_access
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name)))
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (integer_literal
+                                                (decimal_integer_literal)))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (element_access
+                              (member_access
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (member_name
+                                  (simple_name)))
+                              (logical_expression
+                                (bitwise_expression
+                                  (comparison_expression
+                                    (additive_expression
+                                      (multiplicative_expression
+                                        (format_expression
+                                          (range_expression
+                                            (array_literal_expression
+                                              (unary_expression
+                                                (integer_literal
+                                                  (decimal_integer_literal))))))))))))
+                            (member_name
+                              (simple_name))
+                            (argument_list)))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (member_access
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name)))
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (member_access
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name)))
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (type_literal
+                                                (type_spec
+                                                  (type_name
+                                                    (type_identifier)))))))))))))))))))))))))))

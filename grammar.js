@@ -2165,6 +2165,7 @@ export default grammar({
     member_name: ($) =>
       choice(
         alias($._foreach_member_name, $.simple_name),
+        alias($._foreach_prefixed_member_name, $.simple_name),
         $.simple_name,
         $.string_literal,
         $.expression_with_unary_operator,
@@ -2214,6 +2215,18 @@ export default grammar({
       ),
 
     _foreach_member_name: ($) => token.immediate(reservedWord('foreach')),
+
+    // The keyword token outranks a longer simple_name, so `.ForEachStatement` needs its own token.
+    _foreach_prefixed_member_name: ($) =>
+      token.immediate(
+        prec(
+          PREC.KEYWORD,
+          seq(
+            new RegExp(caseInsensitive('foreach')),
+            repeat1(choice(SIMPLE_NAME_LETTER, /[^\P{Nd}\u{10000}-\u{10FFFF}]/u, '_')),
+          ),
+        ),
+      ),
 
     // Keep the shorthand distinct without consuming the dot as part of the name.
     invokation_foreach_expression: ($) =>
