@@ -1,0 +1,16 @@
+[
+  {"name": "empty at EOF", "source": "tool.exe --%"},
+  {"name": "empty LF", "source": "tool.exe --%\n"},
+  {"name": "empty CRLF", "source": "tool.exe --%\r\n"},
+  {"name": "empty CR", "source": "tool.exe --%\r"},
+  {"name": "trailing space", "source": "tool.exe --% "},
+  {"name": "trailing tab", "source": "tool.exe --%\t"},
+  {"name": "next statement", "source": "tool.exe --%\nWrite-Output next\n"},
+  {"name": "CRLF next statement", "source": "tool.exe --%\r\nWrite-Output next\r\n"},
+  {"name": "with payload", "source": "tool.exe --% /c echo hi\n"},
+  {"name": "literal punctuation", "source": "tool.exe --% $x; # text\n"},
+  {"name": "preceding argument", "source": "tool.exe first --%\n"},
+  {"name": "quoted marker", "source": "Write-Output '--%'\n"},
+  {"name": "ordinary double dash", "source": "tool.exe --\n"},
+  {"name": "missing closing parenthesis", "source": "tool.exe (\n", "expect": "invalid"}
+]
