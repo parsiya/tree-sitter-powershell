@@ -1,0 +1,25 @@
+{
+ "suite": "stdout-redirection",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":18,"agree":15,"invalid_rejected":2,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "explicit stdout": {"status":"agree","differences":[]},
+  "explicit stdout append": {"status":"agree","differences":[]},
+  "adjacent target": {"status":"agree","differences":[]},
+  "adjacent append target": {"status":"agree","differences":[]},
+  "variable target": {"status":"agree","differences":[]},
+  "quoted target": {"status":"agree","differences":[]},
+  "expression stdout": {"status":"agree","differences":[]},
+  "expression append": {"status":"agree","differences":[]},
+  "implicit stdout": {"status":"agree","differences":[]},
+  "implicit append": {"status":"agree","differences":[]},
+  "stderr": {"status":"agree","differences":[]},
+  "stderr append": {"status":"agree","differences":[]},
+  "all streams": {"status":"agree","differences":[]},
+  "stdout merge": {"status":"known","differences":[]},
+  "separate numeric argument": {"status":"agree","differences":[]},
+  "quoted operator": {"status":"agree","differences":[]},
+  "missing target": {"status":"invalid-rejected","differences":[]},
+  "missing append target": {"status":"invalid-rejected","differences":[]}
+ }
+}

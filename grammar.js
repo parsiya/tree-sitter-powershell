@@ -334,6 +334,8 @@ export default grammar({
       choice(
         '>',
         '>>',
+        '1>',
+        '1>>',
         '2>',
         '2>>',
         '3>',
