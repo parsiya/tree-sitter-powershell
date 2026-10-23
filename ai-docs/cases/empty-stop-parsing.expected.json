@@ -1,0 +1,21 @@
+{
+ "suite": "empty-stop-parsing",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":14,"agree":13,"invalid_rejected":1,"known":0,"fail":0,"unsupported":0,"skipped":0,"known_differences":0},
+ "cases": {
+  "empty at EOF": {"status":"agree","differences":[]},
+  "empty LF": {"status":"agree","differences":[]},
+  "empty CRLF": {"status":"agree","differences":[]},
+  "empty CR": {"status":"agree","differences":[]},
+  "trailing space": {"status":"agree","differences":[]},
+  "trailing tab": {"status":"agree","differences":[]},
+  "next statement": {"status":"agree","differences":[]},
+  "CRLF next statement": {"status":"agree","differences":[]},
+  "with payload": {"status":"agree","differences":[]},
+  "literal punctuation": {"status":"agree","differences":[]},
+  "preceding argument": {"status":"agree","differences":[]},
+  "quoted marker": {"status":"agree","differences":[]},
+  "ordinary double dash": {"status":"agree","differences":[]},
+  "missing closing parenthesis": {"status":"invalid-rejected","differences":[]}
+ }
+}

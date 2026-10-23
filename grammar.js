@@ -898,16 +898,18 @@ export default grammar({
     _pipeline_tail: ($) => repeat1(seq('|', $.command)),
 
     command: ($) =>
-      choice(
-        seq(
-          field('command_name', $.command_name),
-          field('command_elements', optional($.command_elements)),
-        ),
-        seq(
-          $.command_invokation_operator,
-          // optional($.command_module),
-          field('command_name', $.command_name_expr),
-          field('command_elements', optional($.command_elements)),
+      prec.right(
+        choice(
+          seq(
+            field('command_name', $.command_name),
+            field('command_elements', optional($.command_elements)),
+          ),
+          seq(
+            $.command_invokation_operator,
+            // optional($.command_module),
+            field('command_name', $.command_name_expr),
+            field('command_elements', optional($.command_elements)),
+          ),
         ),
       ),
 
@@ -1084,7 +1086,7 @@ export default grammar({
     parameter_dot_literal: ($) => token.immediate('.'),
 
     // Stop parsing is a token that end the parsing of command line
-    stop_parsing: ($) => /--%[^\r\n]*/,
+    stop_parsing: ($) => choice('--%', /--%[^\r\n]+/),
 
     // A colon is a separator only immediately after a command parameter.
     command_argument_sep: ($) => prec.right(/[ \u00a0]+/),
