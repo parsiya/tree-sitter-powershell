@@ -14,14 +14,7 @@
   {"name":"member then escaped LF parameter","source":"Send-Notice $item.Detail.Text`\n-Color Blue"},
   {"name":"member then escaped CRLF parameter","source":"Send-Notice $item.Detail.Text`\r\n-Color Blue"},
   {"name":"member then escaped space parameter","source":"Send-Notice $item.Detail.Text` -Color Blue"},
-  {"name":"member then escaped LF terminator","source":"Send-Notice $item.Detail.Text`\n; Get-Location","known":[
-    {"difference":"validity native=valid ts=invalid","reason":"Inherited escaped-newline-before-semicolon rejection, reproduced on the unchanged 855ef73 ABI14 parser."},
-    {"difference":"commands missing 0:29","reason":"Inherited escaped-newline-before-semicolon rejection prevents both command nodes."},
-    {"difference":"commands missing 33:45","reason":"Inherited escaped-newline-before-semicolon rejection prevents both command nodes."},
-    {"difference":"elements missing 0:11 StringConstantExpressionAst/BareWord","reason":"Inherited escaped-newline-before-semicolon rejection prevents both command nodes."},
-    {"difference":"elements missing 12:29 MemberExpressionAst","reason":"Inherited escaped-newline-before-semicolon rejection prevents both command nodes."},
-    {"difference":"elements missing 33:45 StringConstantExpressionAst/BareWord","reason":"Inherited escaped-newline-before-semicolon rejection prevents both command nodes."}
-  ]},
+  {"name":"member then escaped LF terminator","source":"Send-Notice $item.Detail.Text`\n; Get-Location"},
   {"name":"member then escaped LF comment","source":"Send-Notice $item.Detail.Text`\n# comment\nGet-Location"},
   {"name":"member then trailing escape","source":"Send-Notice $item.Detail.Text`"},
   {"name":"variable then escaped newline character stays joined","source":"Send-Notice $item`n -Color Blue","known":[{"difference":"typed missing VariableExpressionAst 12:17","reason":"Inherited generic_token flattens variables inside expandable bare words; exact command elements remain checked."}]},
