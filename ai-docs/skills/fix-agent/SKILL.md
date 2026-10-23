@@ -68,8 +68,13 @@ The tools source the build environment themselves when `local/config.json` sets
 2. **Edit** only `grammar.js`, `src/scanner.c` or `src/parameter_letters.h` in
    `$W`. Pattern-only syntax goes in `opengrep/grammar.cjs`. Never edit generated
    files, and do not regenerate the root `src/parser.c`.
-3. **Add tests.** Append new cases to `test/corpus/*.txt`; inherited cases stay
-   byte for byte. Expected-error cases must really fail. Add a C test in
+3. **Add tests.** Append new cases to `test/corpus/*.txt`. If Native evidence
+   proves an existing expectation wrong, correct it in the same fix, including
+   inherited Airbus expectations. Preserve test inputs and coverage; review
+   each correction and record its evidence in the proof suite and commit.
+   A different CST shape alone does not prove incorrect semantics. Follow
+   [the expectation-correction policy](../../WORKFLOW.md#correcting-an-existing-test-expectation).
+   Expected-error cases must really fail. Add a C test in
    `test/*.c` when exact bytes or values matter (CR handling, string values):
    the kit compares extents and kinds, not values.
 4. **Quick validation** (use a new label each run):
@@ -78,7 +83,7 @@ The tools source the build environment themselves when `local/config.json` sets
    node ai-docs/tools/validate.mjs quick --fork "$W" --label TOPIC-N
    ```
 
-   It must PASS: inherited cases intact, 0.22 tests, ABI 14 C tests, raw corpus
+   It must PASS: inherited inputs preserved, 0.22 tests, ABI 14 C tests, raw corpus
    parse `regressed 0`, grammar harness `worse 0`. Read `moves` and `improved`:
    they should be your target files.
 5. **Proof.**
@@ -115,6 +120,7 @@ The tools source the build environment themselves when `local/config.json` sets
 - Grammar `moves` and raw-parse `improved`/`changed` lists.
 - Expected converter impact (new or renamed CST nodes). The parent changes the
   converter, not you.
+- Corrected existing expectations, with the Native evidence and rationale.
 - Anything unresolved, with evidence.
 
 ## Hard rules
@@ -128,8 +134,9 @@ The tools source the build environment themselves when `local/config.json` sets
   `opengrep-dev`, the Opengrep checkout, other worktrees, baselines or the
   tools. Do not push.
 - No Dune and no `validate.mjs full` (the parent runs it). No sub-agents.
-- Never weaken a test, comparator or expectation, and never approve outputs to
-  hide a failure. Correcting an inherited expectation needs Native evidence and
-  a stop to ask the parent.
+- Never weaken a comparator, delete or skip a test, or approve outputs to hide
+  a failure. Correct proven-wrong expectations with Native evidence and review;
+  the parent reviews them at integration. Do not stop solely because a test
+  is inherited. Report uncertainty if correctness is not established.
 - Shared Opengrep code changes and encoding work are out of scope: report them.
 - If you are blocked, stop and report the evidence; do not work around it.

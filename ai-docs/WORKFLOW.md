@@ -19,6 +19,34 @@ repository as its submodule
   Opengrep does not use it, and leaving it alone avoids merge conflicts.
 - PowerShell fixes go in the root `grammar.js`, `src/scanner.c` and
   `src/parameter_letters.h`. Rule-only syntax goes in `opengrep/grammar.cjs`.
+- Correct PowerShell support in Opengrep takes priority over preserving an
+  upstream grammar bug or its expected test output.
+
+### Correcting an existing test expectation
+
+This applies to all tests, including those inherited from Airbus. A failing
+test after a grammar change can mean a regression or a previously incorrect
+expectation; do not assume either without evidence.
+
+1. Establish the intended behaviour with Native PowerShell and the proof kit.
+   Check the relevant validity, kinds, extents and values. A CST need not have
+   the same shape as Native's AST: show the actual syntax or semantic problem
+   and its effect on Opengrep.
+2. Prove the grammar correction with synthetic variations, neighbouring forms
+   and negative controls. Run quick validation and the proof suites; unrelated
+   regressions must be fixed, not approved.
+3. If that evidence establishes that the existing expectation is wrong,
+   correct it in the same fix commit. Keep the original test input and
+   coverage, review every changed expected tree, and record the Native
+   evidence and rationale in the proof suite and commit message.
+4. The parent reviews the correction during integration. Do not stop merely
+   because the expectation came from upstream. If the evidence is inconclusive,
+   investigate or report that uncertainty instead of changing expectations.
+
+The source gate preserves inherited test inputs, names and flags, not their
+expected trees. It does not verify the justification for an expectation change;
+Native proofs and review do that. Never remove or skip cases, weaken
+comparators, add unexplained known differences, or bulk-approve failures.
 
 ## Fix lifecycle
 
@@ -109,12 +137,13 @@ than starting a duplicate.
 - **Test the parser Opengrep runs.** Every gate uses ABI 14 on 0.22.6.
 - **The corpus is read-only data**, and PowerShell only parses (see
   [README.md](README.md#safety-rules)). Committed cases are made-up reductions.
-- **Never weaken a check.** Do not relax a comparator, expectation or exclusion
-  to make a run pass, and do not use `--update`, `test approve` or
-  `dune promote` to hide failures.
-- **Inherited tests stay byte for byte.** New cases are appended; new invalid
-  cases must really fail. Correcting an inherited expectation needs Native
-  evidence and a review.
+- **Never hide a failure.** Do not relax a comparator or exclusion to make a
+  run pass, or use `--update`, `test approve` or `dune promote` to hide failures.
+  Proven-wrong expectations are corrected under the policy above, not treated
+  as immutable.
+- **Preserve test inputs and coverage.** Add cases for new behaviour; invalid
+  controls must really fail. Correct inherited expectations when Native
+  evidence proves the change is right.
 - **Known differences are explicit**, each with a reason, and reported separately.
 - **Categories stay distinct.** Encoding reviews, grammar errors, unsupported
   conversion, timeouts and exceptions are never merged, and rates are never

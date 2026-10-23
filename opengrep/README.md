@@ -147,6 +147,13 @@ Review and explain any intentional expected-output changes first.
 ## Fixing the grammar
 
 Fixes are made for Opengrep only, on `og/TOPIC` branches from `opengrep-dev`.
+Correct PowerShell behaviour takes priority over preserving an upstream bug.
+When Native evidence proves an existing test expectation wrong, correct it
+alongside the grammar fix, preserving the original input and coverage. Follow
+the [expectation-correction policy](../ai-docs/WORKFLOW.md#correcting-an-existing-test-expectation);
+do not approve unexplained failures or require a stop merely because a test
+came from Airbus.
+
 The validation tools, the fix lifecycle and the commit conventions are in
 [ai-docs/](../ai-docs/README.md), especially
 [WORKFLOW.md](../ai-docs/WORKFLOW.md). Fix branches change `grammar.js`,
@@ -182,9 +189,10 @@ and add each fix to the table in [Where changes go](#where-changes-go).
 4. Review upstream changes to grammar rules, scanners, tests, and tool versions.
    Root `grammar.js` conflicts are expected when Airbus changes a rule we
    fixed. Resolve `grammar.js` and `test/corpus/` by hand, then regenerate
-   `src/`; do not merge generated `src/` files line by line. If Airbus merged
-   one of our fixes, or fixed the same problem differently, keep Airbus's
-   version and update the table in [Where changes go](#where-changes-go).
+   `opengrep/ocaml/`; do not merge generated files line by line. If Airbus merged
+   one of our fixes, or fixed the same problem differently, keep the version
+   independently verified correct for Opengrep, not automatically Airbus's
+   version, and update the table in [Where changes go](#where-changes-go).
    Also check that `opengrep/grammar.cjs` still matches the rules it extends.
 5. Update the Opengrep-only extension or build adaptation if needed. Keep
    PowerShell fixes in the root grammar and Opengrep-only syntax in
