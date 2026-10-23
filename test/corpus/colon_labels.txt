@@ -1,0 +1,230 @@
+==================
+Break with a colon word is followed by a command
+==================
+
+foreach ($a in $b) {
+    if ($c) {
+        break :outer
+    }
+}
+
+---
+
+(program
+  (statement_list
+    (foreach_statement
+      (variable)
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (if_statement
+            (pipeline
+              (pipeline_chain
+                (logical_expression
+                  (bitwise_expression
+                    (comparison_expression
+                      (additive_expression
+                        (multiplicative_expression
+                          (format_expression
+                            (range_expression
+                              (array_literal_expression
+                                (unary_expression
+                                  (variable))))))))))))
+            (statement_block
+              (statement_list
+                (flow_control_statement)
+                (pipeline
+                  (pipeline_chain
+                    (command
+                      (command_name))))))))))))
+
+==================
+Continue with a colon word and a pipe
+==================
+
+continue :outer | foo
+
+---
+
+(program
+  (statement_list
+    (flow_control_statement)
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Colon word is a command name
+==================
+
+:x foo
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon word before a keyword argument
+==================
+
+:x if ($a) { }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (parenthesized_expression
+                  (pipeline
+                    (pipeline_chain
+                      (logical_expression
+                        (bitwise_expression
+                          (comparison_expression
+                            (additive_expression
+                              (multiplicative_expression
+                                (format_expression
+                                  (range_expression
+                                    (array_literal_expression
+                                      (unary_expression
+                                        (variable)))))))))))))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression)))))))))
+
+==================
+Colon word then a statement on the next line
+==================
+
+foo
+:x
+if ($a) { }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (if_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block))))
+
+==================
+Label before a loop on the next line
+==================
+
+:outer
+foreach ($a in $b) { break outer }
+
+---
+
+(program
+  (statement_list
+    (label)
+    (foreach_statement
+      (variable)
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable))))))))))))
+      (statement_block
+        (statement_list
+          (flow_control_statement
+            (label_expression
+              (simple_name))))))))
+
+==================
+Label before a switch
+==================
+
+:outer switch ($a) { default { break :outer } }
+
+---
+
+(program
+  (statement_list
+    (label)
+    (switch_statement
+      (switch_condition
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (variable)))))))))))))
+      (switch_body
+        (switch_clauses
+          (switch_clause
+            (switch_clause_condition)
+            (statement_block
+              (statement_list
+                (flow_control_statement)
+                (pipeline
+                  (pipeline_chain
+                    (command
+                      (command_name))))))))))))
