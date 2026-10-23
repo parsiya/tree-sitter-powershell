@@ -1,0 +1,1018 @@
+==================
+Generic method call: static member
+==================
+
+[Array]::Sort[string]($a, $b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: instance member with spaced arguments
+==================
+
+$x.Foo[string]( $a )
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: several type arguments and empty arguments
+==================
+
+$x.Foo[int,string]()
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier)))
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list)))))))))))))))
+
+==================
+Generic method call: namespace, generic and array type arguments
+==================
+
+[X]::Y[System.Collections.Generic.List[string]]($a)
+[X]::Y[string[]]($a)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (generic_type_name
+                                  (type_name
+                                    (type_name
+                                      (type_name
+                                        (type_name
+                                          (type_identifier))
+                                        (type_identifier))
+                                      (type_identifier))
+                                    (type_identifier)))
+                                (generic_type_arguments
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (array_type_name
+                                  (type_name
+                                    (type_identifier)))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: member access on the result
+==================
+
+[X]::Y[string]($a).Z
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (invokation_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))
+                            (member_name
+                              (simple_name))))))))))))))))
+
+==================
+Generic method call: null conditional access
+==================
+
+$x?.Foo[string]($a)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: element access stays element access
+==================
+
+$x.Foo[$i].Bar
+[X]::Y[$i]
+$x.Foo[[int]$i]
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (member_access
+                            (element_access
+                              (member_access
+                                (variable)
+                                (member_name
+                                  (simple_name)))
+                              (logical_expression
+                                (bitwise_expression
+                                  (comparison_expression
+                                    (additive_expression
+                                      (multiplicative_expression
+                                        (format_expression
+                                          (range_expression
+                                            (array_literal_expression
+                                              (unary_expression
+                                                (variable)))))))))))
+                            (member_name
+                              (simple_name))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (member_access
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name)))
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (variable))))))))))))))))))))))
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (element_access
+                            (member_access
+                              (variable)
+                              (member_name
+                                (simple_name)))
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (additive_expression
+                                    (multiplicative_expression
+                                      (format_expression
+                                        (range_expression
+                                          (array_literal_expression
+                                            (unary_expression
+                                              (expression_with_unary_operator
+                                                (cast_expression
+                                                  (type_literal
+                                                    (type_spec
+                                                      (type_name
+                                                        (type_identifier))))
+                                                  (unary_expression
+                                                    (variable)))))))))))))))))))))))))))
+
+==================
+Generic method call: chained instance methods
+==================
+
+$x.Foo[int]($a).Bar[string]($b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (invokation_expression
+                              (variable)
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: chained static methods
+==================
+
+[X]::Y[int]($a)::Z[string]($b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (invokation_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (type_name
+                                  (type_identifier))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: element access and call on the result
+==================
+
+$x.Foo[int]($a)[0].Bar($b)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (element_access
+                              (invokation_expression
+                                (variable)
+                                (member_name
+                                  (simple_name))
+                                (generic_method_arguments
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (argument_list
+                                  (argument_expression_list
+                                    (argument_expression
+                                      (logical_argument_expression
+                                        (bitwise_argument_expression
+                                          (comparison_argument_expression
+                                            (additive_argument_expression
+                                              (multiplicative_argument_expression
+                                                (format_argument_expression
+                                                  (range_argument_expression
+                                                    (unary_expression
+                                                      (variable)))))))))))))
+                              (logical_expression
+                                (bitwise_expression
+                                  (comparison_expression
+                                    (additive_expression
+                                      (multiplicative_expression
+                                        (format_expression
+                                          (range_expression
+                                            (array_literal_expression
+                                              (unary_expression
+                                                (integer_literal
+                                                  (decimal_integer_literal))))))))))))
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: post increment of the result
+==================
+
+$x.Foo[int]($a)++
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (post_increment_expression
+                            (invokation_expression
+                              (variable)
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))))))))))))))))
+
+==================
+Generic method call: script block call on the result
+==================
+
+$x.M[int]($a).Where{ $_ }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (invokation_expression
+                              (variable)
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))
+                            (member_name
+                              (simple_name))
+                            (script_block_expression
+                              (script_block
+                                (script_block_body
+                                  (statement_list
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable))))))))))))))))))))))))))))))
+
+==================
+Generic method call: foreach shorthand on the result
+==================
+
+$x.M[int]($a).foreach{ $_ }
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (invokation_expression
+                              (variable)
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))
+                            (member_name
+                              (simple_name))
+                            (script_block_expression
+                              (script_block
+                                (script_block_body
+                                  (statement_list
+                                    (pipeline
+                                      (pipeline_chain
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable))))))))))))))))))))))))))))))
+
+==================
+Generic method call: nested type arguments
+==================
+
+$x.Foo[A[B,C], D[]]($a)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (generic_method_arguments
+                              (type_spec
+                                (generic_type_name
+                                  (type_name
+                                    (type_identifier)))
+                                (generic_type_arguments
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier)))
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier)))))
+                              (type_spec
+                                (array_type_name
+                                  (type_name
+                                    (type_identifier)))))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (variable))))))))))))))))))))))))))
+
+==================
+Generic method call: static call on a namespaced type in return
+==================
+
+return [Ns.Type]::Ask[string]($m)
+
+---
+
+(program
+  (statement_list
+    (flow_control_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (invokation_expression
+                              (type_literal
+                                (type_spec
+                                  (type_name
+                                    (type_name
+                                      (type_identifier))
+                                    (type_identifier))))
+                              (member_name
+                                (simple_name))
+                              (generic_method_arguments
+                                (type_spec
+                                  (type_name
+                                    (type_identifier))))
+                              (argument_list
+                                (argument_expression_list
+                                  (argument_expression
+                                    (logical_argument_expression
+                                      (bitwise_argument_expression
+                                        (comparison_argument_expression
+                                          (additive_argument_expression
+                                            (multiplicative_argument_expression
+                                              (format_argument_expression
+                                                (range_argument_expression
+                                                  (unary_expression
+                                                    (variable)))))))))))))))))))))))))))
+
+==================
+Generic method call: generic call as an argument of a method
+==================
+
+$x.Foo($y.Bar[int]($a))
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (invokation_expression
+                            (variable)
+                            (member_name
+                              (simple_name))
+                            (argument_list
+                              (argument_expression_list
+                                (argument_expression
+                                  (logical_argument_expression
+                                    (bitwise_argument_expression
+                                      (comparison_argument_expression
+                                        (additive_argument_expression
+                                          (multiplicative_argument_expression
+                                            (format_argument_expression
+                                              (range_argument_expression
+                                                (unary_expression
+                                                  (invokation_expression
+                                                    (variable)
+                                                    (member_name
+                                                      (simple_name))
+                                                    (generic_method_arguments
+                                                      (type_spec
+                                                        (type_name
+                                                          (type_identifier))))
+                                                    (argument_list
+                                                      (argument_expression_list
+                                                        (argument_expression
+                                                          (logical_argument_expression
+                                                            (bitwise_argument_expression
+                                                              (comparison_argument_expression
+                                                                (additive_argument_expression
+                                                                  (multiplicative_argument_expression
+                                                                    (format_argument_expression
+                                                                      (range_argument_expression
+                                                                        (unary_expression
+                                                                          (variable))))))))))))))))))))))))))))))))))))))
+
+==================
+Generic method call: parenthesized command argument
+==================
+
+foo ($x.M[int]($a)).Z
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (parenthesized_expression
+                    (pipeline
+                      (pipeline_chain
+                        (logical_expression
+                          (bitwise_expression
+                            (comparison_expression
+                              (additive_expression
+                                (multiplicative_expression
+                                  (format_expression
+                                    (range_expression
+                                      (array_literal_expression
+                                        (unary_expression
+                                          (invokation_expression
+                                            (variable)
+                                            (member_name
+                                              (simple_name))
+                                            (generic_method_arguments
+                                              (type_spec
+                                                (type_name
+                                                  (type_identifier))))
+                                            (argument_list
+                                              (argument_expression_list
+                                                (argument_expression
+                                                  (logical_argument_expression
+                                                    (bitwise_argument_expression
+                                                      (comparison_argument_expression
+                                                        (additive_argument_expression
+                                                          (multiplicative_argument_expression
+                                                            (format_argument_expression
+                                                              (range_argument_expression
+                                                                (unary_expression
+                                                                  (variable)))))))))))))))))))))))))
+                  (member_name
+                    (simple_name)))))))))))
+
+==================
+Generic method call: type literal word then parenthesis in a command argument
+==================
+
+foo [J]::S[R]($a)
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (variable))))))))))))))))))

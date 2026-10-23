@@ -169,6 +169,8 @@ export default grammar({
     [$._command_mixed_array, $._completed_argument_array],
     [$._command_pipeline_prefix_expression, $._primary_expression],
     [$.array_literal_expression, $.range_argument_expression],
+    [$.member_access, $._generic_method_name],
+    [$._generic_member_access, $._generic_method_name],
   ],
 
   rules: {
@@ -2058,7 +2060,11 @@ export default grammar({
 
     unary_expression: ($) =>
       prec.right(
-        choice($._primary_expression, $.expression_with_unary_operator),
+        choice(
+          $._primary_expression,
+          $._generic_primary_expression,
+          $.expression_with_unary_operator,
+        ),
       ),
 
     expression_with_unary_operator: ($) =>
@@ -2234,6 +2240,126 @@ export default grammar({
         ')',
       ),
 
+    // `[Array]::Sort[string]($a)`, `$x.M[int]($a).N`: explicit generic method type
+    // arguments. Only an expression operand (unary_expression) reads one, not a
+    // command argument: Native rejects `foo $x.M[int]($a)`. A call on the result
+    // needs its own rules, because _primary_expression has no generic call.
+    _generic_primary_expression: ($) =>
+      choice(
+        alias($._generic_invokation, $.invokation_expression),
+        alias($._generic_member_access, $.member_access),
+        alias($._generic_element_access, $.element_access),
+        alias($._generic_result_call, $.invokation_expression),
+        alias($._generic_post_increment, $.post_increment_expression),
+        alias($._generic_post_decrement, $.post_decrement_expression),
+      ),
+
+    _generic_post_increment: ($) =>
+      prec(PREC.UNARY, seq($._generic_primary_expression, '++')),
+
+    _generic_post_decrement: ($) =>
+      prec(
+        PREC.UNARY,
+        seq($._generic_primary_expression, choice('--', alias($._unicode_decrement, '--'))),
+      ),
+
+    _generic_invokation: ($) =>
+      prec.right(
+        PREC.PARAM + 1,
+        choice(
+          seq(
+            $._primary_expression,
+            $._member_access_operator,
+            $._generic_method_name,
+            $.generic_method_arguments,
+            alias($._generic_call_arguments, $.argument_list),
+          ),
+          seq(
+            $._primary_expression,
+            '::',
+            $._generic_method_name,
+            $.generic_method_arguments,
+            alias($._generic_call_arguments, $.argument_list),
+          ),
+          seq(
+            $._generic_primary_expression,
+            $._member_access_operator,
+            $._generic_method_name,
+            $.generic_method_arguments,
+            alias($._generic_call_arguments, $.argument_list),
+          ),
+          seq(
+            $._generic_primary_expression,
+            '::',
+            $._generic_method_name,
+            $.generic_method_arguments,
+            alias($._generic_call_arguments, $.argument_list),
+          ),
+        ),
+      ),
+
+    _generic_member_access: ($) =>
+      prec.left(
+        choice(
+          seq($._generic_primary_expression, $._member_access_operator, $.member_name),
+          seq($._generic_primary_expression, '::', $.member_name),
+        ),
+      ),
+
+    _generic_element_access: ($) =>
+      prec(
+        PREC.ELEMENT_ACCESS,
+        seq(
+          $._generic_primary_expression,
+          choice('[', $.null_conditional_element_operator),
+          $._expression,
+          ']',
+        ),
+      ),
+
+    _generic_result_call: ($) =>
+      prec.right(
+        PREC.PARAM + 1,
+        choice(
+          seq($._generic_primary_expression, $._member_access_operator, $.member_name, $.argument_list),
+          seq($._generic_primary_expression, '::', $.member_name, $.argument_list),
+          seq(
+            $._generic_primary_expression,
+            $._member_access_operator,
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          seq(
+            $._generic_primary_expression,
+            '::',
+            $.member_name,
+            $._script_block_argument_start,
+            $.script_block_expression,
+          ),
+          alias($._generic_foreach_call, $.invokation_foreach_expression),
+        ),
+      ),
+
+    _generic_foreach_call: ($) =>
+      prec(
+        PREC.KEYWORD,
+        seq(
+          $._generic_primary_expression,
+          $._member_access_operator,
+          $._foreach_member_name,
+          choice($.script_block_expression, $.argument_list),
+        ),
+      ),
+
+    // Native rejects a space between the generic type arguments and `(`.
+    _generic_call_arguments: ($) =>
+      seq(
+        alias(token.immediate('('), '('),
+        field('argument_expression_list', optional($.argument_expression_list)),
+        ')',
+      ),
+
     argument_expression_list: ($) =>
       prec.left(
         seq($.argument_expression, repeat(seq(',', $.argument_expression))),
@@ -2386,6 +2512,14 @@ export default grammar({
       seq($.generic_type_name, $.generic_type_arguments, ']'),
 
     dimension: ($) => repeat1(','),
+
+    // Wrapping member_name makes `$x.Foo[$i]` (element access) and `$x.Foo[T]()`
+    // a reduce/reduce conflict that the bracket contents decide.
+    _generic_method_name: ($) => $.member_name,
+
+    // Native rejects a bracketed type here, unlike in `generic_type_arguments`.
+    generic_method_arguments: ($) =>
+      seq('[', $.type_spec, repeat(seq(',', $.type_spec)), ']'),
 
     // `Dictionary[[string], [string]]`: an argument may be in brackets
     generic_type_arguments: ($) =>
