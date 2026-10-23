@@ -1212,7 +1212,7 @@ export default grammar({
             $.command_argument_sep,
             $.generic_token,
             alias(token.immediate(/[\t\v\f]+/), $.command_argument_sep),
-            $._argument_after_quote,
+            optional($._argument_after_quote),
           ),
           seq(
             $.command_argument_sep,

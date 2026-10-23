@@ -1,0 +1,102 @@
+[
+ {
+  "name": "full shape in if",
+  "source": "if ($a) {\r\n    $v = $i.M | `\r\n        Where-Object {$_.A -eq $i.B} | `\r\n        Select-Object -First 1 -ExpandProperty E | `\r\n        Select-Object -ExpandProperty V\t| `\r\n        Get-X @s\r\n}\r\n"
+ },
+ {
+  "name": "word tab pipe backtick",
+  "source": "a b\t| `\r\n c\r\n"
+ },
+ {
+  "name": "word tab pipe no continuation",
+  "source": "a b\t| c\r\n"
+ },
+ {
+  "name": "word space pipe backtick",
+  "source": "a b | `\r\n c\r\n"
+ },
+ {
+  "name": "word tab pipe backtick lf",
+  "source": "a b\t| `\n c\n"
+ },
+ {
+  "name": "word two tabs pipe backtick",
+  "source": "a b\t\t| `\r\n c\r\n"
+ },
+ {
+  "name": "word tab pipe newline",
+  "source": "a b\t|\r\n c\r\n"
+ },
+ {
+  "name": "word tab pipe space newline",
+  "source": "a b\t| \r\n c\r\n"
+ },
+ {
+  "name": "no args tab pipe backtick",
+  "source": "a\t| `\r\n c\r\n"
+ },
+ {
+  "name": "word space tab pipe backtick",
+  "source": "a b \t| `\r\n c\r\n"
+ },
+ {
+  "name": "assignment word tab pipe backtick",
+  "source": "$v = a b\t| `\r\n c\r\n"
+ },
+ {
+  "name": "variable arg tab pipe backtick",
+  "source": "a $b\t| `\r\n c\r\n"
+ },
+ {
+  "name": "parameter arg tab pipe backtick",
+  "source": "a -p v\t| `\r\n c\r\n"
+ },
+ {
+  "name": "tab before backtick continuation",
+  "source": "a b\t`\r\n c\r\n"
+ },
+ {
+  "name": "word tab pipe backtick then tab-indented command",
+  "source": "a b\t| `\r\n\tc\r\n"
+ },
+ {
+  "name": "plus word tab pipe",
+  "source": "a +\t| c\r\n"
+ },
+ {
+  "name": "word tab word control",
+  "source": "a b\tc\r\n"
+ },
+ {
+  "name": "plus tab number control",
+  "source": "a +\t1\r\n"
+ },
+ {
+  "name": "word tab quoted control",
+  "source": "a b\t\"c\"\r\n"
+ },
+ {
+  "name": "word tab scriptblock close",
+  "source": "{ a b\t}\r\n"
+ },
+ {
+  "name": "word tab semicolon control",
+  "source": "a b\t; c\r\n"
+ },
+ {
+  "name": "word tab pipe chain",
+  "source": "a b\t| c d\t| e\r\n"
+ },
+ {
+  "name": "word tab ampersand pipe chain",
+  "source": "a b\t&& c\r\n"
+ },
+ {
+  "name": "word tab pipe pipe chain",
+  "source": "a b\t|| c\r\n"
+ },
+ {
+  "name": "word tab redirection control",
+  "source": "a b\t> out\r\n"
+ }
+]

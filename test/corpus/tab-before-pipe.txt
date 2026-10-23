@@ -1,0 +1,27 @@
+==================
+Tab before pipe: command word
+==================
+a b	| c
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name))))))
+
+==================
+Tab before pipe: backtick continuation
+==================
+a b	| `
+  c
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name))))))
+
+==================
+Tab before pipe: space control
+==================
+a b | c
+
+---
+
+(program (statement_list (pipeline (pipeline_chain (command (command_name) (command_elements (command_argument_sep) (generic_token) (command_argument_sep))) (command (command_name))))))
