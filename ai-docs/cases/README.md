@@ -35,6 +35,13 @@ Exit 0 = every suite matches, 1 = a suite fails, 2 = usage or build error.
 
 ## Update expectations (deliberately)
 
+Tree-sitter corpus expectations, including Airbus's originals, can be wrong.
+Correct them when Native evidence establishes that the grammar fix is right;
+preserve their inputs and coverage. See
+[the workflow policy](../WORKFLOW.md#correcting-an-existing-test-expectation).
+The proof-kit expectations below record comparisons with Native, not an
+alternative authority for PowerShell behaviour.
+
 Expectations are never updated automatically. After a reviewed grammar change
 (or when adding a suite or case):
 

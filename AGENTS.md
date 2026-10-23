@@ -34,13 +34,31 @@ Run everything from this repository's root.
 | --- | --- |
 | Real PowerShell syntax | `grammar.js`, `src/scanner.c`, `src/parameter_letters.h` |
 | Rule-only (pattern) syntax | `opengrep/grammar.cjs` |
-| Grammar tests | **append** cases to `test/corpus/*.txt` and `opengrep/test/*.txt`; byte-exact C tests in `test/*.c` |
+| Grammar tests | Add cases to `test/corpus/*.txt` and `opengrep/test/*.txt`; correct proven-wrong expectations as below; byte-exact C tests in `test/*.c` |
 | Proofs | new or extended suites in `ai-docs/cases/` and their `.expected.json` |
 
 **Never** hand-edit generated files (`src/parser.c`, `src/grammar.json`,
-`src/node-types.json`, anything under `opengrep/ocaml/`). Never change an
-existing upstream test case; append new ones. Don't edit `ai-docs/tools/`
-unless that's your task.
+`src/node-types.json`, anything under `opengrep/ocaml/`). Don't edit
+`ai-docs/tools/` unless that's your task.
+
+## Correctness takes priority over inherited expectations
+
+The goal is correct PowerShell support in Opengrep, not preserving Airbus's
+parser behaviour. Existing tests, including upstream tests, can have incorrect
+expected trees. Do not preserve a grammar bug just to keep such a test passing.
+
+- Prove the intended behaviour with Native PowerShell and the proof kit before
+  changing an expectation. A different CST shape alone is not proof of a bug;
+  establish the relevant syntax or semantics and Opengrep impact.
+- When that evidence establishes that the grammar fix is correct, correct the
+  affected expectations in the same fix. Preserve the original test inputs and
+  coverage; add neighbouring cases and negative controls.
+- Review each changed expectation and record the Native evidence and reason
+  in the proof suite and commit message. The parent reviews these corrections
+  during integration; inheritance alone is not a reason to stop for permission.
+- Never delete or skip a failing test, weaken a comparator, add an unexplained
+  known difference, or bulk-approve output to hide a failure. If correctness is
+  uncertain, investigate or report the uncertainty rather than changing tests.
 
 ## The fix loop
 
@@ -120,7 +138,8 @@ Every fix needs a proof suite. Use the kit; never write a one-off proof script.
   committed files.
 - **PowerShell is only a parser** (the kit uses `Parser.ParseInput`); never
   evaluate source.
-- **Never weaken** a test, comparator, expectation or check to get a pass.
+- **Never hide failures.** Evidence-backed expectation corrections follow the
+  policy above; weakening checks just to get a pass is forbidden.
 - **Stay in your lane:** no changes to Opengrep's shared code; encoding work is
   out of scope. Report these instead.
 - **Fix agents** don't run `validate.mjs full`, Dune or sub-agents. The parent
