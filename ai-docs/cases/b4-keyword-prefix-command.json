@@ -1,0 +1,398 @@
+[
+ {
+  "name": "Classify statement",
+  "source": "Classify 1"
+ },
+ {
+  "name": "Classes after assignment",
+  "source": "$m = Classes 1"
+ },
+ {
+  "name": "Enumerate after assignment",
+  "source": "$m = Enumerate 1"
+ },
+ {
+  "name": "Enumerate statement",
+  "source": "Enumerate 1"
+ },
+ {
+  "name": "Classify with variable arguments",
+  "source": "$meta = Classify $r.type $r.acctKind"
+ },
+ {
+  "name": "Classify in pipeline",
+  "source": "1 | Classify 1"
+ },
+ {
+  "name": "Classify pipeline start",
+  "source": "Classify 1 | Out-Null"
+ },
+ {
+  "name": "Classify in parentheses",
+  "source": "(Classify 1)"
+ },
+ {
+  "name": "Classify in subexpression",
+  "source": "$(Classify 1)"
+ },
+ {
+  "name": "Classify in scriptblock",
+  "source": "& { Classify 1 }"
+ },
+ {
+  "name": "Classify bare",
+  "source": "Classify"
+ },
+ {
+  "name": "Classes bare",
+  "source": "Classes"
+ },
+ {
+  "name": "Classx lowercase",
+  "source": "classx 1"
+ },
+ {
+  "name": "Enumx upper",
+  "source": "ENUMX 1"
+ },
+ {
+  "name": "Classify after semicolon",
+  "source": "$a = 1; Classify $a"
+ },
+ {
+  "name": "Enumerate after pipe-and",
+  "source": "$ok = $true; if ($ok) { Enumerate $ok }"
+ },
+ {
+  "name": "Class with hyphen command",
+  "source": "Class-Thing 1"
+ },
+ {
+  "name": "Enum with hyphen command",
+  "source": "Enum-Thing 1"
+ },
+ {
+  "name": "Classy in assignment parens",
+  "source": "$m = (Classify 1)"
+ },
+ {
+  "name": "Classes in hashtable value",
+  "source": "@{ a = Classes 1 }"
+ },
+ {
+  "name": "Class definition",
+  "source": "class Foo { }"
+ },
+ {
+  "name": "Class definition upper",
+  "source": "CLASS Foo { }"
+ },
+ {
+  "name": "Class definition mixed case newline",
+  "source": "Class\nFoo\n{\n}"
+ },
+ {
+  "name": "Class definition tabs",
+  "source": "class\tFoo\t{ [int]$x }"
+ },
+ {
+  "name": "Class definition comment before brace",
+  "source": "class Foo # note\n{\n}"
+ },
+ {
+  "name": "Class definition block comment",
+  "source": "class <# c #> Foo { }"
+ },
+ {
+  "name": "Class definition with base",
+  "source": "class Foo : Bar { }"
+ },
+ {
+  "name": "Class with attribute",
+  "source": "[System.Serializable()] class Foo { }"
+ },
+ {
+  "name": "Class name that begins with keyword prefix",
+  "source": "class Classify { }"
+ },
+ {
+  "name": "Enum definition",
+  "source": "enum Color { Red; Green }"
+ },
+ {
+  "name": "Enum definition upper",
+  "source": "ENUM Color { Red }"
+ },
+ {
+  "name": "Enum definition newline",
+  "source": "Enum\nColor\n{\n Red = 1\n}"
+ },
+ {
+  "name": "Enum definition comment",
+  "source": "enum Color # note\n{\n Red\n}"
+ },
+ {
+  "name": "Enum block comment",
+  "source": "enum <# c #> Color { Red }"
+ },
+ {
+  "name": "Enum with attribute",
+  "source": "[Flags()] enum Color { Red = 1 }"
+ },
+ {
+  "name": "Enumerate enum name",
+  "source": "enum Enumerate { A }"
+ },
+ {
+  "name": "Class then command",
+  "source": "class Foo { }\nClassify 1"
+ },
+ {
+  "name": "Enum then command",
+  "source": "enum A { B }\nEnumerate 1"
+ },
+ {
+  "name": "Class keyword without name is invalid",
+  "source": "class"
+ },
+ {
+  "name": "Class keyword with number is invalid",
+  "source": "class 1"
+ },
+ {
+  "name": "Enum keyword without name is invalid",
+  "source": "enum"
+ },
+ {
+  "name": "Class keyword plain command argument",
+  "source": "Write-Output class enum"
+ },
+ {
+  "name": "Interface prefix command",
+  "source": "Interfaces 1"
+ },
+ {
+  "name": "Configuration prefix command",
+  "source": "Configure 1"
+ },
+ {
+  "name": "Interface keyword command",
+  "source": "Interface 1"
+ },
+ {
+  "name": "Iffy control",
+  "source": "Iffy 1"
+ },
+ {
+  "name": "Forty control",
+  "source": "Forty 1"
+ },
+ {
+  "name": "Functional control",
+  "source": "Functional 1"
+ },
+ {
+  "name": "Doit control",
+  "source": "Doit 1"
+ },
+ {
+  "name": "usingx control",
+  "source": "usingx 1"
+ },
+ {
+  "name": "Class star suffix",
+  "source": "Class* 1"
+ },
+ {
+  "name": "Class slash suffix",
+  "source": "Class/x 1"
+ },
+ {
+  "name": "Class plus suffix",
+  "source": "Class+x 1"
+ },
+ {
+  "name": "Class bang suffix",
+  "source": "Class!x 1"
+ },
+ {
+  "name": "Class bracket suffix",
+  "source": "Class[0] 1"
+ },
+ {
+  "name": "Class dollar suffix",
+  "source": "Class$x 1"
+ },
+ {
+  "name": "Enum dot suffix",
+  "source": "Enum.x 1"
+ },
+ {
+  "name": "Enum colon suffix",
+  "source": "Enum:x 1"
+ },
+ {
+  "name": "Enum underscore suffix",
+  "source": "Enum_x 1"
+ },
+ {
+  "name": "Class digit suffix",
+  "source": "Class2 1"
+ },
+ {
+  "name": "Class question suffix",
+  "source": "Class?x 1"
+ },
+ {
+  "name": "Class at suffix",
+  "source": "Class@x 1"
+ },
+ {
+  "name": "Class lt suffix",
+  "source": "Class<x 1"
+ },
+ {
+  "name": "Class hash suffix",
+  "source": "Class#x 1"
+ },
+ {
+  "name": "Class comment without space",
+  "source": "class<#c#> Foo { }"
+ },
+ {
+  "name": "Enum comment without space",
+  "source": "enum<#c#> Foo { A }"
+ },
+ {
+  "name": "Class comment name",
+  "source": "class Foo<#c#>{ }"
+ },
+ {
+  "name": "Class lt command with space",
+  "source": "Class <x"
+ },
+ {
+  "name": "Class brace directly",
+  "source": "class{ }"
+ },
+ {
+  "name": "foreach prefix word command",
+  "source": "Foreachx 1"
+ },
+ {
+  "name": "while prefix word command",
+  "source": "Whilex 1"
+ },
+ {
+  "name": "switch prefix word command",
+  "source": "Switchx 1"
+ },
+ {
+  "name": "function prefix word command",
+  "source": "Functionx 1"
+ },
+ {
+  "name": "filter prefix word command",
+  "source": "Filterx 1"
+ },
+ {
+  "name": "workflow prefix word command",
+  "source": "Workflowx 1"
+ },
+ {
+  "name": "param prefix word command",
+  "source": "Paramx 1"
+ },
+ {
+  "name": "process prefix word command",
+  "source": "Processx 1"
+ },
+ {
+  "name": "begin prefix word command",
+  "source": "Beginx 1"
+ },
+ {
+  "name": "end prefix word command",
+  "source": "Endx 1"
+ },
+ {
+  "name": "dynamicparam prefix word command",
+  "source": "Dynamicparamx 1"
+ },
+ {
+  "name": "trap prefix word command",
+  "source": "Trapx 1"
+ },
+ {
+  "name": "try prefix word command",
+  "source": "Tryx 1"
+ },
+ {
+  "name": "throw prefix word command",
+  "source": "Throwx 1"
+ },
+ {
+  "name": "return prefix word command",
+  "source": "Returnx 1"
+ },
+ {
+  "name": "break prefix word command",
+  "source": "Breakx 1"
+ },
+ {
+  "name": "exit prefix word command",
+  "source": "Exitx 1"
+ },
+ {
+  "name": "data prefix word command",
+  "source": "Datax 1"
+ },
+ {
+  "name": "inlinescript prefix word command",
+  "source": "Inlinescriptx 1"
+ },
+ {
+  "name": "parallel prefix word command",
+  "source": "Parallelx 1"
+ },
+ {
+  "name": "sequence prefix word command",
+  "source": "Sequencex 1"
+ },
+ {
+  "name": "from prefix word command",
+  "source": "Fromx 1"
+ },
+ {
+  "name": "hidden prefix word command",
+  "source": "Hiddenx 1"
+ },
+ {
+  "name": "static prefix word command",
+  "source": "Staticx 1"
+ },
+ {
+  "name": "until prefix word command",
+  "source": "Untilx 1"
+ },
+ {
+  "name": "do prefix word command",
+  "source": "Dox 1"
+ },
+ {
+  "name": "else prefix word command",
+  "source": "Elsex 1"
+ },
+ {
+  "name": "elseif prefix word command",
+  "source": "Elseifx 1"
+ },
+ {
+  "name": "finally prefix word command",
+  "source": "Finallyx 1"
+ },
+ {
+  "name": "catch prefix word command",
+  "source": "Catchx 1"
+ }
+]
