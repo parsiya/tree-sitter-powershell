@@ -50,7 +50,9 @@ enum TOKEN_TYPE {
     INLINESCRIPT_NAME,
     FUNCTION_CONTEXT_PLAIN,
     FUNCTION_CONTEXT_WORKFLOW,
-    FUNCTION_CONTEXT_END
+    FUNCTION_CONTEXT_END,
+    LABEL,
+    FLOW_CONTROL_COLON_WORD
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -1008,6 +1010,82 @@ static bool scan_inlinescript_name(TSLexer *lexer)
     return true;
 }
 
+// Native reads `:name` as a loop label only when a loop or switch keyword
+// follows, after any whitespace, newlines and comments. Otherwise it is an
+// ordinary command word. The caller has skipped to the colon; the token is the
+// colon and the name.
+static bool scan_label(TSLexer *lexer)
+{
+    lexer->advance(lexer, false);
+    int32_t c = lexer->lookahead;
+    if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')) return false;
+    do {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+    } while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_');
+    lexer->mark_end(lexer);
+
+    for (;;) {
+        c = lexer->lookahead;
+        if (command_array_space(c)) {
+            lexer->advance(lexer, false);
+        } else if (c == '#') {
+            while (lexer->lookahead != 0 && !line_end(lexer->lookahead)) lexer->advance(lexer, false);
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead != '#') return false;
+            lexer->advance(lexer, false);
+            unsigned depth = 1;
+            while (depth) {
+                if (lexer->eof(lexer)) return false;
+                c = lexer->lookahead;
+                lexer->advance(lexer, false);
+                if (c == '<' && lexer->lookahead == '#') {
+                    lexer->advance(lexer, false);
+                    depth++;
+                } else if (c == '#' && lexer->lookahead == '>') {
+                    lexer->advance(lexer, false);
+                    depth--;
+                }
+            }
+        } else {
+            break;
+        }
+    }
+
+    char word[8];
+    unsigned length = 0;
+    while (length < sizeof(word) && lexer->lookahead < 0x80 && iswalpha(lexer->lookahead)) {
+        word[length++] = (char)towlower(lexer->lookahead);
+        lexer->advance(lexer, false);
+    }
+    if (length == sizeof(word) || !command_word_end(lexer->lookahead)) return false;
+    static const char *const keywords[] = {"for", "foreach", "while", "do", "switch"};
+    for (unsigned i = 0; i < sizeof(keywords) / sizeof(keywords[0]); i++) {
+        const char *keyword = keywords[i];
+        unsigned k = 0;
+        while (k < length && keyword[k] == word[k]) k++;
+        if (k == length && keyword[k] == 0) {
+            lexer->result_symbol = LABEL;
+            return true;
+        }
+    }
+    return false;
+}
+
+// Zero-width, directly before a colon word that follows `break` or `continue`
+// on the same line.
+static bool scan_flow_control_colon_word(TSLexer *lexer)
+{
+    while (!line_end(lexer->lookahead) && command_array_space(lexer->lookahead)) skip(lexer);
+    if (lexer->lookahead != ':') return false;
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == ':') return false;
+    lexer->result_symbol = FLOW_CONTROL_COLON_WORD;
+    return true;
+}
+
 /* --- API Implementation --- */
 
 static int hex_digit(int32_t c)
@@ -1390,6 +1468,13 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
 
     bool skipped_backtick = false;
     bool stray_backtick = false;
+    if (!recovering && valid_symbols[LABEL]) {
+        while (command_array_space(lexer->lookahead)) skip(lexer);
+        if (lexer->lookahead == ':') return scan_label(lexer);
+    }
+    if (!recovering && valid_symbols[FLOW_CONTROL_COLON_WORD] &&
+        scan_flow_control_colon_word(lexer))
+        return true;
     if (scan_spaces_before_comma(payload, lexer, valid_symbols, &skipped_backtick, &stray_backtick))
         return true;
     // Skipped characters cannot be restored, and the other external tokens

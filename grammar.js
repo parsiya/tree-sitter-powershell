@@ -134,6 +134,12 @@ export default grammar({
     $._function_context_plain,
     $._function_context_workflow,
     $._function_context_end,
+    // `:name` before a loop or switch keyword. Elsewhere Native reads a colon
+    // word as an ordinary command word (see scanner.c).
+    $.label,
+    // Never produced as text. `break` and `continue` take no label from a
+    // colon word: the word starts the next statement, with no terminator.
+    $._flow_control_colon_word,
   ],
 
   extras: ($) => [
@@ -705,6 +711,7 @@ export default grammar({
           $.class_statement,
           $.enum_statement,
           seq($.flow_control_statement, $._statement_terminator),
+          alias($._colon_flow_control, $.flow_control_statement),
           $.trap_statement,
           $.try_statement,
           $.data_statement,
@@ -936,9 +943,13 @@ export default grammar({
         seq(reservedWord('exit'), optional($.pipeline)),
       ),
 
-    label: ($) => token(seq(':', /[a-zA-Z_][a-zA-Z0-9_]*/)),
+    _colon_flow_control: ($) =>
+      seq(
+        choice(reservedWord('break'), reservedWord('continue')),
+        $._flow_control_colon_word,
+      ),
 
-    label_expression: ($) => choice($.label, $.simple_name, $.unary_expression),
+    label_expression: ($) => choice($.simple_name, $.unary_expression),
 
     trap_statement: ($) =>
       seq(reservedWord('trap'), optional($.type_literal), $.statement_block),
