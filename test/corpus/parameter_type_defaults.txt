@@ -1,0 +1,257 @@
+===
+Script parameter: a type literal default ends at the comma
+===
+
+param($T = [string], $A = 1)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier)))))))))))))))
+      (script_parameter
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
+
+===
+Script parameter: a type literal default before an attributed parameter
+===
+
+param([type] $T = [string], [Parameter()] [int] $B = 1)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (type_literal
+                              (type_spec
+                                (type_name
+                                  (type_identifier)))))))))))))))
+      (script_parameter
+        (attribute_list
+          (attribute
+            (attribute_name
+              (type_spec
+                (type_name
+                  (type_identifier)))))
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
+
+===
+Script parameter: an array type default is not a cast of a unary comma
+===
+
+param([type] $T = [int[]], [int] $B)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (type_literal
+                              (type_spec
+                                (array_type_name
+                                  (type_name
+                                    (type_identifier))))))))))))))))
+      (script_parameter
+        (attribute_list
+          (attribute
+            (type_literal
+              (type_spec
+                (type_name
+                  (type_identifier))))))
+        (variable)))))
+
+===
+Script parameter: a type literal operand is still a cast
+===
+
+param($T = [string]$x, $A = 1)
+
+---
+
+(program
+  (param_block
+    (parameter_list
+      (script_parameter
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (expression_with_unary_operator
+                              (cast_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier))))
+                                (unary_expression
+                                  (variable)))))))))))))))
+      (script_parameter
+        (variable)
+        (script_parameter_default
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
+
+===
+Class method parameter: a type literal default ends at the comma
+===
+
+class C { M($t = [string], $b = 1) {} }
+
+---
+
+(program
+  (statement_list
+    (class_statement
+      (simple_name)
+      (class_method_definition
+        (simple_name)
+        (class_method_parameter_list
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (type_literal
+                                  (type_spec
+                                    (type_name
+                                      (type_identifier)))))))))))))))
+          (class_method_parameter
+            (variable)
+            (class_method_parameter_default
+              (logical_expression
+                (bitwise_expression
+                  (comparison_expression
+                    (additive_expression
+                      (multiplicative_expression
+                        (format_expression
+                          (range_expression
+                            (array_literal_expression
+                              (unary_expression
+                                (integer_literal
+                                  (decimal_integer_literal))))))))))))))))))
+
+===
+Script parameter: a comma array default is not accepted
+:error
+===
+
+param($T = 1,2)
+
+---
+
+(ERROR)
+
+===
+Script parameter: a unary comma default is not accepted
+:error
+===
+
+param($a = ,1)
+
+---
+
+(ERROR)

@@ -674,7 +674,10 @@ export default grammar({
         optional($.script_parameter_default),
       ),
 
-    script_parameter_default: ($) => seq('=', $._expression),
+    // Native disables the comma operator in a default: a comma starts the next
+    // parameter (`param($a = [string], $b = 1)`; `param($a = ,1)` is invalid).
+    script_parameter_default: ($) =>
+      seq('=', $._class_parameter_default_expression),
 
     script_block_body: ($) =>
       choice(
@@ -1747,6 +1750,7 @@ export default grammar({
 
     // A comma separates the parameters, so a default is an expression without
     // comma arrays: the chain below mirrors `_expression` down to its operands.
+    // Used by script and class method parameters.
     // Its operand is a _command_unary_expression, which has no unary comma
     // either. Same node names as `_expression` (aliases).
     _class_parameter_default_expression: ($) =>
@@ -1875,8 +1879,12 @@ export default grammar({
       ),
 
     // Like a command array item, a default has no unary comma: a comma ends it.
+    // A bare type ends at the comma too, it does not cast `,x` (_attribute_type_value).
     _class_default_array: ($) =>
-      alias($._command_unary_expression, $.unary_expression),
+      choice(
+        alias($._command_unary_expression, $.unary_expression),
+        alias($._attribute_type_value, $.unary_expression),
+      ),
 
     class_method_parameter_list: ($) =>
       seq($.class_method_parameter, repeat(seq(',', $.class_method_parameter))),
