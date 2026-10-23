@@ -2546,8 +2546,9 @@ function caseInsensitive(word) {
 // Unary keyword operators. Native ends a dash word's letters at the first
 // non-letter, so `-not$x` and `-not1` are the operator and `-notx` is a name.
 /**
- * A word `-Name` that is not a unary keyword operator, as a regex: its leading
- * run of ASCII letters is not one of the unary keywords.
+ * A word `-Name` (or with an en dash, em dash or horizontal bar) that is not a
+ * unary keyword operator, as a regex: its leading run of ASCII letters is not
+ * one of the unary keywords.
  */
 function dashCommandName() {
   const unaryWords = ['not', 'bnot', 'split', 'csplit', 'isplit', 'join'];
@@ -2578,5 +2579,5 @@ function dashCommandName() {
     return `(?:${alternatives.join('|')})?`;
   };
 
-  return new RegExp(`-(?:${walk(unaryWords, true)}|${nonAscii}${rest})`, 'u');
+  return new RegExp(`${DASH}(?:${walk(unaryWords, true)}|${nonAscii}${rest})`, 'u');
 }

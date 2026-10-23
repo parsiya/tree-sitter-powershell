@@ -1,0 +1,423 @@
+[
+ {
+  "name": "en dash word statement",
+  "source": "\u2013foo"
+ },
+ {
+  "name": "en dash word with argument",
+  "source": "\u2013foo x"
+ },
+ {
+  "name": "en dash word after pipe",
+  "source": "a | \u2013foo x"
+ },
+ {
+  "name": "en dash word in script block",
+  "source": "{ \u2013foo x }"
+ },
+ {
+  "name": "en dash word in assignment",
+  "source": "$a = \u2013foo x"
+ },
+ {
+  "name": "en dash lone statement",
+  "source": "\u2013"
+ },
+ {
+  "name": "en dash word argument position",
+  "source": "f \u2013foo"
+ },
+ {
+  "name": "en dash word after argument",
+  "source": "f a \u2013foo"
+ },
+ {
+  "name": "en dash word then dash word",
+  "source": "\u2013foo \u2013bar"
+ },
+ {
+  "name": "en dash word then ascii parameter",
+  "source": "\u2013foo -bar"
+ },
+ {
+  "name": "em dash word statement",
+  "source": "\u2014foo"
+ },
+ {
+  "name": "em dash word with argument",
+  "source": "\u2014foo x"
+ },
+ {
+  "name": "em dash word after pipe",
+  "source": "a | \u2014foo x"
+ },
+ {
+  "name": "em dash word in script block",
+  "source": "{ \u2014foo x }"
+ },
+ {
+  "name": "em dash word in assignment",
+  "source": "$a = \u2014foo x"
+ },
+ {
+  "name": "em dash lone statement",
+  "source": "\u2014"
+ },
+ {
+  "name": "em dash word argument position",
+  "source": "f \u2014foo"
+ },
+ {
+  "name": "em dash word after argument",
+  "source": "f a \u2014foo"
+ },
+ {
+  "name": "em dash word then dash word",
+  "source": "\u2014foo \u2014bar"
+ },
+ {
+  "name": "em dash word then ascii parameter",
+  "source": "\u2014foo -bar"
+ },
+ {
+  "name": "bar dash word statement",
+  "source": "\u2015foo"
+ },
+ {
+  "name": "bar dash word with argument",
+  "source": "\u2015foo x"
+ },
+ {
+  "name": "bar dash word after pipe",
+  "source": "a | \u2015foo x"
+ },
+ {
+  "name": "bar dash word in script block",
+  "source": "{ \u2015foo x }"
+ },
+ {
+  "name": "bar dash word in assignment",
+  "source": "$a = \u2015foo x"
+ },
+ {
+  "name": "bar dash lone statement",
+  "source": "\u2015"
+ },
+ {
+  "name": "bar dash word argument position",
+  "source": "f \u2015foo"
+ },
+ {
+  "name": "bar dash word after argument",
+  "source": "f a \u2015foo"
+ },
+ {
+  "name": "bar dash word then dash word",
+  "source": "\u2015foo \u2015bar"
+ },
+ {
+  "name": "bar dash word then ascii parameter",
+  "source": "\u2015foo -bar"
+ },
+ {
+  "name": "unicode dash unary not 0x2013",
+  "source": "\u2013not $a"
+ },
+ {
+  "name": "unicode dash unary bnot 0x2013",
+  "source": "\u2013bnot $a"
+ },
+ {
+  "name": "unicode dash unary split 0x2013",
+  "source": "\u2013split $a"
+ },
+ {
+  "name": "unicode dash unary csplit 0x2013",
+  "source": "\u2013csplit $a"
+ },
+ {
+  "name": "unicode dash unary isplit 0x2013",
+  "source": "\u2013isplit $a"
+ },
+ {
+  "name": "unicode dash unary join 0x2013",
+  "source": "\u2013join $a"
+ },
+ {
+  "name": "unicode dash unary not 0x2014",
+  "source": "\u2014not $a"
+ },
+ {
+  "name": "unicode dash unary bnot 0x2014",
+  "source": "\u2014bnot $a"
+ },
+ {
+  "name": "unicode dash unary split 0x2014",
+  "source": "\u2014split $a"
+ },
+ {
+  "name": "unicode dash unary csplit 0x2014",
+  "source": "\u2014csplit $a"
+ },
+ {
+  "name": "unicode dash unary isplit 0x2014",
+  "source": "\u2014isplit $a"
+ },
+ {
+  "name": "unicode dash unary join 0x2014",
+  "source": "\u2014join $a"
+ },
+ {
+  "name": "unicode dash unary not 0x2015",
+  "source": "\u2015not $a"
+ },
+ {
+  "name": "unicode dash unary bnot 0x2015",
+  "source": "\u2015bnot $a"
+ },
+ {
+  "name": "unicode dash unary split 0x2015",
+  "source": "\u2015split $a"
+ },
+ {
+  "name": "unicode dash unary csplit 0x2015",
+  "source": "\u2015csplit $a"
+ },
+ {
+  "name": "unicode dash unary isplit 0x2015",
+  "source": "\u2015isplit $a"
+ },
+ {
+  "name": "unicode dash unary join 0x2015",
+  "source": "\u2015join $a"
+ },
+ {
+  "name": "unicode dash csplit variant name",
+  "source": "\u2013csplitx y"
+ },
+ {
+  "name": "unicode dash csplit prefix name",
+  "source": "\u2013csp y"
+ },
+ {
+  "name": "ascii dash csplit variant control",
+  "source": "-csplitx y"
+ },
+ {
+  "name": "unicode dash isplit variant name",
+  "source": "\u2013isplitx y"
+ },
+ {
+  "name": "unicode dash isplit prefix name",
+  "source": "\u2013isp y"
+ },
+ {
+  "name": "ascii dash isplit variant control",
+  "source": "-isplitx y"
+ },
+ {
+  "name": "unicode dash notx name",
+  "source": "\u2013notx y"
+ },
+ {
+  "name": "unicode dash not digit",
+  "source": "\u2013not1"
+ },
+ {
+  "name": "unicode dash not variable",
+  "source": "\u2013not$x"
+ },
+ {
+  "name": "unicode dash lone then space",
+  "source": "\u2013 x"
+ },
+ {
+  "name": "unicode dash then dash",
+  "source": "\u2013\u2013foo"
+ },
+ {
+  "name": "unicode dash then ascii dash",
+  "source": "\u2013-foo"
+ },
+ {
+  "name": "unicode dash number",
+  "source": "\u20131"
+ },
+ {
+  "name": "unicode dash decimal",
+  "source": "\u2013.5"
+ },
+ {
+  "name": "unicode dash then underscore",
+  "source": "\u2013_x y"
+ },
+ {
+  "name": "unicode dash then question",
+  "source": "\u2013?x y"
+ },
+ {
+  "name": "ascii dash word control",
+  "source": "-foo x"
+ },
+ {
+  "name": "ascii dash lone control",
+  "source": "-"
+ },
+ {
+  "name": "ascii dash csplit control",
+  "source": "-csplit $a"
+ },
+ {
+  "name": "unicode dash minus expression",
+  "source": "$a \u2013 $b"
+ },
+ {
+  "name": "unicode dash join after word",
+  "source": "f $a \u2013join $b"
+ },
+ {
+  "name": "unicode dash unary not paren",
+  "source": "($x = \u2013not $a)"
+ },
+ {
+  "name": "unicode dash trailing non-ascii letter",
+  "source": "\u2013a\u00e9 x"
+ },
+ {
+  "name": "ascii dash trailing non-ascii letter control",
+  "source": "-a\u00e9 x"
+ },
+ {
+  "name": "paren pipeline en dash join",
+  "source": "$p = (('^' + (($a | foreach {$_}) \u2013join '|') + '$')) -replace 'x',''\r\n"
+ },
+ {
+  "name": "paren en dash join",
+  "source": "($a) \u2013join '|'"
+ },
+ {
+  "name": "var en dash join",
+  "source": "$a \u2013join ','"
+ },
+ {
+  "name": "array en dash join",
+  "source": "1,2 \u2013join ','"
+ },
+ {
+  "name": "en dash eq",
+  "source": "$a \u2013eq 1"
+ },
+ {
+  "name": "en dash ne",
+  "source": "$a \u2013ne 1"
+ },
+ {
+  "name": "en dash like",
+  "source": "$a \u2013like 'x*'"
+ },
+ {
+  "name": "en dash match",
+  "source": "$a \u2013match 'x'"
+ },
+ {
+  "name": "en dash replace",
+  "source": "$a \u2013replace 'x','y'"
+ },
+ {
+  "name": "en dash split",
+  "source": "$a \u2013split ','"
+ },
+ {
+  "name": "en dash and",
+  "source": "$a \u2013and $b"
+ },
+ {
+  "name": "en dash or",
+  "source": "$a \u2013or $b"
+ },
+ {
+  "name": "en dash format",
+  "source": "'{0}' \u2013f $a"
+ },
+ {
+  "name": "en dash contains",
+  "source": "$a \u2013contains 1"
+ },
+ {
+  "name": "en dash in",
+  "source": "1 \u2013in $a"
+ },
+ {
+  "name": "en dash is type",
+  "source": "$a \u2013is [int]"
+ },
+ {
+  "name": "en dash case sensitive",
+  "source": "$a \u2013ceq 1"
+ },
+ {
+  "name": "em dash join",
+  "source": "$a \u2014join ','"
+ },
+ {
+  "name": "horizontal bar join",
+  "source": "$a \u2015join ','"
+ },
+ {
+  "name": "en dash chained",
+  "source": "$a \u2013join ',' \u2013replace 'x','y'"
+ },
+ {
+  "name": "en dash in condition",
+  "source": "if ($a \u2013eq 1) { $b }"
+ },
+ {
+  "name": "en dash in assignment",
+  "source": "$x = $a \u2013join ','\r\n"
+ },
+ {
+  "name": "en dash after newline continuation",
+  "source": "$a `\r\n  \u2013join ','"
+ },
+ {
+  "name": "en dash no space after paren",
+  "source": "($a)\u2013join ','"
+ },
+ {
+  "name": "en dash operator word needs boundary",
+  "source": "$a \u2013joinx ','",
+  "expect": "invalid"
+ },
+ {
+  "name": "en dash unary join assignment",
+  "source": "$x = \u2013join $a"
+ },
+ {
+  "name": "en dash unary not condition",
+  "source": "if (\u2013not $a) { $b }"
+ },
+ {
+  "name": "command name containing en dash",
+  "source": "Get\u2013Item x"
+ },
+ {
+  "name": "command name ending en dash",
+  "source": "a\u2013 x"
+ },
+ {
+  "name": "en dash command parameter",
+  "source": "f \u2013x"
+ },
+ {
+  "name": "em dash command parameter with argument",
+  "source": "f \u2014x y"
+ },
+ {
+  "name": "en dash parameter after argument",
+  "source": "f $a \u2013eq $b"
+ },
+ {
+  "name": "en dash bare after argument",
+  "source": "f $a \u2013"
+ }
+]
