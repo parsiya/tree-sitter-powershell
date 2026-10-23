@@ -1,0 +1,256 @@
+==================
+Colon option word: at-word value
+==================
+
+g --use:@auto/pow@3.0.4 x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon option word: quoted value
+==================
+
+g --a:"b c" d
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Colon option word: before pipe
+==================
+
+g --a:b | h
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)))
+        (command
+          (command_name))))))
+
+==================
+Braced variable in option value: word
+==================
+
+g --a=${x}=$y z
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Braced variable in option value: prefix
+==================
+
+g --a=v${x}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Parenthesis between quoted arguments
+==================
+
+w 'a'(1)'b' c
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (verbatim_string_characters))))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Word parenthesis followed by a variable
+==================
+
+w a(1)$x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (argument_list
+              (argument_expression_list
+                (argument_expression
+                  (logical_argument_expression
+                    (bitwise_argument_expression
+                      (comparison_argument_expression
+                        (additive_argument_expression
+                          (multiplicative_argument_expression
+                            (format_argument_expression
+                              (range_argument_expression
+                                (unary_expression
+                                  (integer_literal
+                                    (decimal_integer_literal)))))))))))))
+            (array_literal_expression
+              (unary_expression
+                (variable)))))))))
+
+==================
+Star command name: arguments
+==================
+
+*Die "m" 13
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (string_literal
+                  (expandable_string_literal))))
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (integer_literal
+                  (decimal_integer_literal))))))))))
+
+==================
+Star command name: after dot operator
+==================
+
+. *Run $_ x
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (command_name))
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (variable)))
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Star command name: assignment value
+==================
+
+$f = *Path $f
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name)
+              (command_elements
+                (command_argument_sep)
+                (array_literal_expression
+                  (unary_expression
+                    (variable)))))))))))

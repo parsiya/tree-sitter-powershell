@@ -537,6 +537,8 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
     // `--name=$(...)` is a word, not a parameter, once a subexpression follows.
     bool option_word = false;
     bool option_separator = false;
+    // `--name:value` and `--name=${var}` are words: the parameter token cannot hold them.
+    bool option_value_word = false;
     if (parameter) {
         lexer->advance(lexer, false);
         option_word = !unicode_dash && lexer->lookahead == '-';
@@ -596,11 +598,15 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         // --option=value; only an attached quote makes -o"value" a word.
         if (parameter && (c == ':' || c == '=')) {
             if (!option_word && c == ':') return false;
+            if (option_word && c == ':' && !option_separator && parameter_name)
+                option_value_word = true;
             option_separator = true;
         }
         if (c == '$') {
             lexer->mark_end(lexer);
             lexer->advance(lexer, false);
+            if (option_word && option_separator && lexer->lookahead == '{')
+                option_value_word = true;
             if (lexer->lookahead == '(') {
                 if (parameter_name && !option_word) return false;
                 if (!consumed) {
@@ -655,7 +661,7 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         lexer->result_symbol = BARE_DASHES;
         return true;
     }
-    if (!consumed || (start && (!joined || (parameter_name && !quoted)))) return false;
+    if (!consumed || (start && !option_value_word && (!joined || (parameter_name && !quoted)))) return false;
     if (!escaped_quote) lexer->mark_end(lexer);
     lexer->result_symbol = part ? COMMAND_WORD_PART : COMMAND_WORD_START;
     return true;
