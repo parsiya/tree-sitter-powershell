@@ -18,6 +18,7 @@ const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
 
 // Characters that cannot appear in the first part of a command name.
 const COMMAND_NAME_STOP = '\\{\\}\\(\\);,\\|\\&`"\'\\u2018-\\u201E\\s\\u00a0\\r\\n\\[\\]\\+\\-\\*\\/\\$@<\\!';
+const COMMAND_NAME_CONTINUATION = '[^\\{\\}\\(\\);,\\|\\&`"\'\\u2018-\\u201E\\s\\u00a0\\r\\n]';
 // PowerShell tests UTF-16 characters with Char.IsLetterOrDigit, not Unicode
 // identifier rules: combining marks and supplementary-plane letters end a name.
 // Explicit letter ranges also cover tree-sitter 0.22's missing UnicodeData
@@ -1014,8 +1015,10 @@ export default grammar({
           new RegExp(caseInsensitive('function-')),
           new RegExp(caseInsensitive('filter-')),
           new RegExp(caseInsensitive('workflow-')),
-          new RegExp(caseInsensitive('class-')),
-          new RegExp(caseInsensitive('enum-')),
+          // `Classify` is a command: this outranks the lexical precedence of the
+          // `class` and `enum` keyword tokens, which would otherwise cut the word short.
+          token(prec(2, new RegExp(caseInsensitive('class') + COMMAND_NAME_CONTINUATION + '+'))),
+          token(prec(2, new RegExp(caseInsensitive('enum') + COMMAND_NAME_CONTINUATION + '+'))),
           new RegExp(caseInsensitive('switch-')),
           new RegExp(caseInsensitive('for-')),
           new RegExp(caseInsensitive('foreach-')),
