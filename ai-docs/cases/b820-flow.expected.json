@@ -1,0 +1,33 @@
+{
+ "suite": "b820-flow",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":26,"agree":22,"invalid_rejected":3,"known":1,"fail":0,"unsupported":0,"skipped":0,"known_differences":1},
+ "cases": {
+  "continue label then if on the same line": {"status":"agree","differences":[]},
+  "continue label then if with else": {"status":"agree","differences":[]},
+  "continue label then if with indexed condition": {"status":"agree","differences":[]},
+  "break label then if on the same line": {"status":"agree","differences":[]},
+  "continue label then foreach": {"status":"agree","differences":[]},
+  "continue label then while": {"status":"agree","differences":[]},
+  "continue label then try": {"status":"agree","differences":[]},
+  "continue label then return": {"status":"agree","differences":[]},
+  "continue label then variable": {"status":"agree","differences":[]},
+  "continue label then command": {"status":"agree","differences":[]},
+  "continue label then pipeline": {"status":"known","differences":[]},
+  "continue label then statement on the next line": {"status":"agree","differences":[]},
+  "continue label then semicolon and if": {"status":"agree","differences":[]},
+  "continue label then closing brace": {"status":"agree","differences":[]},
+  "continue label at end of input": {"status":"agree","differences":[]},
+  "continue label then comment and if": {"status":"agree","differences":[]},
+  "continue label then if in a switch": {"status":"agree","differences":[]},
+  "labeled continue chain": {"status":"agree","differences":[]},
+  "continue without label then if": {"status":"agree","differences":[]},
+  "continue without label then closing brace": {"status":"agree","differences":[]},
+  "continue without label then if needs a terminator": {"status":"invalid-rejected","differences":[]},
+  "continue without label then command needs a terminator": {"status":"agree","differences":[]},
+  "break without label then if needs a terminator": {"status":"invalid-rejected","differences":[]},
+  "continue colon label then command": {"status":"agree","differences":[]},
+  "return then if needs a terminator": {"status":"agree","differences":[]},
+  "label then if without a block": {"status":"invalid-rejected","differences":[]}
+ }
+}

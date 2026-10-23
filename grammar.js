@@ -712,6 +712,7 @@ export default grammar({
           $.enum_statement,
           seq($.flow_control_statement, $._statement_terminator),
           alias($._colon_flow_control, $.flow_control_statement),
+          alias($._labeled_flow_control, $.flow_control_statement),
           $.trap_statement,
           $.try_statement,
           $.data_statement,
@@ -936,8 +937,8 @@ export default grammar({
 
     flow_control_statement: ($) =>
       choice(
-        seq(reservedWord('break'), optional($.label_expression)),
-        seq(reservedWord('continue'), optional($.label_expression)),
+        reservedWord('break'),
+        reservedWord('continue'),
         seq(reservedWord('throw'), optional($.pipeline)),
         seq(reservedWord('return'), optional($.pipeline)),
         seq(reservedWord('exit'), optional($.pipeline)),
@@ -947,6 +948,14 @@ export default grammar({
       seq(
         choice(reservedWord('break'), reservedWord('continue')),
         $._flow_control_colon_word,
+      ),
+
+    // Native ends the statement at the label: the next statement may follow
+    // on the same line, as in `continue outer if ($a) { }`.
+    _labeled_flow_control: ($) =>
+      seq(
+        choice(reservedWord('break'), reservedWord('continue')),
+        $.label_expression,
       ),
 
     label_expression: ($) => choice($.simple_name, $.unary_expression),
