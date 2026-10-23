@@ -329,9 +329,10 @@ Get-ChildItem (Join-Path $PSScriptRoot *.ps1) | ForEach-Object { . $_.FullName}
                                 (command
                                   (command_invokation_operator)
                                   (command_name_expr
-                                    (path_command_name
+                                    (member_access
                                       (variable)
-                                      (path_command_name_token))))))))))))))))))
+                                      (member_name
+                                        (simple_name)))))))))))))))))))
 
 ===
 Format expression

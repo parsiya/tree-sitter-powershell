@@ -78,6 +78,8 @@ export default grammar({
     $._parameter_dot_literal_boundary,
     $._qualified_variable,
     $._qualified_variable_in_string,
+    $._variable_command_name_continuation,
+    $._invocation_argument_boundary,
   ],
 
   extras: ($) => [
@@ -904,11 +906,21 @@ export default grammar({
           $.command_invokation_operator,
           // optional($.command_module),
           field('command_name', $.command_name_expr),
-          field('command_elements', optional($.command_elements)),
+          field('command_elements', optional(choice(
+            $.command_elements,
+            alias($._adjacent_invocation_arguments, $.command_elements),
+          ))),
         ),
       ),
 
     command_invokation_operator: ($) => choice('.', '&'),
+
+    _adjacent_invocation_arguments: ($) =>
+      seq(
+        $._invocation_argument_boundary,
+        $._argument_after_quote,
+        repeat($._command_element),
+      ),
 
     // This rule is ignored as it does not appear as a rule
     // command_module: $ => $.primary_expression,
@@ -1008,22 +1020,33 @@ export default grammar({
 
     path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/]+/,
 
-    // Use to parse command path
+    // A variable alone (or followed by member access) is an expression.
+    // Only an adjacent word suffix can turn it into an expandable path.
     path_command_name: ($) =>
       seq(
-        choice($.path_command_name_token, $.variable),
+        choice(
+          $.path_command_name_token,
+          seq(
+            $.variable,
+            $._variable_command_name_continuation,
+            $._path_command_name_part,
+          ),
+        ),
         repeat(seq(
           $._path_command_name_continuation,
-          choice(
-            $.path_command_name_token,
-            $.variable,
-            seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
-            seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
-            token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
-            token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
-            $._command_name_escape,
-          ),
+          $._path_command_name_part,
         )),
+      ),
+
+    _path_command_name_part: ($) =>
+      choice(
+        $.path_command_name_token,
+        $.variable,
+        seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+        seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
+        token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+        token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
+        $._command_name_escape,
       ),
 
     command_name_expr: ($) =>

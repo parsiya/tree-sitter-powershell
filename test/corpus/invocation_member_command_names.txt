@@ -1,0 +1,127 @@
+===
+Invocation member names: dot sourcing evaluates the receiver property
+===
+. $_.FullName
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (member_access
+              (variable)
+              (member_name (simple_name)))))))))
+
+===
+Invocation member names: ampersand evaluates nested properties
+===
+& $item.Config.Path
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (member_access
+              (member_access
+                (variable)
+                (member_name (simple_name)))
+              (member_name (simple_name)))))))))
+
+===
+Invocation member names: quoted member stays an expression
+===
+. ${item}.'Full Name'
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (member_access
+              (variable (braced_variable))
+              (member_name
+                (string_literal (verbatim_string_characters))))))))))
+
+===
+Invocation member names: slash after a member starts an argument
+===
+& $item.Path/sample.ps1
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (member_access
+              (variable)
+              (member_name (simple_name))))
+          (command_elements
+            (generic_token)))))))
+
+===
+Invocation member names: trailing dot is a separate argument
+===
+. $item.
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr (variable))
+          (command_elements (generic_token)))))))
+
+===
+Invocation member names: variable path retains literal dots
+===
+& $root\sample.Path.ps1
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr
+            (path_command_name
+              (variable)
+              (path_command_name_token))))))))
+
+===
+Invocation member names: a bare variable is an expression
+===
+& $command
+---
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_invokation_operator)
+          (command_name_expr (variable)))))))
+
+===
+Invocation member names: slash cannot start a property
+:error
+===
+& $item./sample.ps1
+---
+(ERROR)
+
+===
+Invocation member names: incomplete method call stays invalid
+:error
+===
+. $item.Resolve(
+---
+(ERROR)

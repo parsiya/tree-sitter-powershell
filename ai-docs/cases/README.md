@@ -52,6 +52,26 @@ git diff ai-docs/cases/*.expected.json   # one line per case: review every chang
 
 Commit the expectation changes with the grammar change that caused them.
 
+## Invocation member command names
+
+`member-command-names` checks expression command names after `.` and `&`,
+including member chains, calls, indexes, adjacent arguments, real paths and
+invalid controls. Native classifies `. $_.FullName; & $item.Path` as member
+expressions at bytes 2:13 and 17:27, not expandable path text. This also proves
+the correction to the inherited `expressions.txt` expectation: its receiver
+and property must remain visible to Opengrep's matching and taint conversion.
+
+The `parameter-dot` tab-separated `.$value` control retains exactly its
+inherited six differences, including the same missing command boundary.
+Only the extra element's wrapper changes from
+`command_name_expr>path_command_name>variable` to `command_name_expr>variable`;
+the expectation retains the error and its original 22:28 extent.
+
+The member suite documents independent inherited type-leading invocation
+words, embedded path variables and invocation-mode nullable index words.
+The last already had the same kind differences in the original ABI14 parser;
+this fix removes its syntax rejection without claiming to fix those kinds.
+
 ## Counts
 
 Migrated 2026-10-22 from 50 local case files (5,139 cases). Columns: original
