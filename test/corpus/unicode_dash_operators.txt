@@ -1,0 +1,254 @@
+===
+Unicode dash: en dash comparison in a script block argument
+===
+
+$a | Where-Object { $_ –ne "D" } | Sort-Object -Unique
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (comparison_expression
+                                    (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))
+                                  (comparison_operator)
+                                  (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (string_literal (expandable_string_literal)))))))))))))))))))
+            (command_argument_sep)))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (command_parameter)))))))
+
+===
+Unicode dash: em dash and horizontal bar comparisons
+===
+
+$a —eq 1; $a ―like 'x'
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (comparison_expression
+                (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))
+              (comparison_operator)
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (comparison_expression
+                (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))
+              (comparison_operator)
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (string_literal (verbatim_string_characters)))))))))))))))
+
+===
+Unicode dash: logical, bitwise and format operators
+===
+
+$a –and $b –or $c; $a –band 1; 'x{0}' –f 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (logical_expression
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (format_expression (range_expression (array_literal_expression (unary_expression (string_literal (verbatim_string_characters))))))
+                    (format_operator)
+                    (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))
+
+===
+Unicode dash: unary keyword operators
+===
+
+–not $a; –join $a; –split $a
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (unary_expression (variable))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (unary_expression (variable))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (unary_expression (variable))))))))))))))))
+
+===
+Unicode dash: minus, assignment and decrement operators
+===
+
+$a = 1 – 2; $a = –1; $a –= 1; $a––; ––$a
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal))))))))
+                    (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))
+    (empty_statement)
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))))
+    (empty_statement)
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression (bitwise_expression (comparison_expression (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (integer_literal (decimal_integer_literal)))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (post_decrement_expression (variable)))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (pre_decrement_expression (unary_expression (variable)))))))))))))))))
+
+===
+Unicode dash: ASCII operators are unchanged
+===
+
+$a | Where-Object { $_ -ne "D" }; -not $a
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))))
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (script_block_expression
+                  (script_block
+                    (script_block_body
+                      (statement_list
+                        (pipeline
+                          (pipeline_chain
+                            (logical_expression
+                              (bitwise_expression
+                                (comparison_expression
+                                  (comparison_expression
+                                    (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (variable))))))))
+                                  (comparison_operator)
+                                  (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (string_literal (expandable_string_literal)))))))))))))))))))))))
+    (empty_statement)
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression (multiplicative_expression (format_expression (range_expression (array_literal_expression (unary_expression (expression_with_unary_operator (unary_expression (variable))))))))))))))))
