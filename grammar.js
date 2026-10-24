@@ -587,8 +587,10 @@ export default grammar({
       token(
         seq(
           '$',
-          optional(seq(VARIABLE_NAME, ':')),
-          choice(VARIABLE_REFERENCE, '?'),
+          choice(
+            seq(optional(seq(VARIABLE_NAME, ':')), choice(VARIABLE_REFERENCE, '?')),
+            emptyScopeVariable(),
+          ),
         ),
       ),
 
@@ -597,8 +599,10 @@ export default grammar({
       token(
         seq(
           '@',
-          optional(seq(VARIABLE_NAME, ':')),
-          choice(VARIABLE_REFERENCE, '?'),
+          choice(
+            seq(optional(seq(VARIABLE_NAME, ':')), choice(VARIABLE_REFERENCE, '?')),
+            emptyScopeVariable(),
+          ),
         ),
       ),
 
@@ -2809,6 +2813,12 @@ export default grammar({
     _attribute_type_value: ($) => prec(PREC.CAST + 1, $.type_literal),
   },
 });
+
+// Empty scope after the sigil: `$:name`, `$::` and `$::name` (`$:` alone is invalid).
+function emptyScopeVariable() {
+  const name = choice(VARIABLE_REFERENCE, '?');
+  return seq(':', choice(name, seq(':', optional(name))));
+}
 
 // inspired from https://github.com/tree-sitter/tree-sitter/issues/261
 /**

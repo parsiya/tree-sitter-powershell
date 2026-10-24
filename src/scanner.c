@@ -247,10 +247,25 @@ static bool variable_char(int32_t c)
 // even at its end. A double colon always starts static member access.
 static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
 {
-    if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') return 0;
+    unsigned colons = 0;
+    if (lexer->lookahead == ':') {
+        // Empty scope: `$:name` and `$::name`, where the name may be empty after
+        // two colons. A third colon ends the variable at `$:`, which is invalid.
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == ':') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == ':') return 0;
+            colons = 2;
+        } else if (variable_char(lexer->lookahead)) {
+            colons = 1;
+        } else {
+            return 0;
+        }
+    } else if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') {
+        return 0;
+    }
     while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
     lexer->mark_end(lexer);
-    unsigned colons = 0;
     while (lexer->lookahead == ':') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == ':') {
@@ -559,7 +574,9 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
-        if (!at_expansion && !bare_dollar &&
+        // `$:` and `$:::` do not form a variable; the word goes on as before.
+        bool empty_scope_invalid = name_start == ':' && colons == 0;
+        if (!at_expansion && !bare_dollar && !empty_scope_invalid &&
             ((!static_access && (command_word_end(lexer->lookahead) ||
                                  lexer->lookahead == '.' || lexer->lookahead == '[' ||
                                  lexer->lookahead == '>')) ||

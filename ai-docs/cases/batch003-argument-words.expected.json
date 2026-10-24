@@ -1,7 +1,7 @@
 {
  "suite": "batch003-argument-words",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":52,"agree":31,"invalid_rejected":11,"known":10,"fail":0,"unsupported":0,"skipped":0,"known_differences":20},
+ "summary": {"cases":52,"agree":32,"invalid_rejected":11,"known":9,"fail":0,"unsupported":0,"skipped":0,"known_differences":15},
  "cases": {
   "member then escaped newline character": {"status":"agree","differences":[]},
   "member then escaped tab character": {"status":"agree","differences":[]},
@@ -43,7 +43,7 @@
   "at prefix dash word": {"status":"invalid-rejected","differences":[]},
   "at prefix literal number": {"status":"agree","differences":[]},
   "at prefix literal alone": {"status":"invalid-rejected","differences":[]},
-  "at prefix literal colon": {"status":"known","differences":[]},
+  "at prefix literal colon": {"status":"agree","differences":[]},
   "at prefix attached parameter": {"status":"known","differences":[]},
   "at prefix array element": {"status":"known","differences":[]},
   "splat control": {"status":"agree","differences":[]},
