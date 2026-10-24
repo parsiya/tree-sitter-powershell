@@ -419,6 +419,34 @@ static bool scan_number_prefix(TSLexer *lexer)
     return true;
 }
 
+// After `1.`: an exponent, type suffix and multiplier (`1.d`, `1.e5`, `1.kb`).
+// True when at least one was read and the number is complete.
+static bool scan_trailing_dot_tail(TSLexer *lexer)
+{
+    bool tail = false;
+    if (towlower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '+' || lexer->lookahead == '-')
+            lexer->advance(lexer, false);
+        if (!digit(lexer->lookahead)) return false;
+        while (digit(lexer->lookahead)) lexer->advance(lexer, false);
+        tail = true;
+    }
+    int32_t c = towlower(lexer->lookahead);
+    if (c == 'y' || c == 's' || c == 'l' || c == 'n' || c == 'd' || c == 'u') {
+        skip_type_suffix(lexer);
+        tail = true;
+    }
+    c = towlower(lexer->lookahead);
+    if (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p') {
+        lexer->advance(lexer, false);
+        if (towlower(lexer->lookahead) != 'b') return false;
+        lexer->advance(lexer, false);
+        tail = true;
+    }
+    return tail;
+}
+
 // Only the initial digits are emitted; the ordinary name rule consumes the
 // rest. Look ahead first so a numeric prefix followed by '.' stays an expression,
 // while an invalid numeric suffix (7z, 1.2tool) still starts a command name.
@@ -460,6 +488,21 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
             lexer->mark_end(lexer);
             lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
             return true;
+        }
+        if (digits && !digit(lexer->lookahead) && valid_symbols[TRAILING_DOT_REAL_LITERAL]) {
+            bool complete = scan_trailing_dot_tail(lexer);
+            int32_t after = lexer->lookahead;
+            if (complete &&
+                (after == '.' || command_word_end(after) || after == '#' ||
+                 after == '+' || after == '-' || after == '*' || after == '/' ||
+                 after == '%' || after == '>' || after == '<' || after == '!')) {
+                lexer->mark_end(lexer);
+                lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
+                return true;
+            }
+            // Not a number (`1.dx`): only the digits start a command name.
+            lexer->result_symbol = NUMERIC_COMMAND_NAME;
+            return valid_symbols[NUMERIC_COMMAND_NAME];
         }
         digits = false;
         while (digit(lexer->lookahead)) {

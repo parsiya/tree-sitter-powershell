@@ -30,6 +30,7 @@ a grammar review.
 | 2026-10-23 | batches 021-040 | sources of `ab5607955` | 9267 | 23077037 | Shared integration; +7.1% since review; `_adjacent_dash_colon_arguments` copies `_adjacent_angle_arguments`; review recommended |
 | 2026-10-23 | batches 041-050 | sources of `db999e2` | 9353 | 23347616 | Shared integration; +8.1% since review; no new rule chain copied; earlier review recommendation stands |
 | 2026-10-24 | batches 001-050 | review of `4d9471c` | 9317 | 23264331 | Shared named string tokens; -36 states (-0.38%), -83285 bytes (-0.36%); descriptive converter constructors |
+| 2026-10-24 | batches 051-065 | sources of `8c67505` | 9317 | 23264331 | Scanner-only fix (trailing-dot number suffix); 0 states since review |
 
 ## Review of `4d9471c`
 Named eight string-token rules and reused identical immediate dollar and
