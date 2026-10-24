@@ -643,6 +643,7 @@ export default grammar({
               new RegExp(String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
               repeat(choice(
                 new RegExp(String.raw`[^${WS}"'\u2018-\u201E\x60;|&(){}]`),
+                new RegExp(String.raw`\x60[^\r\n]`),
                 seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
                 seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
               )),
@@ -1078,7 +1079,7 @@ export default grammar({
             field('command_elements', optional($.command_elements)),
           ),
           seq(
-            field('command_name', alias('<', $.command_name)),
+            field('command_name', alias($._angle_command_name, $.command_name)),
             field('command_elements', optional(choice(
               $.command_elements,
               alias($._adjacent_angle_arguments, $.command_elements),
@@ -1086,7 +1087,7 @@ export default grammar({
           ),
           seq(
             $.command_invokation_operator,
-            field('command_name', alias('<', $.command_name)),
+            field('command_name', alias($._angle_command_name, $.command_name)),
             field('command_elements', optional(choice(
               $.command_elements,
               alias($._adjacent_angle_arguments, $.command_elements),
@@ -1136,13 +1137,15 @@ export default grammar({
         ),
       ),
 
-    // A statement starting with `<` is a command named `<`; the rest of the
-    // word (`<foo>`, `</foo>`) is its first argument (see scanner.c).
+    // A statement starting with `<`, `>` or `>>` is a command with that name;
+    // the rest of the word (`<foo>`, `</foo>`, `>1`) is its first argument (see scanner.c).
+    _angle_command_name: ($) => choice('<', '>', '>>'),
+
     _adjacent_angle_arguments: ($) =>
       prec.right(
         seq(
           $._angle_argument_boundary,
-          $._argument_after_quote,
+          choice($._argument_after_quote, $.command_parameter),
           repeat($._command_element),
         ),
       ),
@@ -1200,7 +1203,7 @@ export default grammar({
           // At a token boundary escaped whitespace is trivia, not a name.
           $._command_name_start_escape,
           $._command_name_dollar,
-          new RegExp(`[^${COMMAND_NAME_STOP}\\u2013-\\u20150-9.][^${COMMAND_NAME_STOP}]*`),
+          new RegExp(`[^${COMMAND_NAME_STOP}\\u2013-\\u20150-9.>][^${COMMAND_NAME_STOP}]*`),
           // `*Die x`: a glob-like word is a command name.
           new RegExp(`\\*[^${COMMAND_NAME_STOP}]*`),
           // Dot-prefixed names remain commands unless a number starts the word.
@@ -1360,8 +1363,12 @@ export default grammar({
     // A named token keeps this argument visible after grammar simplification.
     parameter_dot_literal: ($) => token.immediate('.'),
 
-    // Stop parsing is a token that end the parsing of command line
-    stop_parsing: ($) => choice('--%', /--%[^\r\n]+/),
+    // Stop parsing is a token that end the parsing of command line.
+    // Native ends it at `|` or `&&` outside double quotes; single quotes do not protect one.
+    // An unterminated double quote runs to the end of the line.
+    stop_parsing: ($) => choice('--%', new RegExp(
+      String.raw`--%(?:(?:[^|&"\r\n]|&[^&|\r\n]|"[^"\r\n]*")+(?:"[^"\r\n]*)?|"[^"\r\n]*)`,
+    )),
 
     // A colon is a separator only immediately after a command parameter.
     // A lexical precedence keeps the separator ahead of the equivalent extras.
