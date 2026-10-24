@@ -1,0 +1,95 @@
+===
+Quoted trailing dot: newline starts a command
+===
+
+Write-Host "msg".
+Exit 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (expandable_string_literal)))
+            (generic_token)))))
+    (flow_control_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
+
+===
+Quoted trailing dot: single quoted at end of input
+===
+
+Write-Host 'msg'.
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (quoted_command_argument
+              (string_literal
+                (verbatim_string_characters)))
+            (generic_token)))))))
+
+===
+Quoted trailing dot: member name stays a member
+===
+
+Write-Host "msg".Length
+Exit 1
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (array_literal_expression
+              (unary_expression
+                (member_access
+                  (string_literal
+                    (expandable_string_literal))
+                  (member_name
+                    (simple_name)))))))))
+    (flow_control_statement
+      (pipeline
+        (pipeline_chain
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (integer_literal
+                              (decimal_integer_literal))))))))))))))))
