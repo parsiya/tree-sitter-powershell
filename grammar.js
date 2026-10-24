@@ -19,6 +19,9 @@ const STATEMENT_KEYWORDS = [
   'begin', 'process', 'end', 'dynamicparam',
 ];
 
+// Words that Native reads as a keyword only when no word character follows.
+const ADJACENT_KEYWORDS = [...STATEMENT_KEYWORDS, 'clean', 'do', 'param', 'data'];
+
 // Native operators accept en dash, em dash and horizontal bar for their dash.
 const DASH = String.raw`[-\u2013-\u2015]`;
 
@@ -1273,10 +1276,7 @@ export default grammar({
           seq($._keyword_double_quote_command_name, $._expandable_string_literal_immediate),
           $._keyword_empty_quote_command_name,
           $._dash_command_name,
-          seq(
-            new RegExp(caseInsensitive('return') + '\\$'),
-            optional($._command_name_subexpression),
-          ),
+          seq($._keyword_dollar_command_name, optional($._command_name_subexpression)),
           // `Classify` is a command: this outranks the lexical precedence of the
           // `class` and `enum` keyword tokens, which would otherwise cut the word short.
           token(prec(2, new RegExp(caseInsensitive('class') + COMMAND_NAME_CONTINUATION + '+'))),
@@ -1285,39 +1285,19 @@ export default grammar({
         repeat($._command_name_part),
       ),
 
-    // A statement keyword directly followed by `-` starts a command name such
-    // as `if-x`, not a statement. tree-sitter cannot make the lexer skip the
-    // keyword token, so every keyword that starts a statement must be listed
-    // here (https://github.com/airbus-cert/tree-sitter-powershell/issues/24).
+    // A statement keyword directly followed by one of `-@[]*+/!<` starts a
+    // command name such as `if-x` or `throw[T]::M()`, not a statement. tree-sitter
+    // cannot make the lexer skip the keyword token, so every keyword that starts
+    // a statement must be listed here
+    // (https://github.com/airbus-cert/tree-sitter-powershell/issues/24).
     // One named token: inline, Opengrep's simplified grammar would alias each
     // alternative in _ordinary_command_name, which adds about 200 parser states.
     _keyword_dash_command_name: ($) =>
-      token(choice(
-        new RegExp(caseInsensitive('break-')),
-        new RegExp(caseInsensitive('continue-')),
-        new RegExp(caseInsensitive('throw-')),
-        // Adjacent @ and $ continue literal command names, not return statements.
-        new RegExp(caseInsensitive('return') + '[-@]'),
-        new RegExp(caseInsensitive('exit-')),
-        new RegExp(caseInsensitive('try-')),
-        new RegExp(caseInsensitive('trap-')),
-        new RegExp(caseInsensitive('if-')),
-        new RegExp(caseInsensitive('function-')),
-        new RegExp(caseInsensitive('filter-')),
-        new RegExp(caseInsensitive('workflow-')),
-        new RegExp(caseInsensitive('switch-')),
-        new RegExp(caseInsensitive('for-')),
-        new RegExp(caseInsensitive('foreach-')),
-        new RegExp(caseInsensitive('while-')),
-        new RegExp(caseInsensitive('parallel-')),
-        new RegExp(caseInsensitive('using-')),
-        new RegExp(caseInsensitive('begin-')),
-        new RegExp(caseInsensitive('process-')),
-        new RegExp(caseInsensitive('end-')),
-        new RegExp(caseInsensitive('dynamicparam-')),
-        new RegExp(caseInsensitive('clean-')),
-        new RegExp(caseInsensitive('do-')),
-      )),
+      token(new RegExp(`(${ADJACENT_KEYWORDS.map(caseInsensitive).join('|')})[-@\\[\\]*+/!<]`)),
+
+    // `$` continues a literal command name too, and may open a subexpression.
+    _keyword_dollar_command_name: ($) =>
+      token(new RegExp(`(${ADJACENT_KEYWORDS.map(caseInsensitive).join('|')})\\$`)),
 
     // A statement keyword directly followed by a quote is the start of a
     // command name (`throw'x'`), as for a dash above.
