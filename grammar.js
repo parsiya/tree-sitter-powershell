@@ -1298,6 +1298,7 @@ export default grammar({
       choice(
         $.path_command_name_token,
         $.variable,
+        $.sub_expression,
         seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
         seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
         token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
