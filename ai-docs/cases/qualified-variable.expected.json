@@ -1,7 +1,7 @@
 {
  "suite": "qualified-variable",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":285,"agree":211,"invalid_rejected":24,"known":0,"fail":50,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":285,"agree":212,"invalid_rejected":24,"known":0,"fail":49,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "expression $using:env:SystemRoot": {"status":"agree","differences":[]},
   "command $using:env:SystemRoot": {"status":"agree","differences":[]},
@@ -287,6 +287,6 @@
   "boundary 285": {"status":"fail","differences":["typed missing VariableExpressionAst 13:28"]},
   "boundary 286": {"status":"fail","differences":["elements extent 13:36 ExpandableStringExpressionAst/BareWord ts 13:28","elements kind 13:36 ExpandableStringExpressionAst/BareWord ts array_literal_expression>unary_expression>variable","typed extra redirection 28:36"]},
   "boundary 287": {"status":"fail","differences":["elements extent 13:22 VariableExpressionAst ts 13:24","elements kind 13:22 VariableExpressionAst ts generic_token","elements missing 22:24 StringConstantExpressionAst/BareWord","typed missing VariableExpressionAst 13:22"]},
-  "boundary 288": {"status":"fail","differences":["elements extent 13:22 VariableExpressionAst ts 13:27","elements kind 13:22 VariableExpressionAst ts generic_token","elements missing 22:27 StringConstantExpressionAst/BareWord","typed missing VariableExpressionAst 13:22"]}
+  "boundary 288": {"status":"agree","differences":[]}
  }
 }

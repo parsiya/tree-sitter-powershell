@@ -524,6 +524,14 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
+        // Native ends a variable word at `=`: `$name=value` is the variable and
+        // the word `=value`.
+        if (!at_expansion && valid_name && !automatic && name_start != '{' &&
+            lexer->lookahead == '=' && colons < 2 && !static_access &&
+            valid_symbols[VARIABLE_BEFORE_LITERAL_DOT]) {
+            lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
+            return true;
+        }
         if (!at_expansion && !bare_dollar &&
             (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
             lexer->lookahead == '[' || lexer->lookahead == '>' ||
