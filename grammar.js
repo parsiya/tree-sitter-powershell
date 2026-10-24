@@ -352,38 +352,59 @@ export default grammar({
           repeat(
             choice(
               // Comment markers inside strings are text, not extra comments.
-              token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+              $._expandable_string_text,
               alias($._qualified_variable_in_string, $.variable),
               $.variable,
               $.sub_expression,
-              token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
-              token.immediate(/`.{1}|`\r?\n/),
-              token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
-              token.immediate('$'),
+              $._expandable_string_dollar_escape,
+              $._expandable_string_escape,
+              $._immediate_double_quote_pair,
+              alias($._immediate_dollar, '$'),
               $._expandable_string_ahead,
             ),
           ),
-          repeat(token.immediate('$')),
-          token.immediate(DOUBLE_QUOTE),
+          repeat(alias($._immediate_dollar, '$')),
+          $._immediate_double_quote,
         ),
         seq(
           $._quote_unit_open,
           repeat(
             choice(
-              token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+              $._expandable_string_text,
               alias($._qualified_variable_in_string, $.variable),
               $.variable,
               $.sub_expression,
-              token.immediate(/\$(`[^"\u201C-\u201E]|`\r?\n|[\s\\])/),
-              token.immediate(/`[^"\u201C-\u201E]|`\r?\n/),
+              $._quote_unit_dollar_escape,
+              $._quote_unit_backtick_escape,
               $._quote_unit_escape,
-              token.immediate('$'),
+              alias($._immediate_dollar, '$'),
               $._expandable_string_ahead,
             ),
           ),
           $._quote_unit_close,
         ),
       ),
+
+    _expandable_string_text: ($) =>
+      token.immediate(prec(1, /[^\$"\u201C-\u201E`]+/)),
+
+    _expandable_string_dollar_escape: ($) =>
+      token.immediate(/\$(`.{1}|`\r?\n|[\s\\])/),
+
+    _expandable_string_escape: ($) => token.immediate(/`.{1}|`\r?\n/),
+
+    _immediate_double_quote_pair: ($) =>
+      token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+
+    _immediate_dollar: ($) => token.immediate('$'),
+
+    _immediate_double_quote: ($) => token.immediate(DOUBLE_QUOTE),
+
+    _quote_unit_dollar_escape: ($) =>
+      token.immediate(/\$(`[^"\u201C-\u201E]|`\r?\n|[\s\\])/),
+
+    _quote_unit_backtick_escape: ($) =>
+      token.immediate(/`[^"\u201C-\u201E]|`\r?\n/),
 
     expandable_here_string_literal: ($) =>
       seq(
@@ -401,7 +422,7 @@ export default grammar({
                 $.sub_expression,
                 // Leave the next line's escape or interpolation prefix intact.
                 token.immediate(/\r\n|\n|\r/),
-                token.immediate('$'),
+                alias($._immediate_dollar, '$'),
                 // Escape CR alone, leaving a following LF eligible to close.
                 token.immediate(/`[^\r\n]|`\r|`\n/),
               ),
@@ -1256,11 +1277,11 @@ export default grammar({
     _command_name_part: ($) =>
       choice(
         token.immediate(new RegExp(String.raw`[^\{\}\(\);,\|\&\x60"'\u2018-\u201E${WS}\$]+`)),
-        seq(token.immediate('$'), optional($._command_name_subexpression)),
+        seq(alias($._immediate_dollar, '$'), optional($._command_name_subexpression)),
         $._command_name_escape,
-        seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+        seq($._immediate_double_quote, $._expandable_string_literal_immediate),
         seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
-        token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+        $._immediate_double_quote_pair,
         token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
       ),
 
@@ -1353,9 +1374,9 @@ export default grammar({
         $.path_command_name_token,
         $.variable,
         $.sub_expression,
-        seq(token.immediate(DOUBLE_QUOTE), $._expandable_string_literal_immediate),
+        seq($._immediate_double_quote, $._expandable_string_literal_immediate),
         seq(token.immediate(SINGLE_QUOTE), $._string_literal_immediate),
-        token.immediate(seq(DOUBLE_QUOTE, DOUBLE_QUOTE)),
+        $._immediate_double_quote_pair,
         token.immediate(seq(SINGLE_QUOTE, SINGLE_QUOTE)),
         $._command_name_escape,
       ),
@@ -1475,7 +1496,7 @@ export default grammar({
             $.colon_word_text,
             seq(
               $._colon_word_continuation,
-              choice($.variable, $.string_literal, $.sub_expression, token.immediate('$')),
+              choice($.variable, $.string_literal, $.sub_expression, alias($._immediate_dollar, '$')),
             ),
           )),
         )),

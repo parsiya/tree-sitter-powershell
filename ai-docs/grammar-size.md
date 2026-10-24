@@ -29,6 +29,31 @@ a grammar review.
 | 2026-10-23 | batches 001-020 | review of `1b8d5c2` | 8649 | 21608112 | review: declaration keyword tokens and real-number token; -147 states (-1.67%), -317679 bytes (-1.45%); behavior unchanged; existing smoke verifier blocker remains |
 | 2026-10-23 | batches 021-040 | sources of `ab5607955` | 9267 | 23077037 | Shared integration; +7.1% since review; `_adjacent_dash_colon_arguments` copies `_adjacent_angle_arguments`; review recommended |
 | 2026-10-23 | batches 041-050 | sources of `db999e2` | 9353 | 23347616 | Shared integration; +8.1% since review; no new rule chain copied; earlier review recommendation stands |
+| 2026-10-24 | batches 001-050 | review of `4d9471c` | 9317 | 23264331 | Shared named string tokens; -36 states (-0.38%), -83285 bytes (-0.36%); descriptive converter constructors |
+
+## Review of `4d9471c`
+Named eight string-token rules and reused identical immediate dollar and
+double-quote tokens across strings and command names. Kept ordinary and
+nested-string branches separate, with unchanged regexes, precedence and
+scanner behavior. Explicit dollar aliases preserve anonymous leaves.
+Generated OCaml bindings use descriptive constructors; converter changes
+only rename matches. Large states remain 2791, symbols 626; production IDs
+decrease from 201 to 189. Parse speed was not benchmarked.
+
+Quick validation passes 2104 grammar tests and 6 ABI14 C tests. All 149156
+category/problem results and 123 proof-suite outcomes match unchanged base.
+Full-tree comparison covers 158056 readable files, including 35 with
+non-UTF-8 filenames: no valid-tree changes, 1839 permitted recovery-only
+changes, source hashes unchanged. Paths and evidence are linked in
+`ai-docs/local/results/grammar-review.md`; no expectations changed.
+
+Integrated source, compatibility, build and unit checks pass (306 tagged /
+181 substring tests). Full run `review-string-full-20261024` passes all
+stages, including corpus conversion and byte-checked smoke scans across
+50 batches. Batches 001-040 have zero corpus regressions and unchanged
+smoke finding/error keys against the promoted baseline; batches 041-050
+pass checks but have no promoted baseline comparison. Existing deferred
+issues remain. Validation ran before committing; no baseline was promoted.
 
 ## Review of `1b8d5c2`
 Only declaration keyword tokens (N1) and the numeric part of N2 were approved.
