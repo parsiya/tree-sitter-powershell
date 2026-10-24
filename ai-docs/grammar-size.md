@@ -26,3 +26,25 @@ a grammar review.
 | 2026-10-23 | batch-018 | sources of `ba8265885` | 8796 | 21925791 | Shared integration; HPE resource blockers remain |
 | 2026-10-23 | batch-019 | sources of `ba8265885` | 8796 | 21925791 | Shared integration; deferred resource blocker remains |
 | 2026-10-23 | batch-020 | sources of `ba8265885` | 8796 | 21925791 | Shared integration; certification blocked; no baseline promotion |
+| 2026-10-23 | batches 001-020 | review of `1b8d5c2` | 8649 | 21608112 | review: declaration keyword tokens and real-number token; -147 states (-1.67%), -317679 bytes (-1.45%); behavior unchanged; existing smoke verifier blocker remains |
+
+## Review of `1b8d5c2`
+Only declaration keyword tokens (N1) and the numeric part of N2 were approved.
+Naming `function`, `filter`, and `workflow` saves 105 states and 188161 bytes;
+naming the internal real-number token saves another 42 states and 129518 bytes.
+Scanner code, external-token order, regexes and language behavior are unchanged.
+Regenerated OCaml types require three converter constructor-match renames.
+
+Each change passed quick validation (2083 grammar tests, 6 ABI14 C tests),
+80406 per-file category/problem comparisons and all 109 proof-suite outcome
+comparisons against unchanged base. All 84009 readable corpus trees are
+identical, including errors and 33 files with non-UTF-8 filenames checked via
+raw filename bytes. Input hashes remained unchanged; no expectations changed.
+
+Integrated run `review-n1-n2-full-20261023` passes source, compatibility,
+grammar, build, unit (301 tagged / 176 substring) and corpus stages. All 20
+corpus batches retain the clean base's categories; smoke finding/error keys
+match for batches 001-009. Batch-010's smoke verifier crashes reading its
+692140582-byte JSON report, as in clean-base run `b620-committed-20261023`.
+Later smoke batches are not reached. Full certification remains blocked and
+no baseline is promoted. Parse timings do not establish a speedup.

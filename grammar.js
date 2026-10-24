@@ -265,20 +265,23 @@ export default grammar({
     real_literal: ($) =>
       choice(
         $._trailing_dot_real_literal,
-        token(
-          choice(
-            seq(
-              /[0-9]+\.[0-9]+/,
-              optional(NUMBER_EXPONENT),
-              optional(NUMBER_MULTIPLIER),
-            ),
-            seq(
-              /\.[0-9]+/,
-              optional(NUMBER_EXPONENT),
-              optional(NUMBER_MULTIPLIER),
-            ),
-            seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
+        $._real_literal_token,
+      ),
+
+    _real_literal_token: ($) =>
+      token(
+        choice(
+          seq(
+            /[0-9]+\.[0-9]+/,
+            optional(NUMBER_EXPONENT),
+            optional(NUMBER_MULTIPLIER),
           ),
+          seq(
+            /\.[0-9]+/,
+            optional(NUMBER_EXPONENT),
+            optional(NUMBER_MULTIPLIER),
+          ),
+          seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
         ),
       ),
 
@@ -930,10 +933,10 @@ export default grammar({
       seq(
         choice(
           seq(
-            choice(reservedWord('function'), reservedWord('filter')),
+            choice(alias($._function_keyword, 'function'), alias($._filter_keyword, 'filter')),
             $._function_context_plain,
           ),
-          seq(reservedWord('workflow'), $._function_context_workflow),
+          seq(alias($._workflow_keyword, 'workflow'), $._function_context_workflow),
         ),
         $.function_name,
         optional($.function_parameter_declaration),
@@ -942,6 +945,10 @@ export default grammar({
         '}',
         $._function_context_end,
       ),
+
+    _function_keyword: ($) => reserved(caseInsensitive('function')),
+    _filter_keyword: ($) => reserved(caseInsensitive('filter')),
+    _workflow_keyword: ($) => reserved(caseInsensitive('workflow')),
 
     function_name: ($) => $._command_token,
 
