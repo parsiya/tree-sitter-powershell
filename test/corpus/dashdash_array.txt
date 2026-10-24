@@ -1,0 +1,57 @@
+==================
+Double-dash array: words
+==================
+
+g --a,b,c
+w sentinel
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (generic_token)))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)))))))
+
+==================
+Double-dash array: attached value
+==================
+
+g --a=b,c -d
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (command_argument_sep)
+            (generic_token)
+            (generic_token)
+            (command_argument_sep)
+            (command_parameter)))))))
+
+==================
+Double-dash array: bare dashes before comma is invalid
+:error
+==================
+
+g --,b
+
+---

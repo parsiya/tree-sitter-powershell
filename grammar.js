@@ -34,6 +34,15 @@ const WS = String.raw`\t-\r \u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u2
 // separator.
 const HSPACE = String.raw`\t\v\f\u0085\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000`;
 
+// An attached option value (`--a=b`): plain characters, escapes and quoted
+// parts. A comma ends the value of a double-dash option only.
+const optionValue = (stop) => repeat(choice(
+  new RegExp(String.raw`[^${WS}"'\u2018-\u201E\x60;|&(){}${stop}]`),
+  new RegExp(String.raw`\x60[^\r\n]`),
+  seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
+  seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
+));
+
 // Characters that cannot appear in the first part of a command name.
 const COMMAND_NAME_STOP = `\\{\\}\\(\\);,\\|\\&\`"'\\u2018-\\u201E${WS}\\[\\]\\+\\-\\*\\/\\$@<\\!`;
 const COMMAND_NAME_CONTINUATION = `[^\\{\\}\\(\\);,\\|\\&\`"'\\u2018-\\u201E${WS}]`;
@@ -639,28 +648,28 @@ export default grammar({
     command_parameter: ($) =>
       choice(
         $._single_command_parameter,
-        token(
-          choice(
-            // Keep the inherited multiple-dash representation outside this fix.
-            new RegExp(
-              String.raw`--${PARAMETER_CHAR}*`,
-              'u',
-            ),
-            // `--format=%H`, `--pretty=format:"%B"`: a native option with an attached value
-            seq(
-              new RegExp(String.raw`--?(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
-              repeat(choice(
-                new RegExp(String.raw`[^${WS}"'\u2018-\u201E\x60;|&(){}]`),
-                new RegExp(String.raw`\x60[^\r\n]`),
-                seq(DOUBLE_QUOTE, /[^"\u201C-\u201E\r\n]*/, DOUBLE_QUOTE),
-                seq(SINGLE_QUOTE, /[^'\u2018-\u201B\r\n]*/, SINGLE_QUOTE),
-              )),
-            ),
-          ),
-        ),
+        $._dashdash_parameter,
+        // Keep the inherited multiple-dash representation outside this fix.
+        token(new RegExp(String.raw`--`, 'u')),
+        // `--pretty=format:"%B"`, `-a=b,c`: a native option with an attached value
+        token(seq(
+          new RegExp(String.raw`-(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
+          optionValue(''),
+        )),
         // A bare `--` or `-` argument (see scanner.c).
         $._bare_dashes,
       ),
+
+    // Native reads a double-dash word as an argument, so a comma after it
+    // starts an array: `--a,b`. An attached value ends at a comma too.
+    _dashdash_parameter: ($) =>
+      token(choice(
+        new RegExp(String.raw`--${PARAMETER_CHAR}+`, 'u'),
+        seq(
+          new RegExp(String.raw`--(${PARAMETER_LETTER}|_)${PARAMETER_CHAR}*=`, 'u'),
+          optionValue(','),
+        ),
+      )),
 
     _verbatim_command_argument_chars: ($) =>
       repeat1(choice(/"[^"]*"/, /&[^&]*/, /[^\|\r\n]+/)),
@@ -1373,6 +1382,11 @@ export default grammar({
             ),
           ),
           prec.dynamic(1, $._adjacent_expression_arguments),
+          // `g --a,b`: a double-dash word that starts a comma array.
+          seq(
+            alias($._dashdash_parameter, $.generic_token),
+            repeat1($._command_array_tail),
+          ),
           seq($._command_argument, optional($.argument_list)),
           seq(
             $.command_argument_sep,
