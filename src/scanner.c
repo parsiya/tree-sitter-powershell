@@ -507,6 +507,13 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         bool valid_name;
         int32_t name_start = lexer->lookahead;
         unsigned colons = scan_variable_name(lexer, &static_access, &valid_name);
+        // `$x::Name` is member access; a bare `$x::` stays one word.
+        bool static_member = false;
+        if (static_access) {
+            lexer->advance(lexer, false);
+            static_member = variable_char(lexer->lookahead) || lexer->lookahead == '$' ||
+                            is_quote(lexer->lookahead);
+        }
         // A `$` that no variable name follows is an ordinary word character.
         bool bare_dollar = !splat && !at_expansion && !valid_name &&
                            name_start != '{' && name_start != ':';
@@ -525,9 +532,10 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             return true;
         }
         if (!at_expansion && !bare_dollar &&
-            (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
-            lexer->lookahead == '[' || lexer->lookahead == '>' ||
-            (static_access && colons >= 2))) {
+            ((!static_access && (command_word_end(lexer->lookahead) ||
+                                 lexer->lookahead == '.' || lexer->lookahead == '[' ||
+                                 lexer->lookahead == '>')) ||
+             static_member || (static_access && colons >= 2))) {
             if (colons >= 2 && valid_symbols[QUALIFIED_VARIABLE]) {
                 lexer->result_symbol = QUALIFIED_VARIABLE;
                 return true;
