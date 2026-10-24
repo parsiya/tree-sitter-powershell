@@ -147,6 +147,12 @@ export default grammar({
     // Never produced as text. `break` and `continue` take no label from a
     // colon word: the word starts the next statement, with no terminator.
     $._flow_control_colon_word,
+    // Empty token between a `-Name:` command name and a touching argument.
+    $._dash_colon_argument_boundary,
+    // At a command position `!word` is a command name, not a negation
+    // (`if (!Test-Path $p)`); the scanner produces the `!` only before a
+    // letter, `_` or `.`. `!1`, `!-x`, `!=` and `!$x` stay expressions.
+    $._bang_command_name,
   ],
 
   extras: ($) => [
@@ -1084,6 +1090,13 @@ export default grammar({
             ))),
           ),
           seq(
+            field('command_name', alias($._dash_colon_command_name, $.command_name)),
+            field('command_elements', optional(choice(
+              $.command_elements,
+              alias($._adjacent_dash_colon_arguments, $.command_elements),
+            ))),
+          ),
+          seq(
             $.command_invokation_operator,
             field('command_name', alias('<', $.command_name)),
             field('command_elements', optional(choice(
@@ -1146,6 +1159,15 @@ export default grammar({
         ),
       ),
 
+    _adjacent_dash_colon_arguments: ($) =>
+      prec.right(
+        seq(
+          $._dash_colon_argument_boundary,
+          $._argument_after_quote,
+          repeat($._command_element),
+        ),
+      ),
+
     // This rule is ignored as it does not appear as a rule
     // command_module: $ => $.primary_expression,
 
@@ -1180,6 +1202,8 @@ export default grammar({
       ),
 
     // A `$(` inside a name is literal text up to its matching parenthesis.
+    // A dash touching a name is scanned as an escape token (see scanner.c), so
+    // the longer parameter token cannot take it (`Add-`x`, `Run-Item$x`).
     _command_name_part: ($) =>
       choice(
         token.immediate(new RegExp(String.raw`[^\{\}\(\);,\|\&\x60"'\u2018-\u201E${WS}\$]+`)),
@@ -1195,6 +1219,7 @@ export default grammar({
 
     _ordinary_command_name: ($) =>
       seq(
+        optional($._bang_command_name),
         choice(
           // At a token boundary escaped whitespace is trivia, not a name.
           $._command_name_start_escape,
@@ -1271,6 +1296,10 @@ export default grammar({
         `(${STATEMENT_KEYWORDS.map(caseInsensitive).join('|')})` +
         `(${SINGLE_QUOTE.source}${SINGLE_QUOTE.source}|${DOUBLE_QUOTE.source}${DOUBLE_QUOTE.source})`,
       )),
+
+    // A dash word with a colon (`-Name:`) is a command name; an argument may touch it.
+    _dash_colon_command_name: ($) =>
+      token(prec(PREC.KEYWORD, new RegExp(`${dashCommandName().source}:`, 'u'))),
 
     // An `@` continues a word but cannot start one (`@x` is a splat).
     path_command_name_token: ($) => /[0-9a-zA-Z_?\-\.\\\/][0-9a-zA-Z_?\-\.\\\/@]*/,
