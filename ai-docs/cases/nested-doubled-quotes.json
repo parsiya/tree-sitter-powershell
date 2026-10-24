@@ -1,0 +1,73 @@
+[
+  {
+    "name": "doubled quote strings two subexpressions deep in a call",
+    "source": "\"a$(f(\"\"b$(\"\"$($x)\"\".S(\"\"/\"\")[2])\"\"))\""
+  },
+  {
+    "name": "doubled quote string holds a doubled quote string",
+    "source": "\"a$(\"\"b$(\"\"c\"\")d\"\")\""
+  },
+  {
+    "name": "doubled quote string with a variable at depth two",
+    "source": "\"a$(\"\"$(\"\"$x\"\")\"\")\""
+  },
+  {
+    "name": "doubled quote string with a subexpression at depth three",
+    "source": "\"a$(\"\"$(\"\"$($x)\"\")\"\")\""
+  },
+  {
+    "name": "method call after a depth-two doubled quote string",
+    "source": "\"a$(\"\"$(\"\"$($x)\"\".S())\"\")\""
+  },
+  {
+    "name": "doubled quote argument and index at depth two",
+    "source": "\"a$(\"\"$(\"\"x\"\".S(\"\"/\"\")[2])\"\")\""
+  },
+  {
+    "name": "doubled quote string closing without a method call",
+    "source": "\"a$(\"\"b$($x)d\"\")\""
+  },
+  {
+    "name": "plain quote string two subexpressions deep",
+    "source": "\"a$(\"b$(\"c\")d\")\""
+  },
+  {
+    "name": "doubled quote opener without a closer at depth two is unterminated",
+    "source": "\"a$(\"\"b$(\"\"c)d\"\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "unbalanced subexpression at depth two is unterminated",
+    "source": "\"a$(f(\"\"$(\"\"$($x)\"\".S(\"\"/\"\")))\"\")\"",
+    "expect": "invalid"
+  },
+  {
+    "name": "static call between command array items",
+    "source": "f $a, [m]::R(1), $b"
+  },
+  {
+    "name": "static call with arguments after a parameter and before a parameter",
+    "source": "f -s $a, [m]::R($x / 1MB, 1), $b -E $true"
+  },
+  {
+    "name": "static call as first command array item",
+    "source": "f [m]::R(1), $b"
+  },
+  {
+    "name": "two static calls in a command array",
+    "source": "f [m]::R(1), [n]::S(2), $b, 3"
+  },
+  {
+    "name": "static call as first array item after a parameter",
+    "source": "f -p [m]::R(1), $b"
+  },
+  {
+    "name": "static call as last command array item",
+    "source": "f $a, [m]::R(1)"
+  },
+  {
+    "name": "static call before a trailing comma is incomplete",
+    "source": "f $a, [m]::R(1),",
+    "expect": "invalid"
+  }
+]
