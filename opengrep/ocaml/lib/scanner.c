@@ -55,7 +55,8 @@ enum TOKEN_TYPE {
     FLOW_CONTROL_COLON_WORD,
     DASH_COLON_ARGUMENT_BOUNDARY,
     BANG_COMMAND_NAME,
-    ADJACENT_PAREN_BOUNDARY
+    ADJACENT_PAREN_BOUNDARY,
+    ENUM_BASE_COLON_AHEAD
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -247,10 +248,25 @@ static bool variable_char(int32_t c)
 // even at its end. A double colon always starts static member access.
 static unsigned scan_variable_path(TSLexer *lexer, bool *static_access)
 {
-    if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') return 0;
+    unsigned colons = 0;
+    if (lexer->lookahead == ':') {
+        // Empty scope: `$:name` and `$::name`, where the name may be empty after
+        // two colons. A third colon ends the variable at `$:`, which is invalid.
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == ':') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == ':') return 0;
+            colons = 2;
+        } else if (variable_char(lexer->lookahead)) {
+            colons = 1;
+        } else {
+            return 0;
+        }
+    } else if (!variable_char(lexer->lookahead) || lexer->lookahead == '?') {
+        return 0;
+    }
     while (variable_char(lexer->lookahead)) lexer->advance(lexer, false);
     lexer->mark_end(lexer);
-    unsigned colons = 0;
     while (lexer->lookahead == ':') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == ':') {
@@ -339,6 +355,19 @@ static unsigned scan_variable_name(TSLexer *lexer, bool *static_access, bool *va
 
 static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
 
+// PowerShell 7 type suffixes: y, uy, s, us, u, l, ul, n, d (`lu` is not one).
+static void skip_type_suffix(TSLexer *lexer)
+{
+    int32_t c = towlower(lexer->lookahead);
+    if (c == 'u') {
+        lexer->advance(lexer, false);
+        c = towlower(lexer->lookahead);
+        if (c == 'y' || c == 's' || c == 'l') lexer->advance(lexer, false);
+    } else if (c == 'y' || c == 's' || c == 'l' || c == 'n' || c == 'd') {
+        lexer->advance(lexer, false);
+    }
+}
+
 // Preserve the inherited numeric CST for a complete negative number. In command
 // mode consumers must interpret that existing shape as a word, not negation.
 static bool scan_number_prefix(TSLexer *lexer)
@@ -397,6 +426,7 @@ static bool scan_number_prefix(TSLexer *lexer)
 static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
 {
     bool hex = false;
+    bool bin = false;
     bool fraction = lexer->lookahead == '.';
     bool digits = false;
     if (lexer->lookahead == '0') {
@@ -407,18 +437,22 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
             lexer->advance(lexer, false);
             hex = true;
             digits = false;
+        } else if (towlower(lexer->lookahead) == 'b') {
+            lexer->advance(lexer, false);
+            bin = true;
+            digits = false;
         }
     }
-    while (digit(lexer->lookahead) ||
-           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
-                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+    while (bin ? (lexer->lookahead == '0' || lexer->lookahead == '1')
+               : (digit(lexer->lookahead) ||
+                  (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                           (lexer->lookahead >= 'A' && lexer->lookahead <= 'F'))))) {
         lexer->advance(lexer, false);
         digits = true;
-        if (!hex) lexer->mark_end(lexer);
+        if (!hex && !bin) lexer->mark_end(lexer);
     }
     bool number = digits;
-    bool real = false;
-    if (!hex && lexer->lookahead == '.') {
+    if (!hex && !bin && lexer->lookahead == '.') {
         lexer->advance(lexer, false);
         if (digits && lexer->lookahead == '.') return false;
         if (digits && (command_word_end(lexer->lookahead) || lexer->lookahead == '#') &&
@@ -434,18 +468,16 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
             if (fraction) lexer->mark_end(lexer);
         }
         if (fraction && !digits) return false;
-        number = real = digits;
+        number = digits;
     }
-    if (number && !hex && towlower(lexer->lookahead) == 'e') {
+    if (number && !hex && !bin && towlower(lexer->lookahead) == 'e') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '+' || lexer->lookahead == '-')
             lexer->advance(lexer, false);
         number = digit(lexer->lookahead);
         while (digit(lexer->lookahead)) lexer->advance(lexer, false);
-    } else if (number && !real && (towlower(lexer->lookahead) == 'l' ||
-                                 (!hex && towlower(lexer->lookahead) == 'd'))) {
-        lexer->advance(lexer, false);
     }
+    if (number) skip_type_suffix(lexer);
     int32_t c = towlower(lexer->lookahead);
     if (number && (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p')) {
         lexer->advance(lexer, false);
@@ -543,7 +575,9 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
-        if (!at_expansion && !bare_dollar &&
+        // `$:` and `$:::` do not form a variable; the word goes on as before.
+        bool empty_scope_invalid = name_start == ':' && colons == 0;
+        if (!at_expansion && !bare_dollar && !empty_scope_invalid &&
             ((!static_access && (command_word_end(lexer->lookahead) ||
                                  lexer->lookahead == '.' || lexer->lookahead == '[' ||
                                  lexer->lookahead == '>')) ||
@@ -924,10 +958,22 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
             value ? COMPLETED_EXPRESSION_BOUNDARY : COMPLETED_MEMBER_BOUNDARY;
         return true;
     }
-    if (c == '.' && (member || quoted)) {
+    if (c == '.') {
         lexer->mark_end(lexer);
         if (!literal_dot_follows(lexer)) return false;
-        lexer->result_symbol = member ? COMPLETED_MEMBER_BOUNDARY : QUOTED_ARGUMENT_BOUNDARY;
+        // A dot not directly followed by a name is its own word, even across a line end.
+        lexer->result_symbol = member ? COMPLETED_MEMBER_BOUNDARY :
+            quoted ? QUOTED_ARGUMENT_BOUNDARY : COMPLETED_EXPRESSION_BOUNDARY;
+        return true;
+    }
+    if (c == ':') {
+        lexer->mark_end(lexer);
+        lexer->advance(lexer, false);
+        if (lexer->lookahead != ':') return false;
+        lexer->advance(lexer, false);
+        if (!lexer->eof(lexer) && !command_array_space(lexer->lookahead)) return false;
+        lexer->result_symbol = member ? COMPLETED_MEMBER_BOUNDARY :
+            quoted ? QUOTED_ARGUMENT_BOUNDARY : COMPLETED_EXPRESSION_BOUNDARY;
         return true;
     }
     // Keep expression suffixes, punctuation and elements that already work
@@ -1396,6 +1442,47 @@ static bool scan_quote_unit_open(TSLexer *lexer)
     return true;
 }
 
+// Native reads `enum E : byte` only when the colon is on the enum's line;
+// spaces, block comments and line continuations may come before it.
+static bool scan_enum_base_colon_ahead(TSLexer *lexer)
+{
+    lexer->mark_end(lexer);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == ':') {
+            lexer->result_symbol = ENUM_BASE_COLON_AHEAD;
+            return true;
+        }
+        if (command_array_space(c) && !line_end(c) && c != 0x85 && c != 0x2028 && c != 0x2029) {
+            lexer->advance(lexer, false);
+        } else if (c == '`') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '\r') lexer->advance(lexer, false);
+            if (lexer->lookahead != '\n') return false;
+            lexer->advance(lexer, false);
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead != '#') return false;
+            lexer->advance(lexer, false);
+            unsigned depth = 1;
+            while (depth) {
+                if (lexer->eof(lexer)) return false;
+                c = lexer->lookahead;
+                lexer->advance(lexer, false);
+                if (c == '<' && lexer->lookahead == '#') {
+                    lexer->advance(lexer, false);
+                    depth++;
+                } else if (c == '#' && lexer->lookahead == '>') {
+                    lexer->advance(lexer, false);
+                    depth--;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
 // The order of the checks below matters: a scanner that has advanced the
 // lexer cannot hand over to another one. The order is: string-subexpression
 // end and quote units, the leading BOM, the boundary, escape and continuation
@@ -1440,6 +1527,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = LEADING_BOM;
         return true;
     }
+    if (valid_symbols[ENUM_BASE_COLON_AHEAD] && !recovering)
+        return scan_enum_base_colon_ahead(lexer);
     // A completed-expression boundary also fits a touching `(`; it wins.
     if (valid_symbols[ADJACENT_PAREN_BOUNDARY] && !valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] &&
         !recovering && lexer->lookahead == '(') {
@@ -1494,7 +1583,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
         !recovering && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols,
-                                         scanner->string_subexpression_depth == 1);
+                                         scanner->string_subexpression_depth > 0);
     bool numeric_name = valid_symbols[NUMERIC_COMMAND_NAME];
     // Argument words (including attached quotes) belong to scan_command_word.
     bool numeric_literal = valid_symbols[TRAILING_DOT_REAL_LITERAL] &&
@@ -1536,8 +1625,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
          valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
         (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
-         lexer->lookahead == '`' ||
+         lexer->lookahead == '`' || lexer->lookahead == ':' ||
          (lexer->lookahead == '.' && (valid_symbols[COMPLETED_MEMBER_BOUNDARY] ||
+                                      valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] ||
                                       valid_symbols[QUOTED_ARGUMENT_BOUNDARY])) ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
@@ -1556,7 +1646,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
             skip(lexer);
         }
-        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth == 1 &&
+        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth > 0 &&
             (double_quote(lexer->lookahead) || lexer->lookahead == '`'))
             return scan_quote_unit_open(lexer);
         if (lexer->lookahead == '$' || lexer->lookahead == '@')
@@ -1564,18 +1654,18 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     }
 
     if (word && valid_symbols[QUOTE_UNIT_OPEN] && !recovering &&
-        scanner->string_subexpression_depth == 1 && double_quote(lexer->lookahead))
+        scanner->string_subexpression_depth > 0 && double_quote(lexer->lookahead))
         return scan_quote_unit_open(lexer);
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.
     if (word &&
         !command_word_end(lexer->lookahead))
-        return scan_command_word(lexer, valid_symbols, scanner->string_subexpression_depth == 1);
+        return scan_command_word(lexer, valid_symbols, scanner->string_subexpression_depth > 0);
 
     // The string follows a word piece, for example `f a"b c"`.
     if (valid_symbols[QUOTE_UNIT_OPEN] && !recovering && !word &&
-        scanner->string_subexpression_depth == 1 &&
+        scanner->string_subexpression_depth > 0 &&
         (double_quote(lexer->lookahead) || lexer->lookahead == '`'))
         return scan_quote_unit_open(lexer);
 
