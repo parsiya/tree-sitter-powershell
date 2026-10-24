@@ -198,6 +198,7 @@ export default grammar({
     [$.path_command_name, $._value],
     [$._command_argument, $.array_literal_expression],
     [$._command_array_tail, $._completed_argument_array],
+    [$._command_array_word],
     [$._command_expression_array, $._command_mixed_array, $._completed_argument_array],
     [$._command_mixed_array, $._completed_argument_array],
     [$._command_pipeline_prefix_expression, $._primary_expression],
@@ -1510,7 +1511,11 @@ export default grammar({
               // `w 'a'(1)'b'`: a word or quote may follow the closing parenthesis.
               seq(
                 prec.dynamic(3, $.argument_list),
-                optional(seq($._completed_expression_boundary, $._argument_after_quote)),
+                optional(choice(
+                  seq($._completed_expression_boundary, $._argument_after_quote),
+                  // `f [T]::M(1), $b`: the call is the first item of a comma list.
+                  repeat1($._command_array_tail),
+                )),
               ),
               prec.dynamic(-1, $.parenthesized_expression),
               // `New-Object uri(Get-Item x).t`: the parenthesis is the receiver
@@ -1566,7 +1571,13 @@ export default grammar({
       ),
 
     _command_array_word: ($) =>
-      choice($._command_word, alias($.command_parameter, $.generic_token)),
+      choice(
+        $._command_word,
+        alias($.command_parameter, $.generic_token),
+        // `f $a, [T]::M(1), $b`: a call that a comma follows. Lower than the
+        // word, whose argument list the command element takes at the end.
+        prec.dynamic(-1, seq($._command_word, $.argument_list)),
+      ),
 
     _command_expression_array: ($) =>
       prec.left(

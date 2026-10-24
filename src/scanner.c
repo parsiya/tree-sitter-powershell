@@ -1583,7 +1583,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if ((valid_symbols[COMMAND_NAME_ESCAPE] || valid_symbols[COMMAND_NAME_START_ESCAPE]) &&
         !recovering && lexer->lookahead == '`')
         return scan_command_name_escape(lexer, valid_symbols,
-                                         scanner->string_subexpression_depth == 1);
+                                         scanner->string_subexpression_depth > 0);
     bool numeric_name = valid_symbols[NUMERIC_COMMAND_NAME];
     // Argument words (including attached quotes) belong to scan_command_word.
     bool numeric_literal = valid_symbols[TRAILING_DOT_REAL_LITERAL] &&
@@ -1646,7 +1646,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                 (lexer->lookahead == '\r' || lexer->lookahead == '\n')) break;
             skip(lexer);
         }
-        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth == 1 &&
+        if (valid_symbols[QUOTE_UNIT_OPEN] && scanner->string_subexpression_depth > 0 &&
             (double_quote(lexer->lookahead) || lexer->lookahead == '`'))
             return scan_quote_unit_open(lexer);
         if (lexer->lookahead == '$' || lexer->lookahead == '@')
@@ -1654,18 +1654,18 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     }
 
     if (word && valid_symbols[QUOTE_UNIT_OPEN] && !recovering &&
-        scanner->string_subexpression_depth == 1 && double_quote(lexer->lookahead))
+        scanner->string_subexpression_depth > 0 && double_quote(lexer->lookahead))
         return scan_quote_unit_open(lexer);
 
     // Word pieces never skip whitespace. A failed lookahead may have advanced
     // the lexer, so do not try the other scanners afterwards.
     if (word &&
         !command_word_end(lexer->lookahead))
-        return scan_command_word(lexer, valid_symbols, scanner->string_subexpression_depth == 1);
+        return scan_command_word(lexer, valid_symbols, scanner->string_subexpression_depth > 0);
 
     // The string follows a word piece, for example `f a"b c"`.
     if (valid_symbols[QUOTE_UNIT_OPEN] && !recovering && !word &&
-        scanner->string_subexpression_depth == 1 &&
+        scanner->string_subexpression_depth > 0 &&
         (double_quote(lexer->lookahead) || lexer->lookahead == '`'))
         return scan_quote_unit_open(lexer);
 
