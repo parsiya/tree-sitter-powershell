@@ -27,6 +27,7 @@ a grammar review.
 | 2026-10-23 | batch-019 | sources of `ba8265885` | 8796 | 21925791 | Shared integration; deferred resource blocker remains |
 | 2026-10-23 | batch-020 | sources of `ba8265885` | 8796 | 21925791 | Shared integration; certification blocked; no baseline promotion |
 | 2026-10-23 | batches 001-020 | review of `1b8d5c2` | 8649 | 21608112 | review: declaration keyword tokens and real-number token; -147 states (-1.67%), -317679 bytes (-1.45%); behavior unchanged; existing smoke verifier blocker remains |
+| 2026-10-23 | batches 021-040 | sources of `ab5607955` | 9267 | 23077037 | Shared integration; +7.1% since review; `_adjacent_dash_colon_arguments` copies `_adjacent_angle_arguments`; review recommended |
 
 ## Review of `1b8d5c2`
 Only declaration keyword tokens (N1) and the numeric part of N2 were approved.

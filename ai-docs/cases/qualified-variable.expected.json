@@ -1,7 +1,7 @@
 {
  "suite": "qualified-variable",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":285,"agree":218,"invalid_rejected":24,"known":0,"fail":43,"unsupported":0,"skipped":0,"known_differences":0},
+ "summary": {"cases":285,"agree":219,"invalid_rejected":24,"known":0,"fail":42,"unsupported":0,"skipped":0,"known_differences":0},
  "cases": {
   "expression $using:env:SystemRoot": {"status":"agree","differences":[]},
   "command $using:env:SystemRoot": {"status":"agree","differences":[]},

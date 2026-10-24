@@ -1,7 +1,7 @@
 {
  "suite": "b5-unicode-space",
  "known_pattern": "trailing-trivia",
- "summary": {"cases":81,"agree":75,"invalid_rejected":0,"known":6,"fail":0,"unsupported":0,"skipped":0,"known_differences":6},
+ "summary": {"cases":81,"agree":78,"invalid_rejected":0,"known":3,"fail":0,"unsupported":0,"skipped":0,"known_differences":3},
  "cases": {
   "only-nbsp": {"status":"agree","differences":[]},
   "only-nel": {"status":"agree","differences":[]},
@@ -50,9 +50,9 @@
   "comma-nbsp": {"status":"agree","differences":[]},
   "comma-emsp": {"status":"agree","differences":[]},
   "comma-narrow-nbsp": {"status":"agree","differences":[]},
-  "continuation-nbsp": {"status":"known","differences":[]},
-  "continuation-emsp": {"status":"known","differences":[]},
-  "continuation-narrow-nbsp": {"status":"known","differences":[]},
+  "continuation-nbsp": {"status":"agree","differences":[]},
+  "continuation-emsp": {"status":"agree","differences":[]},
+  "continuation-narrow-nbsp": {"status":"agree","differences":[]},
   "redirection-nbsp": {"status":"agree","differences":[]},
   "redirection-emsp": {"status":"agree","differences":[]},
   "redirection-narrow-nbsp": {"status":"agree","differences":[]},

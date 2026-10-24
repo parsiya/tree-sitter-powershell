@@ -52,7 +52,10 @@ enum TOKEN_TYPE {
     FUNCTION_CONTEXT_WORKFLOW,
     FUNCTION_CONTEXT_END,
     LABEL,
-    FLOW_CONTROL_COLON_WORD
+    FLOW_CONTROL_COLON_WORD,
+    DASH_COLON_ARGUMENT_BOUNDARY,
+    BANG_COMMAND_NAME,
+    ADJACENT_PAREN_BOUNDARY
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -223,7 +226,7 @@ static bool command_word_end(int32_t c)
 // Operator characters that cannot start a parameter name after a dash.
 static bool dash_word_symbol(int32_t c)
 {
-    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%';
+    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%' || c == '[';
 }
 
 static bool literal_dot_follows(TSLexer *lexer)
@@ -418,7 +421,7 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
     if (!hex && lexer->lookahead == '.') {
         lexer->advance(lexer, false);
         if (digits && lexer->lookahead == '.') return false;
-        if (digits && command_word_end(lexer->lookahead) &&
+        if (digits && (command_word_end(lexer->lookahead) || lexer->lookahead == '#') &&
             valid_symbols[TRAILING_DOT_REAL_LITERAL]) {
             lexer->mark_end(lexer);
             lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
@@ -450,7 +453,8 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
         if (number) lexer->advance(lexer, false);
     }
     c = lexer->lookahead;
-    if (number && (c == '.' || command_word_end(c) || c == '[' ||
+    // A comment can follow a number directly: `22#25`.
+    if (number && (c == '.' || command_word_end(c) || c == '#' || c == '[' ||
                   c == '+' || c == '-' || c == '*' || c == '/' ||
                   c == '<' || c == '!')) return false;
     lexer->result_symbol = NUMERIC_COMMAND_NAME;
@@ -507,6 +511,13 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
         bool valid_name;
         int32_t name_start = lexer->lookahead;
         unsigned colons = scan_variable_name(lexer, &static_access, &valid_name);
+        // `$x::Name` is member access; a bare `$x::` stays one word.
+        bool static_member = false;
+        if (static_access) {
+            lexer->advance(lexer, false);
+            static_member = variable_char(lexer->lookahead) || lexer->lookahead == '$' ||
+                            is_quote(lexer->lookahead);
+        }
         // A `$` that no variable name follows is an ordinary word character.
         bool bare_dollar = !splat && !at_expansion && !valid_name &&
                            name_start != '{' && name_start != ':';
@@ -524,10 +535,19 @@ static bool scan_command_word(TSLexer *lexer, const bool *valid_symbols, bool qu
             lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
             return true;
         }
+        // Native ends a variable word at `=`: `$name=value` is the variable and
+        // the word `=value`.
+        if (!at_expansion && valid_name && !automatic && name_start != '{' &&
+            lexer->lookahead == '=' && colons < 2 && !static_access &&
+            valid_symbols[VARIABLE_BEFORE_LITERAL_DOT]) {
+            lexer->result_symbol = VARIABLE_BEFORE_LITERAL_DOT;
+            return true;
+        }
         if (!at_expansion && !bare_dollar &&
-            (command_word_end(lexer->lookahead) || lexer->lookahead == '.' ||
-            lexer->lookahead == '[' || lexer->lookahead == '>' ||
-            (static_access && colons >= 2))) {
+            ((!static_access && (command_word_end(lexer->lookahead) ||
+                                 lexer->lookahead == '.' || lexer->lookahead == '[' ||
+                                 lexer->lookahead == '>')) ||
+             static_member || (static_access && colons >= 2))) {
             if (colons >= 2 && valid_symbols[QUALIFIED_VARIABLE]) {
                 lexer->result_symbol = QUALIFIED_VARIABLE;
                 return true;
@@ -848,11 +868,15 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
         } else if (lexer->lookahead == '`') {
             *skipped_backtick = true;
             skip(lexer);
-            if (!line_end(lexer->lookahead)) {
+            if (line_end(lexer->lookahead)) {
+                skip_line_end(lexer);
+            } else if (command_array_space(lexer->lookahead)) {
+                // Escaped whitespace is trivia too: `@( $x.Name` )`.
+                skip(lexer);
+            } else {
                 *stray_backtick = true;
                 return false;
             }
-            skip_line_end(lexer);
         } else {
             break;
         }
@@ -900,10 +924,10 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
             value ? COMPLETED_EXPRESSION_BOUNDARY : COMPLETED_MEMBER_BOUNDARY;
         return true;
     }
-    if (c == '.' && member) {
+    if (c == '.' && (member || quoted)) {
         lexer->mark_end(lexer);
         if (!literal_dot_follows(lexer)) return false;
-        lexer->result_symbol = COMPLETED_MEMBER_BOUNDARY;
+        lexer->result_symbol = member ? COMPLETED_MEMBER_BOUNDARY : QUOTED_ARGUMENT_BOUNDARY;
         return true;
     }
     // Keep expression suffixes, punctuation and elements that already work
@@ -917,7 +941,8 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == '-') {
         if (!quoted && !value) return false;
         lexer->advance(lexer, false);
-        if (!digit(lexer->lookahead) && lexer->lookahead != '.') return false;
+        if (!digit(lexer->lookahead) && lexer->lookahead != '.' && lexer->lookahead != '[')
+            return false;
     } else if (c == '?') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
@@ -1195,6 +1220,8 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
 {
     if (!valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL])
         return false;
+    // Still inside a command name (after an escape): its parts continue the word.
+    if (valid_symbols[COMMAND_NAME_ESCAPE]) return false;
     int32_t c = lexer->lookahead;
     lexer->mark_end(lexer);
     if (c == '.') {
@@ -1203,6 +1230,8 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
         // A dot without a member starts a separate argument in command mode.
         if (c != '.' && c != '#' &&
             (!command_word_end(c) || c == '(' || c == '{')) return false;
+    } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+        // A word glued to an index or other completed operand is its own argument.
     } else if (c != '/' && c != '\\') {
         return false;
     }
@@ -1217,6 +1246,37 @@ static bool scan_angle_argument_boundary(TSLexer *lexer)
     if (command_word_end(c) || c == '<' || c == '>' || c == '`') return false;
     lexer->mark_end(lexer);
     lexer->result_symbol = ANGLE_ARGUMENT_BOUNDARY;
+    return true;
+}
+
+// `-Name:$x`: the argument touches the name; a dash, redirection or
+// backtick starts an ordinary element instead.
+static bool scan_dash_colon_argument_boundary(TSLexer *lexer)
+{
+    int32_t c = lexer->lookahead;
+    if (command_word_end(c) || c == '-' || c == '<' || c == '>' || c == '`') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = DASH_COLON_ARGUMENT_BOUNDARY;
+    return true;
+}
+
+// `!name` at a command start is a command name (`if (!Test-Path $p)`). Only the
+// `!` is the token, and only before a letter, `_` or a dot not followed by a
+// digit; `!1`, `!-x`, `!=` and `! x` stay operators.
+static bool scan_bang_command_name(TSLexer *lexer)
+{
+    if (lexer->lookahead != '!') return false;
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    int32_t c = lexer->lookahead;
+    if (c == '.') {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+        if (digit(c)) return false;
+    } else if (!type_name_letter(c)) {
+        return false;
+    }
+    lexer->result_symbol = BANG_COMMAND_NAME;
     return true;
 }
 
@@ -1380,9 +1440,25 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = LEADING_BOM;
         return true;
     }
+    // A completed-expression boundary also fits a touching `(`; it wins.
+    if (valid_symbols[ADJACENT_PAREN_BOUNDARY] && !valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] &&
+        !recovering && lexer->lookahead == '(') {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = ADJACENT_PAREN_BOUNDARY;
+        return true;
+    }
     if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !recovering &&
         (lexer->lookahead == '(' || lexer->lookahead == '{'))
         return scan_command_name_subexpression(lexer);
+    // A dash touching a command name belongs to it: the parameter token would
+    // otherwise take `-`Type` or `-Name$x`, and the bare dash `Search- -x`.
+    if (valid_symbols[COMMAND_NAME_ESCAPE] && !valid_symbols[COMMAND_NAME_START_ESCAPE] &&
+        !recovering && lexer->lookahead == '-') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = COMMAND_NAME_ESCAPE;
+        return true;
+    }
     // A dot ends a parameter name and starts a command word, not a member.
     if (!recovering &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
@@ -1397,6 +1473,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !recovering &&
         scan_angle_argument_boundary(lexer))
         return true;
+    if (valid_symbols[DASH_COLON_ARGUMENT_BOUNDARY] && !recovering &&
+        scan_dash_colon_argument_boundary(lexer))
+        return true;
     if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !recovering)
         return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !recovering) {
@@ -1406,6 +1485,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             skip(lexer);
         }
     }
+    if (valid_symbols[BANG_COMMAND_NAME] && !recovering && lexer->lookahead == '!')
+        return scan_bang_command_name(lexer);
     // A failed match has consumed characters, so no other token is tried.
     if (valid_symbols[INLINESCRIPT_NAME] && !recovering && in_workflow(scanner) &&
         (lexer->lookahead == 'i' || lexer->lookahead == 'I'))
@@ -1456,7 +1537,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
         (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
          lexer->lookahead == '`' ||
-         (lexer->lookahead == '.' && valid_symbols[COMPLETED_MEMBER_BOUNDARY]) ||
+         (lexer->lookahead == '.' && (valid_symbols[COMPLETED_MEMBER_BOUNDARY] ||
+                                      valid_symbols[QUOTED_ARGUMENT_BOUNDARY])) ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
     if (scan_argument_boundary(lexer, valid_symbols)) return true;
