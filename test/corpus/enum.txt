@@ -74,3 +74,52 @@ enum MyEnum
         (simple_name)
         (integer_literal
           (decimal_integer_literal))))))
+
+===
+Enum : base type
+===
+
+enum Level : UInt32 { Low = 1 }
+
+enum Color:byte { Red }
+
+[Flags()] enum Mode : System.Byte
+{
+    One
+}
+
+---
+
+(program
+  (statement_list
+    (enum_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_identifier)))
+      (enum_member
+        (simple_name)
+        (integer_literal
+          (decimal_integer_literal))))
+    (enum_statement
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_identifier)))
+      (enum_member
+        (simple_name)))
+    (enum_statement
+      (attribute_list
+        (attribute
+          (attribute_name
+            (type_spec
+              (type_name
+                (type_identifier))))))
+      (simple_name)
+      (type_spec
+        (type_name
+          (type_name
+            (type_identifier))
+          (type_identifier)))
+      (enum_member
+        (simple_name)))))

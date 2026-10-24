@@ -55,7 +55,8 @@ enum TOKEN_TYPE {
     FLOW_CONTROL_COLON_WORD,
     DASH_COLON_ARGUMENT_BOUNDARY,
     BANG_COMMAND_NAME,
-    ADJACENT_PAREN_BOUNDARY
+    ADJACENT_PAREN_BOUNDARY,
+    ENUM_BASE_COLON_AHEAD
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -1429,6 +1430,47 @@ static bool scan_quote_unit_open(TSLexer *lexer)
     return true;
 }
 
+// Native reads `enum E : byte` only when the colon is on the enum's line;
+// spaces, block comments and line continuations may come before it.
+static bool scan_enum_base_colon_ahead(TSLexer *lexer)
+{
+    lexer->mark_end(lexer);
+    for (;;) {
+        int32_t c = lexer->lookahead;
+        if (c == ':') {
+            lexer->result_symbol = ENUM_BASE_COLON_AHEAD;
+            return true;
+        }
+        if (command_array_space(c) && !line_end(c) && c != 0x85 && c != 0x2028 && c != 0x2029) {
+            lexer->advance(lexer, false);
+        } else if (c == '`') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '\r') lexer->advance(lexer, false);
+            if (lexer->lookahead != '\n') return false;
+            lexer->advance(lexer, false);
+        } else if (c == '<') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead != '#') return false;
+            lexer->advance(lexer, false);
+            unsigned depth = 1;
+            while (depth) {
+                if (lexer->eof(lexer)) return false;
+                c = lexer->lookahead;
+                lexer->advance(lexer, false);
+                if (c == '<' && lexer->lookahead == '#') {
+                    lexer->advance(lexer, false);
+                    depth++;
+                } else if (c == '#' && lexer->lookahead == '>') {
+                    lexer->advance(lexer, false);
+                    depth--;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
 // The order of the checks below matters: a scanner that has advanced the
 // lexer cannot hand over to another one. The order is: string-subexpression
 // end and quote units, the leading BOM, the boundary, escape and continuation
@@ -1473,6 +1515,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->result_symbol = LEADING_BOM;
         return true;
     }
+    if (valid_symbols[ENUM_BASE_COLON_AHEAD] && !recovering)
+        return scan_enum_base_colon_ahead(lexer);
     // A completed-expression boundary also fits a touching `(`; it wins.
     if (valid_symbols[ADJACENT_PAREN_BOUNDARY] && !valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] &&
         !recovering && lexer->lookahead == '(') {

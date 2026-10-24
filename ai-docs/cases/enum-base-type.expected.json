@@ -1,0 +1,33 @@
+{
+ "suite": "enum-base-type",
+ "known_pattern": "trailing-trivia",
+ "summary": {"cases":26,"agree":15,"invalid_rejected":8,"known":3,"fail":0,"unsupported":0,"skipped":0,"known_differences":3},
+ "cases": {
+  "base type spaced": {"status":"agree","differences":[]},
+  "base type tight": {"status":"agree","differences":[]},
+  "base type with values": {"status":"agree","differences":[]},
+  "base type system qualified": {"status":"agree","differences":[]},
+  "base type multiline body": {"status":"agree","differences":[]},
+  "base type newline after colon": {"status":"agree","differences":[]},
+  "base type block comments": {"status":"agree","differences":[]},
+  "base type line comment after colon": {"status":"agree","differences":[]},
+  "base type continuation before colon": {"status":"agree","differences":[]},
+  "base type empty body": {"status":"agree","differences":[]},
+  "base type with attribute": {"status":"agree","differences":[]},
+  "base type array": {"status":"agree","differences":[]},
+  "no base type": {"status":"agree","differences":[]},
+  "no base type body on next line": {"status":"agree","differences":[]},
+  "comment then body on next line": {"status":"agree","differences":[]},
+  "invalid newline before colon": {"status":"invalid-rejected","differences":[]},
+  "invalid line comment before colon": {"status":"invalid-rejected","differences":[]},
+  "invalid two base types": {"status":"invalid-rejected","differences":[]},
+  "invalid two colons": {"status":"invalid-rejected","differences":[]},
+  "invalid missing base type": {"status":"invalid-rejected","differences":[]},
+  "invalid bracketed base type": {"status":"invalid-rejected","differences":[]},
+  "invalid number base type": {"status":"invalid-rejected","differences":[]},
+  "invalid variable base type": {"status":"invalid-rejected","differences":[]},
+  "semantic string base type": {"status":"known","differences":[]},
+  "semantic unknown base type": {"status":"known","differences":[]},
+  "semantic generic base type": {"status":"known","differences":[]}
+ }
+}
