@@ -223,7 +223,7 @@ static bool command_word_end(int32_t c)
 // Operator characters that cannot start a parameter name after a dash.
 static bool dash_word_symbol(int32_t c)
 {
-    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%';
+    return c == '=' || c == '+' || c == '*' || c == '/' || c == '%' || c == '[';
 }
 
 static bool literal_dot_follows(TSLexer *lexer)
@@ -922,7 +922,8 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
     if (c == '-') {
         if (!quoted && !value) return false;
         lexer->advance(lexer, false);
-        if (!digit(lexer->lookahead) && lexer->lookahead != '.') return false;
+        if (!digit(lexer->lookahead) && lexer->lookahead != '.' && lexer->lookahead != '[')
+            return false;
     } else if (c == '?') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
