@@ -418,7 +418,7 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
     if (!hex && lexer->lookahead == '.') {
         lexer->advance(lexer, false);
         if (digits && lexer->lookahead == '.') return false;
-        if (digits && command_word_end(lexer->lookahead) &&
+        if (digits && (command_word_end(lexer->lookahead) || lexer->lookahead == '#') &&
             valid_symbols[TRAILING_DOT_REAL_LITERAL]) {
             lexer->mark_end(lexer);
             lexer->result_symbol = TRAILING_DOT_REAL_LITERAL;
@@ -450,7 +450,8 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
         if (number) lexer->advance(lexer, false);
     }
     c = lexer->lookahead;
-    if (number && (c == '.' || command_word_end(c) || c == '[' ||
+    // A comment can follow a number directly: `22#25`.
+    if (number && (c == '.' || command_word_end(c) || c == '#' || c == '[' ||
                   c == '+' || c == '-' || c == '*' || c == '/' ||
                   c == '<' || c == '!')) return false;
     lexer->result_symbol = NUMERIC_COMMAND_NAME;
