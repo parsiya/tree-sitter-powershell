@@ -1195,6 +1195,8 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
 {
     if (!valid_symbols[INVOCATION_ARGUMENT_BOUNDARY] || valid_symbols[ERROR_SENTINEL])
         return false;
+    // Still inside a command name (after an escape): its parts continue the word.
+    if (valid_symbols[COMMAND_NAME_ESCAPE]) return false;
     int32_t c = lexer->lookahead;
     lexer->mark_end(lexer);
     if (c == '.') {
@@ -1203,6 +1205,8 @@ static bool scan_invocation_argument_boundary(TSLexer *lexer, const bool *valid_
         // A dot without a member starts a separate argument in command mode.
         if (c != '.' && c != '#' &&
             (!command_word_end(c) || c == '(' || c == '{')) return false;
+    } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+        // A word glued to an index or other completed operand is its own argument.
     } else if (c != '/' && c != '\\') {
         return false;
     }
