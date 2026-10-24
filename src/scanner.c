@@ -849,11 +849,15 @@ static bool scan_spaces_before_comma(void *payload, TSLexer *lexer, const bool *
         } else if (lexer->lookahead == '`') {
             *skipped_backtick = true;
             skip(lexer);
-            if (!line_end(lexer->lookahead)) {
+            if (line_end(lexer->lookahead)) {
+                skip_line_end(lexer);
+            } else if (command_array_space(lexer->lookahead)) {
+                // Escaped whitespace is trivia too: `@( $x.Name` )`.
+                skip(lexer);
+            } else {
                 *stray_backtick = true;
                 return false;
             }
-            skip_line_end(lexer);
         } else {
             break;
         }
