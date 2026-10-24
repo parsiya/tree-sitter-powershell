@@ -23,8 +23,10 @@ fix into a tooling, audit or documentation project unless the user asks.
    certify clean trees and promote the passing run as the next baseline.
 
 A regression PASS is not proof that every input is correct: inspect remaining
-grammar disagreements and conversion errors too. Log blockers briefly and move
-to independent work. Do not invent work after the batch is clear.
+grammar disagreements and conversion errors too. Record each blocker in the
+campaign blockers log as soon as it is found (see WORKFLOW.md), then move to
+independent work. Packages that block a passing run for non-grammar reasons
+are quarantined byte-identical into a later batch (WORKFLOW.md). Do not invent work after the batch is clear.
 
 ## Boundaries
 

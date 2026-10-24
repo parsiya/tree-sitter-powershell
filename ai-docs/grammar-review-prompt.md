@@ -33,6 +33,66 @@ multiplies ABI14 states; the 0.22 parser does not show it. Giving such a token
 its own rule removes the cost. The chains above were left as they are: they
 differ in `??`, unary comma and node names, and cost few states themselves.
 
+## Grammar-author tips to apply during review
+Condensed from Tree-sitter's
+[Tips and Tricks for a grammar author](https://github.com/tree-sitter/tree-sitter/wiki/Tips-and-Tricks-for-a-grammar-author/).
+Use these as measured experiments, not automatic rewrites.
+
+- Run `tree-sitter generate --report-states-for-rule -` to rank all rules by
+  state count; use `--report-states-for-rule RULE` to inspect one rule's states.
+  A high count alone is not a defect: binary expressions naturally combine
+  many operators and operands. Inspect unexpectedly large structural rules,
+  especially sequences containing several `choice`, `optional` and `repeat`
+  expressions, before simplifying expression rules.
+- Try extracting a coherent sequence into a hidden rule (name prefixed with
+  `_`). For a `for` statement, keep `for`, parentheses and the body in the
+  visible rule; extract the initializer, condition, update and their separating
+  semicolons together. Preserve fields, alternatives and optionality.
+- Split other combinatorial sequences at meaningful boundaries. The wiki's
+  typedef example extracts the type portion (qualifiers, type field,
+  qualifiers) and the comma-separated declarators into separate hidden rules,
+  leaving the optional prefix, trailing attributes and semicolon outside.
+  Reuse existing list helpers; do not introduce rule factories.
+- Hidden rules avoid additional visible wrapper nodes in Tree-sitter's CST;
+  they do not guarantee unchanged fields, boundaries or Opengrep's generated
+  OCaml CST types. Apply the existing tree-identity and converter gates.
+- Regenerate and measure after each extraction. Refactoring can increase
+  states; try a different boundary or discard an unsuccessful experiment.
+  Re-rank all rules afterwards: factoring one rule can reduce other rules'
+  states too. In the wiki's tree-sitter-c v0.20.5 example, total/large states
+  went from 2243/666 to 2048/610 after the `for` extraction, then to 1825/510
+  after typedef factoring. These are examples, not targets or guarantees.
+- Measure the transformed ABI14 parser, not just the 0.22 source grammar.
+  Keep the preserved-token alias caveat above in mind; extracting tokens and
+  extracting hidden sequences address different sources of state growth.
+
+For scanner changes or investigation:
+
+- Trace both `advance` and `skip` wrappers temporarily, logging the operation,
+  current `lexer->lookahead` and call-site `__LINE__` before advancing. Wrapper
+  macros can capture the caller's line; `advance` calls
+  `lexer->advance(lexer, false)`, while `skip` calls
+  `lexer->advance(lexer, true)`. Remove or disable tracing before validation
+  and timing; do not leave debug output in the committed scanner.
+- Write down the accepted and rejected lookahead scenarios before changing a
+  complicated scanner branch. Check `valid_symbols[TOKEN]` before scanning
+  that token; return `false` when its spelling or required context fails.
+- Call `lexer->mark_end(lexer)` immediately after the token's last character
+  when recognizing it requires lookahead beyond its extent. Advance through
+  that lookahead with `skip = false`; use `skip = true` only for leading
+  trivia before the token, not for lookahead after the marked end.
+- The wiki's illustrative token is `-a` only when followed by zero or more
+  whitespace characters, a backslash, then a newline or `$`. Consume `-a`,
+  mark its end, advance through whitespace and the backslash, and check the
+  next character without including that context in the token. Set
+  `lexer->result_symbol` to the matching external token before returning
+  `true` (the wiki's abbreviated sample omits this assignment). This example
+  explains scanner mechanics; it is not a PowerShell syntax rule.
+
+The wiki can also be kept offline with
+`git clone https://github.com/tree-sitter/tree-sitter.wiki.git tmp/tree-sitter.wiki`
+from the workspace root; cloning is optional, not a review prerequisite.
+
 ## Phase 1: report only, then stop
 
 Do not edit anything in this phase. Write `ai-docs/local/results/grammar-review.md`
@@ -93,10 +153,23 @@ converter and pin. Then remove the worktree and delete the branch
   `SYMBOL_COUNT` and `PRODUCTION_ID_COUNT` in the quick run's
   `compat-abi14/src/parser.c`, plus the size of `parser.c`.
 - **Hotspots:** `tree-sitter generate --report-states-for-rule RULE` (0.22.6)
-  shows which rules create many states. Generator warnings show unnecessary
-  conflicts and unused rules.
+  shows the states for a rule; use `-` instead of `RULE` to rank all rules.
+  `tree-sitter generate --log` explains state splitting, extracted keywords
+  and recovery tokens. Generator warnings identify unnecessary conflicts and
+  unused rules; investigate rather than blindly removing declarations.
+  Run generation only in scratch/worktree output, never over root generated
+  files. Pin generator version, ABI, grammar transformation and inputs for
+  repeatable comparisons. The generator already optimizes parse tables;
+  these diagnostics do not automatically refactor `grammar.js`.
+- **Runtime diagnostics:** `tree-sitter parse --debug FILE` exposes lexing and
+  parsing decisions; `--debug-graph` produces Graphviz stack/tree traces for
+  investigating ambiguity and branching. Use small synthetic reproductions
+  with the candidate parser in scratch, not corpus execution. Check the
+  pinned CLI's `--help` before using options from newer documentation.
 - **Speed:** the `ts_ms` field per file in the grammar results; compare totals
-  between base and candidate runs on the same idle machine.
+  between base and candidate runs on the same idle machine. Repeat runs;
+  timing is noisy, not a deterministic identity or size check. Fewer states
+  alone do not prove a faster parser.
 
 ## Boundaries
 

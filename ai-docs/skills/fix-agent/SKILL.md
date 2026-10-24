@@ -14,6 +14,7 @@ git -C "$GRAMMAR" worktree add -b og/TOPIC "$W" opengrep-dev
 ```
 
 Run tools from `$GRAMMAR`, pointing `--fork` at your worktree.
+Before editing, read the [grammar-author tips and deterministic checks](../../WORKFLOW.md#grammar-author-tips-for-every-fix).
 
 1. Make a small synthetic reproduction and check Native with
    `node ai-docs/tools/proof-kit.mjs --source 'snippet'`.
