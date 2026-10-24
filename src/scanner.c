@@ -339,6 +339,19 @@ static unsigned scan_variable_name(TSLexer *lexer, bool *static_access, bool *va
 
 static bool digit(int32_t c) { return c >= '0' && c <= '9'; }
 
+// PowerShell 7 type suffixes: y, uy, s, us, u, l, ul, n, d (`lu` is not one).
+static void skip_type_suffix(TSLexer *lexer)
+{
+    int32_t c = towlower(lexer->lookahead);
+    if (c == 'u') {
+        lexer->advance(lexer, false);
+        c = towlower(lexer->lookahead);
+        if (c == 'y' || c == 's' || c == 'l') lexer->advance(lexer, false);
+    } else if (c == 'y' || c == 's' || c == 'l' || c == 'n' || c == 'd') {
+        lexer->advance(lexer, false);
+    }
+}
+
 // Preserve the inherited numeric CST for a complete negative number. In command
 // mode consumers must interpret that existing shape as a word, not negation.
 static bool scan_number_prefix(TSLexer *lexer)
@@ -397,6 +410,7 @@ static bool scan_number_prefix(TSLexer *lexer)
 static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
 {
     bool hex = false;
+    bool bin = false;
     bool fraction = lexer->lookahead == '.';
     bool digits = false;
     if (lexer->lookahead == '0') {
@@ -407,18 +421,22 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
             lexer->advance(lexer, false);
             hex = true;
             digits = false;
+        } else if (towlower(lexer->lookahead) == 'b') {
+            lexer->advance(lexer, false);
+            bin = true;
+            digits = false;
         }
     }
-    while (digit(lexer->lookahead) ||
-           (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
-                    (lexer->lookahead >= 'A' && lexer->lookahead <= 'F')))) {
+    while (bin ? (lexer->lookahead == '0' || lexer->lookahead == '1')
+               : (digit(lexer->lookahead) ||
+                  (hex && ((lexer->lookahead >= 'a' && lexer->lookahead <= 'f') ||
+                           (lexer->lookahead >= 'A' && lexer->lookahead <= 'F'))))) {
         lexer->advance(lexer, false);
         digits = true;
-        if (!hex) lexer->mark_end(lexer);
+        if (!hex && !bin) lexer->mark_end(lexer);
     }
     bool number = digits;
-    bool real = false;
-    if (!hex && lexer->lookahead == '.') {
+    if (!hex && !bin && lexer->lookahead == '.') {
         lexer->advance(lexer, false);
         if (digits && lexer->lookahead == '.') return false;
         if (digits && (command_word_end(lexer->lookahead) || lexer->lookahead == '#') &&
@@ -434,18 +452,16 @@ static bool scan_numeric_start(TSLexer *lexer, const bool *valid_symbols)
             if (fraction) lexer->mark_end(lexer);
         }
         if (fraction && !digits) return false;
-        number = real = digits;
+        number = digits;
     }
-    if (number && !hex && towlower(lexer->lookahead) == 'e') {
+    if (number && !hex && !bin && towlower(lexer->lookahead) == 'e') {
         lexer->advance(lexer, false);
         if (lexer->lookahead == '+' || lexer->lookahead == '-')
             lexer->advance(lexer, false);
         number = digit(lexer->lookahead);
         while (digit(lexer->lookahead)) lexer->advance(lexer, false);
-    } else if (number && !real && (towlower(lexer->lookahead) == 'l' ||
-                                 (!hex && towlower(lexer->lookahead) == 'd'))) {
-        lexer->advance(lexer, false);
     }
+    if (number) skip_type_suffix(lexer);
     int32_t c = towlower(lexer->lookahead);
     if (number && (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p')) {
         lexer->advance(lexer, false);
