@@ -47,13 +47,7 @@
   {"name":"at prefix dash word","source":"Read-Settings @-file next"},
   {"name":"at prefix literal number","source":"Read-Settings @42 next"},
   {"name":"at prefix literal alone","source":"Read-Settings @ next"},
-  {"name":"at prefix literal colon","source":"Read-Settings @:settings next","known":[
-    {"difference":"validity native=valid ts=invalid","reason":"Inherited empty-scope splatted variable rejection; independent of expandable argument words."},
-    {"difference":"elements extent 14:24 VariableExpressionAst ts 14:15","reason":"Inherited empty-scope splatted variable rejection splits @ from its name."},
-    {"difference":"elements kind 14:24 VariableExpressionAst ts ERROR>ERROR","reason":"Inherited empty-scope splatted variable rejection splits @ from its name."},
-    {"difference":"elements extra 15:24 colon_command_argument>generic_token","reason":"Inherited empty-scope splatted variable rejection splits @ from its name."},
-    {"difference":"typed missing VariableExpressionAst 14:24","reason":"Inherited empty-scope splatted variable rejection splits @ from its name."}
-  ]},
+  {"name":"at prefix literal colon","source":"Read-Settings @:settings next"},
   {"name":"at prefix attached parameter","source":"Read-Settings -File:@$Root/settings.json next","known":[{"difference":"typed missing VariableExpressionAst 21:26","reason":"Inherited generic_token flattens variables inside expandable bare words; exact command elements remain checked."}]},
   {"name":"at prefix array element","source":"Read-Settings first,@$Root/settings.json next","known":[{"difference":"typed missing VariableExpressionAst 21:26","reason":"Inherited generic_token flattens variables inside expandable bare words; exact command elements remain checked."}]},
   {"name":"splat control","source":"Read-Settings @Options next"},
