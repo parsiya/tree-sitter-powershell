@@ -52,7 +52,9 @@ enum TOKEN_TYPE {
     FUNCTION_CONTEXT_WORKFLOW,
     FUNCTION_CONTEXT_END,
     LABEL,
-    FLOW_CONTROL_COLON_WORD
+    FLOW_CONTROL_COLON_WORD,
+    DASH_COLON_ARGUMENT_BOUNDARY,
+    BANG_COMMAND_NAME
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -1246,6 +1248,37 @@ static bool scan_angle_argument_boundary(TSLexer *lexer)
     return true;
 }
 
+// `-Name:$x`: the argument touches the name; a dash, redirection or
+// backtick starts an ordinary element instead.
+static bool scan_dash_colon_argument_boundary(TSLexer *lexer)
+{
+    int32_t c = lexer->lookahead;
+    if (command_word_end(c) || c == '-' || c == '<' || c == '>' || c == '`') return false;
+    lexer->mark_end(lexer);
+    lexer->result_symbol = DASH_COLON_ARGUMENT_BOUNDARY;
+    return true;
+}
+
+// `!name` at a command start is a command name (`if (!Test-Path $p)`). Only the
+// `!` is the token, and only before a letter, `_` or a dot not followed by a
+// digit; `!1`, `!-x`, `!=` and `! x` stay operators.
+static bool scan_bang_command_name(TSLexer *lexer)
+{
+    if (lexer->lookahead != '!') return false;
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    int32_t c = lexer->lookahead;
+    if (c == '.') {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+        if (digit(c)) return false;
+    } else if (!type_name_letter(c)) {
+        return false;
+    }
+    lexer->result_symbol = BANG_COMMAND_NAME;
+    return true;
+}
+
 static bool scan_trailing_dot_type_name(TSLexer *lexer)
 {
     while (command_array_space(lexer->lookahead)) skip(lexer);
@@ -1409,6 +1442,15 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !recovering &&
         (lexer->lookahead == '(' || lexer->lookahead == '{'))
         return scan_command_name_subexpression(lexer);
+    // A dash touching a command name belongs to it: the parameter token would
+    // otherwise take `-`Type` or `-Name$x`, and the bare dash `Search- -x`.
+    if (valid_symbols[COMMAND_NAME_ESCAPE] && !valid_symbols[COMMAND_NAME_START_ESCAPE] &&
+        !recovering && lexer->lookahead == '-') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = COMMAND_NAME_ESCAPE;
+        return true;
+    }
     // A dot ends a parameter name and starts a command word, not a member.
     if (!recovering &&
         (valid_symbols[PARAMETER_DOT_BOUNDARY] ||
@@ -1423,6 +1465,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     if (valid_symbols[ANGLE_ARGUMENT_BOUNDARY] && !recovering &&
         scan_angle_argument_boundary(lexer))
         return true;
+    if (valid_symbols[DASH_COLON_ARGUMENT_BOUNDARY] && !recovering &&
+        scan_dash_colon_argument_boundary(lexer))
+        return true;
     if (valid_symbols[COMMAND_ARRAY_ITEM_START] && !recovering)
         return scan_command_array_item_start(lexer, valid_symbols);
     if (valid_symbols[COMMAND_NAME_START_ESCAPE] && !recovering) {
@@ -1432,6 +1477,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
             skip(lexer);
         }
     }
+    if (valid_symbols[BANG_COMMAND_NAME] && !recovering && lexer->lookahead == '!')
+        return scan_bang_command_name(lexer);
     // A failed match has consumed characters, so no other token is tried.
     if (valid_symbols[INLINESCRIPT_NAME] && !recovering && in_workflow(scanner) &&
         (lexer->lookahead == 'i' || lexer->lookahead == 'I'))
