@@ -153,6 +153,8 @@ export default grammar({
     // (`if (!Test-Path $p)`); the scanner produces the `!` only before a
     // letter, `_` or `.`. `!1`, `!-x`, `!=` and `!$x` stay expressions.
     $._bang_command_name,
+    // Empty token before a `(` that directly touches the preceding argument.
+    $._adjacent_paren_boundary,
   ],
 
   extras: ($) => [
@@ -1473,7 +1475,11 @@ export default grammar({
             $.command_argument_sep,
             choice(
               $._command_word,
-              alias($._command_pipeline_prefix_array, $.array_literal_expression),
+              // The parenthesis must touch the array: a newline ends the command.
+              seq(
+                alias($._command_pipeline_prefix_array, $.array_literal_expression),
+                $._adjacent_paren_boundary,
+              ),
             ),
             choice(
               // Outrank adjacent-expression alternatives without changing their trees.

@@ -54,7 +54,8 @@ enum TOKEN_TYPE {
     LABEL,
     FLOW_CONTROL_COLON_WORD,
     DASH_COLON_ARGUMENT_BOUNDARY,
-    BANG_COMMAND_NAME
+    BANG_COMMAND_NAME,
+    ADJACENT_PAREN_BOUNDARY
 };
 
 // Native reads a doubled quote inside the subexpression of an expandable
@@ -1437,6 +1438,13 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         lexer->result_symbol = LEADING_BOM;
+        return true;
+    }
+    // A completed-expression boundary also fits a touching `(`; it wins.
+    if (valid_symbols[ADJACENT_PAREN_BOUNDARY] && !valid_symbols[COMPLETED_EXPRESSION_BOUNDARY] &&
+        !recovering && lexer->lookahead == '(') {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = ADJACENT_PAREN_BOUNDARY;
         return true;
     }
     if (valid_symbols[COMMAND_NAME_SUBEXPRESSION] && !recovering &&
