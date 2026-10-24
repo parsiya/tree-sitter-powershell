@@ -1,0 +1,246 @@
+==================
+Trailing dot with type suffix: assignment
+==================
+$f = 1.d
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (real_literal))))))))))))))))
+
+==================
+Trailing dot with exponent and multiplier
+==================
+$x = 1.e5kb;
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (real_literal))))))))))))))
+    (empty_statement)))
+
+==================
+Trailing dot with suffix: method call on number
+==================
+$x = 1.d.ToString()
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (logical_expression
+              (bitwise_expression
+                (comparison_expression
+                  (additive_expression
+                    (multiplicative_expression
+                      (format_expression
+                        (range_expression
+                          (array_literal_expression
+                            (unary_expression
+                              (invokation_expression
+                                (real_literal)
+                                (member_name
+                                  (simple_name))
+                                (argument_list)))))))))))))))))
+
+==================
+Trailing dot with suffix: range
+==================
+1.d..3
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (real_literal))))
+                      (array_literal_expression
+                        (unary_expression
+                          (integer_literal
+                            (decimal_integer_literal)))))))))))))))
+
+==================
+Trailing dot with suffix: script block
+==================
+{ $f = 1.u }
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (script_block_expression
+                            (script_block
+                              (script_block_body
+                                (statement_list
+                                  (pipeline
+                                    (assignment_expression
+                                      (left_assignment_expression
+                                        (logical_expression
+                                          (bitwise_expression
+                                            (comparison_expression
+                                              (additive_expression
+                                                (multiplicative_expression
+                                                  (format_expression
+                                                    (range_expression
+                                                      (array_literal_expression
+                                                        (unary_expression
+                                                          (variable)))))))))))
+                                      (assignement_operator)
+                                      (pipeline
+                                        (pipeline_chain
+                                          (logical_expression
+                                            (bitwise_expression
+                                              (comparison_expression
+                                                (additive_expression
+                                                  (multiplicative_expression
+                                                    (format_expression
+                                                      (range_expression
+                                                        (array_literal_expression
+                                                          (unary_expression
+                                                            (real_literal)))))))))))))))))))))))))))))))
+
+==================
+Trailing dot with suffix: statement start
+==================
+1.ul
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (real_literal))))))))))))))
+
+==================
+Trailing dot without suffix: command word
+==================
+1.dx
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Trailing dot without suffix: assigned command word
+==================
+$x = 1.foo
+---
+
+(program
+  (statement_list
+    (pipeline
+      (assignment_expression
+        (left_assignment_expression
+          (logical_expression
+            (bitwise_expression
+              (comparison_expression
+                (additive_expression
+                  (multiplicative_expression
+                    (format_expression
+                      (range_expression
+                        (array_literal_expression
+                          (unary_expression
+                            (variable)))))))))))
+        (assignement_operator)
+        (pipeline
+          (pipeline_chain
+            (command
+              (command_name))))))))

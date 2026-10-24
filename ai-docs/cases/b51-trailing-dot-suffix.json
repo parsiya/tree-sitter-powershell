@@ -1,0 +1,601 @@
+[
+ {
+  "name": "expression 1.d",
+  "source": "$x = 1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.D",
+  "source": "$x = 1.D",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.l",
+  "source": "$x = 1.l",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.u",
+  "source": "$x = 1.u",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.ul",
+  "source": "$x = 1.ul",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.uy",
+  "source": "$x = 1.uy",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.y",
+  "source": "$x = 1.y",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.s",
+  "source": "$x = 1.s",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.n",
+  "source": "$x = 1.n",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.us",
+  "source": "$x = 1.us",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.kb",
+  "source": "$x = 1.kb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.dkb",
+  "source": "$x = 1.dkb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.mb",
+  "source": "$x = 1.mb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.gb",
+  "source": "$x = 1.gb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.tb",
+  "source": "$x = 1.tb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.pb",
+  "source": "$x = 1.pb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.ulkb",
+  "source": "$x = 1.ulkb",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.e5",
+  "source": "$x = 1.e5",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.E5",
+  "source": "$x = 1.E5",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.e+5d",
+  "source": "$x = 1.e+5d",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.e-5",
+  "source": "$x = 1.e-5",
+  "expect": "valid"
+ },
+ {
+  "name": "expression 1.e5kb",
+  "source": "$x = 1.e5kb",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.d",
+  "source": "1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.D",
+  "source": "1.D",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.l",
+  "source": "1.l",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.u",
+  "source": "1.u",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.ul",
+  "source": "1.ul",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.uy",
+  "source": "1.uy",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.y",
+  "source": "1.y",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.s",
+  "source": "1.s",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.n",
+  "source": "1.n",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.kb",
+  "source": "1.kb",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.dkb",
+  "source": "1.dkb",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.e5",
+  "source": "1.e5",
+  "expect": "valid"
+ },
+ {
+  "name": "statement start 1.e+5d",
+  "source": "1.e+5d",
+  "expect": "valid"
+ },
+ {
+  "name": "multi-digit integer part",
+  "source": "$x = 25.d",
+  "expect": "valid"
+ },
+ {
+  "name": "zero integer part",
+  "source": "$x = 0.d",
+  "expect": "valid"
+ },
+ {
+  "name": "real tail after real suffix control",
+  "source": "$x = 1.5d",
+  "expect": "valid"
+ },
+ {
+  "name": "script block closing brace",
+  "source": "{ 1.d}",
+  "expect": "valid"
+ },
+ {
+  "name": "script block closing brace after space",
+  "source": "{ 1.d }",
+  "expect": "valid"
+ },
+ {
+  "name": "parenthesized",
+  "source": "(1.d)",
+  "expect": "valid"
+ },
+ {
+  "name": "subexpression",
+  "source": "$(1.d)",
+  "expect": "valid"
+ },
+ {
+  "name": "array expression",
+  "source": "@(1.d)",
+  "expect": "valid"
+ },
+ {
+  "name": "terminated by semicolon",
+  "source": "$x = 1.d;",
+  "expect": "valid"
+ },
+ {
+  "name": "terminated by semicolon and statement",
+  "source": "$x = 1.d;$y = 2.u",
+  "expect": "valid"
+ },
+ {
+  "name": "followed by comment",
+  "source": "$x = 1.d # note",
+  "expect": "valid"
+ },
+ {
+  "name": "followed by newline",
+  "source": "$x = 1.d\n$y = 2",
+  "expect": "valid"
+ },
+ {
+  "name": "followed by crlf",
+  "source": "$x = 1.d\r\n$y = 2",
+  "expect": "valid"
+ },
+ {
+  "name": "array items",
+  "source": "$x = 1.d,2",
+  "expect": "valid"
+ },
+ {
+  "name": "array items both suffixed",
+  "source": "$x = 1.d,2.u",
+  "expect": "valid"
+ },
+ {
+  "name": "pipeline",
+  "source": "1.d | f",
+  "expect": "valid"
+ },
+ {
+  "name": "pipeline no space",
+  "source": "1.d|f",
+  "expect": "valid"
+ },
+ {
+  "name": "call operator argument",
+  "source": "& 1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "hashtable value",
+  "source": "$h = @{ a = 1.d }",
+  "expect": "valid"
+ },
+ {
+  "name": "cast",
+  "source": "[decimal]1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "binary plus",
+  "source": "$x = 1.d+2",
+  "expect": "valid"
+ },
+ {
+  "name": "binary minus",
+  "source": "$x = 1.d-2",
+  "expect": "valid"
+ },
+ {
+  "name": "binary multiply",
+  "source": "$x = 1.d*2",
+  "expect": "valid"
+ },
+ {
+  "name": "binary divide",
+  "source": "$x = 1.d/2",
+  "expect": "valid"
+ },
+ {
+  "name": "binary operator word",
+  "source": "$x = 1.d -eq 1",
+  "expect": "valid"
+ },
+ {
+  "name": "compound assignment",
+  "source": "$f *= 1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "method call on number",
+  "source": "$x = 1.d.ToString()",
+  "expect": "valid"
+ },
+ {
+  "name": "member on number",
+  "source": "$x = 1.d.Foo",
+  "expect": "valid"
+ },
+ {
+  "name": "range after number",
+  "source": "$x = 1.d..3",
+  "expect": "valid"
+ },
+ {
+  "name": "range before number",
+  "source": "$x = 1..3.d",
+  "expect": "valid"
+ },
+ {
+  "name": "range after number statement",
+  "source": "1.d..3",
+  "expect": "valid"
+ },
+ {
+  "name": "suffix then member",
+  "source": "$x = 1.ul.ToString()",
+  "expect": "valid"
+ },
+ {
+  "name": "exponent then member",
+  "source": "$x = 1.e5.ToString()",
+  "expect": "valid"
+ },
+ {
+  "name": "return statement",
+  "source": "return 1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "return pipeline script block",
+  "source": "return 1..$n | & { begin{ $f = 1.d } process{ $f *= [decimal]$_ } end{ $f } }",
+  "expect": "valid"
+ },
+ {
+  "name": "process block",
+  "source": "& { begin{ $f = 1.d } end{ $f } }",
+  "expect": "valid"
+ },
+ {
+  "name": "control range 1..2",
+  "source": "1..2",
+  "expect": "valid"
+ },
+ {
+  "name": "control range assignment",
+  "source": "$x = 1..2",
+  "expect": "valid"
+ },
+ {
+  "name": "control member 1.foo",
+  "source": "1.foo",
+  "expect": "valid"
+ },
+ {
+  "name": "control member assignment",
+  "source": "$x = 1.foo",
+  "expect": "valid"
+ },
+ {
+  "name": "control trailing dot plain",
+  "source": "$x = 1.",
+  "expect": "valid"
+ },
+ {
+  "name": "control trailing dot semicolon",
+  "source": "$x = 1.;",
+  "expect": "valid"
+ },
+ {
+  "name": "control dx word",
+  "source": "1.dx",
+  "expect": "valid"
+ },
+ {
+  "name": "control dx assignment",
+  "source": "$x = 1.dx",
+  "expect": "valid"
+ },
+ {
+  "name": "control lu word",
+  "source": "$x = 1.lu",
+  "expect": "valid"
+ },
+ {
+  "name": "control d digit word",
+  "source": "$x = 1.d1",
+  "expect": "valid"
+ },
+ {
+  "name": "control d underscore word",
+  "source": "$x = 1.d_",
+  "expect": "valid"
+ },
+ {
+  "name": "control dd word",
+  "source": "$x = 1.dd",
+  "expect": "valid"
+ },
+ {
+  "name": "control kbx word",
+  "source": "$x = 1.dkbx",
+  "expect": "valid"
+ },
+ {
+  "name": "control exponent without digits",
+  "source": "$x = 1.e",
+  "expect": "valid"
+ },
+ {
+  "name": "control exponent sign without digits",
+  "source": "$x = 1.e+",
+  "expect": "valid"
+ },
+ {
+  "name": "control multiplier without b",
+  "source": "$x = 1.k",
+  "expect": "valid"
+ },
+ {
+  "name": "control real tail then x",
+  "source": "$x = 1.5dx",
+  "expect": "valid"
+ },
+ {
+  "name": "control 7z",
+  "source": "7z",
+  "expect": "valid"
+ },
+ {
+  "name": "control 1.2tool",
+  "source": "1.2tool",
+  "expect": "valid"
+ },
+ {
+  "name": "control 12.34.exe",
+  "source": "12.34.exe",
+  "expect": "valid"
+ },
+ {
+  "name": "control real member",
+  "source": "$x = 1.1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "control member name d",
+  "source": "$a.0.d",
+  "expect": "valid"
+ },
+ {
+  "name": "control dotted version",
+  "source": "$x = 1.2.3",
+  "expect": "valid"
+ },
+ {
+  "name": "control hex then member",
+  "source": "$x = 0x1.d",
+  "expect": "valid"
+ },
+ {
+  "name": "control suffixed integer",
+  "source": "$x = 5d",
+  "expect": "valid"
+ },
+ {
+  "name": "control suffixed real",
+  "source": "$x = 1.5d",
+  "expect": "valid"
+ },
+ {
+  "name": "control suffixed fraction",
+  "source": "$x = .5d",
+  "expect": "valid"
+ },
+ {
+  "name": "argument 1.d",
+  "source": "f 1.d",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "elements kind 2:5 ConstantExpressionAst ts generic_token",
+    "reason": "Inherited argument-token representation for a trailing-dot number: an argument word is a generic_token, as for `Write-Item 56.`."
+   }
+  ]
+ },
+ {
+  "name": "argument 1.u",
+  "source": "f 1.u",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "elements kind 2:5 ConstantExpressionAst ts generic_token",
+    "reason": "Inherited argument-token representation for a trailing-dot number: an argument word is a generic_token, as for `Write-Item 56.`."
+   }
+  ]
+ },
+ {
+  "name": "argument 1.kb",
+  "source": "f 1.kb",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "elements kind 2:6 ConstantExpressionAst ts generic_token",
+    "reason": "Inherited argument-token representation for a trailing-dot number: an argument word is a generic_token, as for `Write-Item 56.`."
+   }
+  ]
+ },
+ {
+  "name": "argument 1.e5",
+  "source": "f 1.e5",
+  "expect": "valid",
+  "known": [
+   {
+    "difference": "elements kind 2:6 ConstantExpressionAst ts generic_token",
+    "reason": "Inherited argument-token representation for a trailing-dot number: an argument word is a generic_token, as for `Write-Item 56.`."
+   }
+  ]
+ },
+ {
+  "name": "argument dx word",
+  "source": "f 1.dx",
+  "expect": "valid"
+ },
+ {
+  "name": "argument foo word",
+  "source": "f 1.foo",
+  "expect": "valid"
+ },
+ {
+  "name": "argument parenthesized",
+  "source": "f (1.d)",
+  "expect": "valid"
+ },
+ {
+  "name": "argument real suffix control",
+  "source": "f 1.5d",
+  "expect": "valid"
+ },
+ {
+  "name": "bracket after number is a word",
+  "source": "$x = 1.d[0]",
+  "expect": "valid"
+ },
+ {
+  "name": "modulo after number",
+  "source": "$x = 1.d%2",
+  "expect": "valid"
+ },
+ {
+  "name": "redirection after number",
+  "source": "$x = 1.d>$null",
+  "expect": "valid"
+ },
+ {
+  "name": "colon after number is a word",
+  "source": "$x = 1.d:",
+  "expect": "valid"
+ },
+ {
+  "name": "question mark after number is a word",
+  "source": "$x = 1.d?2:3",
+  "expect": "valid"
+ },
+ {
+  "name": "null coalescing after number",
+  "source": "$x = 1.d ?? 2",
+  "expect": "valid"
+ },
+ {
+  "name": "comparison operator after number",
+  "source": "$x = 1.d -lt 2",
+  "expect": "valid"
+ },
+ {
+  "name": "cast of suffixed number",
+  "source": "[int[]](1.d)",
+  "expect": "valid"
+ },
+ {
+  "name": "member after index control",
+  "source": "$a[0].Length",
+  "expect": "valid"
+ }
+]
