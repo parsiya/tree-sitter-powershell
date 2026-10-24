@@ -25,6 +25,9 @@ const DASH = String.raw`[-\u2013-\u2015]`;
 // Number suffixes are case-insensitive in PowerShell: 1KB, 1kb and 0X1F.
 const NUMBER_MULTIPLIER = /[kKmMgGtTpP][bB]/;
 const NUMBER_EXPONENT = /[eE][+-]?[0-9]+/;
+// PowerShell 7 type suffixes: y, uy, s, us, u, l, ul, n, d (`d` is a digit in hex).
+const NUMBER_TYPE_SUFFIX = /[yYsSlLnNdD]|[uU][yYsSlL]?/;
+const HEX_TYPE_SUFFIX = /[yYsSlLnN]|[uU][yYsSlL]?/;
 
 // Whitespace for class bodies: tree-sitter's \s is ASCII only, but Native
 // PowerShell (Char.IsWhiteSpace) also accepts these Unicode spaces and NEL.
@@ -256,16 +259,29 @@ export default grammar({
 
     decimal_integer_literal: ($) =>
       token(
-        seq(/[0-9]+/, optional(/[lLdD]/), optional(NUMBER_MULTIPLIER)),
+        seq(
+          /[0-9]+/,
+          optional(NUMBER_TYPE_SUFFIX),
+          optional(NUMBER_MULTIPLIER),
+        ),
       ),
 
+    // `0b101` binary literals share this node so the CST stays unchanged.
     hexadecimal_integer_literal: ($) =>
       token(
-        seq(
-          /0[xX]/,
-          /[0-9a-fA-F]+/,
-          optional(/[lL]/),
-          optional(NUMBER_MULTIPLIER),
+        choice(
+          seq(
+            /0[xX]/,
+            /[0-9a-fA-F]+/,
+            optional(HEX_TYPE_SUFFIX),
+            optional(NUMBER_MULTIPLIER),
+          ),
+          seq(
+            /0[bB]/,
+            /[01]+/,
+            optional(NUMBER_TYPE_SUFFIX),
+            optional(NUMBER_MULTIPLIER),
+          ),
         ),
       ),
 
@@ -282,14 +298,21 @@ export default grammar({
           seq(
             /[0-9]+\.[0-9]+/,
             optional(NUMBER_EXPONENT),
+            optional(NUMBER_TYPE_SUFFIX),
             optional(NUMBER_MULTIPLIER),
           ),
           seq(
             /\.[0-9]+/,
             optional(NUMBER_EXPONENT),
+            optional(NUMBER_TYPE_SUFFIX),
             optional(NUMBER_MULTIPLIER),
           ),
-          seq(/[0-9]+/, NUMBER_EXPONENT, optional(NUMBER_MULTIPLIER)),
+          seq(
+            /[0-9]+/,
+            NUMBER_EXPONENT,
+            optional(NUMBER_TYPE_SUFFIX),
+            optional(NUMBER_MULTIPLIER),
+          ),
         ),
       ),
 
