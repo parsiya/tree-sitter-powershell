@@ -1,0 +1,136 @@
+==================
+Statement keyword directly followed by a word character is a command name
+==================
+
+throw[x]
+return*
+IF/
+exit+
+foreach!
+while<
+try]
+if@
+throw$
+throw$x
+data[
+param*
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name))))))
+
+==================
+Keyword adjacent command name inside a block
+==================
+
+{
+  if*
+  foreach*
+}
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (logical_expression
+          (bitwise_expression
+            (comparison_expression
+              (additive_expression
+                (multiplicative_expression
+                  (format_expression
+                    (range_expression
+                      (array_literal_expression
+                        (unary_expression
+                          (script_block_expression
+                            (script_block
+                              (script_block_body
+                                (statement_list
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name))))
+                                  (pipeline
+                                    (pipeline_chain
+                                      (command
+                                        (command_name)))))))))))))))))))))
+
+==================
+Keyword adjacent type member call is a command with a parenthesised argument
+==================
+
+throw[System.Exception]::new('x')
+
+---
+
+(program
+  (statement_list
+    (pipeline
+      (pipeline_chain
+        (command
+          (command_name)
+          (command_elements
+            (parenthesized_expression
+              (pipeline
+                (pipeline_chain
+                  (logical_expression
+                    (bitwise_expression
+                      (comparison_expression
+                        (additive_expression
+                          (multiplicative_expression
+                            (format_expression
+                              (range_expression
+                                (array_literal_expression
+                                  (unary_expression
+                                    (string_literal
+                                      (verbatim_string_characters))))))))))))))))))))
