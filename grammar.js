@@ -611,7 +611,8 @@ export default grammar({
     _command_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E][^\(\)\{\}${WS};\&]*`)),
 
     // A clause word never starts with `$`: `$x.Method('a') { }` is an expression.
-    _switch_clause_token: ($) => token(new RegExp(String.raw`[^\(\)\{\}${WS};\&"'\u2018-\u201E\$][^\(\)\{\}${WS};\&]*`)),
+    // A backtick before whitespace is a line continuation, not a word.
+    _switch_clause_token: ($) => token(new RegExp(String.raw`(?:[^\(\)\{\}${WS};\&"'\u2018-\u201E\$\x60]|\x60[^${WS}])[^\(\)\{\}${WS};\&]*`)),
 
     // Parameters
     // Native also takes an en dash, em dash or horizontal bar as the dash. The
@@ -702,7 +703,7 @@ export default grammar({
 
     named_block_list: ($) => repeat1($.named_block),
 
-    named_block: ($) => seq($.block_name, $.statement_block),
+    named_block: ($) => seq($.block_name, $.statement_block, repeat(';')),
 
     block_name: ($) =>
       choice(
