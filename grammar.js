@@ -702,7 +702,7 @@ export default grammar({
 
     named_block_list: ($) => repeat1($.named_block),
 
-    named_block: ($) => seq($.block_name, $.statement_block),
+    named_block: ($) => seq($.block_name, $.statement_block, repeat(';')),
 
     block_name: ($) =>
       choice(
