@@ -155,6 +155,9 @@ export default grammar({
     $._bang_command_name,
     // Empty token before a `(` that directly touches the preceding argument.
     $._adjacent_paren_boundary,
+    // Empty token before the `:` of an enum base type, which must start on the
+    // enum's line (see scanner.c).
+    $._enum_base_colon_ahead,
   ],
 
   extras: ($) => [
@@ -2031,6 +2034,7 @@ export default grammar({
         optional($.attribute_list),
         token(reservedWord('enum')),
         $.simple_name,
+        optional(seq($._enum_base_colon_ahead, ':', $.type_spec)),
         '{',
         repeat(seq($.enum_member, $._statement_terminator, repeat(';'))),
         '}',
