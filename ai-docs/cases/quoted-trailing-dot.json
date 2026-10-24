@@ -1,0 +1,178 @@
+[
+  {
+    "name": "double quoted dot newline command",
+    "source": "Write-Host \"msg\".\nExit 1"
+  },
+  {
+    "name": "single quoted dot newline command",
+    "source": "Write-Host 'msg'.\nExit 1"
+  },
+  {
+    "name": "double quoted dot newline assignment",
+    "source": "Write-Host \"msg\".\n$value = Get-Thing -Port 1"
+  },
+  {
+    "name": "dot then tabs and crlf",
+    "source": "Write-Host \"msg\".\t\t\r\n    Exit 1"
+  },
+  {
+    "name": "dot then spaces and lf",
+    "source": "Write-Host \"msg\".  \nExit 1"
+  },
+  {
+    "name": "dot then lone cr",
+    "source": "Write-Host \"msg\".\r$value = Get-Thing"
+  },
+  {
+    "name": "dot crlf before return",
+    "source": "function f {\r\n    Write-Verbose \"msg\".\r\n    return $null\r\n}"
+  },
+  {
+    "name": "dot lf before if",
+    "source": "Write-Output \"msg\".\nif ($a) { 1 }"
+  },
+  {
+    "name": "dot crlf before return in block",
+    "source": "if ($a) {\r\n    Write-Error \"msg\".\r\n    return;\r\n}"
+  },
+  {
+    "name": "dot at end of input",
+    "source": "Write-Host \"msg\"."
+  },
+  {
+    "name": "dot newline at end of input",
+    "source": "Write-Host \"msg\".\n"
+  },
+  {
+    "name": "dot space at end of input",
+    "source": "Write-Host \"msg\". "
+  },
+  {
+    "name": "dot then blank line",
+    "source": "Write-Host \"msg\".\n\nExit 1"
+  },
+  {
+    "name": "dot then another argument on the line",
+    "source": "Write-Host \"msg\". next\nExit 1"
+  },
+  {
+    "name": "dot then tab then argument",
+    "source": "Write-Host \"msg\".\tnext\nExit 1"
+  },
+  {
+    "name": "expandable string dot newline",
+    "source": "Write-Host \"msg $name\".\nExit 1"
+  },
+  {
+    "name": "subexpression string dot newline",
+    "source": "Write-Host \"msg $($a.b)\".\nExit 1"
+  },
+  {
+    "name": "second quoted argument dot newline",
+    "source": "Write-Host \"a\" \"b\".\nExit 1"
+  },
+  {
+    "name": "parameter value dot newline",
+    "source": "Write-Host -Object \"msg\".\nExit 1"
+  },
+  {
+    "name": "parameter colon value dot newline",
+    "source": "Write-Host -Object:\"msg\".\nExit 1"
+  },
+  {
+    "name": "quoted comma array dot newline",
+    "source": "Write-Host \"a\", \"b\".\nExit 1"
+  },
+  {
+    "name": "quoted then bare word then quoted dot newline",
+    "source": "Write-Host a \"b\".\nExit 1"
+  },
+  {
+    "name": "dot then line comment",
+    "source": "Write-Host \"msg\". # note\nExit 1"
+  },
+  {
+    "name": "dot then explicit continuation",
+    "source": "Write-Host \"msg\". `\nnext"
+  },
+  {
+    "name": "dot double dot argument",
+    "source": "Write-Host \"msg\"..\nExit 1"
+  },
+  {
+    "name": "dot triple dot argument",
+    "source": "Write-Host \"msg\"...\nExit 1"
+  },
+  {
+    "name": "dot then range operand",
+    "source": "Write-Host \"a\"..5"
+  },
+  {
+    "name": "dot semicolon",
+    "source": "Write-Host \"msg\".; Exit 1"
+  },
+  {
+    "name": "dot before pipeline",
+    "source": "Write-Host \"msg\".| Out-String"
+  },
+  {
+    "name": "dot inside parenthesis",
+    "source": "(Write-Host \"msg\".)"
+  },
+  {
+    "name": "dot inside script block",
+    "source": "{ Write-Host \"msg\". }"
+  },
+  {
+    "name": "dot inside script block newline",
+    "source": "{ Write-Host \"msg\".\n Exit 1 }"
+  },
+  {
+    "name": "control member name",
+    "source": "Write-Host \"msg\".Length\nExit 1"
+  },
+  {
+    "name": "control method call",
+    "source": "Write-Host \"msg\".ToUpper()\nExit 1"
+  },
+  {
+    "name": "control member after expandable",
+    "source": "Write-Host \"msg $a\".Length\nExit 1"
+  },
+  {
+    "name": "control member on new line is not a member",
+    "source": "Write-Host \"msg\"\n.Length"
+  },
+  {
+    "name": "control expression member across newline",
+    "source": "$x = \"msg\".\nLength"
+  },
+  {
+    "name": "control expression dot at end",
+    "source": "$x = \"msg\"."
+  },
+  {
+    "name": "control expression member in parenthesis",
+    "source": "Write-Host (\"msg\".Length)"
+  },
+  {
+    "name": "control static member",
+    "source": "Write-Host \"msg\"::Length\nExit 1"
+  },
+  {
+    "name": "control spaced dot argument",
+    "source": "Write-Host \"msg\" . next\nExit 1"
+  },
+  {
+    "name": "control spaced dot newline",
+    "source": "Write-Host \"msg\" .\nExit 1"
+  },
+  {
+    "name": "control variable dot newline",
+    "source": "Write-Host $node.\nExit 1"
+  },
+  {
+    "name": "control here-string dot",
+    "source": "Write-Host @\"\nline\n\"@.\nExit 1"
+  }
+]

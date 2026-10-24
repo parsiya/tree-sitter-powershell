@@ -900,10 +900,10 @@ static bool scan_argument_boundary(TSLexer *lexer, const bool *valid_symbols)
             value ? COMPLETED_EXPRESSION_BOUNDARY : COMPLETED_MEMBER_BOUNDARY;
         return true;
     }
-    if (c == '.' && member) {
+    if (c == '.' && (member || quoted)) {
         lexer->mark_end(lexer);
         if (!literal_dot_follows(lexer)) return false;
-        lexer->result_symbol = COMPLETED_MEMBER_BOUNDARY;
+        lexer->result_symbol = member ? COMPLETED_MEMBER_BOUNDARY : QUOTED_ARGUMENT_BOUNDARY;
         return true;
     }
     // Keep expression suffixes, punctuation and elements that already work
@@ -1456,7 +1456,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
          valid_symbols[COMPLETED_MEMBER_BOUNDARY]) &&
         (lexer->lookahead == '-' || lexer->lookahead == '?' || lexer->lookahead == '*' ||
          lexer->lookahead == '`' ||
-         (lexer->lookahead == '.' && valid_symbols[COMPLETED_MEMBER_BOUNDARY]) ||
+         (lexer->lookahead == '.' && (valid_symbols[COMPLETED_MEMBER_BOUNDARY] ||
+                                      valid_symbols[QUOTED_ARGUMENT_BOUNDARY])) ||
          (lexer->lookahead >= '0' && lexer->lookahead <= '9')))
         return scan_argument_boundary(lexer, valid_symbols);
     if (scan_argument_boundary(lexer, valid_symbols)) return true;
